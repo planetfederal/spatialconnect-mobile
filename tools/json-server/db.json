@@ -1,0 +1,148 @@
+{
+  "formData": [
+    {
+      "formID": 1,
+      "data": {
+        "name": "Frank",
+        "age": 44
+      },
+      "location": {
+        "lat": 37.41751498,
+        "lon": -122.21274345
+      },
+      "id": 6
+    },
+    {
+      "formID": 1,
+      "data": {
+        "name": "Frank",
+        "age": 44
+      },
+      "id": 7
+    },
+    {
+      "formID": 1,
+      "data": {
+        "name": "Frank",
+        "age": 44
+      },
+      "location": null,
+      "id": 8
+    },
+    {
+      "formID": 2,
+      "data": {
+        "Weed Stage": "Early",
+        "Number of Plants": 4,
+        "Infestation Size": 11,
+        "Degree": 180,
+        "Density": 24.44,
+        "Source": "Asdf",
+        "Date Discovered": "2016-04-27T21:29:47.212Z",
+        "Common Name": "Sdf",
+        "Genus": "Sdfsfd",
+        "Species": null,
+        "Scientific Name": null,
+        "Class": "Added ",
+        "Photo": null
+      },
+      "location": {
+        "lat": 37.49722931,
+        "lon": -122.31356593
+      },
+      "id": 9
+    }
+  ],
+  "forms": [
+    {
+      "id": 1,
+      "name": "Sample form",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "initialValue": ""
+          },
+          "age": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "age"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Weed Inspector",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "Weed Stage": {
+            "type": "string"
+          },
+          "Number of Plants": {
+            "type": "number",
+            "integer": true,
+            "minimum": 0,
+            "mode": "counter",
+            "initialValue": 0
+          },
+          "Infestation Size": {
+            "type": "number",
+            "initialValue": 0
+          },
+          "Degree": {
+            "type": "number",
+            "integer": true,
+            "minimum": 0,
+            "initialValue": 0
+          },
+          "Density": {
+            "type": "number",
+            "integer": false,
+            "minimum": 0,
+            "maximum": 100,
+            "mode": "slider",
+            "initialValue": 0
+          },
+          "Source": {
+            "type": "string"
+          },
+          "Date Discovered": {
+            "type": "date"
+          },
+          "Common Name": {
+            "type": "string"
+          },
+          "Genus": {
+            "type": "string"
+          },
+          "Species": {
+            "type": "string"
+          },
+          "Scientific Name": {
+            "type": "string"
+          },
+          "Class": {
+            "type": "string"
+          },
+          "Photo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Weed Stage",
+          "Infestation Size",
+          "Degree",
+          "Source",
+          "Common Name",
+          "Genus",
+          "Class"
+        ]
+      }
+    }
+  ]
+}

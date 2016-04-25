@@ -1,0 +1,20 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '8.0'
+# Uncomment this line if you're using Swift
+# use_frameworks!
+
+target 'SCMobile' do
+  pod 'ReactiveCocoa', '2.5'
+  pod 'zipzap', '8.0.6'
+  pod 'AFNetworking','~> 2.1'
+  pod 'libextobjc','0.4.1'
+  pod 'objc-geohash'
+  pod 'ReactiveViewModel','0.3'
+  pod 'geopackage-ios', :git => 'https://github.com/boundlessgeo/geopackage-ios', :branch => 'master'
+  pod 'spatialconnect', :git => 'https://github.com/frankrowe/spatialconnect-ios-sdk', :branch => 'master'
+end
+
+target 'SCMobile' do
+
+end
+

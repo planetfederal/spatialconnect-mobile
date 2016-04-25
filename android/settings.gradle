@@ -1,0 +1,3 @@
+rootProject.name = 'SCMobile'
+
+include ':app'

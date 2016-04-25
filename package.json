@@ -1,0 +1,21 @@
+{
+  "name": "SCMobile",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "react": "^0.14.8",
+    "react-native": "^0.24.1",
+    "react-native-slider": "^0.5.3",
+    "rx": "^4.1.0",
+    "tcomb-form-native": "^0.4.2",
+    "tcomb-json-schema": "^0.2.5",
+    "spatialconnect": "frankrowe/spatialconnect-js#no-build"
+  },
+  "devDependencies": {
+    "eslint": "^2.7.0",
+    "eslint-plugin-react": "^4.3.0"
+  }
+}
