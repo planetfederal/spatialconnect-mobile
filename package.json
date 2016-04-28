@@ -3,19 +3,31 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "mocha --require test/setup.js --recursive test/components/*.js"
   },
   "dependencies": {
     "react": "^0.14.8",
     "react-native": "^0.24.1",
     "react-native-slider": "^0.5.3",
     "rx": "^4.1.0",
+    "spatialconnect": "boundlessgeo/spatialconnect-js#develop",
     "tcomb-form-native": "^0.4.2",
-    "tcomb-json-schema": "^0.2.5",
-    "spatialconnect": "frankrowe/spatialconnect-js#no-build"
+    "tcomb-json-schema": "^0.2.5"
   },
   "devDependencies": {
+    "babel": "^6.5.2",
+    "chai": "^3.5.0",
+    "enzyme": "^2.2.0",
     "eslint": "^2.7.0",
-    "eslint-plugin-react": "^4.3.0"
+    "eslint-plugin-react": "^4.3.0",
+    "jsdom": "^8.4.1",
+    "mocha": "^2.4.5",
+    "mock-browser": "^0.92.11",
+    "mockery": "^1.6.2",
+    "react-addons-test-utils": "^0.14.6",
+    "react-dom": "^0.14.8",
+    "react-native-mock": "0.0.7",
+    "sinon": "^1.17.3"
   }
 }

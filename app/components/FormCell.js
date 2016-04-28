@@ -1,7 +1,9 @@
 'use strict';
 
 import React, {
+  Component,
   Platform,
+  PropTypes,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -9,8 +11,8 @@ import React, {
   View
 } from 'react-native';
 
-var FormCell = React.createClass({
-  render: function() {
+class FormCell extends Component {
+  render() {
     var TouchableElement = TouchableHighlight;
     if (Platform.OS === 'android') {
       TouchableElement = TouchableNativeFeedback;
@@ -32,7 +34,14 @@ var FormCell = React.createClass({
       </View>
     );
   }
-});
+}
+
+FormCell.propTypes = {
+  onSelect: PropTypes.func.isRequired,
+  onHighlight: PropTypes.func.isRequired,
+  onUnhighlight: PropTypes.func.isRequired,
+  form: PropTypes.object.isRequired,
+};
 
 var styles = StyleSheet.create({
   textContainer: {
@@ -63,4 +72,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = FormCell;
+export default FormCell;

@@ -1,10 +1,8 @@
 import React, {
-  ActivityIndicatorIOS,
   Component,
   ListView,
   PropTypes,
   StyleSheet,
-  Text,
   View
 } from 'react-native';
 import FormCell from './FormCell';
@@ -31,9 +29,7 @@ class FormList extends Component {
           loaded: true,
         });
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch(() => {});
   }
 
   selectForm(form) {

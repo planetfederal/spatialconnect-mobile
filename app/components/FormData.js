@@ -2,6 +2,7 @@
 
 import React, {
   Component,
+  PropTypes,
   StyleSheet,
   Text,
   View
@@ -15,15 +16,22 @@ class FormData extends Component {
     for (var key in this.props.form.data) {
       fields.push(<Text key={key}>{key}: {this.props.form.data[key]}</Text>);
     }
+    let location = this.props.form.location ?
+      <Text>Location Submitted: {this.props.form.location.lat}, {this.props.form.location.lon}</Text> :
+      <View/>;
     return (
       <View style={styles.container}>
         <Text>Form ID: {this.props.form.formID}</Text>
-        <Text>Location Submitted: {this.props.form.location.lat}, {this.props.form.location.lon}</Text>
+        {location}
         {fields}
       </View>
     );
   }
 }
+
+FormData.propTypes = {
+  form: PropTypes.object.isRequired,
+};
 
 var styles = StyleSheet.create({
   container: {

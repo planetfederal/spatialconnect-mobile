@@ -1,6 +1,7 @@
 'use strict';
 
 import React, {
+  Component,
   Platform,
   StyleSheet,
   Text,
@@ -9,8 +10,8 @@ import React, {
   View
 } from 'react-native';
 
-var StoreCell = React.createClass({
-  render: function() {
+class StoreCell extends Component {
+  render() {
     var TouchableElement = TouchableHighlight;
     if (Platform.OS === 'android') {
       TouchableElement = TouchableNativeFeedback;
@@ -32,7 +33,7 @@ var StoreCell = React.createClass({
       </View>
     );
   }
-});
+}
 
 var styles = StyleSheet.create({
   textContainer: {

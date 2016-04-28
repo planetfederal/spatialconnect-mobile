@@ -44,7 +44,7 @@ class StoreList extends Component {
     return (
       <View style={styles.mainContainer}>
         <Text>
-          Loading forms...
+          Loading stores...
         </Text>
       </View>
     );

@@ -1,7 +1,7 @@
 import React, {
   Component,
   MapView,
-  NavigatorIOS,
+  PropTypes,
   StyleSheet,
   Text,
   View
@@ -155,6 +155,10 @@ class SCMap extends Component {
     );
   }
 }
+
+SCMap.propTypes = {
+  navigator: PropTypes.object.isRequired
+};
 
 var styles = StyleSheet.create({
   container: {
