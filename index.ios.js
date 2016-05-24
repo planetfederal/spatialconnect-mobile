@@ -13,6 +13,7 @@ import FormNavigator from './app/components/FormNavigator';
 import StoreNavigator from './app/components/StoreNavigator';
 import MapNavigator from './app/components/MapNavigator';
 import palette from './app/style/palette';
+import * as sc from 'spatialconnect/native';
 
 class SCMobile extends Component {
   constructor(props) {
@@ -20,6 +21,9 @@ class SCMobile extends Component {
     this.state = {
       selectedTab: 'formNavigator'
     };
+  }
+  componentDidMount() {
+    sc.startAllServices();
   }
   render() {
     return (

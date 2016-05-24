@@ -8,7 +8,7 @@ import React, {
 } from 'react-native';
 import StoreCell from './StoreCell';
 import SCStore from './SCStore';
-import sc from 'spatialconnect';
+import { stores } from 'spatialconnect/native';
 import palette from '../style/palette';
 
 class StoreList extends Component {
@@ -23,13 +23,12 @@ class StoreList extends Component {
   }
 
   componentDidMount() {
-    sc.stream.stores.subscribe(data => {
+    stores().subscribe(data => {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(data.stores),
         loaded: true
       });
     });
-    sc.action.stores();
   }
 
   selectStore(store) {

@@ -8,7 +8,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <spatialconnect/SpatialConnect.h>
+#import <SpatialConnect/SpatialConnect.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
   SpatialConnect *sc;

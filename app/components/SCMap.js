@@ -9,7 +9,7 @@ import React, {
 import api from '../utils/api';
 import palette from '../style/palette';
 import FormData from './FormData';
-import sc from 'spatialconnect';
+import * as sc from 'spatialconnect/native';
 
 class SCMap extends Component {
   constructor(props) {
@@ -19,11 +19,6 @@ class SCMap extends Component {
       overlays: [],
       annotations: []
     };
-  }
-  componentDidMount() {
-    sc.stream.spatialQuery
-      .map(this.makeCoordinates)
-      .subscribe(this.addFeature.bind(this));
   }
 
   makeCoordinates(data) {
@@ -87,17 +82,20 @@ class SCMap extends Component {
         region.longitude + region.longitudeDelta/2.0,
         region.latitude + region.latitudeDelta/2.0
       ];
-      var f = sc.Filter().geoBBOXContains(extent);
-      sc.action.geospatialQuery(f);
+      var filter = sc.geoBBOXContains(extent);
+      sc.geospatialQuery(filter)
+      .map(this.makeCoordinates)
+      .subscribe(this.addFeature.bind(this));
     });
   }
 
   loadFormData() {
     this.setState({overlays: [], annotations: []}, () => {
-      api.getFormData()
-        .then(data => {
-          this.addFormData(data);
-        });
+      //TODO get form data from sc-js
+      // api.getFormData()
+      //   .then(data => {
+      //     this.addFormData(data);
+      //   });
     });
   }
 

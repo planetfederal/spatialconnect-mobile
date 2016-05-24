@@ -9,6 +9,7 @@ import FormCell from './FormCell';
 import SCForm from './SCForm';
 import api from '../utils/api';
 import palette from '../style/palette';
+import { forms } from 'spatialconnect/native';
 
 class FormList extends Component {
   constructor(props) {
@@ -22,14 +23,13 @@ class FormList extends Component {
   }
 
   componentDidMount() {
-    api.getFormList()
-      .then((responseData) => {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData),
-          loaded: true,
-        });
-      })
-      .catch(() => {});
+    forms().subscribe(data => {
+      console.log(data);
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(data.forms),
+        loaded: true,
+      });
+    });
   }
 
   selectForm(form) {

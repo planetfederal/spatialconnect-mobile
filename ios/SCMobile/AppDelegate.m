@@ -61,8 +61,9 @@
 
 - (void)startSpatialConnect {
   if (!sc) {
-    NSString *cfgPath = [SCFileUtils filePathFromMainBundle:@"tests.scfg"];
-    sc = [[SpatialConnect alloc] initWithFilepath:cfgPath];
+    NSString *cfgPath = [SCFileUtils filePathFromMainBundle:@"remote.scfg"];
+    sc = [SpatialConnect sharedInstance];
+    [sc.configService addConfigFilepath:cfgPath];
     NSURL *URL = [NSURL URLWithString:@"https://portal.opengeospatial.org"];
     
     [NSURLRequest

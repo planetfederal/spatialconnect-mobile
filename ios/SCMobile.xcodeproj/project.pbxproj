@@ -25,8 +25,18 @@
 		5403ECD91CCEC9FE00A56D23 /* SCReactBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5403ECD81CCEC9FE00A56D23 /* SCReactBridge.m */; };
 		5403ECDC1CCED8EE00A56D23 /* all.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDA1CCED8EE00A56D23 /* all.geojson */; };
 		5403ECDD1CCED8EE00A56D23 /* tests.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDB1CCED8EE00A56D23 /* tests.scfg */; };
+		547F138C1CF76A1B0028EFF1 /* libgpkgios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 547F13871CF76A1B0028EFF1 /* libgpkgios.framework */; };
+		547F138D1CF76A1B0028EFF1 /* libgpkgios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 547F13871CF76A1B0028EFF1 /* libgpkgios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		547F138E1CF76A1B0028EFF1 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 547F13881CF76A1B0028EFF1 /* ReactiveCocoa.framework */; };
+		547F138F1CF76A1B0028EFF1 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 547F13881CF76A1B0028EFF1 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		547F13921CF76A1B0028EFF1 /* wkb_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 547F138A1CF76A1B0028EFF1 /* wkb_ios.framework */; };
+		547F13931CF76A1B0028EFF1 /* wkb_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 547F138A1CF76A1B0028EFF1 /* wkb_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		547F13941CF76A1B0028EFF1 /* ZipZap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 547F138B1CF76A1B0028EFF1 /* ZipZap.framework */; };
+		547F13951CF76A1B0028EFF1 /* ZipZap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 547F138B1CF76A1B0028EFF1 /* ZipZap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		547F13981CF780ED0028EFF1 /* remote.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 547F13971CF780ED0028EFF1 /* remote.scfg */; };
+		547F139B1CF783C40028EFF1 /* SpatialConnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 547F139A1CF783C40028EFF1 /* SpatialConnect.framework */; };
+		547F139C1CF783C40028EFF1 /* SpatialConnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 547F139A1CF783C40028EFF1 /* SpatialConnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		8E1D21FB9DF9160016178987 /* libPods-SCMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4D79F848F0068458C87487C /* libPods-SCMobile.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +119,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		547F13861CF7699D0028EFF1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				547F138D1CF76A1B0028EFF1 /* libgpkgios.framework in Embed Frameworks */,
+				547F138F1CF76A1B0028EFF1 /* ReactiveCocoa.framework in Embed Frameworks */,
+				547F139C1CF783C40028EFF1 /* SpatialConnect.framework in Embed Frameworks */,
+				547F13951CF76A1B0028EFF1 /* ZipZap.framework in Embed Frameworks */,
+				547F13931CF76A1B0028EFF1 /* wkb_ios.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -134,11 +162,14 @@
 		5403ECDA1CCED8EE00A56D23 /* all.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = all.geojson; path = SCMobile/all.geojson; sourceTree = "<group>"; };
 		5403ECDB1CCED8EE00A56D23 /* tests.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = tests.scfg; path = SCMobile/tests.scfg; sourceTree = "<group>"; };
 		5403ECDE1CCEDA7D00A56D23 /* SCMobile-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SCMobile-Bridging-Header.h"; path = "SCMobile/SCMobile-Bridging-Header.h"; sourceTree = "<group>"; };
+		547F13871CF76A1B0028EFF1 /* libgpkgios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libgpkgios.framework; sourceTree = "<group>"; };
+		547F13881CF76A1B0028EFF1 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ReactiveCocoa.framework; sourceTree = "<group>"; };
+		547F138A1CF76A1B0028EFF1 /* wkb_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = wkb_ios.framework; sourceTree = "<group>"; };
+		547F138B1CF76A1B0028EFF1 /* ZipZap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZipZap.framework; sourceTree = "<group>"; };
+		547F13971CF780ED0028EFF1 /* remote.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = remote.scfg; sourceTree = "<group>"; };
+		547F139A1CF783C40028EFF1 /* SpatialConnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpatialConnect.framework; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		AF41B1CF22286BEE299D9A79 /* Pods-SCMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCMobile.release.xcconfig"; path = "Pods/Target Support Files/Pods-SCMobile/Pods-SCMobile.release.xcconfig"; sourceTree = "<group>"; };
-		B4D79F848F0068458C87487C /* libPods-SCMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SCMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D90555C7451C2F94A7C6AB5E /* Pods-SCMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCMobile.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SCMobile/Pods-SCMobile.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,14 +187,18 @@
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
+				547F13941CF76A1B0028EFF1 /* ZipZap.framework in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
+				547F139B1CF783C40028EFF1 /* SpatialConnect.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
+				547F13921CF76A1B0028EFF1 /* wkb_ios.framework in Frameworks */,
+				547F138E1CF76A1B0028EFF1 /* ReactiveCocoa.framework in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
+				547F138C1CF76A1B0028EFF1 /* libgpkgios.framework in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				8E1D21FB9DF9160016178987 /* libPods-SCMobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,15 +262,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		12E58596273F7C6AC5B226F8 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D90555C7451C2F94A7C6AB5E /* Pods-SCMobile.debug.xcconfig */,
-				AF41B1CF22286BEE299D9A79 /* Pods-SCMobile.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +293,7 @@
 				5403ECCC1CCEC92000A56D23 /* SCBridge.swift */,
 				5403ECDE1CCEDA7D00A56D23 /* SCMobile-Bridging-Header.h */,
 				5403ECD81CCEC9FE00A56D23 /* SCReactBridge.m */,
+				547F13971CF780ED0028EFF1 /* remote.scfg */,
 			);
 			name = SCMobile;
 			sourceTree = "<group>";
@@ -277,14 +304,6 @@
 				146834041AC3E56700842450 /* libReact.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		268BA2A9033F730783D2F031 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B4D79F848F0068458C87487C /* libPods-SCMobile.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
@@ -323,12 +342,15 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				547F139A1CF783C40028EFF1 /* SpatialConnect.framework */,
+				547F13871CF76A1B0028EFF1 /* libgpkgios.framework */,
+				547F13881CF76A1B0028EFF1 /* ReactiveCocoa.framework */,
+				547F138A1CF76A1B0028EFF1 /* wkb_ios.framework */,
+				547F138B1CF76A1B0028EFF1 /* ZipZap.framework */,
 				13B07FAE1A68108700A75B9A /* SCMobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SCMobileTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
-				12E58596273F7C6AC5B226F8 /* Pods */,
-				268BA2A9033F730783D2F031 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -368,13 +390,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SCMobile" */;
 			buildPhases = (
-				8A484A04185C6842FE809F59 /* Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				3E62A4818306359ED32CC742 /* Embed Pods Frameworks */,
-				8C57D73DFE33B15C4E84D882 /* Copy Pods Resources */,
+				547F13861CF7699D0028EFF1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -549,6 +569,7 @@
 			files = (
 				5403ECDC1CCED8EE00A56D23 /* all.geojson in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				547F13981CF780ED0028EFF1 /* remote.scfg in Resources */,
 				5403ECDD1CCED8EE00A56D23 /* tests.scfg in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -570,51 +591,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
-		};
-		3E62A4818306359ED32CC742 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SCMobile/Pods-SCMobile-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8A484A04185C6842FE809F59 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		8C57D73DFE33B15C4E84D882 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SCMobile/Pods-SCMobile-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -700,11 +676,15 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D90555C7451C2F94A7C6AB5E /* Pods-SCMobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				DEAD_CODE_STRIPPING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -713,6 +693,10 @@
 				INFOPLIST_FILE = SCMobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -725,10 +709,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF41B1CF22286BEE299D9A79 /* Pods-SCMobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -737,6 +725,10 @@
 				INFOPLIST_FILE = SCMobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
