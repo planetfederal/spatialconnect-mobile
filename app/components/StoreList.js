@@ -8,7 +8,7 @@ import React, {
 } from 'react-native';
 import StoreCell from './StoreCell';
 import SCStore from './SCStore';
-import sc from 'spatialconnect';
+import sc from 'spatialconnect/native';
 import palette from '../style/palette';
 
 class StoreList extends Component {

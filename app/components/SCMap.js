@@ -9,7 +9,7 @@ import React, {
 import api from '../utils/api';
 import palette from '../style/palette';
 import FormData from './FormData';
-import sc from 'spatialconnect';
+import sc from 'spatialconnect/native';
 
 class SCMap extends Component {
   constructor(props) {

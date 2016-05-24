@@ -24,6 +24,7 @@ class FormList extends Component {
   componentDidMount() {
     api.getFormList()
       .then((responseData) => {
+        console.log(responseData);
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
