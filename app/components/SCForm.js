@@ -11,8 +11,8 @@ import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
 import api from '../utils/api';
 import palette from '../style/palette';
-import formtemplates from '../formtemplates';
-import sc from 'spatialconnect';
+import scformschema from 'spatialconnect-form-schema/native';
+import { lastKnownLocation } from 'spatialconnect/native';
 
 tcomb.form.Form.i18n = {
   optional: '',
@@ -44,17 +44,16 @@ class SCForm extends Component {
   }
 
   saveForm(formData) {
-    this.subscription.dispose();
-    api.saveForm(this.props.formInfo.id, this.state.location, formData)
-      .then(() => {
-        this.props.navigator.push({
-          title: '',
-          component: FormSuccess
-        });
-      })
-      .catch(() => {
-        //TODO handle error submitting form
-      });
+    api.saveForm(this.props.formInfo, this.state.location, formData)
+      // .then(() => {
+      //   this.props.navigator.push({
+      //     title: '',
+      //     component: FormSuccess
+      //   });
+      // })
+      // .catch(() => {
+      //   //TODO handle error submitting form
+      // });
   }
 
   onPress () {
@@ -64,54 +63,27 @@ class SCForm extends Component {
     }
   }
 
-  makeFormOptions(properties) {
-    let options = { fields: {} };
-
-    for (let prop in properties) {
-      //set correct mode for data and time fields
-      if (properties[prop].type == 'date') {
-        options.fields[prop] = { mode: 'date' };
-      }
-      if (properties[prop].type == 'time') {
-        options.fields[prop] = { mode: 'time' };
-      }
-      //set correct template for slider and counter
-      if (properties[prop].mode == 'slider') {
-        options.fields[prop] = {
-          template: formtemplates.slider,
-          config: properties[prop]
-        };
-      }
-      if (properties[prop].mode == 'counter') {
-        options.fields[prop] = {
-          template: formtemplates.counter,
-          config: properties[prop]
-        };
-      }
-    }
-    return options;
-  }
-
   componentWillMount() {
-    sc.action.enableGPS();
-    this.subscription = sc.stream.lastKnownLocation.subscribe(
-      (data) => this.setState({location: data})
-    );
-
+    this.lastKnown = lastKnownLocation();
+    this.lastKnown.subscribe(data => {
+      console.log(data);
+      this.setState({location: data});
+    });
+    let { schema, options } = scformschema.translate(this.props.formInfo);
     let initialValues = {};
 
-    for (let prop in this.props.formInfo.schema.properties) {
-      if (this.props.formInfo.schema.properties[prop].hasOwnProperty('initialValue')) {
-        initialValues[prop] = this.props.formInfo.schema.properties[prop].initialValue;
+    for (let prop in schema.properties) {
+      if (schema.properties[prop].hasOwnProperty('initialValue')) {
+        initialValues[prop] = schema.properties[prop].initialValue;
       }
     }
     this.setState({value: initialValues});
-    this.TcombType = transform(this.props.formInfo.schema);
-    this.options = this.makeFormOptions(this.props.formInfo.schema.properties);
+    this.TcombType = transform(schema);
+    this.options = options;
   }
 
   componentWillUnmount() {
-    this.subscription.dispose();
+    //this.lastKnown.dispose();
   }
 
   onChange(value) {
@@ -123,7 +95,7 @@ class SCForm extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.formName}>
-            <Text style={styles.formNameText}>{this.props.formInfo.name}</Text>
+            <Text style={styles.formNameText}>{this.props.formInfo.display_name}</Text>
           </View>
           <View style={styles.form}>
             <Form

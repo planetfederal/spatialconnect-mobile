@@ -12,8 +12,11 @@
 #import <spatialconnect/SCQueryFilter.h>
 #import <spatialconnect/SCGeometry.h>
 #import <spatialconnect/SCGeometry+GeoJSON.h>
+#import <spatialconnect/SCPoint.h>
+#import <spatialconnect/SCJavascriptBridge.h>
 #import <spatialconnect/SCSpatialStore.h>
 #import <spatialconnect/SCDataStore.h>
 #import <spatialconnect/SCFileUtils.h>
 #import <spatialconnect/SCSpatialFeature.h>
+#import <spatialconnect/SCFormFeature.h>
 #import <spatialconnect/SCGeoJSON.h>
