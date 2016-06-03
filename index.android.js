@@ -8,24 +8,36 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  ScrollView
 } from 'react-native';
 
+import * as sc from 'spatialconnect/native';
+import SCForm from './app/components/SCForm';
+
 class SCMobile extends Component {
+
+  constructor(props) {
+   super(props);
+   this.state = {
+     form: null
+   };
+ }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <ScrollView>
+        {this.state.form ? <SCForm formInfo={this.state.form} /> : <Text/>}
+      </ScrollView>
     );
+  }
+
+  componentDidMount() {
+    sc.startAllServices();
+    sc.forms().subscribe(data => {
+      this.setState({
+        form: data.forms[0]  // only get the first form for now
+      });
+    });
   }
 }
 
