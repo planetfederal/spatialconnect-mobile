@@ -1,9 +1,16 @@
 package com.scmobile;
 
+import android.content.Context;
+import android.os.Bundle;
+
+import com.boundlessgeo.spatialconnect.jsbridge.SCReactPackage;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +41,27 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
-            new MainReactPackage()
+            new MainReactPackage(), new SCReactPackage()
         );
     }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        try {
+            InputStream is = getApplicationContext().getResources().openRawResource(R.raw.config);
+            // write the file to the internal storage location
+            FileOutputStream fos = getApplicationContext().openFileOutput("config.scfg", Context.MODE_PRIVATE);
+            byte[] data = new byte[is.available()];
+            is.read(data);
+            fos.write(data);
+            is.close();
+            fos.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
