@@ -21,12 +21,10 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		5403ECCD1CCEC92000A56D23 /* SCBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5403ECCC1CCEC92000A56D23 /* SCBridge.swift */; };
-		5403ECD91CCEC9FE00A56D23 /* SCReactBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5403ECD81CCEC9FE00A56D23 /* SCReactBridge.m */; };
 		5403ECDC1CCED8EE00A56D23 /* all.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDA1CCED8EE00A56D23 /* all.geojson */; };
 		5403ECDD1CCED8EE00A56D23 /* tests.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDB1CCED8EE00A56D23 /* tests.scfg */; };
-		540FDF3D1D0108ED00840019 /* SpatialConnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 540FDF3C1D0108ED00840019 /* SpatialConnect.framework */; };
-		540FDF3E1D0108ED00840019 /* SpatialConnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 540FDF3C1D0108ED00840019 /* SpatialConnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		546F2E1B1D0747EA00AB5A78 /* SpatialConnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546F2E1A1D0747EA00AB5A78 /* SpatialConnect.framework */; };
+		546F2E1C1D0747EA00AB5A78 /* SpatialConnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546F2E1A1D0747EA00AB5A78 /* SpatialConnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		547F138C1CF76A1B0028EFF1 /* libgpkgios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 547F13871CF76A1B0028EFF1 /* libgpkgios.framework */; };
 		547F138D1CF76A1B0028EFF1 /* libgpkgios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 547F13871CF76A1B0028EFF1 /* libgpkgios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		547F138E1CF76A1B0028EFF1 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 547F13881CF76A1B0028EFF1 /* ReactiveCocoa.framework */; };
@@ -36,6 +34,7 @@
 		547F13941CF76A1B0028EFF1 /* ZipZap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 547F138B1CF76A1B0028EFF1 /* ZipZap.framework */; };
 		547F13951CF76A1B0028EFF1 /* ZipZap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 547F138B1CF76A1B0028EFF1 /* ZipZap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		547F13981CF780ED0028EFF1 /* remote.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 547F13971CF780ED0028EFF1 /* remote.scfg */; };
+		54B1E4FC1D05FBCB00EEB033 /* SCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
 
@@ -128,7 +127,7 @@
 			files = (
 				547F138D1CF76A1B0028EFF1 /* libgpkgios.framework in Embed Frameworks */,
 				547F138F1CF76A1B0028EFF1 /* ReactiveCocoa.framework in Embed Frameworks */,
-				540FDF3E1D0108ED00840019 /* SpatialConnect.framework in Embed Frameworks */,
+				546F2E1C1D0747EA00AB5A78 /* SpatialConnect.framework in Embed Frameworks */,
 				547F13951CF76A1B0028EFF1 /* ZipZap.framework in Embed Frameworks */,
 				547F13931CF76A1B0028EFF1 /* wkb_ios.framework in Embed Frameworks */,
 			);
@@ -157,17 +156,16 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SCMobile/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SCMobile/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		5403ECCC1CCEC92000A56D23 /* SCBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCBridge.swift; path = SCMobile/SCBridge.swift; sourceTree = "<group>"; };
-		5403ECD81CCEC9FE00A56D23 /* SCReactBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCReactBridge.m; path = SCMobile/SCReactBridge.m; sourceTree = "<group>"; };
 		5403ECDA1CCED8EE00A56D23 /* all.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = all.geojson; path = SCMobile/all.geojson; sourceTree = "<group>"; };
 		5403ECDB1CCED8EE00A56D23 /* tests.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = tests.scfg; path = SCMobile/tests.scfg; sourceTree = "<group>"; };
-		5403ECDE1CCEDA7D00A56D23 /* SCMobile-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SCMobile-Bridging-Header.h"; path = "SCMobile/SCMobile-Bridging-Header.h"; sourceTree = "<group>"; };
-		540FDF3C1D0108ED00840019 /* SpatialConnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpatialConnect.framework; sourceTree = "<group>"; };
+		546F2E1A1D0747EA00AB5A78 /* SpatialConnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpatialConnect.framework; sourceTree = "<group>"; };
 		547F13871CF76A1B0028EFF1 /* libgpkgios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libgpkgios.framework; sourceTree = "<group>"; };
 		547F13881CF76A1B0028EFF1 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ReactiveCocoa.framework; sourceTree = "<group>"; };
 		547F138A1CF76A1B0028EFF1 /* wkb_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = wkb_ios.framework; sourceTree = "<group>"; };
 		547F138B1CF76A1B0028EFF1 /* ZipZap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZipZap.framework; sourceTree = "<group>"; };
 		547F13971CF780ED0028EFF1 /* remote.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = remote.scfg; sourceTree = "<group>"; };
+		54B1E4FA1D05FBCB00EEB033 /* SCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCBridge.h; path = SCMobile/SCBridge.h; sourceTree = "<group>"; };
+		54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCBridge.m; path = SCMobile/SCBridge.m; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -191,7 +189,7 @@
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
-				540FDF3D1D0108ED00840019 /* SpatialConnect.framework in Frameworks */,
+				546F2E1B1D0747EA00AB5A78 /* SpatialConnect.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				547F13921CF76A1B0028EFF1 /* wkb_ios.framework in Frameworks */,
 				547F138E1CF76A1B0028EFF1 /* ReactiveCocoa.framework in Frameworks */,
@@ -290,10 +288,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				5403ECCC1CCEC92000A56D23 /* SCBridge.swift */,
-				5403ECDE1CCEDA7D00A56D23 /* SCMobile-Bridging-Header.h */,
-				5403ECD81CCEC9FE00A56D23 /* SCReactBridge.m */,
 				547F13971CF780ED0028EFF1 /* remote.scfg */,
+				54B1E4FA1D05FBCB00EEB033 /* SCBridge.h */,
+				54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */,
 			);
 			name = SCMobile;
 			sourceTree = "<group>";
@@ -342,7 +339,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				540FDF3C1D0108ED00840019 /* SpatialConnect.framework */,
+				546F2E1A1D0747EA00AB5A78 /* SpatialConnect.framework */,
 				547F13871CF76A1B0028EFF1 /* libgpkgios.framework */,
 				547F13881CF76A1B0028EFF1 /* ReactiveCocoa.framework */,
 				547F138A1CF76A1B0028EFF1 /* wkb_ios.framework */,
@@ -629,9 +626,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5403ECD91CCEC9FE00A56D23 /* SCReactBridge.m in Sources */,
+				54B1E4FC1D05FBCB00EEB033 /* SCBridge.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				5403ECCD1CCEC92000A56D23 /* SCBridge.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -698,9 +694,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 13;
 				DEAD_CODE_STRIPPING = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -728,6 +726,7 @@
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "SCMobile/SCMobile-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -737,8 +736,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CURRENT_PROJECT_VERSION = 13;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -765,6 +766,7 @@
 				PROVISIONING_PROFILE = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "SCMobile/SCMobile-Bridging-Header.h";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -809,6 +811,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -849,6 +852,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
