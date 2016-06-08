@@ -32,3 +32,13 @@ local.properties
 #
 node_modules/
 npm-debug.log
+
+# Fastlane temporary profiling data
+ios/fastlane/report.xml
+ios/fastlane/Error*.png
+ios/fastlane/Preview.html
+ios/fastlane/screenshots/*/*-portrait.png
+ios/fastlane/screenshots/*/*-landscape.png
+ios/fastlane/screenshots/screenshots.html
+ios/fastlane/screenshots/*/*-portrait_framed.png
+ios/fastlane/screenshots/*/*-landscape_framed.png
