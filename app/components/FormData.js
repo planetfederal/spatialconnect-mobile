@@ -1,13 +1,10 @@
 'use strict';
-
-import React, {
-  Component,
-  PropTypes,
+import React, { Component, PropTypes } from 'react';
+import {
   StyleSheet,
   Text,
   View
 } from 'react-native';
-
 import palette from '../style/palette';
 
 class FormData extends Component {

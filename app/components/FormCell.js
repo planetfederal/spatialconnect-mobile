@@ -1,9 +1,7 @@
 'use strict';
-
-import React, {
-  Component,
+import React, { Component, PropTypes } from 'react';
+import {
   Platform,
-  PropTypes,
   StyleSheet,
   Text,
   TouchableHighlight,
