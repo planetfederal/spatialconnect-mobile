@@ -1,7 +1,7 @@
-import React, {
-  Component,
+'use strict';
+import React, { Component, PropTypes } from 'react';
+import {
   MapView,
-  PropTypes,
   StyleSheet,
   Text,
   View

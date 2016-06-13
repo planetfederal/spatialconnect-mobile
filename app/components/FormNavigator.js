@@ -1,8 +1,17 @@
-import React, {
-  Component,
+'use strict';
+import React, { Component } from 'react';
+import {
   NavigatorIOS,
+  NavigationExperimental,
   StyleSheet,
 } from 'react-native';
+
+const {
+  CardStack: NavigationCardStack,
+  Header: NavigationHeader,
+  PropTypes: NavigationPropTypes,
+  StateUtils: NavigationStateUtils,
+} = NavigationExperimental;
 
 import FormList from './FormList';
 import palette from '../style/palette';

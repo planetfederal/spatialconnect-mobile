@@ -3,9 +3,9 @@
  * https://github.com/facebook/react-native
  */
 
-import React, {
+import React, { Component } from 'react';
+import {
   AppRegistry,
-  Component,
   StyleSheet,
   Text,
   ScrollView
@@ -17,11 +17,11 @@ import SCForm from './app/components/SCForm';
 class SCMobile extends Component {
 
   constructor(props) {
-   super(props);
-   this.state = {
-     form: null
-   };
- }
+    super(props);
+    this.state = {
+      form: null
+    };
+  }
 
   render() {
     return (
@@ -35,7 +35,7 @@ class SCMobile extends Component {
     sc.startAllServices();
     sc.forms().subscribe(data => {
       this.setState({
-        form: data.forms[0]  // only get the first form for now
+        form: data.forms[1]  // only get the first form for now
       });
     });
   }

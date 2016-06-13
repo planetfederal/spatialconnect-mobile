@@ -42,3 +42,8 @@ ios/fastlane/screenshots/*/*-landscape.png
 ios/fastlane/screenshots/screenshots.html
 ios/fastlane/screenshots/*/*-portrait_framed.png
 ios/fastlane/screenshots/*/*-landscape_framed.png
+# BUCK
+buck-out/
+\.buckd/
+android/app/libs
+android/keystores/debug.keystore

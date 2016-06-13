@@ -1,6 +1,6 @@
-import React, {
-  Component,
-  PropTypes,
+'use strict';
+import React, { Component, PropTypes } from 'react';
+import {
   ScrollView,
   StyleSheet,
   Text,
@@ -12,7 +12,7 @@ import tcomb from 'tcomb-form-native';
 import api from '../utils/api';
 import palette from '../style/palette';
 import scformschema from 'spatialconnect-form-schema/native';
-import { lastKnownLocation } from 'spatialconnect/native';
+import * as sc from 'spatialconnect/native';
 
 tcomb.form.Form.i18n = {
   optional: '',
@@ -64,26 +64,30 @@ class SCForm extends Component {
   }
 
   componentWillMount() {
-    this.lastKnown = lastKnownLocation();
-    this.lastKnown.subscribe(data => {
+    this.lastKnown = sc.lastKnownLocation().subscribe(data => {
       console.log(data);
       this.setState({location: data});
     });
+    console.log(this.props.formInfo);
     let { schema, options } = scformschema.translate(this.props.formInfo);
     let initialValues = {};
-
+    console.log(schema);
     for (let prop in schema.properties) {
+      console.log(prop, schema.properties[prop].hasOwnProperty('initialValue'));
       if (schema.properties[prop].hasOwnProperty('initialValue')) {
+
         initialValues[prop] = schema.properties[prop].initialValue;
       }
     }
+    console.log(initialValues);
     this.setState({value: initialValues});
     this.TcombType = transform(schema);
     this.options = options;
   }
 
   componentWillUnmount() {
-    //this.lastKnown.dispose();
+    this.lastKnown.dispose();
+    sc.disableGPS();
   }
 
   onChange(value) {

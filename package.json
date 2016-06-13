@@ -7,14 +7,15 @@
     "test": "mocha --require test/setup.js --recursive test/components/*.js"
   },
   "dependencies": {
-    "react": "^0.14.8",
-    "react-native": "^0.24.1",
-    "react-native-slider": "^0.5.3",
+    "react": "^15.1.0",
+    "react-native": "^0.27.2",
+    "react-native-drawer": "^2.2.3",
+    "react-native-slider": "^0.8.0",
     "rx": "^4.1.0",
     "slash": "^1.0.0",
     "spatialconnect": "boundlessgeo/spatialconnect-js#develop",
-    "spatialconnect-form-schema": "^1.0.4",
-    "tcomb-form-native": "^0.4.2",
+    "spatialconnect-form-schema": "^1.0.7",
+    "tcomb-form-native": "^0.5.1",
     "tcomb-json-schema": "^0.2.5"
   },
   "devDependencies": {

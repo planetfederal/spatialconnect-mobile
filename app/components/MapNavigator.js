@@ -1,5 +1,6 @@
-import React, {
-  Component,
+'use strict';
+import React, { Component } from 'react';
+import {
   NavigatorIOS,
   StyleSheet,
 } from 'react-native';
