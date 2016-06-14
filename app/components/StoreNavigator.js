@@ -1,54 +1,35 @@
 'use strict';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
-  NavigatorIOS,
   StyleSheet,
+  View,
 } from 'react-native';
 
 import StoreList from './StoreList';
+import SCStore from './SCStore';
 import palette from '../style/palette';
+import { navStyles } from '../style/style.js';
 
 class StoreNavigator extends Component {
   render() {
+    var el;
+    if (this.props.name === 'stores') {
+      el = <StoreList />;
+    } else if (this.props.name === 'store') {
+      el = <SCStore store={this.props.store}/>;
+    } else {
+      el = <View />;
+    }
     return (
-      <NavigatorIOS
-        style={styles.container}
-        barTintColor={palette.darkblue}
-        tintColor={palette.gray}
-        titleTextColor={'#fff'}
-        translucent={false}
-        initialRoute={{
-          title: 'Store List',
-          component: StoreList,
-        }}
-      />
+      <View style={navStyles.container}>
+        {el}
+      </View>
     );
   }
 }
 
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: palette.gray
-  },
-  nav: {
-    height: 60
-  },
-  title: {
-    marginTop: 6,
-    fontSize: 16
-  },
-  leftNavButtonText: {
-    fontSize: 18,
-    marginLeft: 13,
-    marginTop: 4
-  },
-  rightNavButtonText: {
-    fontSize: 18,
-    marginRight: 13,
-    marginTop: 4
-  }
-});
+StoreNavigator.propTypes = {
+  name: PropTypes.string.isRequired,
+};
 
 export default StoreNavigator;

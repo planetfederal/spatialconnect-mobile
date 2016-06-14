@@ -8,18 +8,35 @@ import {
 import palette from '../style/palette';
 
 class FormData extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: false,
+      form: false
+    };
+  }
   render() {
-    let fields = [];
-    for (var key in this.props.form.data) {
-      fields.push(<Text key={key}>{key}: {this.props.form.data[key]}</Text>);
+    let formData = this.props.formData;
+    let metadata = [];
+    for (var key in formData.val.metadata) {
+      metadata.push(<Text key={key}>{key}: {formData.val.metadata[key]}</Text>);
     }
-    let location = this.props.form.location ?
-      <Text>Location Submitted: {this.props.form.location.lat}, {this.props.form.location.lon}</Text> :
-      <View/>;
+    let fields = [];
+    for (var key in formData.val.properties) {
+      fields.push(<Text key={key}>{key}: {formData.val.properties[key]}</Text>);
+    }
+    let location = formData.val.geometry ?
+      <Text>{formData.val.geometry.coordinates[1]}, {formData.val.geometry.coordinates[0]}</Text> :
+      <Text></Text>;
     return (
       <View style={styles.container}>
-        <Text>Form ID: {this.props.form.formID}</Text>
+        <Text style={styles.subheader}>Form</Text>
+        <Text>{formData.form.name}</Text>
+        <Text style={styles.subheader}>Metadata</Text>
+        {metadata}
+        <Text style={styles.subheader}>Location</Text>
         {location}
+        <Text style={styles.subheader}>Form Data</Text>
         {fields}
       </View>
     );
@@ -27,7 +44,7 @@ class FormData extends Component {
 }
 
 FormData.propTypes = {
-  form: PropTypes.object.isRequired,
+  formData: PropTypes.object.isRequired,
 };
 
 var styles = StyleSheet.create({
@@ -36,6 +53,11 @@ var styles = StyleSheet.create({
     marginTop: 0,
     padding: 10,
     backgroundColor: palette.gray
+  },
+  subheader: {
+    fontWeight: 'bold',
+    marginTop: 5,
+    marginBottom: 5,
   }
 });
 

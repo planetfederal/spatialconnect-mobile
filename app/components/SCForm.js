@@ -7,32 +7,18 @@ import {
   TouchableHighlight,
   View
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
-import api from '../utils/api';
 import palette from '../style/palette';
 import scformschema from 'spatialconnect-form-schema/native';
 import * as sc from 'spatialconnect/native';
 
-tcomb.form.Form.i18n = {
-  optional: '',
-  required: ' *'
-};
-
+tcomb.form.Form.stylesheet.textbox.normal.backgroundColor = '#ffffff';
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
 let Form = tcomb.form.Form;
-
-class FormSuccess extends Component {
-  render() {
-    return (
-      <View style={styles.success}>
-        <Text>Form Submitted Successfully.</Text>
-      </View>
-    );
-  }
-}
 
 class SCForm extends Component {
   constructor(props) {
@@ -44,16 +30,25 @@ class SCForm extends Component {
   }
 
   saveForm(formData) {
-    api.saveForm(this.props.formInfo, this.state.location, formData)
-      // .then(() => {
-      //   this.props.navigator.push({
-      //     title: '',
-      //     component: FormSuccess
-      //   });
-      // })
-      // .catch(() => {
-      //   //TODO handle error submitting form
-      // });
+    var f;
+    if (this.state.location) {
+      let gj = {
+        geometry: {
+          type: 'Point',
+          coordinates: [
+            this.state.location.lon,
+            this.state.location.lat
+          ]
+        },
+        properties: formData
+      };
+      f = sc.geometry('DEFAULT_STORE', this.props.formInfo.layer_name, gj);
+    } else {
+      f = sc.spatialFeature('DEFAULT_STORE', this.props.formInfo.layer_name, formData);
+    }
+    sc.createFeature(f.serialize()).first().subscribe((data) => {
+      Actions.formSubmitted({ feature: data });
+    });
   }
 
   onPress () {
@@ -65,21 +60,15 @@ class SCForm extends Component {
 
   componentWillMount() {
     this.lastKnown = sc.lastKnownLocation().subscribe(data => {
-      console.log(data);
       this.setState({location: data});
     });
-    console.log(this.props.formInfo);
     let { schema, options } = scformschema.translate(this.props.formInfo);
     let initialValues = {};
-    console.log(schema);
     for (let prop in schema.properties) {
-      console.log(prop, schema.properties[prop].hasOwnProperty('initialValue'));
       if (schema.properties[prop].hasOwnProperty('initialValue')) {
-
         initialValues[prop] = schema.properties[prop].initialValue;
       }
     }
-    console.log(initialValues);
     this.setState({value: initialValues});
     this.TcombType = transform(schema);
     this.options = options;
@@ -120,8 +109,7 @@ class SCForm extends Component {
 }
 
 SCForm.propTypes = {
-  formInfo: PropTypes.object.isRequired,
-  navigator: PropTypes.object.isRequired
+  formInfo: PropTypes.object.isRequired
 };
 
 var styles = StyleSheet.create({
@@ -130,7 +118,6 @@ var styles = StyleSheet.create({
     marginTop: 0,
     justifyContent: 'center',
     flexDirection: 'column',
-    backgroundColor: palette.gray
   },
   success: {
     flex: 1,
@@ -139,16 +126,15 @@ var styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    marginBottom: 100
   },
   formName: {
-    backgroundColor: palette.gray,
-    paddingTop: 10,
-    paddingBottom: 10,
+    backgroundColor: 'white',
+    paddingTop: 5,
+    paddingBottom: 5,
     paddingLeft: 20,
     paddingRight: 20,
     borderColor: '#bbb',
-    borderBottomWidth: 2
+    borderBottomWidth: 1
   },
   formNameText: {
     color: '#333',
