@@ -6,8 +6,8 @@ import {
   Text,
   View
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import StoreCell from './StoreCell';
-import SCStore from './SCStore';
 import { stores } from 'spatialconnect/native';
 import palette from '../style/palette';
 
@@ -32,11 +32,7 @@ class StoreList extends Component {
   }
 
   selectStore(store) {
-    this.props.navigator.push({
-      title: '',
-      component: SCStore,
-      passProps: { store: store }
-    });
+    Actions.store({ store: store });
   }
 
   renderLoadingView() {
@@ -106,7 +102,6 @@ var styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: 0,
-    paddingTop: 0,
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: palette.gray

@@ -1,13 +1,12 @@
 'use strict';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import {
   ListView,
   StyleSheet,
   View
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import FormCell from './FormCell';
-import SCForm from './SCForm';
-import api from '../utils/api';
 import palette from '../style/palette';
 import { forms } from 'spatialconnect/native';
 
@@ -24,7 +23,6 @@ class FormList extends Component {
 
   componentDidMount() {
     forms().subscribe(data => {
-      console.log(data);
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(data.forms),
         loaded: true,
@@ -33,11 +31,7 @@ class FormList extends Component {
   }
 
   selectForm(form) {
-    this.props.navigator.push({
-      title: '',
-      component: SCForm,
-      passProps: { formInfo: form }
-    });
+    Actions.form({ formInfo: form });
   }
 
   renderLoadingView() {
@@ -81,7 +75,6 @@ class FormList extends Component {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
-
     return (
       <View style={styles.mainContainer}>
         <ListView
@@ -95,27 +88,13 @@ class FormList extends Component {
   }
 }
 
-FormList.propTypes = {
-  navigator: PropTypes.object.isRequired
-};
-
 var styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: 0,
-    paddingTop: 0,
     flexDirection: 'column',
     justifyContent: 'center',
     backgroundColor: palette.gray
-  },
-  title: {
-    marginBottom: 20,
-    fontSize: 25,
-    textAlign: 'center',
-    color: '#fff'
-  },
-  listView: {
-
   },
   separator: {
     height: 1,

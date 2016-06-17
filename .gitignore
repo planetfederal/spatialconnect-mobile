@@ -49,3 +49,7 @@ android/app/libs
 android/keystores/debug.keystore
 # never check in the release keystore!
 android/app/spatialconnect-release.keystore
+
+*.zip
+*.cer
+*.mobileprovision

@@ -1,62 +1,37 @@
 'use strict';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
-  NavigatorIOS,
-  NavigationExperimental,
-  StyleSheet,
+  View,
 } from 'react-native';
 
-const {
-  CardStack: NavigationCardStack,
-  Header: NavigationHeader,
-  PropTypes: NavigationPropTypes,
-  StateUtils: NavigationStateUtils,
-} = NavigationExperimental;
-
 import FormList from './FormList';
-import palette from '../style/palette';
+import FormSubmitted from './FormSubmitted';
+import SCForm from './SCForm';
+import { navStyles } from '../style/style.js';
 
 class FormNavigator extends Component {
   render() {
+    var el;
+    if (this.props.name === 'forms') {
+      el = <FormList />;
+    } else if (this.props.name === 'form') {
+      el = <SCForm formInfo={this.props.formInfo}/>;
+    } else if (this.props.name === 'formSubmitted') {
+      el = <FormSubmitted />;
+    } else {
+      el = <View />;
+    }
     return (
-      <NavigatorIOS
-        style={styles.container}
-        barTintColor={palette.darkblue}
-        tintColor={palette.gray}
-        titleTextColor={'#fff'}
-        translucent={false}
-        initialRoute={{
-          title: 'Form List',
-          component: FormList,
-        }}
-      />
+      <View style={navStyles.container}>
+        {el}
+      </View>
     );
   }
 }
 
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: palette.gray
-  },
-  nav: {
-    height: 60
-  },
-  title: {
-    marginTop: 6,
-    fontSize: 16
-  },
-  leftNavButtonText: {
-    fontSize: 18,
-    marginLeft: 13,
-    marginTop: 4
-  },
-  rightNavButtonText: {
-    fontSize: 18,
-    marginRight: 13,
-    marginTop: 4
-  }
-});
+FormNavigator.propTypes = {
+  name: PropTypes.string.isRequired,
+  formInfo: PropTypes.object
+};
 
 export default FormNavigator;

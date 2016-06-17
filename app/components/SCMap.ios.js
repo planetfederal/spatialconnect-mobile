@@ -3,12 +3,12 @@ import React, { Component, PropTypes } from 'react';
 import {
   MapView,
   StyleSheet,
-  Text,
   View
 } from 'react-native';
-import api from '../utils/api';
+import Button from 'react-native-button';
+import { Actions } from 'react-native-router-flux';
 import palette from '../style/palette';
-import FormData from './FormData';
+import api from '../utils/api';
 import * as sc from 'spatialconnect/native';
 
 class SCMap extends Component {
@@ -84,39 +84,35 @@ class SCMap extends Component {
       ];
       var filter = sc.geoBBOXContains(extent);
       sc.geospatialQuery(filter)
-      .map(this.makeCoordinates)
-      .subscribe(this.addFeature.bind(this));
+      .subscribe(data => {
+        console.log(data);
+      })
+      // .map(this.makeCoordinates)
+      // .subscribe(this.addFeature.bind(this));
     });
   }
 
   loadFormData() {
     this.setState({overlays: [], annotations: []}, () => {
-      //TODO get form data from sc-js
-      // api.getFormData()
-      //   .then(data => {
-      //     this.addFormData(data);
-      //   });
+      api.getAllFormData()
+        .then(data => {
+          data = [].concat.apply([], data)
+          this.addFormData(data);
+        });
     });
   }
 
   addFormData(forms) {
     let formAnnotations = forms.filter(data => {
       return (
-        data.location !== null &&
-        typeof data.location !== 'undefined' &&
-        typeof data.location.lat === 'number' &&
-        typeof data.location.lon === 'number'
+        data.val.geometry && typeof data.val.geometry.coordinates == 'object'
       );
     }).map(data => {
       let annotation = {
-        latitude: data.location.lat,
-        longitude: data.location.lon,
+        latitude: data.val.geometry.coordinates[1],
+        longitude: data.val.geometry.coordinates[0],
         onFocus: () => {
-          this.props.navigator.push({
-            title: 'Form Data',
-            component: FormData,
-            passProps: { form: data }
-          });
+          Actions.formData({formData: data});
         }
       };
       return annotation;
@@ -138,16 +134,8 @@ class SCMap extends Component {
           annotations={this.state.annotations}
         />
         <View style={styles.toolBox}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText} onPress={this.loadStoreData.bind(this)}>
-              {'Load Stores'}
-            </Text>
-          </View>
-          <View style={styles.button}>
-            <Text style={styles.buttonText} onPress={this.loadFormData.bind(this)}>
-              {'Load Forms'}
-            </Text>
-          </View>
+          <Button style={styles.buttonText} containerStyle={styles.button} onPress={this.loadStoreData.bind(this)}>Load Stores</Button>
+          <Button style={styles.buttonText} containerStyle={styles.button} onPress={this.loadFormData.bind(this)}>Load Forms</Button>
         </View>
       </View>
     );
@@ -155,7 +143,7 @@ class SCMap extends Component {
 }
 
 SCMap.propTypes = {
-  navigator: PropTypes.object.isRequired
+
 };
 
 var styles = StyleSheet.create({
@@ -168,11 +156,13 @@ var styles = StyleSheet.create({
     flex: 1,
   },
   toolBox: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: palette.gray,
     height: 50,
-    marginBottom: 110
   },
   changeButton: {
     alignSelf: 'flex-start',
