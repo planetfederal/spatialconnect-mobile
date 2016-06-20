@@ -134,7 +134,7 @@ class SCMap extends Component {
           annotations={this.state.annotations}
         />
         <View style={styles.toolBox}>
-          <Button style={styles.buttonText} containerStyle={styles.button} onPress={this.loadStoreData.bind(this)}>Load Stores</Button>
+          {/*<Button style={styles.buttonText} containerStyle={styles.button} onPress={this.loadStoreData.bind(this)}>Load Stores</Button>*/}
           <Button style={styles.buttonText} containerStyle={styles.button} onPress={this.loadFormData.bind(this)}>Load Forms</Button>
         </View>
       </View>
