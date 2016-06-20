@@ -16,7 +16,7 @@
     "react-native-slider": "^0.8.0",
     "rx": "^4.1.0",
     "slash": "^1.0.0",
-    "spatialconnect": "boundlessgeo/spatialconnect-js#develop",
+    "spatialconnect": "0.2.0",
     "spatialconnect-form-schema": "^1.0.10",
     "tcomb-form-native": "^0.5.1",
     "tcomb-json-schema": "^0.3.0",
