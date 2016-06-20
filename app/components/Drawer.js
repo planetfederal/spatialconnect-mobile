@@ -20,6 +20,7 @@ const SideMenu = (props, context) => {
         <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); Actions.formNav(); }}>Forms</Button>
         <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); Actions.storeNav(); }}>Stores</Button>
         <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); Actions.mapNav(); }}>Map</Button>
+        <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); Actions.testNav(); }}>Tests</Button>
       </View>
     </View>
   );
@@ -70,7 +71,7 @@ SCDrawer.propTypes = {
   navigationState: PropTypes.object.isRequired
 };
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 0,

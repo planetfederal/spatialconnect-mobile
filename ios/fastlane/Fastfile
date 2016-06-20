@@ -20,15 +20,6 @@ platform :ios do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
   end
 
-  lane :example do
-    sh "./deploy.sh"
-  end
-
-  desc "Runs all the tests"
-  lane :test do
-    scan
-  end
-
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
   lane :beta do

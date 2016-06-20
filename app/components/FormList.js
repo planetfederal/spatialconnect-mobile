@@ -1,5 +1,5 @@
 'use strict';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   ListView,
   StyleSheet,
@@ -8,7 +8,6 @@ import {
 import { Actions } from 'react-native-router-flux';
 import FormCell from './FormCell';
 import palette from '../style/palette';
-import { forms } from 'spatialconnect/native';
 
 class FormList extends Component {
   constructor(props) {
@@ -16,28 +15,16 @@ class FormList extends Component {
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
-      loaded: false,
+      })
     };
-  }
-
-  componentDidMount() {
-    forms().subscribe(data => {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(data.forms),
-        loaded: true,
-      });
-    });
   }
 
   selectForm(form) {
     Actions.form({ formInfo: form });
   }
 
-  renderLoadingView() {
-    return (
-      <View style={styles.mainContainer}></View>
-    );
+  componentDidMount() {
+    this.props.actions.loadForms();
   }
 
   renderSeparator(
@@ -72,23 +59,26 @@ class FormList extends Component {
   }
 
   render() {
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    }
     return (
       <View style={styles.mainContainer}>
         <ListView
-          dataSource={this.state.dataSource}
+          dataSource={this.state.dataSource.cloneWithRows(this.props.forms)}
           renderSeparator={this.renderSeparator.bind(this)}
           renderRow={this.renderRow.bind(this)}
           style={styles.listView}
+          enableEmptySections={true}
         />
       </View>
     );
   }
 }
 
-var styles = StyleSheet.create({
+FormList.propTypes = {
+  forms: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
+const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: 0,

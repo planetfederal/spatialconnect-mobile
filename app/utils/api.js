@@ -1,5 +1,5 @@
 /*global fetch*/
-const API_URL = 'http://efc.boundlessgeo.com:8085/api/';
+const API_URL = 'http://localhost:8085/api/';
 let api = {
   getFormData(form) {
     return fetch(API_URL + `forms/${form.id}/results`)

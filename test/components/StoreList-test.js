@@ -1,5 +1,6 @@
 /*global describe, it*/
-import React, { ListView, View, Text } from 'react-native';
+import React from 'react';
+import { ListView, Text } from 'react-native';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 

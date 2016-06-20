@@ -30,28 +30,32 @@ class SCForm extends Component {
   }
 
   saveForm(formData) {
-    var f;
-    if (this.state.location) {
+    navigator.geolocation.getCurrentPosition(position => {
       let gj = {
         geometry: {
           type: 'Point',
           coordinates: [
-            this.state.location.lon,
-            this.state.location.lat
+            position.coords.longitude,
+            position.coords.latitude
           ]
         },
         properties: formData
       };
-      f = sc.geometry('DEFAULT_STORE', this.props.formInfo.layer_name, gj);
-    } else {
-      f = sc.spatialFeature('DEFAULT_STORE', this.props.formInfo.layer_name, formData);
-    }
-    sc.createFeature(f.serialize()).first().subscribe((data) => {
-      Actions.formSubmitted({ feature: data });
-    });
+      let f = sc.geometry('DEFAULT_STORE', this.props.formInfo.layer_name, gj);
+      sc.createFeature(f.serialize()).first().subscribe((data) => {
+        Actions.formSubmitted({ feature: data });
+      });
+    }, (error) => {
+      let f = sc.spatialFeature('DEFAULT_STORE', this.props.formInfo.layer_name, formData);
+      sc.createFeature(f.serialize()).first().subscribe((data) => {
+        Actions.formSubmitted({ feature: data });
+      });
+    },
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
   }
 
-  onPress () {
+  onPress() {
     var value = this.refs.form.getValue();
     if (value) {
       this.saveForm(value);
@@ -59,9 +63,6 @@ class SCForm extends Component {
   }
 
   componentWillMount() {
-    this.lastKnown = sc.lastKnownLocation().subscribe(data => {
-      this.setState({location: data});
-    });
     let { schema, options } = scformschema.translate(this.props.formInfo);
     let initialValues = {};
     for (let prop in schema.properties) {
@@ -72,11 +73,6 @@ class SCForm extends Component {
     this.setState({value: initialValues});
     this.TcombType = transform(schema);
     this.options = options;
-  }
-
-  componentWillUnmount() {
-    this.lastKnown.dispose();
-    sc.disableGPS();
   }
 
   onChange(value) {
@@ -112,7 +108,7 @@ SCForm.propTypes = {
   formInfo: PropTypes.object.isRequired
 };
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 0,

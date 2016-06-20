@@ -1,5 +1,6 @@
 /*global describe, it*/
-import React, { MapView } from 'react-native';
+import React from 'react';
+import { MapView } from 'react-native';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import SCMap from '../../app/components/SCMap';
