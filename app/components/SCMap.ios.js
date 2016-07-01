@@ -84,7 +84,7 @@ class SCMap extends Component {
       ];
       var filter = sc.geoBBOXContains(extent);
       sc.geospatialQuery(filter)
-        .take(100) //temporary hard limit
+        .take(100) //temporary
         .filter(f => f.geometry)
         .map(this.makeCoordinates)
         .subscribe(this.addFeature.bind(this));

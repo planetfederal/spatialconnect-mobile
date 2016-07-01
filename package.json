@@ -19,7 +19,7 @@
     "redux-thunk": "2.1.0",
     "rx": "^4.1.0",
     "slash": "^1.0.0",
-    "spatialconnect": "0.2.0",
+    "spatialconnect": "0.3.1",
     "spatialconnect-form-schema": "^1.0.10",
     "tcomb-form-native": "^0.5.1",
     "tcomb-json-schema": "^0.3.0",
