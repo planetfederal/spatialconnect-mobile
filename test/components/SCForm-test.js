@@ -1,39 +1,35 @@
 /*global describe, it*/
-import React, { TouchableHighlight } from 'react-native';
+import React from 'react';
+import { TouchableHighlight } from 'react-native';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import t from 'tcomb-form-native';
 import SCForm from '../../app/components/SCForm';
-SCForm.__Rewire__('sc', {
-  action: { enableGPS: sinon.spy() },
-  stream: { lastKnownLocation: { subscribe: sinon.spy() } }
-});
-SCForm.__Rewire__('api', {
-  saveForm: sinon.spy()
-});
 
 let Form = t.form.Form;
 
 let mockForm = {
-  'id': 1,
-  'name': 'Sample form',
-  'schema': {
-    'type': 'object',
-    'properties': {
-      'name': {
-        'type': 'string',
-        'initialValue': ''
-      },
-      'age': {
-        'type': 'number'
-      }
+  "id": 2,
+  "name": "Baseball Team",
+  "fields": [
+    {
+      "id": "a214590d-8673-420b-8bca-aa2877b45c52",
+      "type": "string",
+      "label": "Favorite?",
+      "key": "team",
+      "position": 0,
+      "form_id": 2
     },
-    'required': [
-      'name',
-      'age'
-    ]
-  }
+    {
+      "id": "2a0d1d9b-a44c-44c2-9ea3-9ecd093d9fa6",
+      "type": "string",
+      "label": "Why?",
+      "key": "why",
+      "position": 1,
+      "form_id": 2
+    }
+  ]
 };
 
 describe('<SCForm />', () => {

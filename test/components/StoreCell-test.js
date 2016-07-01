@@ -1,5 +1,6 @@
 /*global describe, it*/
-import React, { View, Text, TouchableHighlight } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableHighlight } from 'react-native';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';

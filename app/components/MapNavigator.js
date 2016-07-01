@@ -1,7 +1,6 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
-  StyleSheet,
   View,
 } from 'react-native';
 

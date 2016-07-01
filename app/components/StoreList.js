@@ -17,32 +17,16 @@ class StoreList extends Component {
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
-      loaded: false,
+      })
     };
   }
 
-  componentDidMount() {
-    stores().subscribe(data => {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(data.stores),
-        loaded: true
-      });
-    });
-  }
-
   selectStore(store) {
-    Actions.store({ store: store });
+    Actions.store({ storeInfo: store });
   }
 
-  renderLoadingView() {
-    return (
-      <View style={styles.mainContainer}>
-        <Text>
-          Loading stores...
-        </Text>
-      </View>
-    );
+  componentDidMount() {
+    this.props.actions.loadStores();
   }
 
   renderSeparator(
@@ -77,17 +61,14 @@ class StoreList extends Component {
   }
 
   render() {
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    }
-
     return (
       <View style={styles.mainContainer}>
         <ListView
-          dataSource={this.state.dataSource}
+          dataSource={this.state.dataSource.cloneWithRows(this.props.stores)}
           renderSeparator={this.renderSeparator.bind(this)}
           renderRow={this.renderRow.bind(this)}
           style={styles.listView}
+          enableEmptySections={true}
         />
       </View>
     );
@@ -98,7 +79,7 @@ StoreList.propTypes = {
   navigator: PropTypes.object.isRequired
 };
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: 0,

@@ -1,5 +1,6 @@
 /*global describe, it*/
-import React, { Text } from 'react-native';
+import React from 'react';
+import { Text } from 'react-native';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import SCStore from '../../app/components/SCStore';

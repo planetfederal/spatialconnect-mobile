@@ -10,7 +10,7 @@
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"
 #import <ReactiveCocoa/RACSignal.h>
-#import <SpatialConnect/SpatialConnect-Swift.h>
+#import <SpatialConnect/SCRCTBridge.h>
 
 @implementation SCBridge
 
@@ -18,7 +18,7 @@
 
 - (id)init {
   self = [super init];
-  scBridge = [[SCReactBridge alloc] init];
+  scBridge = [[SCRCTBridge alloc] init];
   return self;
 }
 
@@ -27,7 +27,7 @@ RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(handler:(NSDictionary *)data)
 {
   [scBridge handler:data responseCallback:^(NSDictionary *responseData) {
-    [self.bridge.eventDispatcher sendAppEventWithName:responseData[@"key"] body:responseData[@"body"]];
+    [self.bridge.eventDispatcher sendAppEventWithName:responseData[@"action"] body:responseData[@"payload"]];
   }];
 }
 

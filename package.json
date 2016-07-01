@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "mocha --require test/setup.js --recursive test/components/*.js"
+    "test": "mocha --compilers js:babel-core/register --require test/setup.js --recursive test/components/*.js"
   },
   "dependencies": {
     "react": "^15.1.0",
@@ -14,9 +14,12 @@
     "react-native-maps": "^0.4.2",
     "react-native-router-flux": "^3.30.0",
     "react-native-slider": "^0.8.0",
+    "react-redux": "4.4.5",
+    "redux": "3.5.2",
+    "redux-thunk": "2.1.0",
     "rx": "^4.1.0",
     "slash": "^1.0.0",
-    "spatialconnect": "0.2.0",
+    "spatialconnect": "0.3.1",
     "spatialconnect-form-schema": "^1.0.10",
     "tcomb-form-native": "^0.5.1",
     "tcomb-json-schema": "^0.3.0",
@@ -24,7 +27,11 @@
   },
   "devDependencies": {
     "babel": "^6.5.2",
+    "babel-plugin-rewire": "^1.0.0-rc-3",
+    "babel-polyfill": "6.9.1",
+    "babel-preset-react-native": "^1.9.0",
     "chai": "^3.5.0",
+    "chai-enzyme": "^0.5.0",
     "enzyme": "^2.2.0",
     "eslint": "^2.7.0",
     "eslint-plugin-react": "^4.3.0",
@@ -34,7 +41,8 @@
     "mockery": "^1.6.2",
     "react-addons-test-utils": "^0.14.6",
     "react-dom": "^0.14.8",
-    "react-native-mock": "0.0.7",
+    "react-native-mock": "^0.2.3",
+    "should": "9.0.2",
     "sinon": "^1.17.3"
   }
 }
