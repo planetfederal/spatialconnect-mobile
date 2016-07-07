@@ -19,6 +19,7 @@ import android.os.Bundle;
 
 import com.boundlessgeo.spatialconnect.jsbridge.SCReactPackage;
 import com.facebook.react.ReactActivity;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.airbnb.android.react.maps.MapsPackage;
@@ -56,7 +57,8 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
-            new MainReactPackage(), new SCReactPackage(), new MapsPackage()
+            new MainReactPackage(),
+            new MapsPackage(), new SCReactPackage(), new MapsPackage()
         );
     }
 

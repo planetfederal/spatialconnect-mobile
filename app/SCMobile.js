@@ -79,7 +79,7 @@ class SCMobile extends Component {
                 </Scene>
                 <Scene key="mapNav" title="Store List">
                   <Scene key="map" component={MapNavigator} title="Map"/>
-                  <Scene key="formData" component={MapNavigator} title="Form Data"/>
+                  <Scene key="feature" component={MapNavigator} title="Feature Data"/>
                 </Scene>
                 <Scene key="testNav" title="Tests">
                   <Scene key="test" component={TestNavigator} title="Tests"/>

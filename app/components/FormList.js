@@ -59,6 +59,7 @@ class FormList extends Component {
   }
 
   render() {
+    console.log(this.props.forms);
     return (
       <View style={styles.mainContainer}>
         <ListView

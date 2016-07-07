@@ -5,10 +5,15 @@ import {
   Text,
   View
 } from 'react-native';
-
+import { Actions } from 'react-native-router-flux';
 import palette from '../style/palette';
 
 class SCStore extends Component {
+
+  goToMap() {
+    Actions.storeMap({storeInfo: this.props.storeInfo});
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -24,6 +29,7 @@ class SCStore extends Component {
         <Text numberOfLines={0}>
           ID: {this.props.storeInfo.storeId}
         </Text>
+        <Text style={styles.link} onPress={this.goToMap.bind(this)}>View on Map</Text>
       </View>
     );
   }
@@ -35,6 +41,10 @@ const styles = StyleSheet.create({
     marginTop: 0,
     padding: 10,
     backgroundColor: palette.gray
+  },
+  link: {
+    color: 'blue',
+    textDecorationLine: 'underline'
   }
 });
 

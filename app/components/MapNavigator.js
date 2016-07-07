@@ -3,9 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import {
   View,
 } from 'react-native';
-
 import SCMap from './SCMap';
-import FormData from './FormData';
+import FeatureData from './FeatureData';
 import { navStyles } from '../style/style.js';
 
 class MapNavigator extends Component {
@@ -13,9 +12,9 @@ class MapNavigator extends Component {
     var el;
     if (this.props.name === 'map') {
       el = <SCMap />;
-    } else if (this.props.name === 'formData') {
-      el = <FormData formData={this.props.formData} />;
-    }else {
+    } else if (this.props.name === 'feature') {
+      el = <FeatureData feature={this.props.feature} />;
+    } else {
       el = <View />;
     }
     return (
