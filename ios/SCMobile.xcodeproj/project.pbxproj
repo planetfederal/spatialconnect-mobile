@@ -23,6 +23,8 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		5403ECDC1CCED8EE00A56D23 /* all.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDA1CCED8EE00A56D23 /* all.geojson */; };
 		5403ECDD1CCED8EE00A56D23 /* tests.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDB1CCED8EE00A56D23 /* tests.scfg */; };
+		543E8AE61D2D6090009FE68F /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 543E8ADB1D2D6063009FE68F /* libAirMaps.a */; };
+		543E8AEA1D2EDB4F009FE68F /* simple.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 543E8AE91D2EDB4F009FE68F /* simple.geojson */; };
 		546D087D1D21B27E00EBB95A /* libgpkgios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D08791D21B27E00EBB95A /* libgpkgios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		546D087E1D21B27E00EBB95A /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D087A1D21B27E00EBB95A /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		546D087F1D21B27E00EBB95A /* wkb_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D087B1D21B27E00EBB95A /* wkb_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -97,6 +99,13 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
+		543E8ADA1D2D6063009FE68F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 543E8AD61D2D6063009FE68F /* AirMaps.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
+			remoteInfo = AirMaps;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -153,6 +162,8 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		5403ECDA1CCED8EE00A56D23 /* all.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = all.geojson; path = SCMobile/all.geojson; sourceTree = "<group>"; };
 		5403ECDB1CCED8EE00A56D23 /* tests.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = tests.scfg; path = SCMobile/tests.scfg; sourceTree = "<group>"; };
+		543E8AD61D2D6063009FE68F /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
+		543E8AE91D2EDB4F009FE68F /* simple.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = simple.geojson; path = SCMobile/simple.geojson; sourceTree = "<group>"; };
 		546D08791D21B27E00EBB95A /* libgpkgios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libgpkgios.framework; path = Carthage/Build/iOS/libgpkgios.framework; sourceTree = "<group>"; };
 		546D087A1D21B27E00EBB95A /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 		546D087B1D21B27E00EBB95A /* wkb_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = wkb_ios.framework; path = Carthage/Build/iOS/wkb_ios.framework; sourceTree = "<group>"; };
@@ -177,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				543E8AE61D2D6090009FE68F /* libAirMaps.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -269,6 +281,7 @@
 		13B07FAE1A68108700A75B9A /* SCMobile */ = {
 			isa = PBXGroup;
 			children = (
+				543E8AE91D2EDB4F009FE68F /* simple.geojson */,
 				5403ECDA1CCED8EE00A56D23 /* all.geojson */,
 				5403ECDB1CCED8EE00A56D23 /* tests.scfg */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -293,6 +306,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		543E8AD71D2D6063009FE68F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				543E8ADB1D2D6063009FE68F /* libAirMaps.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +325,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				543E8AD61D2D6063009FE68F /* AirMaps.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -425,6 +447,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 543E8AD71D2D6063009FE68F /* Products */;
+					ProjectRef = 543E8AD61D2D6063009FE68F /* AirMaps.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
@@ -530,6 +556,13 @@
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		543E8ADB1D2D6063009FE68F /* libAirMaps.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAirMaps.a;
+			remoteRef = 543E8ADA1D2D6063009FE68F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -559,6 +592,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5403ECDC1CCED8EE00A56D23 /* all.geojson in Resources */,
+				543E8AEA1D2EDB4F009FE68F /* simple.geojson in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				547F13981CF780ED0028EFF1 /* remote.scfg in Resources */,
 				5403ECDD1CCED8EE00A56D23 /* tests.scfg in Resources */,
