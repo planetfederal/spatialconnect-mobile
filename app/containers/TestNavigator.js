@@ -6,7 +6,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as testActions from '../actions/tests';
-import SCTest from './SCTest';
+import SCTest from '../components/SCTest';
 import { navStyles } from '../style/style.js';
 
 class TestNavigator extends Component {
@@ -25,15 +25,13 @@ class TestNavigator extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    tests: state.tests,
-  };
-}
+const mapStateToProps = (state) => ({
+  tests: state.tests,
+});
 
-function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(testActions, dispatch) };
-}
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(testActions, dispatch)
+});
 
 TestNavigator.propTypes = {
   name: PropTypes.string.isRequired,

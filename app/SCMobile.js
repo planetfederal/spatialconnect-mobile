@@ -13,20 +13,23 @@ import {
 } from 'react-native';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { Scene, Router, Actions } from 'react-native-router-flux';
-import * as sc from 'spatialconnect/native';
-import Drawer from './components/Drawer';
-import FormNavigator from './components/FormNavigator';
-import StoreNavigator from './components/StoreNavigator';
-import MapNavigator from './components/MapNavigator';
-import TestNavigator from './components/TestNavigator';
+import { connectSC } from './actions/sc';
+import { requireAuth } from './containers/AuthComponent';
+import LoginView from './components/LoginView';
+import SCDrawer from './containers/SCDrawer';
+import FormNavigator from './containers/FormNavigator';
+import StoreNavigator from './containers/StoreNavigator';
+import MapNavigator from './containers/MapNavigator';
+import TestNavigator from './containers/TestNavigator';
 import palette from './style/palette';
 import reducer from './reducers';
 
 const store = createStore(
   reducer,
-  applyMiddleware(thunk)
+  applyMiddleware(thunk, createLogger())
 );
 
 class SCMobile extends Component {
@@ -35,7 +38,7 @@ class SCMobile extends Component {
   }
 
   componentWillMount() {
-    sc.startAllServices();
+    connectSC(store); //connect spatialconnect to the redux store
   }
 
   onLeft() {
@@ -66,23 +69,24 @@ class SCMobile extends Component {
           duration={250}
           >
           <Scene key="root" hideNavBar hideTabBar>
-            <Scene key="drawer" component={Drawer} open={false} initial={true}>
+            <Scene key="login" component={LoginView} title="Login"/>
+            <Scene key="drawer" component={SCDrawer} open={false} initial={true}>
               <Scene key="main" tabs={true}>
                 <Scene key="formNav" title="Form List">
-                  <Scene key="forms" component={FormNavigator} title="Forms"/>
-                  <Scene key="form" component={FormNavigator} title=""/>
-                  <Scene key="formSubmitted" component={FormNavigator} title="Form Submitted"/>
+                  <Scene key="forms" component={requireAuth(FormNavigator)} title="Forms"/>
+                  <Scene key="form" component={requireAuth(FormNavigator)} title=""/>
+                  <Scene key="formSubmitted" component={requireAuth(FormNavigator)} title="Form Submitted"/>
                 </Scene>
                 <Scene key="storeNav" title="Store List">
-                  <Scene key="stores" component={StoreNavigator} title="Store List"/>
-                  <Scene key="store" component={StoreNavigator} title=""/>
+                  <Scene key="stores" component={requireAuth(StoreNavigator)} title="Stores"/>
+                  <Scene key="store" component={requireAuth(StoreNavigator)} title=""/>
                 </Scene>
                 <Scene key="mapNav" title="Store List">
-                  <Scene key="map" component={MapNavigator} title="Map"/>
-                  <Scene key="feature" component={MapNavigator} title="Feature Data"/>
+                  <Scene key="map" component={requireAuth(MapNavigator)} title="Map"/>
+                  <Scene key="feature" component={requireAuth(MapNavigator)} title="Feature Data"/>
                 </Scene>
                 <Scene key="testNav" title="Tests">
-                  <Scene key="test" component={TestNavigator} title="Tests"/>
+                  <Scene key="test" component={requireAuth(TestNavigator)} title="Tests"/>
                 </Scene>
               </Scene>
             </Scene>

@@ -1,5 +1,5 @@
 'use strict';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,7 +8,6 @@ import {
 import palette from '../style/palette';
 
 class SCStore extends Component {
-
   render() {
     return (
       <View style={styles.container}>
@@ -41,5 +40,9 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline'
   }
 });
+
+SCStore.propTypes = {
+  storeInfo: PropTypes.object.isRequired
+};
 
 export default SCStore;

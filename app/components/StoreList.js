@@ -3,12 +3,10 @@ import React, { Component, PropTypes } from 'react';
 import {
   ListView,
   StyleSheet,
-  Text,
   View
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import StoreCell from './StoreCell';
-import { stores } from 'spatialconnect/native';
 import palette from '../style/palette';
 
 class StoreList extends Component {
@@ -23,10 +21,6 @@ class StoreList extends Component {
 
   selectStore(store) {
     Actions.store({ storeInfo: store });
-  }
-
-  componentDidMount() {
-    this.props.actions.loadStores();
   }
 
   renderSeparator(
@@ -76,7 +70,7 @@ class StoreList extends Component {
 }
 
 StoreList.propTypes = {
-  navigator: PropTypes.object.isRequired
+  stores: PropTypes.array.isRequired
 };
 
 const styles = StyleSheet.create({

@@ -4,13 +4,14 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableHighlight,
   View
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
 import palette from '../style/palette';
+import { buttonStyles } from '../style/style';
 import scformschema from 'spatialconnect-form-schema/native';
 import * as sc from 'spatialconnect/native';
 
@@ -21,6 +22,7 @@ transform.registerType('time', tcomb.Date);
 let Form = tcomb.form.Form;
 
 class SCForm extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -42,13 +44,13 @@ class SCForm extends Component {
         properties: formData
       };
       let f = sc.geometry('DEFAULT_STORE', this.props.formInfo.layer_name, gj);
-      sc.createFeature(f.serialize()).first().subscribe((data) => {
-        Actions.formSubmitted({ feature: data });
+      sc.createFeature$(f.serialize()).first().subscribe((data) => {
+        Actions.formSubmitted({ feature: data.payload });
       });
     }, (error) => {
       let f = sc.spatialFeature('DEFAULT_STORE', this.props.formInfo.layer_name, formData);
-      sc.createFeature(f.serialize()).first().subscribe((data) => {
-        Actions.formSubmitted({ feature: data });
+      sc.createFeature$(f.serialize()).first().subscribe((data) => {
+        Actions.formSubmitted({ feature: data.payload });
       });
     },
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -94,9 +96,9 @@ class SCForm extends Component {
               options={this.options}
               onChange={this.onChange.bind(this)}
             />
-            <TouchableHighlight style={styles.button} onPress={this.onPress.bind(this)} underlayColor={palette.lightblue}>
-              <Text style={styles.buttonText}>Submit</Text>
-            </TouchableHighlight>
+            <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.onPress.bind(this)}>
+              Submit
+            </Button>
           </View>
         </ScrollView>
       </View>
@@ -138,21 +140,6 @@ const styles = StyleSheet.create({
   },
   form: {
     padding: 20
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: palette.darkblue,
-    borderColor: palette.darkblue,
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
   }
 });
 

@@ -12,6 +12,7 @@
 
 @interface SCBridge : NSObject <RCTBridgeModule> {
   SCRCTBridge *scBridge;
+  RCTResponseSenderBlock callback;
 }
 
 @end
