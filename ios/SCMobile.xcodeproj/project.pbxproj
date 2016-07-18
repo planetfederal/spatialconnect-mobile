@@ -32,6 +32,7 @@
 		546D088C1D21B38400EBB95A /* SpatialConnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D088B1D21B38400EBB95A /* SpatialConnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		547F13981CF780ED0028EFF1 /* remote.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 547F13971CF780ED0028EFF1 /* remote.scfg */; };
 		54B1E4FC1D05FBCB00EEB033 /* SCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */; };
+		56AA58061D3D65CD00670AB7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AA58051D3D65CD00670AB7 /* Crashlytics.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +173,8 @@
 		547F13971CF780ED0028EFF1 /* remote.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = remote.scfg; sourceTree = "<group>"; };
 		54B1E4FA1D05FBCB00EEB033 /* SCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCBridge.h; path = SCMobile/SCBridge.h; sourceTree = "<group>"; };
 		54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCBridge.m; path = SCMobile/SCBridge.m; sourceTree = "<group>"; };
+		56AA58031D3D65A400670AB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		56AA58051D3D65CD00670AB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,6 +201,7 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				56AA58061D3D65CD00670AB7 /* Crashlytics.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,11 +355,13 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				56AA58031D3D65A400670AB7 /* Crashlytics.framework */,
 				546D088B1D21B38400EBB95A /* SpatialConnect.framework */,
 				546D08791D21B27E00EBB95A /* libgpkgios.framework */,
 				546D087A1D21B27E00EBB95A /* ReactiveCocoa.framework */,
 				546D087B1D21B27E00EBB95A /* wkb_ios.framework */,
 				546D087C1D21B27E00EBB95A /* ZipZap.framework */,
+				56AA58051D3D65CD00670AB7 /* Crashlytics.framework */,
 				13B07FAE1A68108700A75B9A /* SCMobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SCMobileTests */,
@@ -405,6 +411,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				547F13861CF7699D0028EFF1 /* Embed Frameworks */,
 				569C04281CFFB14200FFAE3F /* ShellScript */,
+				56AA58021D3D655B00670AB7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -635,6 +642,19 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
+		56AA58021D3D655B00670AB7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 93c312957d2dbf3351bffe24bea587c15ab7a893";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -727,6 +747,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -769,6 +790,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
