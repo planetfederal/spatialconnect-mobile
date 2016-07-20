@@ -48,9 +48,10 @@ class SCTest extends Component {
   }
 
   componentWillMount() {
-    sc.enableGPS();
     this.it('should get forms',(done) => {
-      sc.forms().first().subscribe(data => {
+      sc.forms$()
+      .map(action => action.payload)
+      .subscribe(data => {
         try {
           data.should.be.a.Object();
           data.forms.should.be.a.Array();
@@ -61,7 +62,9 @@ class SCTest extends Component {
       });
     });
     this.it('should get stores',(done) => {
-      sc.stores().first().subscribe(data => {
+      sc.stores$()
+      .map(action => action.payload)
+      .subscribe(data => {
         try {
           (data).should.be.a.Object();
           (data.stores).should.be.a.Array();
@@ -72,7 +75,9 @@ class SCTest extends Component {
       });
     });
     this.it('should get a store',(done) => {
-      sc.store('DEFAULT_STORE').subscribe(data => {
+      sc.store$('DEFAULT_STORE')
+      .map(action => action.payload)
+      .subscribe(data => {
         try {
           data.should.be.a.Object();
           done(true);
@@ -94,13 +99,15 @@ class SCTest extends Component {
     });
     this.it('should create spatialFeature',(done) => {
       let sf = sc.spatialFeature('DEFAULT_STORE', 'baseball_team', {'team':'foo','why':'bar'});
-      sc.createFeature(sf.serialize()).first().subscribe((data) => {
+      sc.createFeature$(sf.serialize())
+      .map(action => action.payload)
+      .subscribe((data) => {
         try {
           data.should.be.a.Object();
           data.id.should.be.a.String();
           done(true);
-          this.deleteTest(data);
-          this.updateTest(data);
+          //this.deleteTest(data);
+          //this.updateTest(data);
         } catch (e) {
           done(false, e);
         }
@@ -112,7 +119,9 @@ class SCTest extends Component {
         properties: {'team':'foo','why':'bar'}
       };
       let g = sc.geometry('DEFAULT_STORE', 'baseball_team', gj);
-      sc.createFeature(g.serialize()).first().subscribe((data) => {
+      sc.createFeature$(g.serialize()).first()
+      .map(action => action.payload)
+      .subscribe((data) => {
         try {
           data.should.be.a.Object();
           data.id.should.be.a.String();

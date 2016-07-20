@@ -24,11 +24,17 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(handler:(NSDictionary *)data)
+RCT_EXPORT_METHOD(reg:(RCTResponseSenderBlock)resCallback) {
+  callback = resCallback;
+}
+
+RCT_EXPORT_METHOD(handler:(NSDictionary *)action)
 {
-  [scBridge handler:data responseCallback:^(NSDictionary *responseData) {
-    [self.bridge.eventDispatcher sendAppEventWithName:responseData[@"action"] body:responseData[@"payload"]];
+  [scBridge handler:action responseCallback:^(NSDictionary *newAction) {
+    NSString *type = action[@"responseId"] != nil ? action[@"responseId"] : action[@"type"];
+    [self.bridge.eventDispatcher sendAppEventWithName:type body:newAction];
   }];
 }
+
 
 @end

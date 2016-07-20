@@ -23,10 +23,6 @@ class FormList extends Component {
     Actions.form({ formInfo: form });
   }
 
-  componentDidMount() {
-    this.props.actions.loadForms();
-  }
-
   renderSeparator(
     sectionID,
     rowID,
@@ -59,7 +55,6 @@ class FormList extends Component {
   }
 
   render() {
-    console.log(this.props.forms);
     return (
       <View style={styles.mainContainer}>
         <ListView
@@ -75,8 +70,7 @@ class FormList extends Component {
 }
 
 FormList.propTypes = {
-  forms: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  forms: PropTypes.array.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -85,7 +79,10 @@ const styles = StyleSheet.create({
     padding: 0,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: palette.gray
+    backgroundColor: palette.gray,
+  },
+  listView: {
+    flex: 1,
   },
   separator: {
     height: 1,

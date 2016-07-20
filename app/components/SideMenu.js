@@ -1,13 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import {
   Image,
   StyleSheet,
   View
 } from 'react-native';
-import { Actions, DefaultRenderer } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import Button from 'react-native-button';
+import * as sc from 'spatialconnect/native';
 import palette from '../style/palette';
-import Drawer from 'react-native-drawer';
 
 const SideMenu = (props, context) => {
   const drawer = context.drawer;
@@ -21,6 +21,10 @@ const SideMenu = (props, context) => {
         <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); Actions.storeNav(); }}>Stores</Button>
         <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); Actions.mapNav(); }}>Map</Button>
         <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); Actions.testNav(); }}>Tests</Button>
+        {props.isAuthenticated ?
+          <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); sc.logout(); }}>Logout</Button>:
+          null
+        }
       </View>
     </View>
   );
@@ -31,45 +35,11 @@ const contextTypes = {
 };
 
 const propTypes = {
-  name: PropTypes.string,
-  sceneStyle: View.propTypes.style,
-  title: PropTypes.string,
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 SideMenu.contextTypes = contextTypes;
 SideMenu.propTypes = propTypes;
-
-class SCDrawer extends Component {
-  render() {
-    const state = this.props.navigationState;
-    const children = state.children;
-    return (
-      <Drawer
-        ref="navigation"
-        open={state.open}
-        onOpen={()=>Actions.refresh({key:state.key, open: true})}
-        onClose={()=>Actions.refresh({key:state.key, open: false})}
-        type="displace"
-        content={<SideMenu />}
-        tapToClose={true}
-        openDrawerOffset={0.5}
-        panCloseMask={0.5}
-        negotiatePan={true}
-        tweenDuration={100}
-        tweenHandler={(ratio) => ({
-          main: { opacity:Math.max(0.54,1-ratio) }
-        })
-      }>
-        <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate} />
-      </Drawer>
-    );
-  }
-}
-
-SCDrawer.propTypes = {
-  onNavigate: PropTypes.func.isRequired,
-  navigationState: PropTypes.object.isRequired
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -108,4 +78,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SCDrawer;
+export default SideMenu;

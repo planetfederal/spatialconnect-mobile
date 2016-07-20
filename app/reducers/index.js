@@ -1,13 +1,13 @@
 'use strict';
 import { combineReducers } from 'redux';
 import tests from './tests';
-import forms from './forms';
-import stores from './stores';
+import sc from './sc';
+import auth from './auth';
 
 const reducer = combineReducers({
   tests,
-  forms,
-  stores
+  sc,
+  auth
 });
 
 export default reducer;

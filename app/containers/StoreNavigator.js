@@ -4,10 +4,8 @@ import {
   View
 } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as storeActions from '../actions/stores';
-import StoreList from './StoreList';
-import SCStore from './SCStore';
+import StoreList from '../components/StoreList';
+import SCStore from '../components/SCStore';
 import { navStyles } from '../style/style.js';
 
 class StoreNavigator extends Component {
@@ -15,9 +13,9 @@ class StoreNavigator extends Component {
   render() {
     var el;
     if (this.props.name === 'stores') {
-      el = <StoreList stores={this.props.stores} actions={this.props.actions} />;
+      el = <StoreList {...this.props} />;
     } else if (this.props.name === 'store') {
-      el = <SCStore storeInfo={this.props.storeInfo} />;
+      el = <SCStore {...this.props} />;
     } else {
       el = <View />;
     }
@@ -29,21 +27,14 @@ class StoreNavigator extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    stores: state.stores,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(storeActions, dispatch) };
-}
+const mapStateToProps = (state) => ({
+  stores: state.sc.stores,
+});
 
 StoreNavigator.propTypes = {
   name: PropTypes.string.isRequired,
   stores: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
   storeInfo: PropTypes.object
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StoreNavigator);
+export default connect(mapStateToProps)(StoreNavigator);

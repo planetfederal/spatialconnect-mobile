@@ -1,5 +1,5 @@
 'use strict';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
   View
@@ -9,7 +9,7 @@ import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 import Rx from 'rx';
 import { flatten } from 'lodash';
-import palette from '../style/palette';
+import { buttonStyles } from '../style/style';
 import api from '../utils/api';
 import map from '../utils/map';
 import * as sc from 'spatialconnect/native';
@@ -59,11 +59,10 @@ class SCMap extends Component {
 
   loadStoreData() {
     this.setState({ points: [], lines: [], polygons: [] }, () => {
-      var filter = {
-        filter: {},
-        limit: 10,
-      };
-      sc.geospatialQuery(filter)
+      var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90]);
+      sc.geospatialQuery$(filter)
+        .take(100)
+        .map(action => action.payload)
         .flatMap(f => {
           return f.type === 'FeatureCollection' ?
             Rx.Observable.from(f.features) :
@@ -76,7 +75,7 @@ class SCMap extends Component {
 
   loadFormData() {
     this.setState({ points: [], lines: [], polygons: [] }, () => {
-      Rx.Observable.fromPromise(api.getAllFormData())
+      Rx.Observable.fromPromise(api.getAllFormData(this.props.token))
         .map(flatten)
         .flatMap(arr => Rx.Observable.from(arr))
         .map(f => f.val)
@@ -129,8 +128,8 @@ class SCMap extends Component {
         </MapView>
         </View>
         <View style={styles.toolBox}>
-          <Button style={styles.buttonText} containerStyle={styles.button} onPress={this.loadStoreData.bind(this)}>Load Stores</Button>
-          <Button style={styles.buttonText} containerStyle={styles.button} onPress={this.loadFormData.bind(this)}>Load Forms</Button>
+          <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.loadStoreData.bind(this)}>Load Stores</Button>
+          <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.loadFormData.bind(this)}>Load Forms</Button>
         </View>
       </View>
     );
@@ -138,7 +137,7 @@ class SCMap extends Component {
 }
 
 SCMap.propTypes = {
-
+  token: PropTypes.string.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -165,7 +164,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     height: 50,
   },
   changeButton: {
@@ -174,22 +173,6 @@ const styles = StyleSheet.create({
     padding: 3,
     borderWidth: 0.5,
     borderColor: '#777777',
-  },
-  buttonText: {
-    fontSize: 12,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 30,
-    backgroundColor: palette.darkblue,
-    borderColor: palette.darkblue,
-    borderWidth: 1,
-    borderRadius: 5,
-    margin: 10,
-    padding: 5,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
   }
 });
 

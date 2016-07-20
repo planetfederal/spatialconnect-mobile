@@ -1,6 +1,7 @@
 import { Platform, StyleSheet } from 'react-native';
+import palette from './palette';
 
-const cellStyles = StyleSheet.create({
+export const cellStyles = StyleSheet.create({
   textContainer: {
     flex: 1,
   },
@@ -30,15 +31,29 @@ const cellStyles = StyleSheet.create({
   },
 });
 
-const navStyles = StyleSheet.create({
+export const navStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     marginTop: (Platform.OS === 'ios') ? 65 : 45,
   }
 });
 
-export {
-  cellStyles,
-  navStyles
-};
+export const buttonStyles = StyleSheet.create({
+  buttonText: {
+    fontSize: 16,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    backgroundColor: palette.darkblue,
+    borderColor: palette.darkblue,
+    borderWidth: 1,
+    borderRadius: 5,
+    margin: 0,
+    padding: 5,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  }
+});

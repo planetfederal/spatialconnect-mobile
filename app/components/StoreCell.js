@@ -1,5 +1,5 @@
 'use strict';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   Platform,
   Text,
@@ -35,4 +35,11 @@ class StoreCell extends Component {
   }
 }
 
-module.exports = StoreCell;
+StoreCell.propTypes = {
+  onSelect: PropTypes.func.isRequired,
+  onHighlight: PropTypes.func.isRequired,
+  onUnhighlight: PropTypes.func.isRequired,
+  store: PropTypes.object.isRequired
+};
+
+export default StoreCell;
