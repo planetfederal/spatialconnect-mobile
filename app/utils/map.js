@@ -16,10 +16,10 @@ let map = {
       } else if (g.type === 'MultiLineString') {
         return g.coordinates.map(makeLine);
       } else if (g.type === 'Polygon') {
-        return [g.coordinates.map(makeLine)];
+        return g.coordinates.map(makeLine);
       } else if (g.type === 'MultiPolygon') {
-        return g.coordinates.map((p, i) => {
-          return g.coordinates[i].map(makeLine);
+        return g.coordinates.map((p) => {
+          return p.map(makeLine);
         }).reduce(function(prev, curr) {
           return prev.concat(curr);
         });
