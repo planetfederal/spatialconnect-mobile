@@ -101,7 +101,7 @@ class SCMobile extends Component {
 
 const styles = StyleSheet.create({
   navBar: {
-    backgroundColor: palette.darkblue,
+    backgroundColor: palette.lightblue,
     height: (Platform.OS === 'ios') ? 64 : 44,
   },
   title: {

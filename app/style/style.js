@@ -47,8 +47,8 @@ export const buttonStyles = StyleSheet.create({
   },
   button: {
     height: 36,
-    backgroundColor: palette.darkblue,
-    borderColor: palette.darkblue,
+    backgroundColor: palette.lightblue,
+    borderColor: palette.lightblue,
     borderWidth: 1,
     borderRadius: 5,
     margin: 0,
