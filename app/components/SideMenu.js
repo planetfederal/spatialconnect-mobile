@@ -9,6 +9,10 @@ import Button from 'react-native-button';
 import * as sc from 'spatialconnect/native';
 import palette from '../style/palette';
 
+const SideMenuButton = ({text, onPress}) =>
+  <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={onPress}>{text}</Button>;
+
+
 const SideMenu = (props, context) => {
   const drawer = context.drawer;
   return (
@@ -17,13 +21,19 @@ const SideMenu = (props, context) => {
         <View style={styles.titleWrap}>
           <Image source={require('../img/efc_app_87.png')} style={styles.icon} />
         </View>
-        <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); Actions.formNav(); }}>Forms</Button>
-        <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); Actions.storeNav(); }}>Stores</Button>
-        <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); Actions.mapNav(); }}>Map</Button>
-        <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); Actions.testNav(); }}>Tests</Button>
         {props.isAuthenticated ?
-          <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={() => { drawer.close(); sc.logout(); }}>Logout</Button>:
-          null
+          <View>
+          <SideMenuButton text="Forms" onPress={() => { drawer.close(); Actions.formNav(); }} />
+          <SideMenuButton text="Stores" onPress={() => { drawer.close(); Actions.storeNav(); }} />
+          <SideMenuButton text="Map" onPress={() => { drawer.close(); Actions.mapNav(); }} />
+          <SideMenuButton text="Tests" onPress={() => { drawer.close(); Actions.testNav(); }} />
+          <SideMenuButton text="Logout" onPress={() => { drawer.close(); sc.logout(); }} />
+          </View>
+          :
+          <View>
+          <SideMenuButton text="Login" onPress={() => { drawer.close(); Actions.login(); }} />
+          <SideMenuButton text="Sign Up" onPress={() => { drawer.close(); Actions.signUp(); }} />
+          </View>
         }
       </View>
     </View>

@@ -19,6 +19,7 @@ import { Scene, Router, Actions } from 'react-native-router-flux';
 import { connectSC } from './actions/sc';
 import { requireAuth } from './containers/AuthComponent';
 import LoginView from './components/LoginView';
+import SignUpView from './components/SignUpView';
 import SCDrawer from './containers/SCDrawer';
 import FormNavigator from './containers/FormNavigator';
 import StoreNavigator from './containers/StoreNavigator';
@@ -69,7 +70,6 @@ class SCMobile extends Component {
           duration={250}
           >
           <Scene key="root" hideNavBar hideTabBar>
-            <Scene key="login" component={LoginView} title="Login"/>
             <Scene key="drawer" component={SCDrawer} open={false} initial={true}>
               <Scene key="main" tabs={true}>
                 <Scene key="formNav" title="Form List">
@@ -88,6 +88,8 @@ class SCMobile extends Component {
                 <Scene key="testNav" title="Tests">
                   <Scene key="test" component={requireAuth(TestNavigator)} title="Tests"/>
                 </Scene>
+                <Scene key="login" component={LoginView} title="Login"/>
+                <Scene key="signUp" component={SignUpView} title="Sign Up"/>
               </Scene>
             </Scene>
           </Scene>

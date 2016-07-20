@@ -11,11 +11,7 @@ export const requireAuth = (Component) => {
       if (this.props.auth.isAuthenticated) {
         return <Component {...this.props} />;
       } else {
-        if (this.props.auth.isAuthenticating) {
-          return <View />; //loading view
-        } else {
-          return <LoginView />;
-        }
+        return <View />;
       }
     }
   }
