@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 0,
     paddingTop: 30,
-    backgroundColor: palette.darkblue,
+    backgroundColor: palette.lightblue,
   },
   navBtn: {
     color: 'white',
