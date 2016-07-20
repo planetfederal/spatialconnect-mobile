@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
+  Text,
   View
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -15,6 +16,7 @@ import { navStyles, buttonStyles } from '../style/style';
 
 let Form = t.form.Form;
 t.form.Form.stylesheet.textbox.normal.backgroundColor = '#ffffff';
+t.form.Form.stylesheet.textbox.error.backgroundColor = '#ffffff';
 var Login = t.struct({
   email: t.String,
   password: t.String
@@ -22,33 +24,33 @@ var Login = t.struct({
 
 var options = {
   fields: {
+    email: {
+      autoCapitalize: 'none'
+    },
     password: {
       password: true,
-      secureTextEntry: true
+      secureTextEntry: true,
+      autoCapitalize: 'none'
     }
   }
 };
 
 class LoginView extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: {
-        email: 'admin@something.com',
-        password: 'admin'
-      }
-    };
-  }
-
   onPress() {
     var value = this.refs.form.getValue();
-    sc.authenticate(value.email, value.password);
-    this.props.actions.loginUserRequest();
+    if (value) {
+      sc.authenticate(value.email, value.password);
+      this.props.actions.loginUserRequest();
+    }
   }
 
   onChange(value) {
-    this.setState({value});
+    this.props.actions.onChangeLoginFormValue(value);
+  }
+
+  onSignUpPress() {
+    Actions.signUp();
   }
 
   render() {
@@ -57,13 +59,15 @@ class LoginView extends Component {
         <View style={styles.form}>
           <Form
             ref="form"
-            value={this.state.value}
+            value={this.props.loginFormValue}
             type={Login}
             options={options}
+            onChange={this.onChange.bind(this)}
           />
           <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.onPress.bind(this)}>
             Login
           </Button>
+          <Text onPress={this.onSignUpPress} style={buttonStyles.link}>Sign Up</Text>
         </View>
       </View>
     );
@@ -72,8 +76,8 @@ class LoginView extends Component {
 
 LoginView.propTypes = {
   isAuthenticating: PropTypes.bool.isRequired,
-  statusText: PropTypes.string.isRequired,
   actions: PropTypes.object.isRequired,
+  loginFormValue: PropTypes.object.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -84,7 +88,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   isAuthenticating: state.auth.isAuthenticating,
-  statusText: state.auth.statusText
+  loginFormValue: state.auth.loginFormValue
 });
 
 const mapDispatchToProps = (dispatch) => ({

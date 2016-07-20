@@ -53,7 +53,14 @@ export const buttonStyles = StyleSheet.create({
     borderRadius: 5,
     margin: 0,
     padding: 5,
+    marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  disabled: {
+    color: '#999'
+  },
+  link: {
+    color: 'blue'
   }
 });

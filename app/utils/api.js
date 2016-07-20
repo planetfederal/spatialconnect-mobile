@@ -30,6 +30,19 @@ let api = {
       headers: { 'x-access-token': token }
     })
     .then((response) => response.json());
+  },
+  signUp(body) {
+    if (!body) {
+      body = {};
+    }
+    return fetch(API_URL + 'users', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }).then((response) => response.json());
   }
 };
 
