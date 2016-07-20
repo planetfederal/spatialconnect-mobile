@@ -59,9 +59,9 @@ class SCMap extends Component {
 
   loadStoreData() {
     this.setState({ points: [], lines: [], polygons: [] }, () => {
-      var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90]);
+      var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90])
+                            .limit(100);
       sc.geospatialQuery$(filter)
-        .take(100)
         .map(action => action.payload)
         .flatMap(f => {
           return f.type === 'FeatureCollection' ?
@@ -77,7 +77,7 @@ class SCMap extends Component {
     this.setState({ points: [], lines: [], polygons: [] }, () => {
       Rx.Observable.fromPromise(api.getAllFormData(this.props.token))
         .map(flatten)
-        .flatMap(arr => Rx.Observable.from(arr))
+        .flatMap(Rx.Observable.fromArray)
         .map(f => f.val)
         .filter(f => f.geometry)
         .subscribe(this.addFeature.bind(this));
