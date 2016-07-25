@@ -22,7 +22,7 @@
     "rx": "^4.1.0",
     "slash": "^1.0.0",
     "spatialconnect": "file:../spatialconnect-js",
-    "spatialconnect-form-schema": "^1.0.10",
+    "spatialconnect-form-schema": "^2.0.2",
     "tcomb-form-native": "^0.5.1",
     "tcomb-json-schema": "^0.3.0",
     "url": "^0.11.0"
