@@ -43,12 +43,12 @@ class SCForm extends Component {
         },
         properties: formData
       };
-      let f = sc.geometry('DEFAULT_STORE', this.props.formInfo.layer_name, gj);
+      let f = sc.geometry('DEFAULT_STORE', this.props.formInfo.form_key, gj);
       sc.createFeature$(f.serialize()).first().subscribe((data) => {
         Actions.formSubmitted({ feature: data.payload });
       });
     }, (error) => {
-      let f = sc.spatialFeature('DEFAULT_STORE', this.props.formInfo.layer_name, formData);
+      let f = sc.spatialFeature('DEFAULT_STORE', this.props.formInfo.form_key, formData);
       sc.createFeature$(f.serialize()).first().subscribe((data) => {
         Actions.formSubmitted({ feature: data.payload });
       });
@@ -86,7 +86,7 @@ class SCForm extends Component {
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View style={styles.formName}>
-            <Text style={styles.formNameText}>{this.props.formInfo.display_name}</Text>
+            <Text style={styles.formNameText}>{this.props.formInfo.form_label}</Text>
           </View>
           <View style={styles.form}>
             <Form

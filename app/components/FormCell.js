@@ -25,7 +25,7 @@ class FormCell extends Component {
           <View style={cellStyles.cellRow}>
             <View style={cellStyles.textContainer}>
               <Text style={cellStyles.cellName} numberOfLines={2}>
-                {this.props.form.display_name}
+                {this.props.form.form_label}
               </Text>
             </View>
           </View>
