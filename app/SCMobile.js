@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 20,
-    marginTop: (Platform.OS === 'ios') ? 12 : -12,
+    marginTop: (Platform.OS === 'ios') ? 12 : 0,
   },
   leftButtonStyle: {
 
