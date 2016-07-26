@@ -60,7 +60,7 @@ class SCMap extends Component {
   loadStoreData() {
     this.setState({ points: [], lines: [], polygons: [] }, () => {
       var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90])
-                            .limit(100);
+                            .limit(20).value();
       sc.geospatialQuery$(filter)
         .map(action => action.payload)
         .flatMap(f => {
