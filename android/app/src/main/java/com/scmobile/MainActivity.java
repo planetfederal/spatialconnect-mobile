@@ -29,6 +29,9 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
+
 public class MainActivity extends ReactActivity {
 
     /**
@@ -65,6 +68,7 @@ public class MainActivity extends ReactActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         try {
             InputStream is = getApplicationContext().getResources().openRawResource(R.raw.config);
             // write the file to the internal storage location
