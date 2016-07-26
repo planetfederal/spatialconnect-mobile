@@ -30,6 +30,7 @@ RCT_EXPORT_METHOD(reg:(RCTResponseSenderBlock)resCallback) {
 
 RCT_EXPORT_METHOD(handler:(NSDictionary *)action)
 {
+  //NSLog(@"actio %@", action);
   [scBridge handler:action responseCallback:^(NSDictionary *newAction) {
     NSString *type = action[@"responseId"] != nil ? action[@"responseId"] : action[@"type"];
     [self.bridge.eventDispatcher sendAppEventWithName:type body:newAction];

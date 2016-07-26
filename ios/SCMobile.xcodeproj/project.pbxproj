@@ -630,11 +630,11 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/ReactiveCocoa.framework",
-				"$(SRCROOT)/libgpkgios.framework",
-				"$(SRCROOT)/ZipZap.framework",
-				"$(SRCROOT)/wkb_ios.framework",
-				"$(SRCROOT)/SpatialConnect.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ReactiveCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/libgpkgios.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ZipZap.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/wkb_ios.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SpatialConnect.framework",
 			);
 			outputPaths = (
 			);
@@ -740,9 +740,9 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 29;
 				DEAD_CODE_STRIPPING = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -784,8 +784,8 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 23;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				CURRENT_PROJECT_VERSION = 29;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
