@@ -59,6 +59,8 @@ class SCMobile extends Component {
   render() {
     if (Platform.OS === 'ios') {
       StatusBar.setBarStyle('light-content', true);
+    } else {
+      StatusBar.setBackgroundColor(palette.lightblue, true);
     }
     return (
       <Provider store={store}>
@@ -125,6 +127,7 @@ const styles = StyleSheet.create({
   },
   leftButtonIconStyle: {
     tintColor: 'white',
+    marginTop: (Platform.OS === 'ios') ? 0 : -6,
   }
 });
 
