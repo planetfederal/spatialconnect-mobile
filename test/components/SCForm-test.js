@@ -10,26 +10,23 @@ import SCForm from '../../app/components/SCForm';
 let Form = t.form.Form;
 
 let mockForm = {
-  "id": 2,
-  "name": "Baseball Team",
-  "fields": [
-    {
-      "id": "a214590d-8673-420b-8bca-aa2877b45c52",
-      "type": "string",
-      "label": "Favorite?",
-      "key": "team",
-      "position": 0,
-      "form_id": 2
-    },
-    {
-      "id": "2a0d1d9b-a44c-44c2-9ea3-9ecd093d9fa6",
-      "type": "string",
-      "label": "Why?",
-      "key": "why",
-      "position": 1,
-      "form_id": 2
-    }
-  ]
+  id: 2,
+  version: 0,
+  form_key: 'baseball_team',
+  form_label: 'Baseball Team',
+  fields: [{
+    id: 13,
+    type: 'string',
+    field_label: 'Favorite?',
+    field_key: 'team',
+    position: 0
+  }, {
+    id: 14,
+    type: 'string',
+    field_label: 'Why?',
+    field_key: 'why',
+    position: 1
+  }]
 };
 
 describe('<SCForm />', () => {

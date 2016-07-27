@@ -5,7 +5,6 @@ import register from 'babel-core/register';
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import mockery from 'mockery';
-import Rx from 'rx';
 
 mockery.enable({
   warnOnReplace: false,
@@ -13,15 +12,12 @@ mockery.enable({
 });
 mockery.registerMock('react-native-router-flux', {Actions:{}});
 
-mockery.registerMock('spatialconnect/native', {
-  lastKnownLocation: () => new Rx.Subject(),
-  createFeature: () => new Rx.Subject(),
-});
+mockery.registerMock('spatialconnect/native', {});
 
 // Ignore all node_modules except these
 const modulesToCompile = [
   'react-native',
-  'react-native-router-flux',
+  //'react-native-router-flux',
   'tcomb-form-native',
   'react-native-mock'
 ].map((moduleName) => new RegExp(`/node_modules/${moduleName}`));
