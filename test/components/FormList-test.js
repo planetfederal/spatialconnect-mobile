@@ -8,10 +8,10 @@ import FormList from '../../app/components/FormList';
 
 let mockForms = [{
   id: 1,
-  name: 'Sample form'
+  form_label: 'Sample form'
 },{
   id: 2,
-  name: 'Sample form 2'
+  form_label: 'Sample form 2'
 }];
 
 describe('<FormList />', () => {

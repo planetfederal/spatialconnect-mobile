@@ -54,3 +54,6 @@ android/app/spatialconnect-release.keystore
 *.cer
 *.mobileprovision
 com_crashlytics_export_strings.xml
+
+# React Native
+ios/main.jsbundle
