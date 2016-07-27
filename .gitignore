@@ -53,3 +53,4 @@ android/app/spatialconnect-release.keystore
 *.zip
 *.cer
 *.mobileprovision
+com_crashlytics_export_strings.xml
