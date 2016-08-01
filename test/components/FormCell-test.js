@@ -8,7 +8,7 @@ import FormCell from '../../app/components/FormCell';
 
 let mockForm = {
   id: 1,
-  name: 'Sample form'
+  form_label: 'Sample form'
 };
 
 describe('<FormCell />', () => {
