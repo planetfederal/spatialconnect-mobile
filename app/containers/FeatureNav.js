@@ -4,17 +4,18 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import SCMap from '../components/SCMap';
 import FeatureData from '../components/FeatureData';
+import FeatureEdit from '../components/FeatureEdit';
 import { navStyles } from '../style/style.js';
 
-class MapNavigator extends Component {
+class FeatureNav extends Component {
   render() {
+    console.log('featureNav', this.props);
     var el;
-    if (this.props.name === 'map') {
-      el = <SCMap {...this.props} />;
-    } else if (this.props.name === 'viewFeature') {
+    if (this.props.name === 'viewFeature') {
       el = <FeatureData {...this.props} />;
+    } else if (this.props.name === 'editFeature') {
+      el = <FeatureEdit {...this.props} />;
     } else {
       el = <View />;
     }
@@ -26,7 +27,7 @@ class MapNavigator extends Component {
   }
 }
 
-MapNavigator.propTypes = {
+FeatureNav.propTypes = {
   name: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired
 };
@@ -35,4 +36,4 @@ const mapStateToProps = (state) => ({
   token: state.auth.token,
 });
 
-export default connect(mapStateToProps)(MapNavigator);
+export default connect(mapStateToProps)(FeatureNav);

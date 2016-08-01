@@ -9,6 +9,7 @@ import palette from '../style/palette';
 
 class FeatureData extends Component {
   render() {
+    console.log(this.props);
     let feature = this.props.feature;
     let metadata = [];
     if (feature.metadata) {

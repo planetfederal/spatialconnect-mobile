@@ -104,10 +104,10 @@ class SCMap extends Component {
               description={point.description}
               key={point.feature.id + idx++}
               onSelect={() => {
-                Actions.feature({feature: point.feature});
+                Actions.viewFeature({feature: point.feature});
               }}
               onCalloutPress={() => {
-                Actions.feature({feature: point.feature});
+                Actions.viewFeature({feature: point.feature});
               }}
             />
           ))}
