@@ -27,6 +27,7 @@ class FeatureData extends Component {
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.subheader}>Metadata</Text>
+        <Text>ID: {feature.id}</Text>
         {metadata}
         <Text style={styles.subheader}>Location</Text>
         {location}

@@ -12,7 +12,6 @@ import { navStyles } from '../style/style.js';
 class FormNavigator extends Component {
 
   render() {
-    console.log(this.props);
     var el;
     if (this.props.name === 'forms') {
       el = <FormList {...this.props} />;

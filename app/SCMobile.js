@@ -98,7 +98,7 @@ class SCMobile extends Component {
                   <Scene key="signUp" component={SignUpView} title="Sign Up" renderLeftButton={this.renderLeftButton} />
                 </Scene>
               </Scene>
-              <Scene key="feature" direction="vertical" duration={100}>
+              <Scene key="feature" direction="vertical" duration={100} panHandlers={null}>
                 <Scene component={requireAuth(FeatureNav)} title="Edit Feature"
                   key="editFeature"
                   leftButtonTextStyle={styles.buttonTextStyle}
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
   },
   buttonTextStyle: {
     color: 'white',
+    marginTop: 6,
   },
   icon: {
     height: 20,

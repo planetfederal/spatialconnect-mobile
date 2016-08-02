@@ -84,7 +84,7 @@ class SignUpView extends Component {
 
 SignUpView.propTypes = {
   actions: PropTypes.object.isRequired,
-  signUpError: PropTypes.string.isRequired,
+  signUpError: PropTypes.string,
   signUpSuccess: PropTypes.bool.isRequired,
   isSigningUp: PropTypes.bool.isRequired,
   signUpFormValue: PropTypes.object.isRequired

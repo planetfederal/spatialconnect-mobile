@@ -10,7 +10,6 @@ import { navStyles } from '../style/style.js';
 
 class FeatureNav extends Component {
   render() {
-    console.log('featureNav', this.props);
     var el;
     if (this.props.name === 'viewFeature') {
       el = <FeatureData {...this.props} />;

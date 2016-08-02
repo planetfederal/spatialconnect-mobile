@@ -8,10 +8,12 @@ import {
 } from 'react-native';
 import palette from '../style/palette';
 import Button from 'react-native-button';
+import MapView from 'react-native-maps';
 import { buttonStyles } from '../style/style';
 import t from 'tcomb-form-native';
 import transform from 'tcomb-json-schema';
-import { omit } from 'lodash';
+import { omit, clone, merge } from 'lodash';
+import * as sc from 'spatialconnect/native';
 
 let Form = t.form.Form;
 
@@ -20,20 +22,59 @@ class FeatureEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: {}
+      value: {},
+      coordinate: null,
+      region: null
     };
+  }
+
+  createNewFeature(feature, newProps, newCoordinate) {
+    let newFeature = clone(this.props.feature);
+    newFeature.properties = merge(newFeature.properties, newProps);
+    if (newFeature.geometry) {
+      newFeature.geometry.coordinates[0] = newCoordinate.longitude;
+      newFeature.geometry.coordinates[1] = newCoordinate.latitude;
+    }
+    return newFeature;
   }
 
   save() {
     var value = this.refs.form.getValue();
-    console.log(value);
     if (value) {
-
+      let newFeature = this.createNewFeature(this.props.feature, value, this.state.coordinate);
+      //sc.updateFeature(newFeature);
     }
   }
 
   onChange(value) {
     this.setState({value});
+  }
+
+  onRegionChange(region) {
+    this.setState({
+      region: region,
+      coordinate: { latitude: region.latitude, longitude: region.longitude}
+    });
+  }
+
+  onDragEnd(e) {
+    this.setState({ coordinate: e.nativeEvent.coordinate });
+  }
+
+  onReset() {
+    let c = {
+      latitude: this.props.feature.geometry.coordinates[1],
+      longitude: this.props.feature.geometry.coordinates[0]
+    };
+    this.setState({
+      coordinate: c,
+      region: {
+        latitude: c.latitude,
+        longitude: c.longitude,
+        latitudeDelta: 1,
+        longitudeDelta: 1,
+      }
+    });
   }
 
   componentWillMount() {
@@ -51,20 +92,46 @@ class FeatureEdit extends Component {
       this.schema.required.push(key);
       this.options.fields[key] = { label: key };
     }
-    this.setState({ value: properties });
+    let c = {
+      latitude: this.props.feature.geometry.coordinates[1],
+      longitude: this.props.feature.geometry.coordinates[0]
+    };
+    this.setState({
+      value: properties,
+      coordinate: c,
+      region: {
+        latitude: c.latitude,
+        longitude: c.longitude,
+        latitudeDelta: 1,
+        longitudeDelta: 1,
+      }
+    });
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
-        <View>
-          <Form
-            ref="form"
-            value={this.state.value}
-            type={transform(this.schema)}
-            options={this.options}
-            onChange={this.onChange.bind(this)}
-          />
+        <Form
+          ref="form"
+          value={this.state.value}
+          type={transform(this.schema)}
+          options={this.options}
+          onChange={this.onChange.bind(this)}
+        />
+        <Text style={styles.label}>Location</Text>
+        <View style={styles.mapContainer}>
+          <MapView
+            style={styles.map}
+            onRegionChange={this.onRegionChange.bind(this)}
+            region={this.state.region}>
+              <MapView.Marker
+                coordinate={this.state.coordinate}
+                key={this.props.feature.id}
+                draggable
+                onDragEnd={this.onDragEnd.bind(this)}
+              />
+          </MapView>
+          <Text style={styles.reset} onPress={this.onReset.bind(this)}>Reset</Text>
         </View>
         <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.save.bind(this)}>Save</Button>
       </ScrollView>
@@ -81,15 +148,37 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 0,
     padding: 10,
-    backgroundColor: palette.gray
+    backgroundColor: palette.gray,
   },
   subheader: {
     fontWeight: 'bold',
     marginTop: 5,
     marginBottom: 5,
   },
-  form: {
-    padding: 20
+  mapContainer: {
+    flex: 1,
+    height: 300,
+    marginBottom: 10,
+    backgroundColor: 'rgba(0,0,0,0)',
+  },
+  map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  label: {
+    fontSize: 17,
+    fontWeight: '500',
+    marginBottom: 7,
+  },
+  reset: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    fontSize: 12,
+    textDecorationLine: 'underline',
   }
 });
 
