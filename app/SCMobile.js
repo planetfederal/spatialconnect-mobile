@@ -49,7 +49,6 @@ class SCMobile extends Component {
   }
 
   renderLeftButton() {
-    console.log('renderLeftButton');
     return (
       <TouchableOpacity
         onPress={this.onLeft.bind(this)}>

@@ -9,8 +9,8 @@ import palette from '../style/palette';
 
 class FeatureData extends Component {
   render() {
-    console.log(this.props);
     let feature = this.props.feature;
+    console.log(feature);
     let metadata = [];
     if (feature.metadata) {
       for (let key in feature.metadata) {
@@ -21,9 +21,12 @@ class FeatureData extends Component {
     for (let key in feature.properties) {
       fields.push(<Text key={key}>{key}: {feature.properties[key]}</Text>);
     }
-    let location = feature.geometry ?
-      <Text>{feature.geometry.coordinates[1]}, {feature.geometry.coordinates[0]}</Text> :
-      <Text></Text>;
+    let location = null;
+    if (feature.geometry && feature.geometry.type === 'Point') {
+      location = feature.geometry ?
+        <Text>{feature.geometry.coordinates[1]}, {feature.geometry.coordinates[0]}</Text> :
+        <Text></Text>;
+    }
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.subheader}>Metadata</Text>

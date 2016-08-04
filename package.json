@@ -7,6 +7,9 @@
     "test": "mocha --compilers js:babel-core/register --require test/setup.js --recursive test/components/*.js"
   },
   "dependencies": {
+    "@turf/distance": "3.3.3",
+    "@turf/inside": "3.3.3",
+    "@turf/point-on-line": "3.3.3",
     "jwt-decode": "2.0.1",
     "react": "^15.1.0",
     "react-native": "^0.27.2",

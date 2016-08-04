@@ -17,12 +17,11 @@ import * as sc from 'spatialconnect/native';
 
 let Form = t.form.Form;
 
-
 class FeatureEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: {},
+      value: null,
       coordinate: null,
       region: null
     };
@@ -39,10 +38,15 @@ class FeatureEdit extends Component {
   }
 
   save() {
-    var value = this.refs.form.getValue();
+    if (this.state.value) {
+      var value = this.refs.form.getValue();
+    } else {
+      value = {};
+    }
     if (value) {
       let newFeature = this.createNewFeature(this.props.feature, value, this.state.coordinate);
-      //sc.updateFeature(newFeature);
+      console.log(newFeature);
+      sc.updateFeature(newFeature);
     }
   }
 
@@ -78,61 +82,68 @@ class FeatureEdit extends Component {
   }
 
   componentWillMount() {
-    this.schema = {
-      type: 'object',
-      properties: {},
-      required: []
-    };
-    this.options = {
-      fields: {}
-    };
-    let properties = omit(this.props.feature.properties, 'bbox');
-    for (let key in properties) {
-      this.schema.properties[key] = { type: 'string' };
-      this.schema.required.push(key);
-      this.options.fields[key] = { label: key };
-    }
-    let c = {
-      latitude: this.props.feature.geometry.coordinates[1],
-      longitude: this.props.feature.geometry.coordinates[0]
-    };
-    this.setState({
-      value: properties,
-      coordinate: c,
-      region: {
-        latitude: c.latitude,
-        longitude: c.longitude,
-        latitudeDelta: 1,
-        longitudeDelta: 1,
+    if (Object.keys(this.props.feature.properties).length) {
+      this.schema = {
+        type: 'object',
+        properties: {},
+        required: []
+      };
+      this.options = {
+        fields: {}
+      };
+      let properties = omit(this.props.feature.properties, 'bbox');
+      for (let key in properties) {
+        this.schema.properties[key] = { type: 'string' };
+        this.options.fields[key] = { label: key };
       }
-    });
+      this.setState({ value: properties });
+    }
+    if (this.props.feature.geometry.type === 'Point') {
+      let c = {
+        latitude: this.props.feature.geometry.coordinates[1],
+        longitude: this.props.feature.geometry.coordinates[0]
+      };
+      this.setState({
+        coordinate: c,
+        region: {
+          latitude: c.latitude,
+          longitude: c.longitude,
+          latitudeDelta: 1,
+          longitudeDelta: 1,
+        }
+      });
+    }
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
+      {this.state.value ?
         <Form
           ref="form"
           value={this.state.value}
           type={transform(this.schema)}
           options={this.options}
           onChange={this.onChange.bind(this)}
-        />
-        <Text style={styles.label}>Location</Text>
-        <View style={styles.mapContainer}>
-          <MapView
-            style={styles.map}
-            onRegionChange={this.onRegionChange.bind(this)}
-            region={this.state.region}>
-              <MapView.Marker
-                coordinate={this.state.coordinate}
-                key={this.props.feature.id}
-                draggable
-                onDragEnd={this.onDragEnd.bind(this)}
-              />
-          </MapView>
-          <Text style={styles.reset} onPress={this.onReset.bind(this)}>Reset</Text>
-        </View>
+        /> : null }
+        {this.state.coordinate ?
+          <View>
+            <Text style={styles.label}>Location</Text>
+            <View style={styles.mapContainer}>
+              <MapView
+                style={styles.map}
+                onRegionChange={this.onRegionChange.bind(this)}
+                region={this.state.region}>
+                  <MapView.Marker
+                    coordinate={this.state.coordinate}
+                    key={this.props.feature.id}
+                    draggable
+                    onDragEnd={this.onDragEnd.bind(this)}
+                  />
+              </MapView>
+              <Text style={styles.reset} onPress={this.onReset.bind(this)}>Reset</Text>
+            </View>
+          </View> : null }
         <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.save.bind(this)}>Save</Button>
       </ScrollView>
     );

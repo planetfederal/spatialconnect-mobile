@@ -13,19 +13,25 @@ import { buttonStyles } from '../style/style';
 import api from '../utils/api';
 import map from '../utils/map';
 import * as sc from 'spatialconnect/native';
+import inside from '@turf/inside';
+import pointOnLine from '@turf/point-on-line';
+import distance from '@turf/distance';
 
 class SCMap extends Component {
   constructor(props) {
     super(props);
+    this.features = [];
     this.state = {
       region: null,
       points: [],
       polygons: [],
-      lines: []
+      lines: [],
+      features: []
     };
   }
 
   addFeature(feature) {
+    this.features = this.features.concat(feature);
     switch (feature.geometry.type) {
       case 'Point':
       case 'MultiPoint': {
@@ -60,10 +66,11 @@ class SCMap extends Component {
   loadStoreData() {
     this.setState({ points: [], lines: [], polygons: [] }, () => {
       var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90])
-                            .limit(20);
+                            .limit(2);
       sc.geospatialQuery$(filter)
         .map(action => action.payload)
         .flatMap(f => {
+          console.log(f);
           return f.type === 'FeatureCollection' ?
             Rx.Observable.from(f.features) :
             Rx.Observable.from([f]);
@@ -84,6 +91,47 @@ class SCMap extends Component {
     });
   }
 
+  onMapPress(e) {
+    let c = e.nativeEvent.coordinate;
+    var point = {
+      type: 'Feature',
+      id: Math.random(),
+      geometry: {
+        type: 'Point',
+        coordinates: [c.longitude, c.latitude]
+      },
+      properties: {}
+    };
+    let intersectedFeatures = this.features.filter(f => {
+      if (f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon') {
+        return inside(point, f);
+      }
+      if (f.geometry.type === 'LineString') {
+        let nearest = pointOnLine(f, point);
+        let km = distance(nearest, point);
+        // nearest.id = Math.random();
+        // let n = map.makeCoordinates(nearest).map(c => ({
+        //   latlng: c,
+        //   title: 'nearest',
+        //   feature: nearest
+        // }));
+        // let x = map.makeCoordinates(point).map(c => ({
+        //   latlng: c,
+        //   title: 'point',
+        //   feature: point
+        // }));
+        // this.setState({ points: this.state.points.concat([n[0], x[0]]) });
+        //console.log(f, f.geometry.coordinates, point.geometry.coordinates, nearest.geometry.coordinates, km);
+        return km < 0.1;
+      }
+      return false;
+    });
+    console.log(intersectedFeatures);
+    // if (intersectedFeatures.length) {
+    //   Actions.viewFeature({feature: intersectedFeatures[0]});
+    // }
+  }
+
   render() {
     let idx = 0;
     return (
@@ -91,7 +139,7 @@ class SCMap extends Component {
         <View style={styles.mapContainer}>
         <MapView
           style={styles.map}
-          region={{
+          initialRegion={{
             latitude: 37.78825,
             longitude: -95,
             latitudeDelta: 20,
@@ -115,6 +163,7 @@ class SCMap extends Component {
             <MapView.Polygon
               key={p.feature.id + idx++}
               coordinates={p.coordinates}
+              fillColor="rgba(255,0,0,0.5)"
               strokeColor="#f00"
             />
           ))}

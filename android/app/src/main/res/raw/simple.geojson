@@ -1,0 +1,33 @@
+{
+  "id" : "2FD3E6BB-BF2E-48D1-A464-56B0C1E225AB",
+  "geometry" : {
+    "type" : "Point",
+    "coordinates" : [
+      97.03125,
+      -46.55886030311717,
+      0
+    ]
+  },
+  "bbox" : [
+    0,
+    0,
+    0,
+    0
+  ],
+  "properties" : {
+
+  },
+  "crs" : {
+    "type" : "name",
+    "properties" : {
+      "name" : "EPSG:4326"
+    }
+  },
+  "metadata" : {
+    "storeId" : "3dc5afc9-393b-444c-8581-582e2c2d98a3",
+    "layerId" : "default",
+    "client" : "87F7C7E2-D0A7-4E98-995B-BB1F22426EDD",
+    "created_at" : "2016-08-03 15:49:37 EDT"
+  },
+  "type" : "Feature"
+}
