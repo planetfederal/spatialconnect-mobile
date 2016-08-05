@@ -120,14 +120,14 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 20,
-    marginTop: (Platform.OS === 'ios') ? 12 : 0,
+    marginTop: (Platform.OS === 'ios') ? 12 : 6,
   },
   leftButtonStyle: {
 
   },
   buttonTextStyle: {
     color: 'white',
-    marginTop: 6,
+    marginTop: (Platform.OS === 'ios') ? 6 : -6,
   },
   icon: {
     height: 20,

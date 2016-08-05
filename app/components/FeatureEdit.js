@@ -14,6 +14,7 @@ import t from 'tcomb-form-native';
 import transform from 'tcomb-json-schema';
 import { omit, clone, merge } from 'lodash';
 import * as sc from 'spatialconnect/native';
+import { Actions } from 'react-native-router-flux';
 
 let Form = t.form.Form;
 
@@ -23,7 +24,8 @@ class FeatureEdit extends Component {
     this.state = {
       value: null,
       coordinate: null,
-      region: null
+      region: null,
+      dragging: false
     };
   }
 
@@ -38,15 +40,11 @@ class FeatureEdit extends Component {
   }
 
   save() {
-    if (this.state.value) {
-      var value = this.refs.form.getValue();
-    } else {
-      value = {};
-    }
+    let value = this.state.value ? this.refs.form.getValue() : {};
     if (value) {
       let newFeature = this.createNewFeature(this.props.feature, value, this.state.coordinate);
-      console.log(newFeature);
       sc.updateFeature(newFeature);
+      Actions.pop();
     }
   }
 
@@ -59,6 +57,10 @@ class FeatureEdit extends Component {
       region: region,
       coordinate: { latitude: region.latitude, longitude: region.longitude}
     });
+  }
+
+  onRegionChangeComplete() {
+    this.setState({ dragging: false });
   }
 
   onDragEnd(e) {

@@ -14,24 +14,7 @@
  */
 package com.boundlessgeo.efc;
 
-import android.content.Context;
-import android.os.Bundle;
-
-import com.boundlessgeo.spatialconnect.jsbridge.SCReactPackage;
 import com.facebook.react.ReactActivity;
-import com.imagepicker.ImagePickerPackage;
-import com.airbnb.android.react.maps.MapsPackage;
-import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
-
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends ReactActivity {
 
@@ -43,48 +26,4 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "SCMobile";
     }
-
-    /**
-     * Returns whether dev mode should be enabled.
-     * This enables e.g. the dev menu.
-     */
-    @Override
-    protected boolean getUseDeveloperSupport() {
-        return BuildConfig.DEBUG;
-    }
-
-    /**
-     * A list of packages used by the app. If the app uses additional views
-     * or modules besides the default ones, add more packages here.
-     */
-    @Override
-    protected List<ReactPackage> getPackages() {
-        return Arrays.asList(
-            new MainReactPackage(),
-            new ImagePickerPackage(),
-            new MapsPackage(this),
-            new SCReactPackage()
-        );
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
-        try {
-            InputStream is = getApplicationContext().getResources().openRawResource(R.raw.config);
-            // write the file to the internal storage location
-            FileOutputStream fos = getApplicationContext().openFileOutput("config.scfg", Context.MODE_PRIVATE);
-            byte[] data = new byte[is.available()];
-            is.read(data);
-            fos.write(data);
-            is.close();
-            fos.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 }

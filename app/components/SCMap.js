@@ -13,9 +13,6 @@ import { buttonStyles } from '../style/style';
 import api from '../utils/api';
 import map from '../utils/map';
 import * as sc from 'spatialconnect/native';
-import inside from '@turf/inside';
-import pointOnLine from '@turf/point-on-line';
-import distance from '@turf/distance';
 
 class SCMap extends Component {
   constructor(props) {
@@ -70,7 +67,6 @@ class SCMap extends Component {
       sc.geospatialQuery$(filter)
         .map(action => action.payload)
         .flatMap(f => {
-          console.log(f);
           return f.type === 'FeatureCollection' ?
             Rx.Observable.from(f.features) :
             Rx.Observable.from([f]);
@@ -89,47 +85,6 @@ class SCMap extends Component {
         .filter(f => f.geometry)
         .subscribe(this.addFeature.bind(this));
     });
-  }
-
-  onMapPress(e) {
-    let c = e.nativeEvent.coordinate;
-    var point = {
-      type: 'Feature',
-      id: Math.random(),
-      geometry: {
-        type: 'Point',
-        coordinates: [c.longitude, c.latitude]
-      },
-      properties: {}
-    };
-    let intersectedFeatures = this.features.filter(f => {
-      if (f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon') {
-        return inside(point, f);
-      }
-      if (f.geometry.type === 'LineString') {
-        let nearest = pointOnLine(f, point);
-        let km = distance(nearest, point);
-        // nearest.id = Math.random();
-        // let n = map.makeCoordinates(nearest).map(c => ({
-        //   latlng: c,
-        //   title: 'nearest',
-        //   feature: nearest
-        // }));
-        // let x = map.makeCoordinates(point).map(c => ({
-        //   latlng: c,
-        //   title: 'point',
-        //   feature: point
-        // }));
-        // this.setState({ points: this.state.points.concat([n[0], x[0]]) });
-        //console.log(f, f.geometry.coordinates, point.geometry.coordinates, nearest.geometry.coordinates, km);
-        return km < 0.1;
-      }
-      return false;
-    });
-    console.log(intersectedFeatures);
-    // if (intersectedFeatures.length) {
-    //   Actions.viewFeature({feature: intersectedFeatures[0]});
-    // }
   }
 
   render() {
