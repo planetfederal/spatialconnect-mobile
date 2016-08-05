@@ -14,7 +14,17 @@
  */
 package com.boundlessgeo.efc;
 
+import android.content.Context;
+import android.os.Bundle;
+
+import com.crashlytics.android.Crashlytics;
 import com.facebook.react.ReactActivity;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends ReactActivity {
 
@@ -25,5 +35,25 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "SCMobile";
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
+        try {
+            InputStream is = getApplicationContext().getResources().openRawResource(R.raw.config);
+            // write the file to the internal storage location
+            FileOutputStream fos = getApplicationContext().openFileOutput("config.scfg", Context.MODE_PRIVATE);
+            byte[] data = new byte[is.available()];
+            is.read(data);
+            fos.write(data);
+            is.close();
+            fos.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
