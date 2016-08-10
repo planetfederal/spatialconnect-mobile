@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
+  Platform,
   StyleSheet,
   View
 } from 'react-native';
@@ -62,8 +63,7 @@ class SCMap extends Component {
 
   loadStoreData() {
     this.setState({ points: [], lines: [], polygons: [] }, () => {
-      var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90])
-                            .limit(2);
+      var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90]).limit(2);
       sc.geospatialQuery$(filter)
         .map(action => action.payload)
         .flatMap(f => {
@@ -94,12 +94,17 @@ class SCMap extends Component {
         <View style={styles.mapContainer}>
         <MapView
           style={styles.map}
+          mapType={Platform.OS === 'ios' ? 'standard' : 'none'}
           initialRegion={{
             latitude: 37.78825,
             longitude: -95,
             latitudeDelta: 20,
             longitudeDelta: 70,
           }}>
+            <MapView.UrlTile
+               urlTemplate="http://a.tile.osm.org/{z}/{x}/{y}.png"
+               zIndex={-1}
+             />
           {this.state.points.map(point => (
             <MapView.Marker
               coordinate={point.latlng}
