@@ -15,8 +15,6 @@ import t from 'tcomb-form-native';
 import { navStyles, buttonStyles } from '../style/style';
 
 let Form = t.form.Form;
-t.form.Form.stylesheet.textbox.normal.backgroundColor = '#ffffff';
-t.form.Form.stylesheet.textbox.error.backgroundColor = '#ffffff';
 var SignUp = t.struct({
   name: t.String,
   email: t.String,
@@ -39,7 +37,7 @@ var options = {
   }
 };
 
-class SignUpView extends Component {
+export class SignUpView extends Component {
 
   onPress() {
     var value = this.refs.form.getValue();

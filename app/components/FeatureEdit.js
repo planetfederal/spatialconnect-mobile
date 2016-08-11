@@ -9,12 +9,12 @@ import {
 import palette from '../style/palette';
 import Button from 'react-native-button';
 import MapView from 'react-native-maps';
-import { buttonStyles } from '../style/style';
 import t from 'tcomb-form-native';
 import transform from 'tcomb-json-schema';
-import { omit, clone, merge } from 'lodash';
 import * as sc from 'spatialconnect/native';
+import { omit, clone, merge } from 'lodash';
 import { Actions } from 'react-native-router-flux';
+import { buttonStyles } from '../style/style';
 
 let Form = t.form.Form;
 

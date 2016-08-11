@@ -1,5 +1,4 @@
 {
-  "presets": [
-    "react-native"
-  ]
+  "presets": ["react-native"],
+  "plugins": ["transform-regenerator", "transform-object-rest-spread"]
 }

@@ -1,15 +1,31 @@
 {
-  "name": "EFCMobile",
+  "name": "SCMobile",
   "version": "0.5.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "mocha --compilers js:babel-core/register --require test/setup.js --recursive test/components/*.js"
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-react-native",
+    "setupFiles": ["./test-setup.js"],
+    "preprocessorIgnorePatterns": [
+      "node_modules/(?!react-native|react-clone-referenced-element|tcomb-form-native|spatialconnect-form-schema|react-native-slider|react-native-button)"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ios.js"
+    ],
+    "moduleNameMapper": {
+      "^image![a-zA-Z0-9$_-]+$": "GlobalImageStub",
+      "^[./a-zA-Z0-9$_-]+\\.png$": "RelativeImageStub"
+    }
   },
   "dependencies": {
     "jwt-decode": "2.0.1",
-    "react": "^15.1.0",
-    "react-native": "0.29.2",
+    "react": "15.3.0-rc.3",
+    "react-native": "0.30.0",
     "react-native-button": "^1.6.0",
     "react-native-drawer": "^2.2.3",
     "react-native-image-picker": "0.21.2",
@@ -30,7 +46,9 @@
   },
   "devDependencies": {
     "babel": "6.5.2",
+    "babel-jest": "14.1.0",
     "babel-plugin-rewire": "^1.0.0-rc-3",
+    "babel-plugin-transform-object-rest-spread": "6.8.0",
     "babel-polyfill": "6.9.1",
     "babel-preset-react-native": "1.9.0",
     "chai": "^3.5.0",
@@ -38,13 +56,15 @@
     "enzyme": "^2.2.0",
     "eslint": "^2.7.0",
     "eslint-plugin-react": "^4.3.0",
+    "jest": "14.1.0",
+    "jest-react-native": "14.1.2",
     "jsdom": "^8.4.1",
     "mocha": "^2.4.5",
     "mock-browser": "^0.92.11",
     "mockery": "^1.6.2",
     "react-addons-test-utils": "^0.14.6",
-    "react-dom": "^0.14.8",
     "react-native-mock": "^0.2.3",
+    "react-test-renderer": "15.3.0",
     "should": "9.0.2",
     "sinon": "^1.17.3"
   }

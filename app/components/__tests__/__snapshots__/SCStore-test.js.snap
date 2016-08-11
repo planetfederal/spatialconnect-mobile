@@ -1,0 +1,29 @@
+exports[`<SCStore /> renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#e4e7ec",
+      "flex": 1,
+      "marginTop": 0,
+      "padding": 10
+    }
+  }>
+  <Text
+    numberOfLines={1}>
+    Name: 
+    gj1
+  </Text>
+  <Text
+    numberOfLines={1}>
+    Type: 
+  </Text>
+  <Text
+    numberOfLines={1}>
+    Service: 
+  </Text>
+  <Text
+    numberOfLines={0}>
+    ID: 
+  </Text>
+</View>
+`;

@@ -1,0 +1,57 @@
+exports[`<FormCell /> renders correctly 1`] = `
+<View>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function bound touchableHandleResponderGrant]}
+    onResponderMove={[Function bound touchableHandleResponderMove]}
+    onResponderRelease={[Function bound touchableHandleResponderRelease]}
+    onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+    onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+    onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent"
+        },
+        undefined
+      ]
+    }
+    testID={undefined}>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "white",
+          "flexDirection": "row",
+          "padding": 10
+        }
+      }>
+      <View
+        style={
+          Object {
+            "flex": 1
+          }
+        }>
+        <Text
+          numberOfLines={2}
+          style={
+            Object {
+              "color": "black",
+              "flex": 1,
+              "fontSize": 18,
+              "fontWeight": "500",
+              "marginBottom": 2
+            }
+          }>
+          Weed Inspector
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
