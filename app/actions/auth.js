@@ -45,6 +45,7 @@ export function signUpUser(form) {
     dispatch(signUpUserRequest());
     return api.signUp(form)
       .then(body => {
+        console.log('body', body);
         if (body.success) {
           dispatch(signUpUserSuccess());
         } else {
