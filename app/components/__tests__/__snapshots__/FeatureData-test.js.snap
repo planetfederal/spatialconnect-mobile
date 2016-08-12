@@ -1,0 +1,71 @@
+exports[`<FeatureData /> renders correctly 1`] = `
+<ScrollView
+  style={
+    Object {
+      "backgroundColor": "#e4e7ec",
+      "flex": 1,
+      "marginTop": 0,
+      "padding": 10
+    }
+  }>
+  <Text
+    style={
+      Object {
+        "fontWeight": "bold",
+        "marginBottom": 5,
+        "marginTop": 5
+      }
+    }>
+    Metadata
+  </Text>
+  <Text>
+    ID: 
+    (null).REVGQVVMVF9TVE9SRS1CRDhDOUE5OC1DODg5LTQyNUYtQkY5Ni1EQ0IxNzE2NEM4Q0M=.NQ==
+  </Text>
+  <Text>
+    created_at
+    : 
+    2016-06-17 14:30:52 EDT
+  </Text>
+  <Text>
+    client
+    : 
+    BD8C9A98-C889-425F-BF96-DCB17164C8CC
+  </Text>
+  <Text
+    style={
+      Object {
+        "fontWeight": "bold",
+        "marginBottom": 5,
+        "marginTop": 5
+      }
+    }>
+    Location
+  </Text>
+  <Text>
+    38.35388793147947
+    , 
+    -75.61079864397236
+  </Text>
+  <Text
+    style={
+      Object {
+        "fontWeight": "bold",
+        "marginBottom": 5,
+        "marginTop": 5
+      }
+    }>
+    Properties
+  </Text>
+  <Text>
+    team
+    : 
+    O\'s
+  </Text>
+  <Text>
+    why
+    : 
+    testing
+  </Text>
+</ScrollView>
+`;

@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
+  Platform,
   StyleSheet,
   View
 } from 'react-native';
@@ -17,15 +18,18 @@ import * as sc from 'spatialconnect/native';
 class SCMap extends Component {
   constructor(props) {
     super(props);
+    this.features = [];
     this.state = {
       region: null,
       points: [],
       polygons: [],
-      lines: []
+      lines: [],
+      features: []
     };
   }
 
   addFeature(feature) {
+    this.features = this.features.concat(feature);
     switch (feature.geometry.type) {
       case 'Point':
       case 'MultiPoint': {
@@ -59,8 +63,7 @@ class SCMap extends Component {
 
   loadStoreData() {
     this.setState({ points: [], lines: [], polygons: [] }, () => {
-      var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90])
-                            .limit(20);
+      var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90]).limit(2);
       sc.geospatialQuery$(filter)
         .map(action => action.payload)
         .flatMap(f => {
@@ -91,12 +94,17 @@ class SCMap extends Component {
         <View style={styles.mapContainer}>
         <MapView
           style={styles.map}
-          region={{
+          mapType={Platform.OS === 'ios' ? 'standard' : 'none'}
+          initialRegion={{
             latitude: 37.78825,
             longitude: -95,
             latitudeDelta: 20,
             longitudeDelta: 70,
           }}>
+            <MapView.UrlTile
+               urlTemplate="http://a.tile.osm.org/{z}/{x}/{y}.png"
+               zIndex={-1}
+             />
           {this.state.points.map(point => (
             <MapView.Marker
               coordinate={point.latlng}
@@ -104,10 +112,10 @@ class SCMap extends Component {
               description={point.description}
               key={point.feature.id + idx++}
               onSelect={() => {
-                Actions.feature({feature: point.feature});
+                Actions.viewFeature({feature: point.feature});
               }}
               onCalloutPress={() => {
-                Actions.feature({feature: point.feature});
+                Actions.viewFeature({feature: point.feature});
               }}
             />
           ))}
@@ -115,6 +123,7 @@ class SCMap extends Component {
             <MapView.Polygon
               key={p.feature.id + idx++}
               coordinates={p.coordinates}
+              fillColor="rgba(255,0,0,0.5)"
               strokeColor="#f00"
             />
           ))}

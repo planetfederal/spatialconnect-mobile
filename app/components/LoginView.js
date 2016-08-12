@@ -15,8 +15,7 @@ import * as sc from 'spatialconnect/native';
 import { navStyles, buttonStyles } from '../style/style';
 
 let Form = t.form.Form;
-t.form.Form.stylesheet.textbox.normal.backgroundColor = '#ffffff';
-t.form.Form.stylesheet.textbox.error.backgroundColor = '#ffffff';
+
 var Login = t.struct({
   email: t.String,
   password: t.String
@@ -35,7 +34,7 @@ var options = {
   }
 };
 
-class LoginView extends Component {
+export class LoginView extends Component {
 
   onPress() {
     var value = this.refs.form.getValue();

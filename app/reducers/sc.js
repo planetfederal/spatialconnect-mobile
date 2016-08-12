@@ -8,7 +8,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case sc.Commands.DATASERVICE_FORMSLIST:
+    case sc.Commands.DATASERVICE_FORMLIST:
       return {
         ...state,
         forms: action.payload.forms

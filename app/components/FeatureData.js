@@ -20,12 +20,16 @@ class FeatureData extends Component {
     for (let key in feature.properties) {
       fields.push(<Text key={key}>{key}: {feature.properties[key]}</Text>);
     }
-    let location = feature.geometry ?
-      <Text>{feature.geometry.coordinates[1]}, {feature.geometry.coordinates[0]}</Text> :
-      <Text></Text>;
+    let location = null;
+    if (feature.geometry && feature.geometry.type === 'Point') {
+      location = feature.geometry ?
+        <Text>{feature.geometry.coordinates[1]}, {feature.geometry.coordinates[0]}</Text> :
+        <Text></Text>;
+    }
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.subheader}>Metadata</Text>
+        <Text>ID: {feature.id}</Text>
         {metadata}
         <Text style={styles.subheader}>Location</Text>
         {location}

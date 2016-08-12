@@ -15,11 +15,12 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
-import { Scene, Router, Actions } from 'react-native-router-flux';
+import { Modal, Scene, Router, Actions } from 'react-native-router-flux';
 import { connectSC } from './actions/sc';
 import { requireAuth } from './containers/AuthComponent';
 import LoginView from './components/LoginView';
 import SignUpView from './components/SignUpView';
+import FeatureNav from './containers/FeatureNav';
 import SCDrawer from './containers/SCDrawer';
 import FormNavigator from './containers/FormNavigator';
 import StoreNavigator from './containers/StoreNavigator';
@@ -36,6 +37,7 @@ const store = createStore(
 class SCMobile extends Component {
   constructor(props) {
     super(props);
+    this.renderLeftButton = this.renderLeftButton.bind(this);
   }
 
   componentWillMount() {
@@ -68,30 +70,39 @@ class SCMobile extends Component {
           navigationBarStyle={styles.navBar}
           titleStyle={styles.title}
           leftButtonIconStyle={styles.leftButtonIconStyle}
-          renderLeftButton={this.renderLeftButton.bind(this)}
-          duration={250}
-          >
-          <Scene key="root" hideNavBar hideTabBar>
-            <Scene key="drawer" component={SCDrawer} open={false} initial={true}>
-              <Scene key="main" tabs={true}>
-                <Scene key="formNav" title="Form List">
-                  <Scene key="forms" component={requireAuth(FormNavigator)} title="Forms"/>
-                  <Scene key="form" component={requireAuth(FormNavigator)} title=""/>
-                  <Scene key="formSubmitted" component={requireAuth(FormNavigator)} title="Form Submitted"/>
+          duration={250}>
+          <Scene key="modal" component={Modal}>
+            <Scene key="root" hideNavBar hideTabBar>
+              <Scene key="drawer" component={SCDrawer} open={false} initial={true}>
+                <Scene key="main" tabs={true}>
+                  <Scene key="formNav" title="Form List">
+                    <Scene key="forms" title="Forms" component={requireAuth(FormNavigator)} renderLeftButton={this.renderLeftButton} />
+                    <Scene key="form" title="" component={requireAuth(FormNavigator)} renderLeftButton={this.renderLeftButton}  />
+                    <Scene key="formSubmitted" title="Form Submitted" component={requireAuth(FormNavigator)} renderLeftButton={this.renderLeftButton} />
+                  </Scene>
+                  <Scene key="storeNav" title="Store List">
+                    <Scene key="stores" component={requireAuth(StoreNavigator)} title="Stores"  renderLeftButton={this.renderLeftButton}/>
+                    <Scene key="store" component={requireAuth(StoreNavigator)} title="" renderLeftButton={this.renderLeftButton} />
+                  </Scene>
+                  <Scene key="mapNav" title="Store List">
+                    <Scene key="map" component={requireAuth(MapNavigator)} title="Map" renderLeftButton={this.renderLeftButton} />
+                    <Scene key="viewFeature" component={requireAuth(MapNavigator)} title="Feature" renderLeftButton={this.renderLeftButton}
+                      rightTitle="Edit" rightButtonTextStyle={styles.buttonTextStyle}
+                      onRight={ props => Actions.feature({feature: props.feature}) } />
+                  </Scene>
+                  <Scene key="testNav" title="Tests">
+                    <Scene key="test" component={requireAuth(TestNavigator)} title="Tests" renderLeftButton={this.renderLeftButton} />
+                  </Scene>
+                  <Scene key="login" component={LoginView} title="Login" renderLeftButton={this.renderLeftButton} />
+                  <Scene key="signUp" component={SignUpView} title="Sign Up" renderLeftButton={this.renderLeftButton} />
                 </Scene>
-                <Scene key="storeNav" title="Store List">
-                  <Scene key="stores" component={requireAuth(StoreNavigator)} title="Stores"/>
-                  <Scene key="store" component={requireAuth(StoreNavigator)} title=""/>
-                </Scene>
-                <Scene key="mapNav" title="Store List">
-                  <Scene key="map" component={requireAuth(MapNavigator)} title="Map"/>
-                  <Scene key="feature" component={requireAuth(MapNavigator)} title="Feature Data"/>
-                </Scene>
-                <Scene key="testNav" title="Tests">
-                  <Scene key="test" component={requireAuth(TestNavigator)} title="Tests"/>
-                </Scene>
-                <Scene key="login" component={LoginView} title="Login"/>
-                <Scene key="signUp" component={SignUpView} title="Sign Up"/>
+              </Scene>
+              <Scene key="feature" direction="vertical" duration={100} panHandlers={null}>
+                <Scene component={requireAuth(FeatureNav)} title="Edit Feature"
+                  key="editFeature"
+                  leftButtonTextStyle={styles.buttonTextStyle}
+                  leftTitle="Cancel"
+                  onLeft={() => Actions.pop() } />
               </Scene>
             </Scene>
           </Scene>
@@ -109,14 +120,14 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: 20,
-    marginTop: (Platform.OS === 'ios') ? 12 : 0,
+    marginTop: (Platform.OS === 'ios') ? 12 : 6,
   },
   leftButtonStyle: {
 
   },
-  leftButtonTextStyle: {
+  buttonTextStyle: {
     color: 'white',
-    fontSize: 28,
+    marginTop: (Platform.OS === 'ios') ? 6 : -6,
   },
   icon: {
     height: 20,

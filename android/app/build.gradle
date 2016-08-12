@@ -139,7 +139,7 @@ android {
 
 dependencies {
     compile project(':react-native-image-picker')
-    compile 'com.airbnb.android:react-native-maps:0.6.0'
+    compile 'com.boundlessgeo.react-native-maps:lib:0.7.2'
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules

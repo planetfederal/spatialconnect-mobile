@@ -1,0 +1,534 @@
+exports[`<SignUpView /> renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#e4e7ec",
+      "flex": 1,
+      "justifyContent": "flex-start",
+      "marginTop": 65
+    }
+  }>
+  <View
+    style={
+      Object {
+        "padding": 20
+      }
+    }>
+    <View>
+      <View
+        style={Object {}}>
+        <View
+          style={
+            Object {
+              "marginBottom": 10
+            }
+          }>
+          <Text
+            style={
+              Object {
+                "color": "#000000",
+                "fontSize": 17,
+                "fontWeight": "500",
+                "marginBottom": 7
+              }
+            }>
+            Name
+          </Text>
+          <TextInput
+            accessibilityLabel="Name"
+            autoCapitalize="none"
+            autoCorrect={undefined}
+            autoFocus={undefined}
+            blurOnSubmit={undefined}
+            clearButtonMode={undefined}
+            clearTextOnFocus={undefined}
+            editable={undefined}
+            enablesReturnKeyAutomatically={undefined}
+            keyboardAppearance={undefined}
+            keyboardType={undefined}
+            maxLength={undefined}
+            multiline={undefined}
+            numberOfLines={undefined}
+            onBlur={undefined}
+            onChange={undefined}
+            onChangeText={[Function onChangeText]}
+            onEndEditing={undefined}
+            onFocus={undefined}
+            onKeyPress={undefined}
+            onLayout={undefined}
+            onSelectionChange={undefined}
+            onSubmitEditing={undefined}
+            placeholder={undefined}
+            placeholderTextColor={undefined}
+            returnKeyType={undefined}
+            secureTextEntry={undefined}
+            selectTextOnFocus={undefined}
+            selectionColor={undefined}
+            selectionState={undefined}
+            style={
+              Object {
+                "borderColor": "#cccccc",
+                "borderRadius": 4,
+                "borderWidth": 1,
+                "color": "#000000",
+                "fontSize": 17,
+                "height": 36,
+                "marginBottom": 5,
+                "padding": 7
+              }
+            }
+            underlineColorAndroid={undefined}
+            value="" />
+        </View>
+        <View
+          style={
+            Object {
+              "marginBottom": 10
+            }
+          }>
+          <Text
+            style={
+              Object {
+                "color": "#000000",
+                "fontSize": 17,
+                "fontWeight": "500",
+                "marginBottom": 7
+              }
+            }>
+            Email
+          </Text>
+          <TextInput
+            accessibilityLabel="Email"
+            autoCapitalize="none"
+            autoCorrect={undefined}
+            autoFocus={undefined}
+            blurOnSubmit={undefined}
+            clearButtonMode={undefined}
+            clearTextOnFocus={undefined}
+            editable={undefined}
+            enablesReturnKeyAutomatically={undefined}
+            keyboardAppearance={undefined}
+            keyboardType={undefined}
+            maxLength={undefined}
+            multiline={undefined}
+            numberOfLines={undefined}
+            onBlur={undefined}
+            onChange={undefined}
+            onChangeText={[Function onChangeText]}
+            onEndEditing={undefined}
+            onFocus={undefined}
+            onKeyPress={undefined}
+            onLayout={undefined}
+            onSelectionChange={undefined}
+            onSubmitEditing={undefined}
+            placeholder={undefined}
+            placeholderTextColor={undefined}
+            returnKeyType={undefined}
+            secureTextEntry={undefined}
+            selectTextOnFocus={undefined}
+            selectionColor={undefined}
+            selectionState={undefined}
+            style={
+              Object {
+                "borderColor": "#cccccc",
+                "borderRadius": 4,
+                "borderWidth": 1,
+                "color": "#000000",
+                "fontSize": 17,
+                "height": 36,
+                "marginBottom": 5,
+                "padding": 7
+              }
+            }
+            underlineColorAndroid={undefined}
+            value="" />
+        </View>
+        <View
+          style={
+            Object {
+              "marginBottom": 10
+            }
+          }>
+          <Text
+            style={
+              Object {
+                "color": "#000000",
+                "fontSize": 17,
+                "fontWeight": "500",
+                "marginBottom": 7
+              }
+            }>
+            Password
+          </Text>
+          <TextInput
+            accessibilityLabel="Password"
+            autoCapitalize="none"
+            autoCorrect={undefined}
+            autoFocus={undefined}
+            blurOnSubmit={undefined}
+            clearButtonMode={undefined}
+            clearTextOnFocus={undefined}
+            editable={undefined}
+            enablesReturnKeyAutomatically={undefined}
+            keyboardAppearance={undefined}
+            keyboardType={undefined}
+            maxLength={undefined}
+            multiline={undefined}
+            numberOfLines={undefined}
+            onBlur={undefined}
+            onChange={undefined}
+            onChangeText={[Function onChangeText]}
+            onEndEditing={undefined}
+            onFocus={undefined}
+            onKeyPress={undefined}
+            onLayout={undefined}
+            onSelectionChange={undefined}
+            onSubmitEditing={undefined}
+            placeholder={undefined}
+            placeholderTextColor={undefined}
+            returnKeyType={undefined}
+            secureTextEntry={true}
+            selectTextOnFocus={undefined}
+            selectionColor={undefined}
+            selectionState={undefined}
+            style={
+              Object {
+                "borderColor": "#cccccc",
+                "borderRadius": 4,
+                "borderWidth": 1,
+                "color": "#000000",
+                "fontSize": 17,
+                "height": 36,
+                "marginBottom": 5,
+                "padding": 7
+              }
+            }
+            underlineColorAndroid={undefined}
+            value="" />
+        </View>
+      </View>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hitSlop={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+        style={
+          Object {
+            "alignSelf": "stretch",
+            "backgroundColor": "#35507D",
+            "borderColor": "#35507D",
+            "borderRadius": 5,
+            "borderWidth": 1,
+            "height": 36,
+            "justifyContent": "center",
+            "margin": 0,
+            "marginBottom": 10,
+            "opacity": 1,
+            "padding": 5
+          }
+        }
+        testID={undefined}>
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#007aff",
+                "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                "fontSize": 17,
+                "fontWeight": "bold",
+                "textAlign": "center"
+              },
+              null,
+              Object {
+                "alignSelf": "center",
+                "color": "white",
+                "fontSize": 16
+              },
+              null
+            ]
+          }>
+          Sign Up
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<SignUpView /> shows sign up error 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#e4e7ec",
+      "flex": 1,
+      "justifyContent": "flex-start",
+      "marginTop": 65
+    }
+  }>
+  <View
+    style={
+      Object {
+        "padding": 20
+      }
+    }>
+    <View>
+      <Text>
+        Error
+      </Text>
+    </View>
+    <View>
+      <View
+        style={Object {}}>
+        <View
+          style={
+            Object {
+              "marginBottom": 10
+            }
+          }>
+          <Text
+            style={
+              Object {
+                "color": "#000000",
+                "fontSize": 17,
+                "fontWeight": "500",
+                "marginBottom": 7
+              }
+            }>
+            Name
+          </Text>
+          <TextInput
+            accessibilityLabel="Name"
+            autoCapitalize="none"
+            autoCorrect={undefined}
+            autoFocus={undefined}
+            blurOnSubmit={undefined}
+            clearButtonMode={undefined}
+            clearTextOnFocus={undefined}
+            editable={undefined}
+            enablesReturnKeyAutomatically={undefined}
+            keyboardAppearance={undefined}
+            keyboardType={undefined}
+            maxLength={undefined}
+            multiline={undefined}
+            numberOfLines={undefined}
+            onBlur={undefined}
+            onChange={undefined}
+            onChangeText={[Function onChangeText]}
+            onEndEditing={undefined}
+            onFocus={undefined}
+            onKeyPress={undefined}
+            onLayout={undefined}
+            onSelectionChange={undefined}
+            onSubmitEditing={undefined}
+            placeholder={undefined}
+            placeholderTextColor={undefined}
+            returnKeyType={undefined}
+            secureTextEntry={undefined}
+            selectTextOnFocus={undefined}
+            selectionColor={undefined}
+            selectionState={undefined}
+            style={
+              Object {
+                "borderColor": "#cccccc",
+                "borderRadius": 4,
+                "borderWidth": 1,
+                "color": "#000000",
+                "fontSize": 17,
+                "height": 36,
+                "marginBottom": 5,
+                "padding": 7
+              }
+            }
+            underlineColorAndroid={undefined}
+            value="" />
+        </View>
+        <View
+          style={
+            Object {
+              "marginBottom": 10
+            }
+          }>
+          <Text
+            style={
+              Object {
+                "color": "#000000",
+                "fontSize": 17,
+                "fontWeight": "500",
+                "marginBottom": 7
+              }
+            }>
+            Email
+          </Text>
+          <TextInput
+            accessibilityLabel="Email"
+            autoCapitalize="none"
+            autoCorrect={undefined}
+            autoFocus={undefined}
+            blurOnSubmit={undefined}
+            clearButtonMode={undefined}
+            clearTextOnFocus={undefined}
+            editable={undefined}
+            enablesReturnKeyAutomatically={undefined}
+            keyboardAppearance={undefined}
+            keyboardType={undefined}
+            maxLength={undefined}
+            multiline={undefined}
+            numberOfLines={undefined}
+            onBlur={undefined}
+            onChange={undefined}
+            onChangeText={[Function onChangeText]}
+            onEndEditing={undefined}
+            onFocus={undefined}
+            onKeyPress={undefined}
+            onLayout={undefined}
+            onSelectionChange={undefined}
+            onSubmitEditing={undefined}
+            placeholder={undefined}
+            placeholderTextColor={undefined}
+            returnKeyType={undefined}
+            secureTextEntry={undefined}
+            selectTextOnFocus={undefined}
+            selectionColor={undefined}
+            selectionState={undefined}
+            style={
+              Object {
+                "borderColor": "#cccccc",
+                "borderRadius": 4,
+                "borderWidth": 1,
+                "color": "#000000",
+                "fontSize": 17,
+                "height": 36,
+                "marginBottom": 5,
+                "padding": 7
+              }
+            }
+            underlineColorAndroid={undefined}
+            value="" />
+        </View>
+        <View
+          style={
+            Object {
+              "marginBottom": 10
+            }
+          }>
+          <Text
+            style={
+              Object {
+                "color": "#000000",
+                "fontSize": 17,
+                "fontWeight": "500",
+                "marginBottom": 7
+              }
+            }>
+            Password
+          </Text>
+          <TextInput
+            accessibilityLabel="Password"
+            autoCapitalize="none"
+            autoCorrect={undefined}
+            autoFocus={undefined}
+            blurOnSubmit={undefined}
+            clearButtonMode={undefined}
+            clearTextOnFocus={undefined}
+            editable={undefined}
+            enablesReturnKeyAutomatically={undefined}
+            keyboardAppearance={undefined}
+            keyboardType={undefined}
+            maxLength={undefined}
+            multiline={undefined}
+            numberOfLines={undefined}
+            onBlur={undefined}
+            onChange={undefined}
+            onChangeText={[Function onChangeText]}
+            onEndEditing={undefined}
+            onFocus={undefined}
+            onKeyPress={undefined}
+            onLayout={undefined}
+            onSelectionChange={undefined}
+            onSubmitEditing={undefined}
+            placeholder={undefined}
+            placeholderTextColor={undefined}
+            returnKeyType={undefined}
+            secureTextEntry={true}
+            selectTextOnFocus={undefined}
+            selectionColor={undefined}
+            selectionState={undefined}
+            style={
+              Object {
+                "borderColor": "#cccccc",
+                "borderRadius": 4,
+                "borderWidth": 1,
+                "color": "#000000",
+                "fontSize": 17,
+                "height": 36,
+                "marginBottom": 5,
+                "padding": 7
+              }
+            }
+            underlineColorAndroid={undefined}
+            value="" />
+        </View>
+      </View>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hitSlop={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+        style={
+          Object {
+            "alignSelf": "stretch",
+            "backgroundColor": "#35507D",
+            "borderColor": "#35507D",
+            "borderRadius": 5,
+            "borderWidth": 1,
+            "height": 36,
+            "justifyContent": "center",
+            "margin": 0,
+            "marginBottom": 10,
+            "opacity": 1,
+            "padding": 5
+          }
+        }
+        testID={undefined}>
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#007aff",
+                "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                "fontSize": 17,
+                "fontWeight": "bold",
+                "textAlign": "center"
+              },
+              null,
+              Object {
+                "alignSelf": "center",
+                "color": "white",
+                "fontSize": 16
+              },
+              null
+            ]
+          }>
+          Sign Up
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

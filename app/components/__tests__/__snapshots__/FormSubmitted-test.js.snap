@@ -1,0 +1,22 @@
+exports[`<FormSubmitted /> renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#e4e7ec",
+      "flex": 1,
+      "marginTop": 0,
+      "padding": 10
+    }
+  }>
+  <Text
+    style={
+      Object {
+        "fontWeight": "bold",
+        "marginBottom": 5,
+        "marginTop": 5
+      }
+    }>
+    Form submitted.
+  </Text>
+</View>
+`;
