@@ -97,6 +97,7 @@
     style.strokeWidth = 2;
 
     [sc startAllServices];
+    [sc.sensorService enableGPS];
   }
 }
 
