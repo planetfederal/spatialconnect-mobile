@@ -1,8 +1,6 @@
 package com.boundlessgeo.efc;
 
 import android.app.Application;
-import android.os.Bundle;
-import android.content.Context;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
@@ -13,12 +11,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.boundlessgeo.spatialconnect.jsbridge.SCReactPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 

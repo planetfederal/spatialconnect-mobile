@@ -43,9 +43,9 @@ exports[`<FeatureData /> renders correctly 1`] = `
     Location
   </Text>
   <Text>
-    38.35388793147947
+    <undefined />
     , 
-    -75.61079864397236
+    <undefined />
   </Text>
   <Text
     style={
