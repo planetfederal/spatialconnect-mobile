@@ -1,9 +1,11 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
+  View,
 } from 'react-native';
 import palette from '../style/palette';
 
@@ -18,7 +20,12 @@ class FeatureData extends Component {
     }
     let fields = [];
     for (let key in feature.properties) {
-      fields.push(<Text key={key}>{key}: {feature.properties[key]}</Text>);
+      if (feature.properties[key].indexOf('data:image/jpeg;base64') >= 0) {
+        fields.push(<Text key={key}>{key}:</Text>);
+        fields.push(<Image key={key+'_img'} style={styles.base64} source={{uri: feature.properties[key]}} />);
+      } else {
+        fields.push(<Text key={key}>{key}: {feature.properties[key]}</Text>);
+      }
     }
     let location = null;
     if (feature.geometry && feature.geometry.type === 'Point') {
@@ -34,7 +41,9 @@ class FeatureData extends Component {
         <Text style={styles.subheader}>Location</Text>
         {location}
         <Text style={styles.subheader}>Properties</Text>
+        <View style={styles.properties}>
         {fields}
+        </View>
       </ScrollView>
     );
   }
@@ -55,7 +64,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 5,
     marginBottom: 5,
-  }
+  },
+  properties: {
+    flexDirection: 'column',
+  },
+  base64: {
+    height: 100,
+    width: 100,
+    backgroundColor: 'red',
+  },
 });
 
 export default FeatureData;
