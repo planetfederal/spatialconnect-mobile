@@ -33,6 +33,7 @@
 		547F13981CF780ED0028EFF1 /* remote.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 547F13971CF780ED0028EFF1 /* remote.scfg */; };
 		54B1E4FC1D05FBCB00EEB033 /* SCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */; };
 		54B470BA1D4A6A030084C642 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B470B91D4A69FE0084C642 /* libRNImagePicker.a */; };
+		568849DC1D65F19A00D90A58 /* MQTTFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 568849DB1D65F19A00D90A58 /* MQTTFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		56AA58061D3D65CD00670AB7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AA58051D3D65CD00670AB7 /* Crashlytics.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
@@ -138,6 +139,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				568849DC1D65F19A00D90A58 /* MQTTFramework.framework in Embed Frameworks */,
 				546D088C1D21B38400EBB95A /* SpatialConnect.framework in Embed Frameworks */,
 				546D087D1D21B27E00EBB95A /* libgpkgios.framework in Embed Frameworks */,
 				546D087E1D21B27E00EBB95A /* ReactiveCocoa.framework in Embed Frameworks */,
@@ -182,6 +184,7 @@
 		54B1E4FA1D05FBCB00EEB033 /* SCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCBridge.h; path = SCMobile/SCBridge.h; sourceTree = "<group>"; };
 		54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCBridge.m; path = SCMobile/SCBridge.m; sourceTree = "<group>"; };
 		54B470B41D4A69FE0084C642 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
+		568849DB1D65F19A00D90A58 /* MQTTFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MQTTFramework.framework; path = Carthage/Build/iOS/MQTTFramework.framework; sourceTree = "<group>"; };
 		56AA58031D3D65A400670AB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		56AA58051D3D65CD00670AB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -374,6 +377,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				568849DB1D65F19A00D90A58 /* MQTTFramework.framework */,
 				56AA58031D3D65A400670AB7 /* Crashlytics.framework */,
 				546D088B1D21B38400EBB95A /* SpatialConnect.framework */,
 				546D08791D21B27E00EBB95A /* libgpkgios.framework */,
@@ -766,6 +770,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -783,6 +788,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(PROJECT_DIR)/include/**",
 				);
 				INFOPLIST_FILE = SCMobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -790,6 +796,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Libs",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -810,6 +817,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -826,6 +834,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(PROJECT_DIR)/include/**",
 				);
 				INFOPLIST_FILE = SCMobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -833,6 +842,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Libs",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
