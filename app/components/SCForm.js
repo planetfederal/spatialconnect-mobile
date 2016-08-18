@@ -16,6 +16,8 @@ import scformschema from 'spatialconnect-form-schema/native';
 import * as sc from 'spatialconnect/native';
 
 tcomb.form.Form.stylesheet.textbox.normal.backgroundColor = '#ffffff';
+tcomb.form.Form.stylesheet.textbox.error.backgroundColor = '#ffffff';
+tcomb.form.Form.stylesheet.helpBlock.normal.fontSize = 12;
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 

@@ -1,4 +1,4 @@
-/*global jest*/
+/*global jest,require*/
 console.error = jest.fn();
 jest.unmock('Image');
 jest.mock('ScrollView', () => 'ScrollView');
@@ -13,3 +13,4 @@ jest.mock('ListView', () => {
     }
   });
 });
+jest.setMock('./app/utils/api', require('./app/utils/__mocks__/api'));
