@@ -58,3 +58,4 @@ android/app/fabric.properties
 
 # React Native
 ios/main.jsbundle
+ios/main.jsbundle.meta
