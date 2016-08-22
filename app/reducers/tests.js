@@ -12,17 +12,19 @@ const test = (state, action) => {
       if (state.name !== action.name) {
         return state;
       }
-      return Object.assign({}, state, {
+      return {
+        ...state,
         passed: true
-      });
+      };
     case 'TEST_FAILED':
       if (state.name !== action.name) {
         return state;
       }
-      return Object.assign({}, state, {
+      return {
+        ...state,
         passed: false,
         error: action.error
-      });
+      };
     default:
       return state;
   }
