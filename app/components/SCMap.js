@@ -94,12 +94,17 @@ class SCMap extends Component {
         <View style={styles.mapContainer}>
         <MapView
           style={styles.map}
+          mapType={Platform.OS === 'ios' ? 'standard' : 'none'}
           initialRegion={{
             latitude: 37.78825,
             longitude: -95,
             latitudeDelta: 20,
             longitudeDelta: 70,
           }}>
+          <MapView.UrlTile
+               urlTemplate="http://a.tile.osm.org/{z}/{x}/{y}.png"
+               zIndex={-1}
+              />
           {this.state.points.map(point => (
             <MapView.Marker
               coordinate={point.latlng}
