@@ -9,6 +9,7 @@
 
 #import "AppDelegate.h"
 #import "RCTRootView.h"
+#import "RCTBundleURLProvider.h"
 #import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
@@ -20,20 +21,21 @@
   NSURL *jsCodeLocation;
 
 // Loading JavaScript code
-#if DEBUG
-#if TARGET_IPHONE_SIMULATOR
-  jsCodeLocation = [NSURL
-      URLWithString:
-          @"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
-#else
-  jsCodeLocation = [NSURL
-      URLWithString:
-          @"http://192.168.0.6:8081/index.ios.bundle?platform=ios&dev=true"];
-#endif
-#else
-  jsCodeLocation =
-      [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-#endif
+//#if DEBUG
+//#if TARGET_IPHONE_SIMULATOR
+//  jsCodeLocation = [NSURL
+//      URLWithString:
+//          @"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+//#else
+//  jsCodeLocation = [NSURL
+//      URLWithString:
+//          @"http://192.168.0.6:8081/index.ios.bundle?platform=ios&dev=true"];
+//#endif
+//#else
+//  jsCodeLocation =
+//      [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+//#endif
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"SCMobile"
