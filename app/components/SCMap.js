@@ -14,6 +14,7 @@ import { buttonStyles } from '../style/style';
 import api from '../utils/api';
 import map from '../utils/map';
 import * as sc from 'spatialconnect/native';
+import { isEqual } from 'lodash';
 
 class SCMap extends Component {
   constructor(props) {
@@ -28,51 +29,57 @@ class SCMap extends Component {
     };
   }
 
-  addFeature(feature) {
-    this.features = this.features.concat(feature);
-    switch (feature.geometry.type) {
-      case 'Point':
-      case 'MultiPoint': {
-        let points = map.makeCoordinates(feature).map(c => ({
-          latlng: c,
-          title: feature.id,
-          feature: feature
-        }));
-        this.setState({ points: this.state.points.concat(points) });
-        break;
+  addFeatures(features) {
+    let points = [];
+    let polygons = [];
+    let lines = [];
+    features
+    .filter(f => f.geometry)
+    .forEach(feature => {
+      switch (feature.geometry.type) {
+        case 'Point':
+        case 'MultiPoint': {
+          let point = map.makeCoordinates(feature).map(c => ({
+            latlng: c,
+            title: feature.id,
+            feature: feature
+          }));
+          points = points.concat(point);
+          break;
+        }
+        case 'Polygon':
+        case 'MultiPolygon': {
+          let polygon = map.makeCoordinates(feature).map(c => ({
+            coordinates: c,
+            feature: feature
+          }));
+          polygons = polygons.concat(polygon);
+          break;
+        }
+        case 'LineString':
+        case 'MultiLineString': {
+          let line = map.makeCoordinates(feature).map(c => ({
+            coordinates: c,
+            feature: feature
+          }));
+          lines = lines.concat(line);
+        }
       }
-      case 'Polygon':
-      case 'MultiPolygon': {
-        let polygons = map.makeCoordinates(feature).map(c => ({
-          coordinates: c,
-          feature: feature
-        }));
-        this.setState({ polygons: this.state.polygons.concat(polygons) });
-        break;
-      }
-      case 'LineString':
-      case 'MultiLineString': {
-        let lines = map.makeCoordinates(feature).map(c => ({
-          coordinates: c,
-          feature: feature
-        }));
-        this.setState({ lines: this.state.lines.concat(lines) });
-      }
-    }
+    });
+    this.setState({
+      points: points,
+      polygons: polygons,
+      lines: lines,
+      features: features
+    });
   }
 
   loadStoreData() {
     this.setState({ points: [], lines: [], polygons: [] }, () => {
-      var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90]).limit(2);
-      sc.geospatialQuery$(filter)
+      var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90]).limit(20);
+      sc.geospatialQuery$(filter, this.props.activeStores)
         .map(action => action.payload)
-        .flatMap(f => {
-          return f.type === 'FeatureCollection' ?
-            Rx.Observable.from(f.features) :
-            Rx.Observable.from([f]);
-        })
-        .filter(f => f.geometry)
-        .subscribe(this.addFeature.bind(this));
+        .subscribe(this.addFeatures.bind(this));
     });
   }
 
@@ -83,8 +90,14 @@ class SCMap extends Component {
         .flatMap(Rx.Observable.fromArray)
         .map(f => f.val)
         .filter(f => f.geometry)
-        .subscribe(this.addFeature.bind(this));
+        .subscribe(this.addFeatures.bind(this));
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(this.props.activeStores, nextProps.activeStores)) {
+      this.loadStoreData();
+    }
   }
 
   render() {
@@ -146,7 +159,8 @@ class SCMap extends Component {
 }
 
 SCMap.propTypes = {
-  token: PropTypes.string.isRequired
+  token: PropTypes.string.isRequired,
+  activeStores: PropTypes.array.isRequired
 };
 
 const styles = StyleSheet.create({

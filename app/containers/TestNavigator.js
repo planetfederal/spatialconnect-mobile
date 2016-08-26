@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as testActions from '../actions/tests';
+import * as testActions from '../ducks/tests';
 import SCTest from '../components/SCTest';
 import { navStyles } from '../style/style.js';
 

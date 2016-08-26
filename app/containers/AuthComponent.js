@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
-import LoginView from '../components/LoginView';
 
 export const requireAuth = (Component) => {
 

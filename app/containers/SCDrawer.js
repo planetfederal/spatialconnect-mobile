@@ -3,7 +3,7 @@ import { Actions, DefaultRenderer } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Drawer from 'react-native-drawer';
-import * as authActions from '../actions/auth';
+import * as authActions from '../ducks/auth';
 import SideMenu from '../components/SideMenu';
 
 class SCDrawer extends Component {

@@ -8,7 +8,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
-import * as authActions from '../actions/auth';
+import * as authActions from '../ducks/auth';
 import Button from 'react-native-button';
 import t from 'tcomb-form-native';
 import * as sc from 'spatialconnect/native';
