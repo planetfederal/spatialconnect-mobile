@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View
 } from 'react-native';
+import { isArray } from 'lodash';
 import MapView from 'react-native-maps';
 import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
@@ -30,9 +31,9 @@ class SCMap extends Component {
   }
 
   addFeatures(features) {
-    let points = [];
-    let polygons = [];
-    let lines = [];
+    let points = this.state.points;
+    let polygons = this.state.polygons;
+    let lines = this.state.lines;
     features
     .filter(f => f.geometry)
     .forEach(feature => {
@@ -79,6 +80,7 @@ class SCMap extends Component {
       var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90]).limit(20);
       sc.geospatialQuery$(filter, this.props.activeStores)
         .map(action => action.payload)
+        .bufferWithTime(100)
         .subscribe(this.addFeatures.bind(this));
     });
   }

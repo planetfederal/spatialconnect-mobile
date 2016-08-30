@@ -30,9 +30,12 @@ RCT_EXPORT_METHOD(reg:(RCTResponseSenderBlock)resCallback) {
 
 RCT_EXPORT_METHOD(handler:(NSDictionary *)action)
 {
-  //NSLog(@"actio %@", action);
+  //NSLog(@"action %@", action);
   [scBridge handler:action responseCallback:^(NSDictionary *newAction) {
-    NSString *type = action[@"responseId"] != nil ? action[@"responseId"] : action[@"type"];
+    NSString *type = action[@"responseId"] != nil ? action[@"responseId"] : [action[@"type"] stringValue];
+    if ([newAction[@"payload"] isEqual: @"completed"]) {
+      type = [type stringByAppendingString:@"_completed"];
+    }
     [self.bridge.eventDispatcher sendAppEventWithName:type body:newAction];
   }];
 }
