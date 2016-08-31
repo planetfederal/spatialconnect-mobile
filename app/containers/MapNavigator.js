@@ -33,6 +33,7 @@ MapNavigator.propTypes = {
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
+  activeStores: state.sc.activeStores,
 });
 
 export default connect(mapStateToProps)(MapNavigator);

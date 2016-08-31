@@ -30,7 +30,7 @@ const test = (state, action) => {
   }
 };
 
-const tests = (state = [], action) => {
+export default (state = [], action) => {
   switch (action.type) {
     case 'ADD_TEST':
       return [
@@ -50,4 +50,24 @@ const tests = (state = [], action) => {
   }
 };
 
-export default tests;
+export const add = (name) => {
+  return {
+    type: 'ADD_TEST',
+    name: name
+  };
+};
+
+export const passed = (name) => {
+  return {
+    type: 'TEST_PASSED',
+    name: name
+  };
+};
+
+export const failed = (name, error) => {
+  return {
+    type: 'TEST_FAILED',
+    name: name,
+    error: error
+  };
+};
