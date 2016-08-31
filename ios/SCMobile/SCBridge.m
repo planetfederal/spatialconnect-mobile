@@ -11,6 +11,7 @@
 #import "RCTEventDispatcher.h"
 #import <ReactiveCocoa/RACSignal.h>
 #import <SpatialConnect/SCRCTBridge.h>
+#import <SpatialConnect/SCJavascriptCommands.h>
 
 @implementation SCBridge
 
@@ -24,17 +25,16 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(reg:(RCTResponseSenderBlock)resCallback) {
-  callback = resCallback;
-}
-
 RCT_EXPORT_METHOD(handler:(NSDictionary *)action)
 {
-  //NSLog(@"action %@", action);
-  [scBridge handler:action responseCallback:^(NSDictionary *newAction) {
+  NSLog(@"action %@", action);
+  [scBridge handler:action responseCallback:^(NSDictionary *newAction, NSInteger status) {
     NSString *type = action[@"responseId"] != nil ? action[@"responseId"] : [action[@"type"] stringValue];
-    if ([newAction[@"payload"] isEqual: @"completed"]) {
+    if (status == SCJSSTATUS_COMPLETED) {
       type = [type stringByAppendingString:@"_completed"];
+    }
+    if (status == SCJSSTATUS_ERROR) {
+      type = [type stringByAppendingString:@"_error"];
     }
     [self.bridge.eventDispatcher sendAppEventWithName:type body:newAction];
   }];
