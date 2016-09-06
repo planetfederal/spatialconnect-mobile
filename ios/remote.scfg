@@ -1,3 +1,10 @@
 {
-"remote":"http://localhost:8085"
+"remote":{
+"http_protocol": "http",
+"http_host": "localhost",
+"http_port": 8085,
+"mqtt_protocol": "tcp",
+"mqtt_host": "localhost",
+"mqtt_port": 1883
+}
 }
