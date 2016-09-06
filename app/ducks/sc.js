@@ -1,7 +1,7 @@
 'use strict';
 import * as sc from 'spatialconnect/native';
 import { Actions } from 'react-native-router-flux';
-import { AlertIOS } from 'react-native';
+import { Alert } from 'react-native';
 
 const initialState = {
   forms: [],
@@ -48,7 +48,7 @@ export const connectSC = store => {
     }
   });
   sc.notifications$().take(1).subscribe(action => {
-    AlertIOS.alert('Geofencing Alert','You have entered a designated zone');
+    Alert.alert('Geofencing Alert','You have entered a designated zone');
   });
 };
 
