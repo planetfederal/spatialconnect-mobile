@@ -59,7 +59,6 @@ class SCMobile extends Component {
   }
 
   renderLayersButton() {
-    console.log('renderLayersButton');
     return (
       <TouchableOpacity
         style={styles.layersIcon}
@@ -111,7 +110,6 @@ class SCMobile extends Component {
                   </Scene>
                 </Scene>
               </Scene>
-
               <Scene key="feature" direction="vertical" duration={100} panHandlers={null}>
                 <Scene component={requireAuth(FeatureNav)} title="Edit Feature"
                   key="editFeature"

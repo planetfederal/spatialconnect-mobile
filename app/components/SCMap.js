@@ -102,58 +102,58 @@ class SCMap extends Component {
     }
   }
 
+  componentDidMount() {
+    this.loadStoreData();
+  }
+
   render() {
     let idx = 0;
     return (
       <View style={styles.container}>
         <View style={styles.mapContainer}>
-        <MapView
-          style={styles.map}
-          mapType={Platform.OS === 'ios' ? 'standard' : 'none'}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -95,
-            latitudeDelta: 20,
-            longitudeDelta: 70,
-          }}>
-          <MapView.UrlTile
-               urlTemplate="http://a.tile.osm.org/{z}/{x}/{y}.png"
-               zIndex={-1}
+          <MapView
+            style={styles.map}
+            mapType={Platform.OS === 'ios' ? 'standard' : 'none'}
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -95,
+              latitudeDelta: 20,
+              longitudeDelta: 70,
+            }}>
+            <MapView.UrlTile
+                 urlTemplate="http://a.tile.osm.org/{z}/{x}/{y}.png"
+                 zIndex={-1}
+                />
+            {this.state.points.map(point => (
+              <MapView.Marker
+                coordinate={point.latlng}
+                title={point.title}
+                description={point.description}
+                key={point.feature.id + idx++}
+                onSelect={() => {
+                  Actions.viewFeature({feature: point.feature});
+                }}
+                onCalloutPress={() => {
+                  Actions.viewFeature({feature: point.feature});
+                }}
               />
-          {this.state.points.map(point => (
-            <MapView.Marker
-              coordinate={point.latlng}
-              title={point.title}
-              description={point.description}
-              key={point.feature.id + idx++}
-              onSelect={() => {
-                Actions.viewFeature({feature: point.feature});
-              }}
-              onCalloutPress={() => {
-                Actions.viewFeature({feature: point.feature});
-              }}
-            />
-          ))}
-          {this.state.polygons.map(p => (
-            <MapView.Polygon
-              key={p.feature.id + idx++}
-              coordinates={p.coordinates}
-              fillColor="rgba(255,0,0,0.5)"
-              strokeColor="#f00"
-            />
-          ))}
-          {this.state.lines.map(l => (
-            <MapView.Polyline
-              key={l.feature.id + idx++}
-              coordinates={l.coordinates}
-              strokeColor="#f00"
-            />
-          ))}
-        </MapView>
-        </View>
-        <View style={styles.toolBox}>
-          <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.loadStoreData.bind(this)}>Load Stores</Button>
-          <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.loadFormData.bind(this)}>Load Forms</Button>
+            ))}
+            {this.state.polygons.map(p => (
+              <MapView.Polygon
+                key={p.feature.id + idx++}
+                coordinates={p.coordinates}
+                fillColor="rgba(255,0,0,0.5)"
+                strokeColor="#f00"
+              />
+            ))}
+            {this.state.lines.map(l => (
+              <MapView.Polyline
+                key={l.feature.id + idx++}
+                coordinates={l.coordinates}
+                strokeColor="#f00"
+              />
+            ))}
+          </MapView>
         </View>
       </View>
     );
