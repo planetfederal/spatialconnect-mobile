@@ -6,6 +6,7 @@ import {
 import { connect } from 'react-redux';
 import SCMap from '../components/SCMap';
 import FeatureData from '../components/FeatureData';
+import FeatureEdit from '../components/FeatureEdit';
 import { navStyles } from '../style/style.js';
 
 class MapNavigator extends Component {
@@ -15,6 +16,8 @@ class MapNavigator extends Component {
       el = <SCMap {...this.props} />;
     } else if (this.props.name === 'viewFeature') {
       el = <FeatureData {...this.props} />;
+    } else if (this.props.name === 'editFeature') {
+      el = <FeatureEdit {...this.props} />;
     } else {
       el = <View />;
     }
@@ -33,6 +36,7 @@ MapNavigator.propTypes = {
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
+  stores: state.sc.stores,
   activeStores: state.sc.activeStores,
 });
 

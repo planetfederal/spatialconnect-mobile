@@ -7,42 +7,75 @@ import {
   Text,
   View,
 } from 'react-native';
+import { find } from 'lodash';
+import { Actions } from 'react-native-router-flux';
 import palette from '../style/palette';
 
 class FeatureData extends Component {
-  render() {
+  //returns true if feature belongs to gpkg store
+  isEditable(stores, feature) {
+    if (!feature.metadata) return false;
+    if (!feature.metadata.storeId) return false;
+    let store = find(stores,
+       s => s.storeId == feature.metadata.storeId
+    );
+    return store.type === 'gpkg';
+  }
+  //hide Edit button if feature is not editable
+  componentDidMount() {
+    if (this.isEditable(this.props.stores, this.props.feature)) {
+      Actions.refresh({rightTitle: 'Edit'});
+    } else {
+      Actions.refresh({rightTitle: ''});
+    }
+  }
+  renderMetadata() {
     let feature = this.props.feature;
     let metadata = [];
+    metadata.push(<Text key='id'>ID: {feature.id}</Text>);
     if (feature.metadata) {
       for (let key in feature.metadata) {
         metadata.push(<Text key={key}>{key}: {feature.metadata[key]}</Text>);
       }
     }
+    return metadata;
+  }
+  renderProperties() {
+    let feature = this.props.feature;
     let fields = [];
     for (let key in feature.properties) {
-      if (feature.properties[key].indexOf('data:image/jpeg;base64') >= 0) {
+      let val = feature.properties[key];
+      if (val
+        && typeof val === 'string'
+        && val.indexOf('data:image/jpeg;base64') >= 0) {
         fields.push(<Text key={key}>{key}:</Text>);
-        fields.push(<Image key={key+'_img'} style={styles.base64} source={{uri: feature.properties[key]}} />);
+        fields.push(<Image key={key+'_img'} style={styles.base64} source={{uri: val}} />);
       } else {
-        fields.push(<Text key={key}>{key}: {feature.properties[key]}</Text>);
+        fields.push(<Text key={key}>{key}: {val}</Text>);
       }
     }
+    return fields;
+  }
+  renderLocation() {
+    let feature = this.props.feature;
     let location = null;
     if (feature.geometry && feature.geometry.type === 'Point') {
       location = feature.geometry ?
         <Text>{feature.geometry.coordinates[1]}, {feature.geometry.coordinates[0]}</Text> :
         <Text></Text>;
     }
+    return location;
+  }
+  render() {
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.subheader}>Metadata</Text>
-        <Text>ID: {feature.id}</Text>
-        {metadata}
+        {this.renderMetadata()}
         <Text style={styles.subheader}>Location</Text>
-        {location}
+        {this.renderLocation()}
         <Text style={styles.subheader}>Properties</Text>
         <View style={styles.properties}>
-        {fields}
+          {this.renderProperties()}
         </View>
       </ScrollView>
     );
@@ -51,6 +84,7 @@ class FeatureData extends Component {
 
 FeatureData.propTypes = {
   feature: PropTypes.object.isRequired,
+  stores: PropTypes.array.isRequired
 };
 
 const styles = StyleSheet.create({

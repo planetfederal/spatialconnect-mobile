@@ -12,6 +12,7 @@ import MapView from 'react-native-maps';
 import t from 'tcomb-form-native';
 import transform from 'tcomb-json-schema';
 import * as sc from 'spatialconnect/native';
+import scformschema from 'spatialconnect-form-schema/native';
 import { omit, clone, merge } from 'lodash';
 import { Actions } from 'react-native-router-flux';
 import { buttonStyles } from '../style/style';
@@ -44,7 +45,7 @@ class FeatureEdit extends Component {
     if (value) {
       let newFeature = this.createNewFeature(this.props.feature, value, this.state.coordinate);
       sc.updateFeature(newFeature);
-      Actions.pop();
+      Actions.pop({refresh: {feature: newFeature}});
     }
   }
 
@@ -85,20 +86,26 @@ class FeatureEdit extends Component {
 
   componentWillMount() {
     if (Object.keys(this.props.feature.properties).length) {
-      this.schema = {
-        type: 'object',
-        properties: {},
-        required: []
-      };
-      this.options = {
-        fields: {}
-      };
+      let form = { fields: [] };
+      let idx = 0;
       let properties = omit(this.props.feature.properties, 'bbox');
       for (let key in properties) {
-        this.schema.properties[key] = { type: 'string' };
-        this.options.fields[key] = { label: key };
+        let val = properties[key];
+        form.fields.push({
+          id: idx,
+          type: val !== null ? typeof val : 'string',
+          field_key: key,
+          field_label :key,
+          position: idx
+        });
+        idx++;
       }
-      this.setState({ value: properties });
+      let { schema, options } = scformschema.translate(form);
+      this.setState({
+        schema: schema,
+        options: options,
+        value: properties
+      });
     }
     if (this.props.feature.geometry.type === 'Point') {
       let c = {
@@ -117,35 +124,42 @@ class FeatureEdit extends Component {
     }
   }
 
+  renderForm() {
+    return <Form
+      ref="form"
+      value={this.state.value}
+      type={transform(this.state.schema)}
+      options={this.state.options}
+      onChange={this.onChange.bind(this)} />;
+  }
+
+  renderMap() {
+    return (
+      <View>
+        <Text style={styles.label}>Location</Text>
+        <View style={styles.mapContainer}>
+          <MapView
+            style={styles.map}
+            onRegionChange={this.onRegionChange.bind(this)}
+            region={this.state.region}>
+              <MapView.Marker
+                coordinate={this.state.coordinate}
+                key={this.props.feature.id}
+                draggable
+                onDragEnd={this.onDragEnd.bind(this)}
+              />
+          </MapView>
+          <Text style={styles.reset} onPress={this.onReset.bind(this)}>Reset</Text>
+        </View>
+      </View>
+    );
+  }
+
   render() {
     return (
       <ScrollView style={styles.container}>
-      {this.state.value ?
-        <Form
-          ref="form"
-          value={this.state.value}
-          type={transform(this.schema)}
-          options={this.options}
-          onChange={this.onChange.bind(this)}
-        /> : null }
-        {this.state.coordinate ?
-          <View>
-            <Text style={styles.label}>Location</Text>
-            <View style={styles.mapContainer}>
-              <MapView
-                style={styles.map}
-                onRegionChange={this.onRegionChange.bind(this)}
-                region={this.state.region}>
-                  <MapView.Marker
-                    coordinate={this.state.coordinate}
-                    key={this.props.feature.id}
-                    draggable
-                    onDragEnd={this.onDragEnd.bind(this)}
-                  />
-              </MapView>
-              <Text style={styles.reset} onPress={this.onReset.bind(this)}>Reset</Text>
-            </View>
-          </View> : null }
+      {this.state.value ? this.renderForm() : null }
+        {this.state.coordinate ? this.renderMap() : null }
         <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.save.bind(this)}>Save</Button>
       </ScrollView>
     );
