@@ -61,3 +61,13 @@ export const toggleStore = (storeId, active) => {
     }
   };
 };
+
+export const toggleAllStores = (active) => {
+  return (dispatch, getState) => {
+    const { sc } = getState();
+    let stores = sc.stores;
+    stores.forEach(store => {
+      dispatch(toggleStore(store.storeId, active));
+    });
+  };
+};

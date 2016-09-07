@@ -10,15 +10,15 @@ import palette from '../style/palette';
 
 class LayerItem extends Component {
   render() {
-    const { store, active, actions } = this.props;
+    const { name, onValueChange, active } = this.props;
     return (
       <View style={styles.layerItem}>
         <Switch
           style={styles.layerItemSwitch}
-          onValueChange={(value) => actions.toggleStore(store.storeId, value)}
+          onValueChange={onValueChange}
           value={active} />
           <View style={styles.layerItemName}>
-            <Text style={styles.layerItemText}>{store.name}</Text>
+            <Text style={styles.layerItemText}>{name}</Text>
           </View>
       </View>
     );
@@ -26,21 +26,21 @@ class LayerItem extends Component {
 }
 
 LayerItem.propTypes = {
-  store: PropTypes.object.isRequired,
-  active: PropTypes.bool.isRequired,
-  actions: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  onValueChange: PropTypes.func.isRequired,
+  active: PropTypes.bool.isRequired
 };
 
-const LayerList = (props) => {
+const LayerList = ({stores, activeStores, actions}) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.navBtnWrap}>
-        {props.stores.map(store => (
+        {stores.map(store => (
           <LayerItem
             key={store.storeId}
-            actions={props.actions}
-            store={store}
-            active={props.activeStores.indexOf(store.storeId) >= 0} />
+            name={store.name}
+            onValueChange={(value) => actions.toggleStore(store.storeId, value)}
+            active={activeStores.indexOf(store.storeId) >= 0} />
         ))}
       </View>
     </ScrollView>

@@ -35,7 +35,7 @@ export const navStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    marginTop: (Platform.OS === 'ios') ? 65 : 45,
+    marginTop: (Platform.OS === 'ios') ? 65 : 55,
     backgroundColor: palette.gray
   }
 });
