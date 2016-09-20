@@ -2,6 +2,7 @@
 import * as sc from 'spatialconnect/native';
 import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
+import { isEqual } from 'lodash';
 
 const initialState = {
   forms: [],
@@ -38,8 +39,20 @@ export default (state = initialState, action) => {
     case 'ADD_FEATURES':
       return {
         ...state,
-        features: state.features.concat(action.payload)
+        features: state.features.concat(action.payload.features)
       };
+    case 'UPDATE_FEATURE': {
+      let nf = action.payload.newFeature;
+      return {
+        ...state,
+        features: state.features.map(f => {
+          return (f.id === nf.id
+            && f.metadata.storeId === nf.metadata.storeId
+            && f.metadata.layerId === nf.metadata.layerId)
+            ? nf : f;
+        })
+      };
+    }
     default:
       return state;
   }
@@ -59,7 +72,10 @@ export const connectSC = store => {
     }
   });
   sc.notifications$().take(1).subscribe(action => {
-    Alert.alert('Geofencing Alert','You have entered a designated zone');
+    const n = action.payload.notification;
+    if (n.priority === 'alert') {
+      Alert.alert(n.title, n.body);
+    }
   });
 };
 
@@ -93,11 +109,18 @@ export const queryStores = (bbox=[-180, -90, 180, 90], limit=50) => {
     sc.geospatialQuery$(filter, state.sc.activeStores)
       .map(action => action.payload)
       .bufferWithTime(200)
-      .subscribe(fs => {
+      .subscribe(features => {
         dispatch({
           type: 'ADD_FEATURES',
-          payload: fs
+          payload: { features }
         });
       });
+  };
+};
+
+export const updateFeature = (newFeature) => {
+  return {
+    type: 'UPDATE_FEATURE',
+    payload: { newFeature }
   };
 };

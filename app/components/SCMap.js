@@ -72,6 +72,7 @@ class SCMap extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.loadStoreData();
     if (!isEqual(this.props.activeStores, nextProps.activeStores)) {
       this.props.actions.queryStores();
     }

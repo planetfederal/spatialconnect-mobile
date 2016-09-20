@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import palette from '../style/palette';
@@ -61,8 +62,8 @@ class FeatureEdit extends Component {
     if (value) {
       const newFeature = this.createNewFeature(this.props.feature, value, this.state.coordinates);
       sc.updateFeature(newFeature);
-      this.props.actions.queryStores();
-      Actions.pop({refresh: {feature: newFeature}});
+      this.props.actions.updateFeature(newFeature);
+      Actions.pop();
     }
   }
 
@@ -234,10 +235,16 @@ class FeatureEdit extends Component {
             }
           </MapView>
           <View style={styles.toolBox}>
-            <Text style={styles.toolBoxItem} onPress={this.onReset.bind(this)}>Reset</Text>
-            <Text style={styles.toolBoxItem} onPress={this.onEdit.bind(this)}>
-            {this.state.editing ? 'Save' : 'Edit'}
-            </Text>
+            <View style={styles.toolBoxItem}>
+              <TouchableOpacity onPress={this.onReset.bind(this)}>
+                <Text style={styles.toolBoxItemText}>Reset</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={[styles.toolBoxItem, !this.state.editing && styles.editing, this.state.editing && styles.done]}>
+              <TouchableOpacity onPress={this.onEdit.bind(this)}>
+                <Text style={styles.toolBoxItemText}>{this.state.editing ? 'Done' : 'Edit'}</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -292,13 +299,25 @@ const styles = StyleSheet.create({
   },
   toolBox: {
     backgroundColor: 'rgba(0,0,0,0.3)',
-    padding: 10,
+    padding: 5,
     flexDirection: 'row-reverse',
   },
   toolBoxItem: {
-    paddingLeft: 5,
+    marginLeft: 5,
+    padding: 3,
+    borderRadius: 3,
+    backgroundColor: 'black',
+  },
+  toolBoxItemText: {
+    color: 'white',
     fontSize: 12,
-  }
+  },
+  editing: {
+    backgroundColor: PIN_COLOR_SELECTING
+  },
+  done: {
+    backgroundColor: PIN_COLOR_SELECTED
+  },
 });
 
 export default FeatureEdit;
