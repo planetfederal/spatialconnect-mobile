@@ -5,16 +5,9 @@ import {
   StyleSheet,
   View
 } from 'react-native';
-import { isArray } from 'lodash';
 import MapView from 'react-native-maps';
-import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
-import Rx from 'rx';
-import { flatten } from 'lodash';
-import { buttonStyles } from '../style/style';
-import api from '../utils/api';
 import map from '../utils/map';
-import * as sc from 'spatialconnect/native';
 import { isEqual } from 'lodash';
 
 class SCMap extends Component {
@@ -26,14 +19,13 @@ class SCMap extends Component {
       points: [],
       polygons: [],
       lines: [],
-      features: []
     };
   }
 
   addFeatures(features) {
-    let points = this.state.points;
-    let polygons = this.state.polygons;
-    let lines = this.state.lines;
+    let points = [];
+    let polygons = [];
+    let lines = [];
     features
     .filter(f => f.geometry)
     .forEach(feature => {
@@ -42,7 +34,6 @@ class SCMap extends Component {
         case 'MultiPoint': {
           let point = map.makeCoordinates(feature).map(c => ({
             latlng: c,
-            title: feature.id,
             feature: feature
           }));
           points = points.concat(point);
@@ -70,40 +61,27 @@ class SCMap extends Component {
     this.setState({
       points: points,
       polygons: polygons,
-      lines: lines,
-      features: features
+      lines: lines
     });
   }
 
   loadStoreData() {
     this.setState({ points: [], lines: [], polygons: [] }, () => {
-      var filter = sc.filter.geoBBOXContains([-180, -90, 180, 90]).limit(20);
-      sc.geospatialQuery$(filter, this.props.activeStores)
-        .map(action => action.payload)
-        .bufferWithTime(100)
-        .subscribe(this.addFeatures.bind(this));
-    });
-  }
-
-  loadFormData() {
-    this.setState({ points: [], lines: [], polygons: [] }, () => {
-      Rx.Observable.fromPromise(api.getAllFormData(this.props.token))
-        .map(flatten)
-        .flatMap(Rx.Observable.fromArray)
-        .map(f => f.val)
-        .filter(f => f.geometry)
-        .subscribe(this.addFeatures.bind(this));
+      this.addFeatures(this.props.features);
     });
   }
 
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.activeStores, nextProps.activeStores)) {
+      this.props.actions.queryStores();
+    }
+    if (!isEqual(this.props.features, nextProps.features)) {
       this.loadStoreData();
     }
   }
 
   componentDidMount() {
-    this.loadStoreData();
+    this.props.actions.queryStores();
   }
 
   render() {
@@ -130,10 +108,10 @@ class SCMap extends Component {
                 title={point.title}
                 description={point.description}
                 key={point.feature.id + idx++}
-                onSelect={() => {
+                onPress={() => {
                   Actions.viewFeature({feature: point.feature});
                 }}
-                onCalloutPress={() => {
+                onSelect={() => {
                   Actions.viewFeature({feature: point.feature});
                 }}
               />
@@ -144,6 +122,9 @@ class SCMap extends Component {
                 coordinates={p.coordinates}
                 fillColor="rgba(255,0,0,0.5)"
                 strokeColor="#f00"
+                onPress={() => {
+                  Actions.viewFeature({feature: p.feature});
+                }}
               />
             ))}
             {this.state.lines.map(l => (
@@ -151,6 +132,9 @@ class SCMap extends Component {
                 key={l.feature.id + idx++}
                 coordinates={l.coordinates}
                 strokeColor="#f00"
+                onPress={() => {
+                  Actions.viewFeature({feature: l.feature});
+                }}
               />
             ))}
           </MapView>
@@ -162,7 +146,9 @@ class SCMap extends Component {
 
 SCMap.propTypes = {
   token: PropTypes.string.isRequired,
-  activeStores: PropTypes.array.isRequired
+  activeStores: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
+  features: PropTypes.array.isRequired,
 };
 
 const styles = StyleSheet.create({

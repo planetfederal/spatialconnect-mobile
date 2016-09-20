@@ -4,6 +4,8 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as scActions from '../ducks/sc';
 import SCMap from '../components/SCMap';
 import FeatureData from '../components/FeatureData';
 import FeatureEdit from '../components/FeatureEdit';
@@ -38,6 +40,11 @@ const mapStateToProps = (state) => ({
   token: state.auth.token,
   stores: state.sc.stores,
   activeStores: state.sc.activeStores,
+  features: state.sc.features
 });
 
-export default connect(mapStateToProps)(MapNavigator);
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(scActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapNavigator);

@@ -61,7 +61,7 @@ class SCMobile extends Component {
     return (
       <TouchableOpacity
         style={styles.layersIcon}
-        onPress={() => { console.log('hello'); Actions.refresh({key: 'layerdrawer', open: value => !value })}}>
+        onPress={() => { Actions.refresh({key: 'layerdrawer', open: value => !value })}}>
         <Image source={require('./img/layers.png')} style={styles.layersIconImg} />
       </TouchableOpacity>
     );

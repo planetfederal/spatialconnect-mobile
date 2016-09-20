@@ -7,6 +7,7 @@ const initialState = {
   forms: [],
   stores: [],
   activeStores: [],
+  features: [],
 };
 
 export default (state = initialState, action) => {
@@ -28,6 +29,16 @@ export default (state = initialState, action) => {
         activeStores: action.payload.active ?
           state.activeStores.concat(action.payload.storeId) :
           state.activeStores.filter(sId => sId !== action.payload.storeId)
+      };
+    case 'CLEAR_FEATURES':
+      return {
+        ...state,
+        features: []
+      };
+    case 'ADD_FEATURES':
+      return {
+        ...state,
+        features: state.features.concat(action.payload)
       };
     default:
       return state;
@@ -64,10 +75,29 @@ export const toggleStore = (storeId, active) => {
 
 export const toggleAllStores = (active) => {
   return (dispatch, getState) => {
-    const { sc } = getState();
-    let stores = sc.stores;
+    const state = getState();
+    let stores = state.sc.stores;
     stores.forEach(store => {
       dispatch(toggleStore(store.storeId, active));
     });
+  };
+};
+
+export const queryStores = (bbox=[-180, -90, 180, 90], limit=50) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    var filter = sc.filter.geoBBOXContains(bbox).limit(limit);
+    dispatch({
+      type: 'CLEAR_FEATURES'
+    });
+    sc.geospatialQuery$(filter, state.sc.activeStores)
+      .map(action => action.payload)
+      .bufferWithTime(200)
+      .subscribe(fs => {
+        dispatch({
+          type: 'ADD_FEATURES',
+          payload: fs
+        });
+      });
   };
 };

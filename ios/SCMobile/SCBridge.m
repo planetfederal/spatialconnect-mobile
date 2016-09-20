@@ -36,6 +36,8 @@ RCT_EXPORT_METHOD(handler:(NSDictionary *)action)
     if (status == SCJSSTATUS_ERROR) {
       type = [type stringByAppendingString:@"_error"];
     }
+    //NSLog(@"newAction %@", newAction);
+    //NSLog(@"type %@", type);
     [self.bridge.eventDispatcher sendAppEventWithName:type body:newAction];
   }];
 }
