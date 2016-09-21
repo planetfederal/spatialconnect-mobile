@@ -2,13 +2,14 @@
 import * as sc from 'spatialconnect/native';
 import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
-import { isEqual } from 'lodash';
 
 const initialState = {
   forms: [],
   stores: [],
   activeStores: [],
   features: [],
+  featureSet: [],
+  updatedFeature: false,
 };
 
 export default (state = initialState, action) => {
@@ -34,17 +35,21 @@ export default (state = initialState, action) => {
     case 'CLEAR_FEATURES':
       return {
         ...state,
-        features: []
+        features: [],
+        featureSet: [],
+        updatedFeature: false,
       };
     case 'ADD_FEATURES':
       return {
         ...state,
-        features: state.features.concat(action.payload.features)
+        features: state.features.concat(action.payload.features),
+        featureSet: action.payload.features
       };
     case 'UPDATE_FEATURE': {
       let nf = action.payload.newFeature;
       return {
         ...state,
+        updatedFeature: true,
         features: state.features.map(f => {
           return (f.id === nf.id
             && f.metadata.storeId === nf.metadata.storeId

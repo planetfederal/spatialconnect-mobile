@@ -23,9 +23,9 @@ class SCMap extends Component {
   }
 
   addFeatures(features) {
-    let points = [];
-    let polygons = [];
-    let lines = [];
+    let points = this.state.points;
+    let polygons = this.state.polygons;
+    let lines = this.state.lines;
     features
     .filter(f => f.geometry)
     .forEach(feature => {
@@ -65,19 +65,20 @@ class SCMap extends Component {
     });
   }
 
-  loadStoreData() {
-    this.setState({ points: [], lines: [], polygons: [] }, () => {
-      this.addFeatures(this.props.features);
-    });
-  }
 
   componentWillReceiveProps(nextProps) {
-    this.loadStoreData();
-    if (!isEqual(this.props.activeStores, nextProps.activeStores)) {
-      this.props.actions.queryStores();
+    if (!isEqual(this.props.featureSet, nextProps.featureSet)) {
+      this.addFeatures(nextProps.featureSet);
     }
-    if (!isEqual(this.props.features, nextProps.features)) {
-      this.loadStoreData();
+    if (!isEqual(this.props.activeStores, nextProps.activeStores)) {
+      this.setState({ points: [], lines: [], polygons: [] }, () => {
+        this.props.actions.queryStores();
+      });
+    }
+    if (nextProps.updatedFeature) {
+      this.setState({ points: [], lines: [], polygons: [] }, () => {
+        this.addFeatures(nextProps.features);
+      });
     }
   }
 
@@ -150,6 +151,8 @@ SCMap.propTypes = {
   activeStores: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
   features: PropTypes.array.isRequired,
+  featureSet: PropTypes.array.isRequired,
+  updatedFeature: PropTypes.bool.isRequired,
 };
 
 const styles = StyleSheet.create({

@@ -40,7 +40,9 @@ const mapStateToProps = (state) => ({
   token: state.auth.token,
   stores: state.sc.stores,
   activeStores: state.sc.activeStores,
-  features: state.sc.features
+  features: state.sc.features,
+  featureSet: state.sc.featureSet,
+  updatedFeature: state.sc.updatedFeature,
 });
 
 const mapDispatchToProps = (dispatch) => ({

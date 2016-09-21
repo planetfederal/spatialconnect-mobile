@@ -54,7 +54,7 @@ class FeatureEdit extends Component {
     if (feature.geometry && feature.geometry.type === 'LineString') {
       newFeature = turfLinestring(coords, props);
     }
-    return merge(this.props.feature, newFeature);
+    return merge({}, this.props.feature, newFeature);
   }
 
   save() {
@@ -63,7 +63,7 @@ class FeatureEdit extends Component {
       const newFeature = this.createNewFeature(this.props.feature, value, this.state.coordinates);
       sc.updateFeature(newFeature);
       this.props.actions.updateFeature(newFeature);
-      Actions.pop();
+      Actions.pop({refresh: {feature: newFeature}});
     }
   }
 
@@ -200,7 +200,19 @@ class FeatureEdit extends Component {
   renderMap() {
     return (
       <View>
-        <Text style={styles.label}>Location</Text>
+        <Text style={styles.label}>Geometry</Text>
+        <View style={styles.toolBox}>
+          <View style={styles.toolBoxItem}>
+            <TouchableOpacity onPress={this.onReset.bind(this)}>
+              <Text style={styles.toolBoxItemText}>Reset</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.toolBoxItem, !this.state.editing && styles.editing, this.state.editing && styles.done]}>
+            <TouchableOpacity onPress={this.onEdit.bind(this)}>
+              <Text style={[styles.toolBoxItemText, this.state.editing && styles.doneText]}>{this.state.editing ? 'Done' : 'Edit'}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
         <View style={styles.mapContainer}>
           <MapView
             ref={ref => { this.map = ref; }}
@@ -234,18 +246,6 @@ class FeatureEdit extends Component {
               /> : null
             }
           </MapView>
-          <View style={styles.toolBox}>
-            <View style={styles.toolBoxItem}>
-              <TouchableOpacity onPress={this.onReset.bind(this)}>
-                <Text style={styles.toolBoxItemText}>Reset</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={[styles.toolBoxItem, !this.state.editing && styles.editing, this.state.editing && styles.done]}>
-              <TouchableOpacity onPress={this.onEdit.bind(this)}>
-                <Text style={styles.toolBoxItemText}>{this.state.editing ? 'Done' : 'Edit'}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
         </View>
       </View>
     );
@@ -304,19 +304,22 @@ const styles = StyleSheet.create({
   },
   toolBoxItem: {
     marginLeft: 5,
-    padding: 3,
+    padding: 8,
     borderRadius: 3,
     backgroundColor: 'black',
   },
   toolBoxItemText: {
     color: 'white',
-    fontSize: 12,
+    fontSize: 14,
   },
   editing: {
     backgroundColor: PIN_COLOR_SELECTING
   },
   done: {
     backgroundColor: PIN_COLOR_SELECTED
+  },
+  doneText: {
+    color: 'black',
   },
 });
 
