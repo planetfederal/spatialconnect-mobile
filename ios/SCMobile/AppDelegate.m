@@ -21,14 +21,13 @@
   NSURL *jsCodeLocation;
 
  //Loading JavaScript code
-#if DEBUG
-  jsCodeLocation =
-    [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+#ifdef DEBUG
+  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.143:8081/index.ios.bundle?platform=ios&dev=true"];
 #else
-  jsCodeLocation =
-      [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 #endif
-  //jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+
+  NSLog(@"jsCodeLocation %@", jsCodeLocation);
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"SCMobile"
