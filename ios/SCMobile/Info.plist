@@ -47,5 +47,9 @@
 	<false/>
 	<key>UIFileSharingEnabled</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>&quot;Form Photo Uploads&quot;</string>
+	<key>NSCameraUsageDescription</key>
+	<string>&quot;Form Photo Uploads&quot;</string>
 </dict>
 </plist>
