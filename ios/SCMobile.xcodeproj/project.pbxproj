@@ -789,6 +789,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(PROJECT_DIR)/include/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/**",
 				);
 				INFOPLIST_FILE = SCMobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -835,6 +836,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(PROJECT_DIR)/include/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/**",
 				);
 				INFOPLIST_FILE = SCMobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;

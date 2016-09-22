@@ -75,6 +75,7 @@ class SCMap extends Component {
         this.props.actions.queryStores();
       });
     }
+    console.log(nextProps, isEqual(this.props.features, nextProps.features));
     if (nextProps.updatedFeature) {
       this.setState({ points: [], lines: [], polygons: [] }, () => {
         this.addFeatures(nextProps.features);
@@ -100,10 +101,10 @@ class SCMap extends Component {
               latitudeDelta: 20,
               longitudeDelta: 70,
             }}>
-            <MapView.UrlTile
+            {/*}<MapView.UrlTile
                  urlTemplate="http://a.tile.osm.org/{z}/{x}/{y}.png"
                  zIndex={-1}
-                />
+                />*/}
             {this.state.points.map(point => (
               <MapView.Marker
                 coordinate={point.latlng}
