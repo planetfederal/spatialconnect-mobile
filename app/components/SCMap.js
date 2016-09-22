@@ -93,7 +93,6 @@ class SCMap extends Component {
         <View style={styles.mapContainer}>
           <MapView
             style={styles.map}
-            mapType={Platform.OS === 'ios' ? 'standard' : 'none'}
             initialRegion={{
               latitude: 37.78825,
               longitude: -95,
