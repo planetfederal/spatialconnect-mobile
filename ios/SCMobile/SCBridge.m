@@ -14,6 +14,7 @@
 #import <SpatialConnect/SCRCTBridge.h>
 #import <SpatialConnect/SCRasterStore.h>
 #import <SpatialConnect/SCJavascriptCommands.h>
+#import <SpatialConnect/SCSpatialStore.h>
 #import "AIRMap.h"
 #import "AIRMapManager.h"
 #import <MapKit/MapKit.h>
@@ -39,9 +40,18 @@ RCT_EXPORT_MODULE();
       [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
         AIRMap *mapView = [self findMapView:viewRegistry];
         if (mapView) {
-          id<SCRasterStore> rs =
-          (id<SCRasterStore>)[[[SpatialConnect sharedInstance] dataService] storeByIdentifier:@"fad33ae1-f529-4c79-affc-befc37c104ae"];
-          [rs overlayFromLayer:@"WhiteHorse" mapview:(AIRMap *)mapView];
+          NSArray *stores = [[[SpatialConnect sharedInstance] dataService] storesByProtocol:@protocol(SCRasterStore)];
+          [[[[[[stores rac_sequence] signal] filter:^BOOL(SCDataStore *store) {
+            return [((id<SCRasterStore>)store).rasterList count] > 0;
+          }] map:^RACTuple*(SCDataStore *store) {
+            return [RACTuple tupleWithObjects:store.storeId, ((id<SCRasterStore>)store).rasterList, nil];
+          }] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(RACTuple *t) {
+            id<SCRasterStore> rs =
+            (id<SCRasterStore>)[[[SpatialConnect sharedInstance] dataService] storeByIdentifier:[t first]];
+            for (id layer in [t second]) {
+              [rs overlayFromLayer:[layer name] mapview:(AIRMap *)mapView];
+            }
+          }];
         }
       }];
     });
