@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RCTBridgeModule.h"
+#import <SpatialConnect/SpatialConnect.h>
 #import <SpatialConnect/SCRCTBridge.h>
 
 @interface SCBridge : NSObject <RCTBridgeModule> {
