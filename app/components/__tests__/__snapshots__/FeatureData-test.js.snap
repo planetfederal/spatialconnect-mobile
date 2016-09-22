@@ -60,7 +60,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
   <Text>
     team
     : 
-    O\'s
+    O's
   </Text>
   <Text>
     why

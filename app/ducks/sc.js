@@ -7,6 +7,9 @@ const initialState = {
   forms: [],
   stores: [],
   activeStores: [],
+  features: [],
+  featureSet: [],
+  updatedFeature: false,
 };
 
 export default (state = initialState, action) => {
@@ -29,6 +32,32 @@ export default (state = initialState, action) => {
           state.activeStores.concat(action.payload.storeId) :
           state.activeStores.filter(sId => sId !== action.payload.storeId)
       };
+    case 'CLEAR_FEATURES':
+      return {
+        ...state,
+        features: [],
+        featureSet: [],
+        updatedFeature: false,
+      };
+    case 'ADD_FEATURES':
+      return {
+        ...state,
+        features: state.features.concat(action.payload.features),
+        featureSet: action.payload.features
+      };
+    case 'UPDATE_FEATURE': {
+      let nf = action.payload.newFeature;
+      return {
+        ...state,
+        updatedFeature: true,
+        features: state.features.map(f => {
+          return (f.id === nf.id
+            && f.metadata.storeId === nf.metadata.storeId
+            && f.metadata.layerId === nf.metadata.layerId)
+            ? nf : f;
+        })
+      };
+    }
     default:
       return state;
   }
@@ -48,7 +77,10 @@ export const connectSC = store => {
     }
   });
   sc.notifications$().take(1).subscribe(action => {
-    Alert.alert('Geofencing Alert','You have entered a designated zone');
+    const n = action.payload.notification;
+    if (n.priority === 'alert') {
+      Alert.alert(n.title, n.body);
+    }
   });
 };
 
@@ -64,10 +96,36 @@ export const toggleStore = (storeId, active) => {
 
 export const toggleAllStores = (active) => {
   return (dispatch, getState) => {
-    const { sc } = getState();
-    let stores = sc.stores;
+    const state = getState();
+    let stores = state.sc.stores;
     stores.forEach(store => {
       dispatch(toggleStore(store.storeId, active));
     });
+  };
+};
+
+export const queryStores = (bbox=[-180, -90, 180, 90], limit=50) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    var filter = sc.filter.geoBBOXContains(bbox).limit(limit);
+    dispatch({
+      type: 'CLEAR_FEATURES'
+    });
+    sc.geospatialQuery$(filter, state.sc.activeStores)
+      .map(action => action.payload)
+      .bufferWithTime(200)
+      .subscribe(features => {
+        dispatch({
+          type: 'ADD_FEATURES',
+          payload: { features }
+        });
+      });
+  };
+};
+
+export const updateFeature = (newFeature) => {
+  return {
+    type: 'UPDATE_FEATURE',
+    payload: { newFeature }
   };
 };

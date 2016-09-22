@@ -20,22 +20,12 @@
 
   NSURL *jsCodeLocation;
 
-// Loading JavaScript code
-//#if DEBUG
-//#if TARGET_IPHONE_SIMULATOR
-//  jsCodeLocation = [NSURL
-//      URLWithString:
-//          @"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
-//#else
-//  jsCodeLocation = [NSURL
-//      URLWithString:
-//          @"http://192.168.0.6:8081/index.ios.bundle?platform=ios&dev=true"];
-//#endif
-//#else
-//  jsCodeLocation =
-//      [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-//#endif
+ //Loading JavaScript code
+#ifdef DEBUG
+  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+#else
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+#endif
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"SCMobile"
@@ -60,44 +50,6 @@
     NSString *cfgPath = [SCFileUtils filePathFromMainBundle:@"remote.scfg"];
     sc = [SpatialConnect sharedInstance];
     [sc.configService addConfigFilepath:cfgPath];
-    NSURL *URL = [NSURL URLWithString:@"https://portal.opengeospatial.org"];
-
-    [NSURLRequest
-            .class performSelector:NSSelectorFromString(
-                                       @"setAllowsAnyHTTPSCertificate:forHost:")
-                        withObject:NSNull.null // Just need to pass non-nil here
-                        // to appear as a BOOL YES, using
-                        // the NSNull.null singleton is
-                        // pretty safe
-                        withObject:[URL host]];
-    NSURL *URL2 = [NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com"];
-
-    [NSURLRequest
-            .class performSelector:NSSelectorFromString(
-                                       @"setAllowsAnyHTTPSCertificate:forHost:")
-                        withObject:NSNull.null // Just need to pass non-nil here
-                        // to appear as a BOOL YES, using
-                        // the NSNull.null singleton is
-                        // pretty safe
-                        withObject:[URL2 host]];
-    NSURL *URL3 = [NSURL URLWithString:@"https://s3.amazonaws.com"];
-
-    [NSURLRequest
-            .class performSelector:NSSelectorFromString(
-                                       @"setAllowsAnyHTTPSCertificate:forHost:")
-                        withObject:NSNull.null // Just need to pass non-nil here
-                        // to appear as a BOOL YES, using
-                        // the NSNull.null singleton is
-                        // pretty safe
-                        withObject:[URL3 host]];
-
-    SCStyle *style = [[SCStyle alloc] init];
-    style.fillColor = [UIColor orangeColor];
-    style.fillOpacity = 0.25f;
-    style.strokeColor = [UIColor yellowColor];
-    style.strokeOpacity = 0.5f;
-    style.strokeWidth = 2;
-
     [sc startAllServices];
     [sc.sensorService enableGPS];
   }

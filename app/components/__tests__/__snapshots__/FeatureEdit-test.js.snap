@@ -71,7 +71,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
           }
         }
         underlineColorAndroid={undefined}
-        value="O\'s" />
+        value="O's" />
     </View>
     <View
       style={
