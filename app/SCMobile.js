@@ -31,7 +31,7 @@ import reducer from './ducks';
 
 const store = createStore(
   reducer,
-  applyMiddleware(thunk, createLogger())
+  applyMiddleware(thunk)
 );
 
 class SCMobile extends Component {
