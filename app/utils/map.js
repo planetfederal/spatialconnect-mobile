@@ -1,5 +1,5 @@
-import bbox from 'turf-bbox';
-import distance from 'turf-distance';
+import turfBbox from 'turf-bbox';
+import turfDistance from 'turf-distance';
 
 const map = {
   makeCoordinates: (feature) => {
@@ -42,7 +42,7 @@ const map = {
         longitudeDelta: 1,
       };
     }
-    const [ west, south, east, north ] = bbox(feature);
+    const [ west, south, east, north ] = turfBbox(feature);
     const region = {
        //center of bbox
       latitude: (south + north) / 2,
@@ -58,13 +58,22 @@ const map = {
     let index = -1;
     let minDistance = false;
     points.forEach((point, idx) => {
-      const distanceToCenter = distance(centerPoint, point);
+      const distanceToCenter = turfDistance(centerPoint, point);
       if (!minDistance || distanceToCenter < minDistance) {
         minDistance = distanceToCenter;
         index = idx;
       }
     });
     return index;
+  },
+
+  regionToBbox: region => {
+    return [
+      region.longitude - region.longitudeDelta/2,
+      region.latitude - region.latitudeDelta/2,
+      region.longitude + region.longitudeDelta/2,
+      region.latitude + region.latitudeDelta/2,
+    ];
   }
 };
 
