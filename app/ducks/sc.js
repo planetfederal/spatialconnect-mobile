@@ -3,12 +3,13 @@ import * as sc from 'spatialconnect/native';
 import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
 
+const MAX_FEATURES = 100;
+
 const initialState = {
   forms: [],
   stores: [],
   activeStores: [],
   features: [],
-  featureSet: [],
   updatedFeature: false,
 };
 
@@ -36,20 +37,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         features: [],
-        featureSet: [],
         updatedFeature: false,
       };
-    case 'ADD_FEATURES':
-      return {
+    case 'ADD_FEATURES': {
+      return state.features.length < MAX_FEATURES ? {
         ...state,
-        features: state.features.concat(action.payload.features),
-        featureSet: action.payload.features
-      };
+        features: state.features.concat(action.payload.featureChunk).slice(0, MAX_FEATURES),
+      } : state;
+    }
     case 'UPDATE_FEATURE': {
       let nf = action.payload.newFeature;
       return {
         ...state,
-        updatedFeature: true,
         features: state.features.map(f => {
           return (f.id === nf.id
             && f.metadata.storeId === nf.metadata.storeId
@@ -113,11 +112,11 @@ export const queryStores = (bbox=[-180, -90, 180, 90], limit=50) => {
     });
     sc.geospatialQuery$(filter, state.sc.activeStores)
       .map(action => action.payload)
-      .bufferWithTime(200)
-      .subscribe(features => {
+      .bufferWithTime(1000)
+      .subscribe(featureChunk => {
         dispatch({
           type: 'ADD_FEATURES',
-          payload: { features }
+          payload: { featureChunk }
         });
       });
   };

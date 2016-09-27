@@ -41,7 +41,6 @@ const mapStateToProps = (state) => ({
   stores: state.sc.stores,
   activeStores: state.sc.activeStores,
   features: state.sc.features,
-  featureSet: state.sc.featureSet,
   updatedFeature: state.sc.updatedFeature,
 });
 

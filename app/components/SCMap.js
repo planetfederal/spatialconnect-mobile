@@ -1,12 +1,13 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
-  Platform,
+  findNodeHandle,
   StyleSheet,
   View
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
+import * as sc from 'spatialconnect/native';
 import map from '../utils/map';
 import { isEqual } from 'lodash';
 
@@ -15,7 +16,12 @@ class SCMap extends Component {
     super(props);
     this.features = [];
     this.state = {
-      region: null,
+      region: {
+        latitude: 37.78825,
+        longitude: -95,
+        latitudeDelta: 20,
+        longitudeDelta: 70,
+      },
       points: [],
       polygons: [],
       lines: [],
@@ -65,25 +71,29 @@ class SCMap extends Component {
     });
   }
 
+  onRegionChange(region) {
+    this.setState({ region });
+  }
+
+  onRegionChangeComplete() {
+    this.setState({ points: [], lines: [], polygons: [] }, () => {
+      this.props.actions.queryStores(map.regionToBbox(this.state.region));
+    });
+  }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.featureSet, nextProps.featureSet)) {
-      this.addFeatures(nextProps.featureSet);
-    }
-    if (!isEqual(this.props.activeStores, nextProps.activeStores)) {
-      this.setState({ points: [], lines: [], polygons: [] }, () => {
-        this.props.actions.queryStores();
-      });
-    }
-    if (nextProps.updatedFeature && !isEqual(this.props.features, nextProps.features)) {
+    if (!isEqual(this.props.features, nextProps.features)) {
       this.setState({ points: [], lines: [], polygons: [] }, () => {
         this.addFeatures(nextProps.features);
       });
     }
+    if (!isEqual(this.props.activeStores, nextProps.activeStores)) {
+      this.props.actions.queryStores(map.regionToBbox(this.state.region));
+    }
   }
 
   componentDidMount() {
-    this.props.actions.queryStores();
+    sc.bindMapView(findNodeHandle(this.refs['scMap']));
   }
 
   render() {
@@ -92,19 +102,17 @@ class SCMap extends Component {
       <View style={styles.container}>
         <View style={styles.mapContainer}>
           <MapView
+            ref={'scMap'}
             style={styles.map}
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -95,
-              latitudeDelta: 20,
-              longitudeDelta: 70,
-            }}>
+            initialRegion={this.state.region}
+            onRegionChange={this.onRegionChange.bind(this)}
+            onRegionChangeComplete={this.onRegionChangeComplete.bind(this)}>
             {this.state.points.map(point => (
               <MapView.Marker
                 coordinate={point.latlng}
                 title={point.title}
                 description={point.description}
-                key={point.feature.id + idx++}
+                key={'point.'+point.feature.id+'.'+idx++}
                 onPress={() => {
                   Actions.viewFeature({feature: point.feature});
                 }}
@@ -115,7 +123,7 @@ class SCMap extends Component {
             ))}
             {this.state.polygons.map(p => (
               <MapView.Polygon
-                key={p.feature.id + idx++}
+                key={'polygon.'+p.feature.id+'.'+idx++}
                 coordinates={p.coordinates}
                 fillColor="rgba(255,0,0,0.5)"
                 strokeColor="#f00"
@@ -126,7 +134,7 @@ class SCMap extends Component {
             ))}
             {this.state.lines.map(l => (
               <MapView.Polyline
-                key={l.feature.id + idx++}
+                key={'line.'+l.feature.id+'.'+idx++}
                 coordinates={l.coordinates}
                 strokeColor="#f00"
                 onPress={() => {
@@ -146,7 +154,6 @@ SCMap.propTypes = {
   activeStores: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
   features: PropTypes.array.isRequired,
-  featureSet: PropTypes.array.isRequired,
   updatedFeature: PropTypes.bool.isRequired,
 };
 
