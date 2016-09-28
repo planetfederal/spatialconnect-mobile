@@ -81,6 +81,7 @@ export const connectSC = store => {
       Alert.alert(n.title, n.body);
     }
   });
+  sc.enableGPS();
 };
 
 export const toggleStore = (storeId, active) => {
