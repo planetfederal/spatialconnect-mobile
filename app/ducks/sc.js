@@ -1,7 +1,7 @@
 'use strict';
 import * as sc from 'spatialconnect/native';
 import { Actions } from 'react-native-router-flux';
-import { Alert } from 'react-native';
+import { Alert, Platform, PermissionsAndroid } from 'react-native';
 
 const MAX_FEATURES = 100;
 
@@ -81,7 +81,29 @@ export const connectSC = store => {
       Alert.alert(n.title, n.body);
     }
   });
-  sc.enableGPS();
+
+  if (Platform.OS === 'android') {
+    if (Platform.Version >= 23) {
+      try {
+          const granted = PermissionsAndroid.requestPermission(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+            {
+              'title': 'GPS permission',
+              'message': 'EFC needs access to your GPS '
+            }
+          )
+          if (granted) {
+            sc.enableGPS();
+          }
+        } catch (err) {
+          console.warn(err)
+        }
+    } else {
+      sc.enableGPS();
+    }
+  } else {
+    sc.enableGPS();
+  }
 };
 
 export const toggleStore = (storeId, active) => {
