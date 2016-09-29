@@ -77,7 +77,7 @@ export const connectSC = store => {
   });
   sc.notifications$().take(1).subscribe(action => {
     const n = action.payload.notification;
-    if (n.priority === 'alert') {
+    if (action.payload.priority === 'alert') {
       Alert.alert(n.title, n.body);
     }
   });
