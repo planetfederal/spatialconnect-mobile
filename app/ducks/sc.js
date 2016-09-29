@@ -82,25 +82,21 @@ export const connectSC = store => {
     }
   });
 
-  if (Platform.OS === 'android') {
-    if (Platform.Version >= 23) {
-      try {
-          const granted = PermissionsAndroid.requestPermission(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-            {
-              'title': 'GPS permission',
-              'message': 'EFC needs access to your GPS '
-            }
-          )
-          if (granted) {
-            sc.enableGPS();
+  if (Platform.OS === 'android' && Platform.Version >= 23 ) {
+    try {
+        const granted = PermissionsAndroid.requestPermission(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            'title': 'GPS permission',
+            'message': 'EFC needs access to your GPS '
           }
-        } catch (err) {
-          console.warn(err)
+        )
+        if (granted) {
+          sc.enableGPS();
         }
-    } else {
-      sc.enableGPS();
-    }
+      } catch (err) {
+        console.warn(err)
+      }
   } else {
     sc.enableGPS();
   }
