@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -46,17 +47,20 @@ class SCForm extends Component {
         properties: formData
       };
       let f = sc.geometry('FORM_STORE', this.props.formInfo.form_key, gj);
-      sc.createFeature$(f.serialize()).first().subscribe((data) => {
-        Actions.formSubmitted({ feature: data.payload });
-      });
-    }, (error) => {
+      sc.createFeature$(f.serialize()).first().subscribe(this.formSubmitted.bind(this));
+    }, () => {
       let f = sc.spatialFeature('FORM_STORE', this.props.formInfo.form_key, formData);
-      sc.createFeature$(f.serialize()).first().subscribe((data) => {
-        Actions.formSubmitted({ feature: data.payload });
-      });
+      sc.createFeature$(f.serialize()).first().subscribe(this.formSubmitted.bind(this));
     },
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
+  }
+
+  formSubmitted() {
+    Alert.alert('Form Submitted', '', [
+      {text: 'OK', onPress: () => Actions.pop()},
+      {text: 'New Submission', onPress: () => this.setInitialValue(this.state.schema)},
+    ]);
   }
 
   onPress() {
@@ -66,8 +70,7 @@ class SCForm extends Component {
     }
   }
 
-  componentWillMount() {
-    let { schema, options } = scformschema.translate(this.props.formInfo);
+  setInitialValue(schema) {
     let initialValues = {};
     for (let prop in schema.properties) {
       if (schema.properties[prop].hasOwnProperty('initialValue')) {
@@ -75,6 +78,12 @@ class SCForm extends Component {
       }
     }
     this.setState({value: initialValues});
+  }
+
+  componentWillMount() {
+    let { schema, options } = scformschema.translate(this.props.formInfo);
+    this.setState({ schema, options });
+    this.setInitialValue(schema);
     this.TcombType = transform(schema);
     this.options = options;
   }
