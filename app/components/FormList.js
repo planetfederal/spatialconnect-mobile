@@ -2,10 +2,12 @@
 import React, { Component, PropTypes } from 'react';
 import {
   ListView,
+  RefreshControl,
   StyleSheet,
   View
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import * as sc from 'spatialconnect/native';
 import FormCell from './FormCell';
 import palette from '../style/palette';
 
@@ -13,6 +15,7 @@ class FormList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      refreshing: false,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       })
@@ -21,6 +24,14 @@ class FormList extends Component {
 
   selectForm(form) {
     Actions.form({ formInfo: form });
+  }
+
+  onRefresh() {
+    this.setState({refreshing: true});
+    sc.forms$().subscribe(action => {
+      this.setState({refreshing: false});
+      this.props.dispatch(action);
+    });
   }
 
   renderSeparator(
@@ -63,6 +74,12 @@ class FormList extends Component {
           renderRow={this.renderRow.bind(this)}
           style={styles.listView}
           enableEmptySections={true}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh.bind(this)}
+            />
+          }
         />
       </View>
     );
@@ -70,7 +87,8 @@ class FormList extends Component {
 }
 
 FormList.propTypes = {
-  forms: PropTypes.array.isRequired
+  forms: PropTypes.array.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({

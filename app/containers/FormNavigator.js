@@ -34,10 +34,14 @@ const mapStateToProps = (state) => ({
   forms: state.sc.forms
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatch: dispatch
+});
+
 FormNavigator.propTypes = {
   name: PropTypes.string.isRequired,
   formInfo: PropTypes.object,
   forms: PropTypes.array.isRequired
 };
 
-export default connect(mapStateToProps)(FormNavigator);
+export default connect(mapStateToProps, mapDispatchToProps)(FormNavigator);
