@@ -28,7 +28,7 @@ class StoreList extends Component {
 
   onRefresh() {
     this.setState({refreshing: true});
-    sc.stores$().subscribe(action => {
+    sc.stores$().take(1).subscribe(action => {
       this.setState({refreshing: false});
       this.props.dispatch(action);
     });

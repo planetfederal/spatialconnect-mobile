@@ -28,7 +28,7 @@ class FormList extends Component {
 
   onRefresh() {
     this.setState({refreshing: true});
-    sc.forms$().subscribe(action => {
+    sc.forms$().take(1).subscribe(action => {
       this.setState({refreshing: false});
       this.props.dispatch(action);
     });
