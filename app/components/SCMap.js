@@ -8,6 +8,7 @@ import {
 import MapView from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
 import * as sc from 'spatialconnect/native';
+import Rx from 'rx';
 import map from '../utils/map';
 import { isEqual } from 'lodash';
 
@@ -76,9 +77,7 @@ class SCMap extends Component {
   }
 
   onRegionChangeComplete() {
-    this.setState({ points: [], lines: [], polygons: [] }, () => {
-      this.props.actions.queryStores(map.regionToBbox(this.state.region));
-    });
+    this.regionChange$.onNext();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -94,6 +93,13 @@ class SCMap extends Component {
 
   componentDidMount() {
     sc.bindMapView(findNodeHandle(this.refs['scMap']));
+
+    this.regionChange$ = new Rx.Subject();
+    this.regionChange$
+      .throttle(2000)
+      .subscribe(() => {
+        this.props.actions.queryStores(map.regionToBbox(this.state.region));
+      });
   }
 
   render() {

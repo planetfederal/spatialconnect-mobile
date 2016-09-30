@@ -31,10 +31,14 @@ const mapStateToProps = (state) => ({
   stores: state.sc.stores,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatch: dispatch
+});
+
 StoreNavigator.propTypes = {
   name: PropTypes.string.isRequired,
   stores: PropTypes.array.isRequired,
   storeInfo: PropTypes.object
 };
 
-export default connect(mapStateToProps)(StoreNavigator);
+export default connect(mapStateToProps, mapDispatchToProps)(StoreNavigator);
