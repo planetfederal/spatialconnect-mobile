@@ -1,6 +1,11 @@
+'use strict';
 /*global fetch*/
+import { Platform } from 'react-native';
+import RNFetchBlob from 'react-native-fetch-blob';
+
 //const API_URL = 'http://localhost:8085/api/';
 const API_URL = 'http://efc-dev.boundlessgeo.com/api/';
+
 let api = {
   getFormData(form, token) {
     return fetch(API_URL + `forms/${form.id}/results`, {
@@ -43,7 +48,22 @@ let api = {
       },
       body: JSON.stringify(body)
     }).then((response) => response.json());
-  }
+  },
+  syncStore(storeId, token) {
+    var gpkgStorePath = Platform.OS === 'ios' ?
+      RNFetchBlob.fs.dirs.DocumentDir  + '/' + storeId + '.gpkg':
+      RNFetchBlob.fs.dirs.DocumentDir  + '/' + storeId;  //todo: update android to include .gpkg extension
+
+      RNFetchBlob.fetch('POST', API_URL + 'sync', {
+         'x-access-token': token,
+         'Content-Type' : 'multipart/form-data',
+        }, [
+         { name:'repoName',   data:'my-new-repo'},
+         { name:'geopackage', filename: 'geopackage', data: RNFetchBlob.wrap(gpkgStorePath) }
+       ])
+     .then(res => console.log(res))
+     .catch(err => console.err(err));
+   }
 };
 
 export default api;

@@ -2,6 +2,7 @@
 import * as sc from 'spatialconnect/native';
 import { Actions } from 'react-native-router-flux';
 import { Alert, Platform, PermissionsAndroid } from 'react-native';
+import api from '../utils/api';
 
 const MAX_FEATURES = 100;
 
@@ -147,3 +148,11 @@ export const updateFeature = (newFeature) => {
     payload: { newFeature }
   };
 };
+
+export const syncStore = (storeId, token) => {
+  api.syncStore(storeId, token);
+  return {
+    type: 'NO_TYPE',
+    payload: null
+  };
+}

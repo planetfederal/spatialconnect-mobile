@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import StoreList from '../components/StoreList';
 import SCStore from '../components/SCStore';
 import { navStyles } from '../style/style.js';
+import { bindActionCreators } from 'redux';
+import * as scActions from '../ducks/sc';
 
 class StoreNavigator extends Component {
 
@@ -29,10 +31,12 @@ class StoreNavigator extends Component {
 
 const mapStateToProps = (state) => ({
   stores: state.sc.stores,
+  token: state.auth.token
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatch: dispatch
+  dispatch: dispatch,
+  actions: bindActionCreators(scActions, dispatch)
 });
 
 StoreNavigator.propTypes = {
