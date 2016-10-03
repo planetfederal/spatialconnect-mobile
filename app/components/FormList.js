@@ -23,7 +23,7 @@ class FormList extends Component {
   }
 
   selectForm(form) {
-    Actions.form({ formInfo: form });
+    Actions.form({ title: form.form_label, formInfo: form });
   }
 
   onRefresh() {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     padding: 0,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: palette.gray,
+    backgroundColor: palette.lightgray,
   },
   listView: {
     flex: 1,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   rowSeparator: {
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
     height: 1,
-    marginLeft: 4,
+    marginLeft: 0,
   },
   rowSeparatorHide: {
     opacity: 0.0,

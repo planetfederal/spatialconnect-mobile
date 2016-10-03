@@ -12,16 +12,16 @@ class SCStore extends Component {
     return (
       <View style={styles.container}>
         <Text numberOfLines={1}>
-          Name: {this.props.storeInfo.name}
+          <Text style={styles.name}>Name:</Text> {this.props.storeInfo.name}
         </Text>
         <Text numberOfLines={1}>
-          Type: {this.props.storeInfo.type}
+          <Text style={styles.name}>Type:</Text> {this.props.storeInfo.type}
         </Text>
         <Text numberOfLines={1}>
-          Service: {this.props.storeInfo.service}
+          <Text style={styles.name}>Service:</Text> {this.props.storeInfo.service}
         </Text>
         <Text numberOfLines={0}>
-          ID: {this.props.storeInfo.storeId}
+          <Text style={styles.name}>ID:</Text> {this.props.storeInfo.storeId}
         </Text>
       </View>
     );
@@ -33,11 +33,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 0,
     padding: 10,
-    backgroundColor: palette.gray
+    backgroundColor: '#fff'
   },
   link: {
     color: 'blue',
     textDecorationLine: 'underline'
+  },
+  name: {
+    fontWeight: 'bold'
   }
 });
 

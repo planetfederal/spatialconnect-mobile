@@ -23,7 +23,7 @@ class StoreList extends Component {
   }
 
   selectStore(store) {
-    Actions.store({ storeInfo: store });
+    Actions.store({ title: store.name, storeInfo: store });
   }
 
   onRefresh() {
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   rowSeparator: {
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
     height: 1,
-    marginLeft: 4,
+    marginLeft: 0,
   },
   rowSeparatorHide: {
     opacity: 0.0,

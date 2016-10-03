@@ -22,7 +22,7 @@ const SideMenu = (props, context) => {
           <Image source={require('../img/efc_app_87.png')} style={styles.icon} />
         </View>
         {props.isAuthenticated ?
-          <View>
+          <View style={styles.navBtns}>
           <SideMenuButton text="Forms" onPress={() => { drawer.close(); Actions.formNav(); }} />
           <SideMenuButton text="Stores" onPress={() => { drawer.close(); Actions.storeNav(); }} />
           <SideMenuButton text="Map" onPress={() => { drawer.close(); Actions.mapNav(); }} />
@@ -30,7 +30,7 @@ const SideMenu = (props, context) => {
           <SideMenuButton text="Logout" onPress={() => { drawer.close(); sc.logout(); }} />
           </View>
           :
-          <View>
+          <View style={styles.navBtns}>
           <SideMenuButton text="Login" onPress={() => { drawer.close(); Actions.login(); }} />
           <SideMenuButton text="Sign Up" onPress={() => { drawer.close(); Actions.signUp(); }} />
           </View>
@@ -55,23 +55,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 0,
-    paddingTop: 30,
+    paddingTop: 10,
     backgroundColor: palette.lightblue,
   },
+  navBtns: {
+    borderTopWidth: 1,
+    borderTopColor: palette.lightgray,
+  },
   navBtn: {
-    color: 'white',
+    color: palette.lightgray,
     textAlign: 'left',
-    fontSize: 21,
+    paddingLeft: 10,
   },
   navBtnContainer: {
     paddingTop: 10,
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: 'white',
+    borderBottomColor: palette.lightgray,
   },
   navBtnWrap: {
-    marginLeft: 15,
-    marginRight: 15,
+    marginLeft: 0,
+    marginRight: 0,
   },
   titleWrap: {
     flexDirection: 'row',
@@ -79,7 +83,7 @@ const styles = StyleSheet.create({
   icon: {
     height: 50,
     width: 50,
-    marginRight: 10,
+    margin: 10,
   },
   title: {
     marginTop: 8,

@@ -1,6 +1,7 @@
 export default {
   lightblue: '#35507D',
   gray: '#e4e7ec',
+  lightgray: '#f0f1f4',
   green: '#55967e',
   darkblue: '#263959',
   LABEL_COLOR: '#000000',

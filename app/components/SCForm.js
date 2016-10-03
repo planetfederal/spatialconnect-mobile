@@ -96,9 +96,6 @@ class SCForm extends Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <View style={styles.formName}>
-            <Text style={styles.formNameText}>{this.props.formInfo.form_label}</Text>
-          </View>
           <View style={styles.form}>
             <Form
               ref="form"
@@ -150,7 +147,10 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   form: {
-    padding: 20
+    backgroundColor: palette.lightgray,
+    padding: 20,
+    borderColor: palette.gray,
+    borderBottomWidth: 1
   }
 });
 

@@ -19,7 +19,7 @@ export const cellStyles = StyleSheet.create({
     padding: 10,
   },
   cellImage: {
-    backgroundColor: '#dddddd',
+    backgroundColor: '#fff',
     height: 93,
     marginRight: 10,
     width: 60,
@@ -36,7 +36,7 @@ export const navStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     marginTop: (Platform.OS === 'ios') ? 65 : 55,
-    backgroundColor: palette.gray
+    backgroundColor: palette.white
   }
 });
 
