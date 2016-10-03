@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   navBtn: {
     color: 'white',
     textAlign: 'left',
-    fontSize: 16,
+    fontSize: 21,
   },
   navBtnContainer: {
     paddingTop: 10,
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   icon: {
-    height: 25,
-    width: 25,
+    height: 50,
+    width: 50,
     marginRight: 10,
   },
   title: {

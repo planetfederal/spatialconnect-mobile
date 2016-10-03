@@ -110,6 +110,7 @@ class SCMap extends Component {
           <MapView
             ref={'scMap'}
             style={styles.map}
+            loadingEnabled={true}
             initialRegion={this.state.region}
             onRegionChange={this.onRegionChange.bind(this)}
             onRegionChangeComplete={this.onRegionChangeComplete.bind(this)}>

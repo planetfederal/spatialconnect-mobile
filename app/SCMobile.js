@@ -130,7 +130,8 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 28,
+    lineHeight: 28,
   },
   leftButtonStyle: {
 
