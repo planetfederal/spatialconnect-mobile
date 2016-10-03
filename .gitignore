@@ -59,5 +59,3 @@ android/app/fabric.properties
 # React Native
 ios/main.jsbundle
 ios/main.jsbundle.meta
-ios/remote.scfg
-android/app/src/main/res/raw/config.scfg
