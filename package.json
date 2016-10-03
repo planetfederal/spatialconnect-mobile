@@ -30,7 +30,7 @@
     "react-native": "0.34.0",
     "react-native-button": "^1.6.0",
     "react-native-drawer": "^2.2.3",
-    "react-native-image-picker": "0.21.2",
+    "react-native-image-picker": "^0.22.9",
     "react-native-maps": "file:../react-native-maps",
     "react-native-router-flux": "3.35.0",
     "react-native-slider": "^0.8.0",
