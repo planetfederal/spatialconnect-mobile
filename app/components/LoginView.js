@@ -12,6 +12,7 @@ import * as authActions from '../ducks/auth';
 import Button from 'react-native-button';
 import t from 'tcomb-form-native';
 import * as sc from 'spatialconnect/native';
+import palette from '../style/palette';
 import { navStyles, buttonStyles } from '../style/style';
 
 let Form = t.form.Form;
@@ -66,7 +67,6 @@ export class LoginView extends Component {
           <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.onPress.bind(this)}>
             Login
           </Button>
-          <Text onPress={this.onSignUpPress} style={buttonStyles.link}>Sign Up</Text>
         </View>
       </View>
     );
@@ -81,7 +81,10 @@ LoginView.propTypes = {
 
 const styles = StyleSheet.create({
   form: {
+    backgroundColor: palette.lightgray,
     padding: 20,
+    borderColor: palette.gray,
+    borderBottomWidth: 1,
   }
 });
 
