@@ -173,6 +173,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		5403ECDA1CCED8EE00A56D23 /* all.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = all.geojson; path = SCMobile/all.geojson; sourceTree = "<group>"; };
 		5403ECDB1CCED8EE00A56D23 /* tests.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = tests.scfg; path = SCMobile/tests.scfg; sourceTree = "<group>"; };
+		5418A5EF1DA3EC2F00F6B7AD /* EFC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = EFC.entitlements; path = SCMobile/EFC.entitlements; sourceTree = "<group>"; };
 		543E8AE91D2EDB4F009FE68F /* simple.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = simple.geojson; path = SCMobile/simple.geojson; sourceTree = "<group>"; };
 		545E9F3F1D53CEDB000C4190 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		546D08791D21B27E00EBB95A /* libgpkgios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libgpkgios.framework; path = Carthage/Build/iOS/libgpkgios.framework; sourceTree = "<group>"; };
@@ -298,6 +299,7 @@
 		13B07FAE1A68108700A75B9A /* SCMobile */ = {
 			isa = PBXGroup;
 			children = (
+				5418A5EF1DA3EC2F00F6B7AD /* EFC.entitlements */,
 				543E8AE91D2EDB4F009FE68F /* simple.geojson */,
 				5403ECDA1CCED8EE00A56D23 /* all.geojson */,
 				5403ECDB1CCED8EE00A56D23 /* tests.scfg */,
@@ -461,6 +463,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 82EPDLMXNS;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -774,6 +781,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = SCMobile/EFC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 43;
@@ -823,6 +831,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = SCMobile/EFC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 43;
