@@ -84,19 +84,18 @@ export const connectSC = store => {
 
   if (Platform.OS === 'android' && Platform.Version >= 23 ) {
     try {
-        const granted = PermissionsAndroid.requestPermission(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            'title': 'GPS permission',
-            'message': 'EFC needs access to your GPS '
-          }
-        )
-        if (granted) {
-          sc.enableGPS();
+      const granted = PermissionsAndroid.requestPermission(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
+          'title': 'GPS permission',
+          'message': 'EFC needs access to your GPS '
         }
-      } catch (err) {
-        console.warn(err)
+      );
+      if (granted) {
+        sc.enableGPS();
       }
+    } catch (err) {
+      console.warn(err);
+    }
   } else {
     sc.enableGPS();
   }
@@ -130,6 +129,7 @@ export const queryStores = (bbox=[-180, -90, 180, 90], limit=50) => {
       type: 'CLEAR_FEATURES'
     });
     sc.geospatialQuery$(filter, state.sc.activeStores)
+      .take(MAX_FEATURES)
       .map(action => action.payload)
       .bufferWithTime(1000)
       .subscribe(featureChunk => {

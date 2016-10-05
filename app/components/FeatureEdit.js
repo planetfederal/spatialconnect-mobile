@@ -188,6 +188,10 @@ class FeatureEdit extends Component {
     this.setState(state);
   }
 
+  componentDidMount() {
+    Actions.refresh({onRight: this.save.bind(this)});
+  }
+
   renderForm() {
     return <Form
       ref="form"
@@ -254,9 +258,8 @@ class FeatureEdit extends Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-      {this.state.value ? this.renderForm() : null }
+        {this.state.value ? this.renderForm() : null }
         {this.state.coordinates ? this.renderMap() : null }
-        <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.save.bind(this)}>Save</Button>
       </ScrollView>
     );
   }

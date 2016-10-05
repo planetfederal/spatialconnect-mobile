@@ -65,3 +65,66 @@ export const buttonStyles = StyleSheet.create({
     color: 'blue'
   }
 });
+
+export const propertyListStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 0,
+    padding: 10,
+    backgroundColor: '#fff'
+  },
+  section: {
+    paddingBottom: 10,
+  },
+  sectionHead: {
+    borderColor: palette.gray,
+    borderBottomWidth: 1,
+    marginBottom: 5,
+  },
+  link: {
+    color: 'blue',
+    textDecorationLine: 'underline'
+  },
+  sectionHeadText: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  name: {
+    fontWeight: 'bold',
+  },
+  base64: {
+    height: 100,
+    width: 100,
+    backgroundColor: 'red',
+  },
+});
+
+export const routerStyles = StyleSheet.create({
+  navBar: {
+    backgroundColor: palette.lightblue,
+  },
+  title: {
+    color: 'white',
+    fontWeight: 'bold'
+  },
+  leftButtonStyle: {
+
+  },
+  buttonTextStyle: {
+    color: 'white',
+  },
+  icon: {
+    left: 0,
+    tintColor: 'white',
+  },
+  layersIcon: {
+    right: 10,
+    position: 'absolute',
+  },
+  layersIconImg: {
+    tintColor: 'white',
+  },
+  leftButtonIconStyle: {
+    tintColor: 'white',
+  }
+});

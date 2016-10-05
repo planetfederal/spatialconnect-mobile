@@ -1,48 +1,26 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View
+  ScrollView,
 } from 'react-native';
-import palette from '../style/palette';
+import Property from './Property';
+import { propertyListStyles } from '../style/style';
 
 class SCStore extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text numberOfLines={1}>
-          <Text style={styles.name}>Name:</Text> {this.props.storeInfo.name}
-        </Text>
-        <Text numberOfLines={1}>
-          <Text style={styles.name}>Type:</Text> {this.props.storeInfo.type}
-        </Text>
-        <Text numberOfLines={1}>
-          <Text style={styles.name}>Service:</Text> {this.props.storeInfo.service}
-        </Text>
-        <Text numberOfLines={0}>
-          <Text style={styles.name}>ID:</Text> {this.props.storeInfo.storeId}
-        </Text>
-      </View>
+      <ScrollView style={propertyListStyles.container}>
+        <Property name={'Name'} value={this.props.storeInfo.name} />
+        <Property name={'Type'} value={this.props.storeInfo.type} />
+        <Property name={'Service'} value={this.props.storeInfo.service} />
+        <Property name={'ID'} value={this.props.storeInfo.storeId} />
+        {this.props.storeInfo.layers.length ?
+          <Property name={'Layers'} value={this.props.storeInfo.layers.join('\n')} />
+        : null}
+      </ScrollView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 0,
-    padding: 10,
-    backgroundColor: '#fff'
-  },
-  link: {
-    color: 'blue',
-    textDecorationLine: 'underline'
-  },
-  name: {
-    fontWeight: 'bold'
-  }
-});
 
 SCStore.propTypes = {
   storeInfo: PropTypes.object.isRequired
