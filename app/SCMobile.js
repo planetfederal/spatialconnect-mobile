@@ -79,6 +79,9 @@ const scenes = Actions.create(
                 rightTitle="Save" rightButtonTextStyle={routerStyles.buttonTextStyle}
                 onRight={ () => null }
                 onLeft={() => Actions.pop() } />
+              <Scene component={requireAuth(MapNavigator)} title="Create Feature"
+                direction="vertical" panHandlers={null}
+                key="createFeature" />
             </Scene>
             <Scene key="testNav" title="Tests">
               <Scene key="test" component={requireAuth(TestNavigator)} title="Tests" renderLeftButton={renderLeftButton} />

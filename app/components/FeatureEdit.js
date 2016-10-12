@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 import palette from '../style/palette';
-import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import t from 'tcomb-form-native';
 import transform from 'tcomb-json-schema';
@@ -17,16 +16,15 @@ import * as sc from 'spatialconnect/native';
 import scformschema from 'spatialconnect-form-schema/native';
 import { omit, flatten, merge } from 'lodash';
 import { Actions } from 'react-native-router-flux';
-import { buttonStyles } from '../style/style';
 import map from '../utils/map';
 import turfPoint from 'turf-point';
 import turfPolygon from 'turf-polygon';
 import turfLinestring from 'turf-linestring';
 
 const Form = t.form.Form;
-const PIN_COLOR_DEFAULT = '#cd211e';
-const PIN_COLOR_SELECTING = '#0544ad';
-const PIN_COLOR_SELECTED = '#ffa500';
+const PIN_COLOR_DEFAULT = '#FF4136';
+const PIN_COLOR_SELECTING = '#0074D9';
+const PIN_COLOR_SELECTED = '#FF851B';
 
 class FeatureEdit extends Component {
   constructor(props) {
@@ -63,7 +61,7 @@ class FeatureEdit extends Component {
       const newFeature = this.createNewFeature(this.props.feature, value, this.state.coordinates);
       sc.updateFeature(newFeature);
       this.props.actions.updateFeature(newFeature);
-      Actions.pop({refresh: {feature: newFeature}});
+      Actions.popTo('map');
     }
   }
 

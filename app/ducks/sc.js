@@ -1,5 +1,6 @@
 'use strict';
 import * as sc from 'spatialconnect/native';
+import { findIndex } from 'lodash';
 import { Actions } from 'react-native-router-flux';
 import { Alert, Platform, PermissionsAndroid } from 'react-native';
 
@@ -47,14 +48,24 @@ export default (state = initialState, action) => {
     }
     case 'UPDATE_FEATURE': {
       let nf = action.payload.newFeature;
+      let nfs;
+      let idx = findIndex(state.features, f => (
+        f.id === nf.id &&
+        f.metadata.storeId === nf.metadata.storeId &&
+        f.metadata.layerId === nf.metadata.layerId
+      ));
+      if (idx >= 0) {
+        nfs = [
+          ...state.features.slice(0, idx),
+          nf,
+          ...state.features.slice(idx + 1)
+        ];
+      } else {
+        nfs = state.features.concat(nf);
+      }
       return {
         ...state,
-        features: state.features.map(f => {
-          return (f.id === nf.id
-            && f.metadata.storeId === nf.metadata.storeId
-            && f.metadata.layerId === nf.metadata.layerId)
-            ? nf : f;
-        })
+        features: nfs
       };
     }
     default:

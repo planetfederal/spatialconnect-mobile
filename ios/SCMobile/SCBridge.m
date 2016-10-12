@@ -43,14 +43,14 @@ RCT_EXPORT_METHOD(bindMapView:(nonnull NSNumber *)reactTag)
         AIRMap *mapView = (AIRMap *)view;
         NSArray *stores = [[[SpatialConnect sharedInstance] dataService] storesByProtocol:@protocol(SCRasterStore)];
         [[[[[[stores rac_sequence] signal] filter:^BOOL(SCDataStore *store) {
-          return [((id<SCRasterStore>)store).rasterList count] > 0;
+          return [((id<SCRasterStore>)store).rasterLayers count] > 0;
         }] map:^RACTuple*(SCDataStore *store) {
-          return [RACTuple tupleWithObjects:store.storeId, ((id<SCRasterStore>)store).rasterList, nil];
+          return [RACTuple tupleWithObjects:store.storeId, ((id<SCRasterStore>)store).rasterLayers, nil];
         }] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(RACTuple *t) {
           id<SCRasterStore> rs =
           (id<SCRasterStore>)[[[SpatialConnect sharedInstance] dataService] storeByIdentifier:[t first]];
           for (id layer in [t second]) {
-            [rs overlayFromLayer:[layer name] mapview:(AIRMap *)mapView];
+            [rs overlayFromLayer:layer mapview:(AIRMap *)mapView];
           }
         }];
       }

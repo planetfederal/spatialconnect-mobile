@@ -9,6 +9,7 @@ import * as scActions from '../ducks/sc';
 import SCMap from '../components/SCMap';
 import FeatureData from '../components/FeatureData';
 import FeatureEdit from '../components/FeatureEdit';
+import FeatureCreate from '../components/FeatureCreate';
 import { navStyles } from '../style/style.js';
 
 class MapNavigator extends Component {
@@ -20,6 +21,8 @@ class MapNavigator extends Component {
       el = <FeatureData {...this.props} />;
     } else if (this.props.name === 'editFeature') {
       el = <FeatureEdit {...this.props} />;
+    } else if (this.props.name === 'createFeature') {
+      el = <FeatureCreate {...this.props} />;
     } else {
       el = <View />;
     }
@@ -33,11 +36,9 @@ class MapNavigator extends Component {
 
 MapNavigator.propTypes = {
   name: PropTypes.string.isRequired,
-  token: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  token: state.auth.token,
   stores: state.sc.stores,
   activeStores: state.sc.activeStores,
   features: state.sc.features,
