@@ -74,14 +74,14 @@ const scenes = Actions.create(
                 rightTitle="Edit" rightButtonTextStyle={routerStyles.buttonTextStyle}
                 onRight={ props => Actions.editFeature({feature: props.feature}) } />
               <Scene component={requireAuth(MapNavigator)} title="Edit Feature"
-                direction="vertical" panHandlers={null}
+                panHandlers={null}
                 key="editFeature"
                 rightTitle="Save" rightButtonTextStyle={routerStyles.buttonTextStyle}
                 onRight={ () => null }
                 onLeft={() => Actions.pop() } />
               <Scene component={requireAuth(MapNavigator)} title="Create Feature"
                 direction="vertical" panHandlers={null}
-                key="createFeature" />
+                key="createFeature"  />
             </Scene>
             <Scene key="testNav" title="Tests">
               <Scene key="test" component={requireAuth(TestNavigator)} title="Tests" renderLeftButton={renderLeftButton} />

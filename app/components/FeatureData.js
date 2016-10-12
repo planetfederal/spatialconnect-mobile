@@ -68,7 +68,7 @@ class FeatureData extends Component {
 
 FeatureData.propTypes = {
   feature: PropTypes.object.isRequired,
-  stores: PropTypes.array.isRequired
+  stores: PropTypes.array.isRequired,
 };
 
 export default FeatureData;

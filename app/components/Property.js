@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   Image,
   Text,
-  View
+  View,
 } from 'react-native';
 import { propertyListStyles } from '../style/style';
 
@@ -26,7 +26,7 @@ PropertyValue.propTypes = {
   value: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.number,
-  ])
+  ]),
 };
 
 class Property extends Component {

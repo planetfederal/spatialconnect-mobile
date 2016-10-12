@@ -24,7 +24,7 @@ class SCDrawer extends Component {
         negotiatePan={true}
         tweenDuration={100}
         tweenHandler={(ratio) => ({
-          main: { opacity:Math.max(0.54,1-ratio) }
+          main: { opacity:Math.max(0.54,1-ratio) },
         })
       }>
         <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate} />
@@ -41,11 +41,11 @@ SCDrawer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(authActions, dispatch)
+  actions: bindActionCreators(authActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SCDrawer);

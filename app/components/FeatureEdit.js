@@ -2,6 +2,7 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
+  InteractionManager,
   ScrollView,
   StyleSheet,
   Text,
@@ -35,6 +36,7 @@ class FeatureEdit extends Component {
       region: null,
       panning: false,
       editing: false,
+      renderPlaceholderOnly: true,
     };
   }
 
@@ -59,9 +61,11 @@ class FeatureEdit extends Component {
     const value = this.state.value ? this.refs.form.getValue() : {};
     if (value) {
       const newFeature = this.createNewFeature(this.props.feature, value, this.state.coordinates);
-      sc.updateFeature(newFeature);
-      this.props.actions.updateFeature(newFeature);
       Actions.popTo('map');
+      InteractionManager.runAfterInteractions(() => {
+        sc.updateFeature(newFeature);
+        this.props.actions.updateFeature(newFeature);
+      });
     }
   }
 
@@ -187,7 +191,10 @@ class FeatureEdit extends Component {
   }
 
   componentDidMount() {
-    Actions.refresh({onRight: this.save.bind(this)});
+    InteractionManager.runAfterInteractions(() => {
+      Actions.refresh({onRight: this.save.bind(this)});
+      this.setState({ renderPlaceholderOnly: false });
+    });
   }
 
   renderForm() {
@@ -200,6 +207,9 @@ class FeatureEdit extends Component {
   }
 
   renderMap() {
+    if (this.state.renderPlaceholderOnly) {
+      return <View></View>;
+    }
     return (
       <View>
         <Text style={styles.label}>Geometry</Text>

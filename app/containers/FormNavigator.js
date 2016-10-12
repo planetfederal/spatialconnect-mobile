@@ -31,17 +31,17 @@ class FormNavigator extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  forms: state.sc.forms
+  forms: state.sc.forms,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatch: dispatch
+  dispatch: dispatch,
 });
 
 FormNavigator.propTypes = {
   name: PropTypes.string.isRequired,
   formInfo: PropTypes.object,
-  forms: PropTypes.array.isRequired
+  forms: PropTypes.array.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormNavigator);

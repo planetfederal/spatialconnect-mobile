@@ -4,7 +4,7 @@ import {
   ListView,
   RefreshControl,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import * as sc from 'spatialconnect/native';
@@ -18,7 +18,7 @@ class FormList extends Component {
       refreshing: false,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
-      })
+      }),
     };
   }
 
@@ -88,7 +88,7 @@ class FormList extends Component {
 
 FormList.propTypes = {
   forms: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   rowSeparatorHide: {
     opacity: 0.0,
-  }
+  },
 });
 
 export default FormList;

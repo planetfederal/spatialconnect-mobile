@@ -23,7 +23,7 @@ class SCStore extends Component {
 }
 
 SCStore.propTypes = {
-  storeInfo: PropTypes.object.isRequired
+  storeInfo: PropTypes.object.isRequired,
 };
 
 export default SCStore;

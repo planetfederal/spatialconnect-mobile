@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import {
   findNodeHandle,
+  InteractionManager,
   StyleSheet,
   View,
   Animated
@@ -22,125 +23,68 @@ import turfLinestring from 'turf-linestring';
 class SCMap extends Component {
   constructor(props) {
     super(props);
-    this.features = [];
     this.center = {
       latitude: 37.78825,
       longitude: -95,
     };
     this.state = {
-      region:  new MapView.AnimatedRegion({
+      region: new MapView.AnimatedRegion({
         ...this.center,
         latitudeDelta: 20,
         longitudeDelta: 70,
       }),
-      points: [],
-      polygons: [],
-      lines: [],
       centerPin: false,
       creatingPins: [],
       addingFeatureType: false,
+      renderPlaceholderOnly: true,
     };
-  }
-
-  addFeatures(features) {
-    let points = this.state.points;
-    let polygons = this.state.polygons;
-    let lines = this.state.lines;
-    features
-    .filter(f => f.geometry)
-    .forEach(feature => {
-      switch (feature.geometry.type) {
-        case 'Point':
-        case 'MultiPoint': {
-          let point = map.makeCoordinates(feature).map(c => ({
-            latlng: c,
-            feature: feature
-          }));
-          points = points.concat(point);
-          break;
-        }
-        case 'Polygon':
-        case 'MultiPolygon': {
-          let polygon = map.makeCoordinates(feature).map(c => ({
-            coordinates: c,
-            feature: feature
-          }));
-          polygons = polygons.concat(polygon);
-          break;
-        }
-        case 'LineString':
-        case 'MultiLineString': {
-          let line = map.makeCoordinates(feature).map(c => ({
-            coordinates: c,
-            feature: feature
-          }));
-          lines = lines.concat(line);
-        }
-      }
-    });
-    this.setState({
-      points: points,
-      polygons: polygons,
-      lines: lines
-    });
   }
 
   addCenterPin() {
     this.setState({
-      centerPin: new MapView.AnimatedRegion(this.center)
+      centerPin: new MapView.AnimatedRegion(this.center),
     });
   }
 
   cancelCreating() {
     this.setState({
       centerPin: false,
-      creatingPins: [],
-      addingFeatureType: false,
     });
+    this.props.actions.cancelCreating();
   }
 
   addNextPin() {
-    this.setState({
-      creatingPins: this.state.creatingPins.concat(this.center)
-    });
+    this.props.actions.addCreatingPoint(this.center);
   }
 
   addFeatureType(type) {
-    this.setState({
-      addingFeatureType: type,
-      addedFeature: false,
-    });
-    if (type === 'pin') {
-      this.setState({
-        creatingPins: []
-      });
-    }
+    this.props.actions.setCreatingType(type);
   }
 
   saveFeature() {
     let addedFeature;
     let geojson;
     let valid = false;
-    if (this.state.addingFeatureType === 'polygon') {
-      valid = this.state.creatingPins.length >= 3;
+    if (this.props.creatingType === 'polygon') {
+      valid = this.props.creatingPoints.length >= 3;
       if (valid) {
-        addedFeature = this.state.creatingPins.concat(this.state.creatingPins[0]);
+        addedFeature = this.props.creatingPoints.concat(this.props.creatingPoints[0]);
         const coords = addedFeature.map(c => ([c.longitude, c.latitude]));
         geojson = turfPolygon([coords], {});
       }
-    } else if (this.state.addingFeatureType === 'pin') {
+    } else if (this.props.creatingType === 'pin') {
       valid = typeof this.center.latitude === 'number' &&
         typeof this.center.longitude === 'number';
       if (valid) {
         addedFeature = {
-          ...this.center
+          ...this.center,
         };
         geojson = turfPoint([addedFeature.longitude, addedFeature.latitude], {});
       }
-    } else if (this.state.addingFeatureType === 'line') {
-      valid = this.state.creatingPins.length >= 2;
+    } else if (this.props.creatingType === 'line') {
+      valid = this.props.creatingPoints.length >= 2;
       if (valid) {
-        addedFeature = this.state.creatingPins.slice();
+        addedFeature = this.props.creatingPoints.slice();
         const coords = addedFeature.map(c => ([c.longitude, c.latitude]));
         geojson = turfLinestring(coords, {});
       }
@@ -148,10 +92,8 @@ class SCMap extends Component {
     if (valid) {
       this.setState({
         centerPin: false,
-        creatingPins: [],
-        addedFeature: addedFeature
       });
-
+      this.props.actions.cancelCreating();
       Actions.createFeature({feature: geojson});
     }
     return valid;
@@ -165,11 +107,10 @@ class SCMap extends Component {
     this.region = region;
     this.state.region.setValue(region);
     if (this.state.centerPin) {
-      const { centerPin } = this.state;
-      centerPin.timing({
+      this.state.centerPin.timing({
         latitude: region.latitude,
         longitude: region.longitude,
-        duration: 1
+        duration: 1,
       }).start();
     }
   }
@@ -179,55 +120,29 @@ class SCMap extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.features, nextProps.features)) {
-      this.setState({ points: [], lines: [], polygons: [] }, () => {
-        this.addFeatures(nextProps.features);
-      });
-    }
     if (!isEqual(this.props.activeStores, nextProps.activeStores)) {
       this.props.actions.queryStores(map.regionToBbox(this.region));
     }
   }
 
   componentDidMount() {
-    sc.bindMapView(findNodeHandle(this.refs['scMap']));
-
-    this.regionChangeComplete$ = new Rx.Subject();
-    this.regionChangeComplete$
-      .throttle(2000)
-      .subscribe(() => {
-        this.props.actions.queryStores(map.regionToBbox(this.region));
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ renderPlaceholderOnly: false }, () => {
+        sc.bindMapView(findNodeHandle(this.refs['scMap']));
       });
-  }
-
-  renderAddedFeature() {
-    if (this.state.addedFeature) {
-      if (this.state.addingFeatureType === 'polygon') {
-        return <MapView.Polygon
-          coordinates={this.state.addedFeature}
-          key={'addedFeature'}
-          strokeColor={palette.lightblue}
-          fillColor={Color(palette.lightblue).clearer(0.3).rgbString()}
-        />;
-      }
-      if (this.state.addingFeatureType === 'line') {
-        return <MapView.Polyline
-          coordinates={this.state.addedFeature}
-          key={'addedFeature'}
-          strokeColor={palette.lightblue}
-        />;
-      }
-      if (this.state.addingFeatureType === 'pin') {
-        return <MapView.Marker
-          coordinate={this.state.addedFeature}
-          key={'addedFeature'}
-          pinColor={palette.lightblue}
-        />;
-      }
-    } else return null;
+      this.regionChangeComplete$ = new Rx.Subject();
+      this.regionChangeComplete$
+        .throttle(2000)
+        .subscribe(() => {
+          this.props.actions.queryStores(map.regionToBbox(this.region));
+        });
+    });
   }
 
   render() {
+    if (this.state.renderPlaceholderOnly) {
+      return <View></View>;
+    }
     let idx = 0;
     return (
       <View style={styles.container}>
@@ -239,7 +154,7 @@ class SCMap extends Component {
             initialRegion={this.state.region}
             onRegionChange={this.onRegionChange.bind(this)}
             onRegionChangeComplete={this.onRegionChangeComplete.bind(this)}>
-            {this.state.points.map(point => (
+            {this.props.overlays.points.map(point => (
               <MapView.Marker
                 coordinate={point.latlng}
                 title={point.title}
@@ -253,7 +168,7 @@ class SCMap extends Component {
                 }}
               />
             ))}
-            {this.state.polygons.map(p => (
+            {this.props.overlays.polygons.map(p => (
               <MapView.Polygon
                 key={'polygon.'+p.feature.id+'.'+idx++}
                 coordinates={p.coordinates}
@@ -264,7 +179,7 @@ class SCMap extends Component {
                 }}
               />
             ))}
-            {this.state.lines.map(l => (
+            {this.props.overlays.lines.map(l => (
               <MapView.Polyline
                 key={'line.'+l.feature.id+'.'+idx++}
                 coordinates={l.coordinates}
@@ -274,22 +189,22 @@ class SCMap extends Component {
                 }}
               />
             ))}
-            {this.state.creatingPins.length > 0 &&
+            {this.props.creatingPoints.length > 0 &&
               <MapView.Polyline
-              coordinates={this.state.creatingPins}
-              key={'creatingPins'}
+              coordinates={this.props.creatingPoints}
+              key={'creatingPoints'}
               strokeColor={palette.darkblue}
               />
             }
-            {(this.state.creatingPins.length > 0 && this.state.addingFeatureType === 'polygon') &&
+            {(this.props.creatingPoints.length > 0 && this.props.creatingType === 'polygon') &&
               <MapView.Polygon
-              coordinates={this.state.creatingPins}
-              key={'creatingPinsPoly'}
+              coordinates={this.props.creatingPoints}
+              key={'creatingPoly'}
               strokeColor="rgba(255,0,0,0)"
               fillColor={Color(palette.lightblue).clearer(0.3).rgbString()}
               />
             }
-            {this.state.creatingPins.map((point, idx) => (
+            {this.props.creatingPoints.map((point, idx) => (
               <MapView.Marker
                 coordinate={point}
                 pinColor={palette.lightblue}
@@ -301,7 +216,6 @@ class SCMap extends Component {
               key={'centerPin'}
               pinColor={'#FF851B'}
             />}
-            {/*this.renderAddedFeature()*/}
           </MapView.Animated>
           <View style={styles.createMenu}>
             <CreateMenu
@@ -321,7 +235,9 @@ SCMap.propTypes = {
   activeStores: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
   features: PropTypes.array.isRequired,
-  updatedFeature: PropTypes.bool.isRequired,
+  overlays: PropTypes.object.isRequired,
+  creatingType: PropTypes.string,
+  creatingPoints: PropTypes.array.isRequired,
 };
 
 const styles = StyleSheet.create({
