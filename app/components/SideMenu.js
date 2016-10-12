@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   Image,
   StyleSheet,
@@ -6,39 +6,45 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from 'react-native-button';
-import * as sc from 'spatialconnect/native';
 import palette from '../style/palette';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as authActions from '../ducks/auth';
 
 const SideMenuButton = ({text, onPress}) =>
   <Button style={styles.navBtn} containerStyle={styles.navBtnContainer} onPress={onPress}>{text}</Button>;
 
+export class SideMenu extends Component {
+  constructor(props, context) {
+    super(props, context);
+  }
 
-const SideMenu = (props, context) => {
-  const drawer = context.drawer;
-  return (
-    <View style={styles.container}>
-      <View style={styles.navBtnWrap}>
-        <View style={styles.titleWrap}>
-          <Image source={require('../img/efc_app_87.png')} style={styles.icon} />
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.navBtnWrap}>
+          <View style={styles.titleWrap}>
+            <Image source={require('../img/efc_app_87.png')} style={styles.icon} />
+          </View>
+          {this.props.isAuthenticated ?
+            <View style={styles.navBtns}>
+            <SideMenuButton text="Forms" onPress={() => { this.context.drawer.close(); Actions.formNav(); }} />
+            <SideMenuButton text="Stores" onPress={() => { this.context.drawer.close(); Actions.storeNav(); }} />
+            <SideMenuButton text="Map" onPress={() => { this.context.drawer.close(); Actions.mapNav(); }} />
+            <SideMenuButton text="Tests" onPress={() => { this.context.drawer.close(); Actions.testNav(); }} />
+            <SideMenuButton text="Logout" onPress={() => {this.context.drawer.close(); this.props.actions.logout(); }} />
+            </View>
+            :
+            <View style={styles.navBtns}>
+            <SideMenuButton text="Login" onPress={() => { this.context.drawer.close(); Actions.login(); }} />
+            <SideMenuButton text="Sign Up" onPress={() => { this.context.drawer.close(); Actions.signUp(); }} />
+            </View>
+          }
         </View>
-        {props.isAuthenticated ?
-          <View style={styles.navBtns}>
-          <SideMenuButton text="Forms" onPress={() => { drawer.close(); Actions.formNav(); }} />
-          <SideMenuButton text="Stores" onPress={() => { drawer.close(); Actions.storeNav(); }} />
-          <SideMenuButton text="Map" onPress={() => { drawer.close(); Actions.mapNav(); }} />
-          <SideMenuButton text="Tests" onPress={() => { drawer.close(); Actions.testNav(); }} />
-          <SideMenuButton text="Logout" onPress={() => { drawer.close(); sc.logout(); }} />
-          </View>
-          :
-          <View style={styles.navBtns}>
-          <SideMenuButton text="Login" onPress={() => { drawer.close(); Actions.login(); }} />
-          <SideMenuButton text="Sign Up" onPress={() => { drawer.close(); Actions.signUp(); }} />
-          </View>
-        }
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 const contextTypes = {
   drawer: React.PropTypes.object,
@@ -92,4 +98,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SideMenu;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(authActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideMenu);

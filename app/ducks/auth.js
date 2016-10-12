@@ -19,7 +19,8 @@ const initialState = {
     name: '',
     email: '',
     password: ''
-  }
+  },
+  hasAuthError: false,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -72,6 +73,12 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         signUpFormValue: action.value
       };
+    case 'AUTH_ERROR':
+      return {
+        ...state,
+        hasAuthError: true,
+      };
+    case 'LOGOUT': return initialState;
     default: return state;
   }
 }
@@ -134,3 +141,22 @@ export function signUpUser(form) {
 }
 
 
+export function login(email, password) {
+  return dispatch => {
+    dispatch(loginUserRequest());
+    sc.authenticate(email, password);
+  };
+}
+
+export function logout() {
+  return dispatch => {
+    sc.logout();
+    dispatch({ type: 'LOGOUT' });
+  };
+}
+
+export function authError() {
+  return {
+    type: 'AUTH_ERROR'
+  };
+}
