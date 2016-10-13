@@ -18,7 +18,7 @@ class PropertyValue extends Component {
     const { value } = this.props;
     return this.isImage(value) ?
       <Image style={propertyListStyles.base64} source={{uri: value}} /> :
-      <Text style={propertyListStyles.values}>{value}</Text>;
+      <Text style={propertyListStyles.valueText} ellipsizeMode={'tail'}>{value}</Text>;
   }
 }
 
@@ -26,6 +26,8 @@ PropertyValue.propTypes = {
   value: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.number,
+    React.PropTypes.object,
+    React.PropTypes.array,
   ]),
 };
 
@@ -35,7 +37,7 @@ class Property extends Component {
     return <View>
       {values.map((prop, idx) => (
         <Text key={prop.name+'.'+idx}>
-          <Text style={propertyListStyles.name}>{prop.name}: </Text>
+          <Text style={propertyListStyles.name}>{prop.name+'\n'}</Text>
           <PropertyValue value={prop.value} />
         </Text>
       ))}
@@ -45,10 +47,13 @@ class Property extends Component {
     return (
       <View style={propertyListStyles.section}>
         <View style={propertyListStyles.sectionHead}>
-          <Text style={propertyListStyles.sectionHeadText}>{this.props.name}</Text>
+          <Text style={propertyListStyles.sectionHeadText}
+            numberOfLines={1}>{this.props.name}</Text>
         </View>
-        {this.props.value ? <PropertyValue value={this.props.value} /> : null }
-        {this.props.values ? this.renderValues(this.props.values) : null }
+        <View style={propertyListStyles.values}>
+          {this.props.value ? <PropertyValue value={this.props.value} /> : null }
+          {this.props.values ? this.renderValues(this.props.values) : null }
+        </View>
       </View>
     );
   }

@@ -3,13 +3,12 @@ import React, { Component, PropTypes } from 'react';
 import {
   ListView,
   RefreshControl,
-  StyleSheet,
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import * as sc from 'spatialconnect/native';
 import FormCell from './FormCell';
-import palette from '../style/palette';
+import { listStyles } from '../style/style';
 
 class FormList extends Component {
   constructor(props) {
@@ -39,9 +38,9 @@ class FormList extends Component {
     rowID,
     adjacentRowHighlighted
   ) {
-    var style = styles.rowSeparator;
+    var style = listStyles.rowSeparator;
     if (adjacentRowHighlighted) {
-      style = [style, styles.rowSeparatorHide];
+      style = [style, listStyles.rowSeparatorHide];
     }
     return (
       <View key={'SEP_' + sectionID + '_' + rowID}  style={style}/>
@@ -67,12 +66,12 @@ class FormList extends Component {
 
   render() {
     return (
-      <View style={styles.mainContainer}>
+      <View style={listStyles.mainContainer}>
         <ListView
           dataSource={this.state.dataSource.cloneWithRows(this.props.forms)}
           renderSeparator={this.renderSeparator.bind(this)}
           renderRow={this.renderRow.bind(this)}
-          style={styles.listView}
+          style={listStyles.listView}
           enableEmptySections={true}
           refreshControl={
             <RefreshControl
@@ -90,33 +89,5 @@ FormList.propTypes = {
   forms: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    padding: 0,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: palette.lightgray,
-  },
-  listView: {
-    flex: 1,
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#eeeeee',
-  },
-  scrollSpinner: {
-    marginVertical: 20,
-  },
-  rowSeparator: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    height: 1,
-    marginLeft: 0,
-  },
-  rowSeparatorHide: {
-    opacity: 0.0,
-  },
-});
 
 export default FormList;

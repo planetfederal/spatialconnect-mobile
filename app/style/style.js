@@ -1,6 +1,30 @@
 import { Platform, StyleSheet } from 'react-native';
 import palette from './palette';
 
+export const listStyles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    padding: 0,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    backgroundColor: palette.lightgray,
+  },
+  listView: {
+    flex: 1,
+  },
+  scrollSpinner: {
+    marginVertical: 20,
+  },
+  rowSeparator: {
+    backgroundColor: palette.BORDER_COLOR,
+    height: 1,
+    marginLeft: 0,
+  },
+  rowSeparatorHide: {
+    opacity: 0.0,
+  },
+});
+
 export const cellStyles = StyleSheet.create({
   textContainer: {
     flex: 1,
@@ -10,7 +34,7 @@ export const cellStyles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     marginBottom: 2,
-    color: 'black'
+    color: 'black',
   },
   cellRow: {
     alignItems: 'center',
@@ -18,33 +42,22 @@ export const cellStyles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
   },
-  cellImage: {
-    backgroundColor: '#fff',
-    height: 93,
-    marginRight: 10,
-    width: 60,
-  },
-  cellBorder: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    height: StyleSheet.hairlineWidth,
-    marginLeft: 4,
-  },
 });
 
 export const navStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    marginTop: (Platform.OS === 'ios') ? 65 : 55,
-    backgroundColor: palette.white
-  }
+    marginTop: (Platform.OS === 'ios') ? 64 : 54,
+    backgroundColor: palette.white,
+  },
 });
 
 export const buttonStyles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     color: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   button: {
     height: 36,
@@ -56,34 +69,48 @@ export const buttonStyles = StyleSheet.create({
     padding: 5,
     marginBottom: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   disabled: {
-    color: '#999'
+    color: '#999',
   },
   link: {
-    color: 'blue'
-  }
+    color: 'blue',
+  },
 });
 
 export const propertyListStyles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 0,
-    padding: 10,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    flexDirection: 'column',
   },
   section: {
-    paddingBottom: 10,
+    backgroundColor: '#fff',
+    flexDirection: 'column',
   },
   sectionHead: {
-    borderColor: palette.gray,
+    padding: 10,
+    backgroundColor: palette.lightgray,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    borderColor: palette.BORDER_COLOR,
     borderBottomWidth: 1,
-    marginBottom: 5,
+    borderTopWidth: 1,
+  },
+  values: {
+    flex: 1,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  valueText: {
+    fontSize: 12,
   },
   link: {
     color: 'blue',
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
   },
   sectionHeadText: {
     fontWeight: 'bold',
@@ -91,6 +118,7 @@ export const propertyListStyles = StyleSheet.create({
   },
   name: {
     fontWeight: 'bold',
+    fontSize: 12,
   },
   base64: {
     height: 100,
@@ -105,7 +133,7 @@ export const routerStyles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   leftButtonStyle: {
 
@@ -126,5 +154,5 @@ export const routerStyles = StyleSheet.create({
   },
   leftButtonIconStyle: {
     tintColor: 'white',
-  }
+  },
 });
