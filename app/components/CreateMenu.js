@@ -38,7 +38,7 @@ class CreateMenu extends Component {
       Animated.timing(this.state.rightPosition, {
         toValue: 1,
         duration: ANIMATION_DURATION,
-        easing: Easing.elastic(2)
+        easing: Easing.elastic(2),
       }).start();
     }
     this.setState({
@@ -56,39 +56,39 @@ class CreateMenu extends Component {
           Animated.timing(this.state.topPosition, {
             toValue: 0,
             duration: ANIMATION_DURATION/2,
-            easing: Easing.elastic(1)
+            easing: Easing.elastic(1),
           }),
           Animated.timing(this.state.topPositionAdd, {
             toValue: 0,
             duration: ANIMATION_DURATION/2,
-            easing: Easing.elastic(1)
+            easing: Easing.elastic(1),
           }),
         ]),
         Animated.parallel([
           Animated.timing(this.state.topPosition, {
             toValue: 1,
             duration: ANIMATION_DURATION/2,
-            easing: Easing.elastic(1)
+            easing: Easing.elastic(1),
           }),
           Animated.timing(this.state.topPositionAdd, {
             toValue: tool === 'pin' ? 0 : 1,
             duration: ANIMATION_DURATION/2,
-            easing: Easing.elastic(1)
-          })
-        ])
+            easing: Easing.elastic(1),
+          }),
+        ]),
       ]).start();
     } else {
       this.props.addCenterPin();
       Animated.timing(this.state.topPosition, {
         toValue: 1,
         duration: ANIMATION_DURATION,
-        easing: Easing.elastic(2)
+        easing: Easing.elastic(2),
       }).start();
       if (tool !== 'pin') {
         Animated.timing(this.state.topPositionAdd, {
           toValue: 1,
           duration: ANIMATION_DURATION,
-          easing: Easing.elastic(2)
+          easing: Easing.elastic(2),
         }).start();
       }
     }
@@ -100,18 +100,18 @@ class CreateMenu extends Component {
       Animated.timing(this.state.rightPosition, {
         toValue: 0,
         duration: ANIMATION_DURATION,
-        easing: Easing.elastic(1)
+        easing: Easing.elastic(1),
       }),
       Animated.timing(this.state.topPosition, {
         toValue: 0,
         duration: ANIMATION_DURATION,
-        easing: Easing.elastic(1)
+        easing: Easing.elastic(1),
       }),
       Animated.timing(this.state.topPositionAdd, {
         toValue: 0,
         duration: ANIMATION_DURATION,
-        easing: Easing.elastic(1)
-      })
+        easing: Easing.elastic(1),
+      }),
     ]).start();
   }
 
@@ -121,23 +121,23 @@ class CreateMenu extends Component {
       Animated.timing(this.state.errorPosition, {
         toValue: 7,
         duration: duration,
-        easing: Easing.elastic(1)
+        easing: Easing.elastic(1),
       }),
       Animated.timing(this.state.errorPosition, {
         toValue: 2,
         duration: duration,
-        easing: Easing.elastic(1)
+        easing: Easing.elastic(1),
       }),
       Animated.timing(this.state.errorPosition, {
         toValue: 6,
         duration: duration,
-        easing: Easing.elastic(1)
+        easing: Easing.elastic(1),
       }),
       Animated.timing(this.state.errorPosition, {
         toValue: 5,
         duration: duration,
-        easing: Easing.elastic(1)
-      })
+        easing: Easing.elastic(1),
+      }),
     ]).start();
   }
 
@@ -157,30 +157,30 @@ class CreateMenu extends Component {
   render() {
     let position1 = this.state.rightPosition.interpolate({
       inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_PADDING]
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_PADDING],
     });
     let position2 = this.state.rightPosition.interpolate({
       inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + BUTTON_PADDING*2]
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + BUTTON_PADDING*2],
     });
     let position3 = this.state.rightPosition.interpolate({
       inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH*2 + BUTTON_PADDING*3]
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH*2 + BUTTON_PADDING*3],
     });
     let topPosition1 = this.state.topPosition.interpolate({
       inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_PADDING]
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_PADDING],
     });
     let topPositionAdd = this.state.topPositionAdd.interpolate({
       inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + BUTTON_PADDING*2]
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + BUTTON_PADDING*2],
     });
     let degreeRotation = this.state.rightPosition.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '45deg']
+      outputRange: ['0deg', '45deg'],
     });
     return (
-      <View style={styles.container}>
+      <View style={styles.container} pointerEvents='box-none'>
         <Animated.View style={[styles.featureTypeBtn, this.state.activeTool === 'polygon' && styles.featureTypeBtnActive, {right: position1}]}>
           <TouchableOpacity onPress={() => this.setActiveTool('polygon')} style={styles.clickTarget}>
             <Image source={require('../img/polygonicon.png')} resizeMode={Image.resizeMode.contain} style={styles.featureTypeIcon} />
@@ -230,10 +230,10 @@ const styles = StyleSheet.create({
     right: 0,
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   createFeatureClose: {
-    backgroundColor: '#FF4136',
+    backgroundColor: palette.red,
   },
   createFeatureText: {
     tintColor: 'white',
@@ -286,8 +286,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
   },
   addFeatureBtn: {
-    backgroundColor: '#2ECC40',
-  }
+    backgroundColor: palette.green,
+  },
 });
 
 CreateMenu.PropTypes = {

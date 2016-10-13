@@ -17,7 +17,7 @@ class SCDrawer extends Component {
         onOpen={()=>Actions.refresh({key:state.key, open: true})}
         onClose={()=>Actions.refresh({key:state.key, open: false})}
         type="displace"
-        content={<SideMenu isAuthenticated={this.props.auth.isAuthenticated} actions={this.props.actions} />}
+        content={<SideMenu routes={this.props.routes} isAuthenticated={this.props.auth.isAuthenticated} actions={this.props.actions} />}
         tapToClose={true}
         openDrawerOffset={0.5}
         panCloseMask={0.5}
@@ -38,10 +38,12 @@ SCDrawer.propTypes = {
   navigationState: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  routes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  routes: state.routes,
 });
 
 const mapDispatchToProps = (dispatch) => ({

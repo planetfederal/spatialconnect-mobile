@@ -82,7 +82,7 @@ export const buttonStyles = StyleSheet.create({
 export const propertyListStyles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 0,
+    marginTop: -1,
     backgroundColor: '#fff',
     flexDirection: 'column',
   },
@@ -96,8 +96,8 @@ export const propertyListStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     borderColor: palette.BORDER_COLOR,
-    borderBottomWidth: 1,
-    borderTopWidth: 1,
+    borderBottomWidth: 0,
+    borderTopWidth: 0,
   },
   values: {
     flex: 1,
@@ -114,7 +114,7 @@ export const propertyListStyles = StyleSheet.create({
   },
   sectionHeadText: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
   },
   name: {
     fontWeight: 'bold',

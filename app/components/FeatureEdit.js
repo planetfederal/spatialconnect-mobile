@@ -11,21 +11,16 @@ import {
 } from 'react-native';
 import palette from '../style/palette';
 import MapView from 'react-native-maps';
+import Color from 'color';
 import t from 'tcomb-form-native';
 import transform from 'tcomb-json-schema';
-import * as sc from 'spatialconnect/native';
 import scformschema from 'spatialconnect-form-schema/native';
-import { omit, flatten, merge } from 'lodash';
+import { omit, flatten } from 'lodash';
 import { Actions } from 'react-native-router-flux';
 import * as mapUtils from '../utils/map';
 import turfPoint from 'turf-point';
-import turfPolygon from 'turf-polygon';
-import turfLinestring from 'turf-linestring';
 
 const Form = t.form.Form;
-const PIN_COLOR_DEFAULT = '#FF4136';
-const PIN_COLOR_SELECTING = '#0074D9';
-const PIN_COLOR_SELECTED = '#FF851B';
 
 class FeatureEdit extends Component {
   constructor(props) {
@@ -40,31 +35,13 @@ class FeatureEdit extends Component {
     };
   }
 
-  //creates a geojson object from props and list of coordinates
-  createNewFeature(feature, newProps, newCoordinates) {
-    const props = JSON.parse(JSON.stringify(newProps, (k, v) => v == null ? '' : v));
-    const coords = newCoordinates.map(c => ([c.longitude, c.latitude]));
-    let newFeature;
-    if (feature.geometry && feature.geometry.type === 'Point') {
-      newFeature = turfPoint(coords[0], props);
-    }
-    if (feature.geometry && feature.geometry.type === 'Polygon') {
-      newFeature = turfPolygon([coords], props);
-    }
-    if (feature.geometry && feature.geometry.type === 'LineString') {
-      newFeature = turfLinestring(coords, props);
-    }
-    return merge({}, this.props.feature, newFeature);
-  }
-
   save() {
     const value = this.state.value ? this.refs.form.getValue() : {};
     if (value) {
-      const newFeature = this.createNewFeature(this.props.feature, value, this.state.coordinates);
       Actions.popTo('map');
       InteractionManager.runAfterInteractions(() => {
-        sc.updateFeature(newFeature);
-        this.props.actions.updateFeature(newFeature);
+        const nf = mapUtils.overlayToGeojson(this.props.feature, value, this.state.coordinates);
+        this.props.actions.upsertFeature(nf);
       });
     }
   }
@@ -228,9 +205,9 @@ class FeatureEdit extends Component {
             {this.state.coordinates.map((c, idx) => {
               let pinColor;
               if (idx === this.state.nearestCoordIndex) {
-                pinColor = this.state.editing ? PIN_COLOR_SELECTED : PIN_COLOR_SELECTING;
+                pinColor = this.state.editing ? palette.orange : palette.lightblue;
               } else {
-                pinColor = PIN_COLOR_DEFAULT;
+                pinColor = palette.red;
               }
               return <MapView.Marker
                 pinColor={pinColor}
@@ -241,14 +218,14 @@ class FeatureEdit extends Component {
             {this.state.polygon ?
               <MapView.Polygon
                 coordinates={this.state.polygon}
-                fillColor="rgba(255,0,0,0.5)"
-                strokeColor={PIN_COLOR_DEFAULT}
+                fillColor={Color(palette.red).clearer(0.7).rgbString()}
+                strokeColor={palette.red}
               /> : null
             }
             {this.state.polyline ?
               <MapView.Polyline
                 coordinates={this.state.polyline}
-                strokeColor="#f00"
+                strokeColor={palette.red}
               /> : null
             }
           </MapView>
@@ -318,10 +295,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   editing: {
-    backgroundColor: PIN_COLOR_SELECTING,
+    backgroundColor: palette.lightblue,
   },
   done: {
-    backgroundColor: PIN_COLOR_SELECTED,
+    backgroundColor: palette.orange,
   },
   doneText: {
     color: 'black',

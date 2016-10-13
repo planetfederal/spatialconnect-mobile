@@ -8,8 +8,6 @@ import {
 } from 'react-native';
 import { find } from 'lodash';
 import Button from 'react-native-button';
-import { Actions } from 'react-native-router-flux';
-import * as sc from 'spatialconnect/native';
 import { propertyListStyles, buttonStyles } from '../style/style';
 
 class FeatureCreate extends Component {
@@ -22,17 +20,14 @@ class FeatureCreate extends Component {
   }
 
   onCreate() {
-    let f = sc.geometry(this.state.selectedStoreId, this.state.selectedLayerId, this.props.feature);
-    sc.createFeature$(f.serialize()).first().subscribe(action => {
-      Actions.editFeature({feature: action.payload});
-    });
+    this.props.actions.createFeature(this.state.selectedStoreId, this.state.selectedLayerId, this.props.feature);
   }
 
   onChangeStore(storeId) {
     let store = find(this.state.stores, s => s.storeId == storeId);
     this.setState({
       selectedStoreId: storeId,
-      selectedLayerId: store.vectorLayers[0]
+      selectedLayerId: store.vectorLayers[0],
     });
   }
 
@@ -42,12 +37,18 @@ class FeatureCreate extends Component {
     ));
     this.setState({
       stores: stores,
-      selectedStoreId: stores[0].storeId,
-      selectedLayerId: stores[0].vectorLayers[0]
+      selectedStoreId: stores.length ? stores[0].storeId : false,
+      selectedLayerId: stores.length ? stores[0].vectorLayers[0] : false,
     });
   }
 
   render() {
+    if (this.state.stores.length === 0) {
+      return <View style={[propertyListStyles.container, styles.container]}>
+        <Text>No valid stores.</Text>
+        <Text>Add a Geopackage store to enable feature creation.</Text>
+      </View>;
+    }
     let store = find(this.state.stores, s => s.storeId == this.state.selectedStoreId);
     return (
       <View style={[propertyListStyles.container, styles.container]}>
@@ -86,6 +87,7 @@ class FeatureCreate extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
   },
   picker: {
     padding: 0,
@@ -102,12 +104,13 @@ var styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'space-around',
     marginBottom: 10,
-  }
+  },
 });
 
 FeatureCreate.propTypes = {
   feature: PropTypes.object.isRequired,
-  stores: PropTypes.array.isRequired
+  stores: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
 export default FeatureCreate;

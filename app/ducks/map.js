@@ -1,4 +1,5 @@
 'use strict';
+import { Actions } from 'react-native-router-flux';
 import * as sc from 'spatialconnect/native';
 import * as mapUtils from '../utils/map';
 import { findIndex } from 'lodash';
@@ -54,22 +55,19 @@ export default function reducer(state = initialState, action = {}) {
       };
     }
     case 'UPDATE_FEATURE': {
-      let nf = action.payload.newFeature;
-      let nfs;
-      let idx = findIndex(state.features, f => (
-        f.id === nf.id &&
-        f.metadata.storeId === nf.metadata.storeId &&
-        f.metadata.layerId === nf.metadata.layerId
-      ));
-      if (idx >= 0) {
-        nfs = [
-          ...state.features.slice(0, idx),
-          nf,
-          ...state.features.slice(idx + 1),
-        ];
-      } else {
-        nfs = state.features.concat(nf);
-      }
+      const nfs = [
+        ...state.features.slice(0, action.payload.fId),
+        action.payload.newFeature,
+        ...state.features.slice(action.payload.fId + 1),
+      ];
+      return {
+        ...state,
+        features: nfs,
+        overlays: makeOverlays(state.overlays, nfs),
+      };
+    }
+    case 'ADD_FEATURE': {
+      const nfs = state.features.concat(action.payload.newFeature);
       return {
         ...state,
         features: nfs,
@@ -181,10 +179,36 @@ export const queryStores = (bbox=[-180, -90, 180, 90], limit=50) => {
   };
 };
 
-export const updateFeature = (newFeature) => {
-  return {
-    type: 'UPDATE_FEATURE',
-    payload: { newFeature },
+export const upsertFeature = (newFeature) => {
+  return (dispatch, getState) => {
+    sc.updateFeature(newFeature);
+    const state = getState();
+    let fId = findIndex(state.map.features, f => (
+      f.id === newFeature.id &&
+      f.metadata.storeId === newFeature.metadata.storeId &&
+      f.metadata.layerId === newFeature.metadata.layerId
+    ));
+    if (fId >= 0) {
+      dispatch({
+        type: 'UPDATE_FEATURE',
+        payload: { newFeature, fId },
+      });
+    } else {
+      dispatch({
+        type: 'ADD_FEATURE',
+        payload: { newFeature },
+      });
+    }
+  };
+};
+
+export const createFeature = (storeId, layerId, feature) => {
+  return dispatch => {
+    let f = sc.geometry(storeId, layerId, feature);
+    sc.createFeature$(f.serialize()).first().subscribe(action => {
+      dispatch(action);
+      Actions.editFeature({feature: action.payload});
+    });
   };
 };
 

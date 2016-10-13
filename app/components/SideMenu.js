@@ -4,7 +4,6 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Button from 'react-native-button';
 import palette from '../style/palette';
@@ -101,7 +100,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-const mapStateToProps = (state) => ({ routes: state.routes });
-
-export default connect(mapStateToProps)(SideMenu);
+export default SideMenu;
