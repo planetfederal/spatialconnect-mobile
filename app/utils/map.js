@@ -1,8 +1,7 @@
 import turfBbox from 'turf-bbox';
 import turfDistance from 'turf-distance';
 
-const map = {
-  makeCoordinates: (feature) => {
+export const makeCoordinates = feature => {
     const makePoint = c => {
       return { latitude: c[1], longitude: c[0] };
     };
@@ -31,9 +30,9 @@ const map = {
       }
     };
     return makeMKOverlay(feature.geometry);
-  },
+  };
 
-  findRegion: (feature) => {
+export const findRegion = feature => {
     if (feature.geometry.type === 'Point') {
       return  {
         latitude: feature.geometry.coordinates[1],
@@ -52,9 +51,9 @@ const map = {
       longitudeDelta: Math.abs(west - east) + Math.abs(south - north)*.5,
     };
     return region;
-  },
+  };
 
-  findPointIndexNearestCenter: (centerPoint, points) => {
+export const findPointIndexNearestCenter = (centerPoint, points) => {
     let index = -1;
     let minDistance = false;
     points.forEach((point, idx) => {
@@ -65,16 +64,15 @@ const map = {
       }
     });
     return index;
-  },
+  };
 
-  regionToBbox: region => {
+export const regionToBbox = region => {
     return [
       region.longitude - region.longitudeDelta/2,
       region.latitude - region.latitudeDelta/2,
       region.longitude + region.longitudeDelta/2,
       region.latitude + region.latitudeDelta/2,
     ];
-  }
-};
+  };
 
-export default map;
+// export default map;

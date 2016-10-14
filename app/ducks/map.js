@@ -1,6 +1,6 @@
 'use strict';
 import * as sc from 'spatialconnect/native';
-import mapUtils from '../utils/map';
+import * as mapUtils from '../utils/map';
 import { findIndex } from 'lodash';
 
 const MAX_FEATURES = 100;

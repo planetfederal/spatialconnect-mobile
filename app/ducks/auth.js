@@ -13,12 +13,12 @@ const initialState = {
   signUpSuccess: false,
   loginFormValue: {
     email: '',
-    password: ''
+    password: '',
   },
   signUpFormValue: {
     name: '',
     email: '',
-    password: ''
+    password: '',
   },
   hasAuthError: false,
 };
@@ -30,48 +30,48 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         isAuthenticated: action.payload === sc.AuthStatus.SCAUTH_AUTHENTICATED,
         isAuthenticating: false,
-        token: action.payload === sc.AuthStatus.SCAUTH_AUTHENTICATED ? state.token : null
+        token: action.payload === sc.AuthStatus.SCAUTH_AUTHENTICATED ? state.token : null,
       };
     case sc.Commands.AUTHSERVICE_ACCESS_TOKEN:
       return {
         ...state,
-        token: action.payload
+        token: action.payload,
       };
     case 'LOGIN_USER_REQUEST':
       return {
         ...state,
         isAuthenticating: true,
-        statusText: null
+        statusText: null,
       };
     case 'SIGNUP_USER_REQUEST':
       return {
         ...state,
         isSigningUp: true,
-        signUpSuccess: false
+        signUpSuccess: false,
       };
     case 'SIGNUP_USER_FAILURE':
       return {
         ...state,
         isSigningUp: false,
         signUpError: action.error,
-        signUpSuccess: false
+        signUpSuccess: false,
       };
     case 'SIGNUP_USER_SUCCESS':
       return {
         ...state,
         isSigningUp: false,
         signUpError: null,
-        signUpSuccess: true
+        signUpSuccess: true,
       };
     case 'LOGIN_FORM_VALUE':
       return {
         ...state,
-        loginFormValue: action.value
+        loginFormValue: action.value,
       };
     case 'SIGNUP_FORM_VALUE':
       return {
         ...state,
-        signUpFormValue: action.value
+        signUpFormValue: action.value,
       };
     case 'AUTH_ERROR':
       return {
@@ -85,40 +85,40 @@ export default function reducer(state = initialState, action = {}) {
 
 export function loginUserRequest() {
   return {
-    type: 'LOGIN_USER_REQUEST'
+    type: 'LOGIN_USER_REQUEST',
   };
 }
 
 export function signUpUserFailure(error) {
   return {
     type: 'SIGNUP_USER_FAILURE',
-    error: error
+    error: error,
   };
 }
 
 export function signUpUserSuccess() {
   return {
-    type: 'SIGNUP_USER_SUCCESS'
+    type: 'SIGNUP_USER_SUCCESS',
   };
 }
 
 export function signUpUserRequest() {
   return {
-    type: 'SIGNUP_USER_REQUEST'
+    type: 'SIGNUP_USER_REQUEST',
   };
 }
 
 export function onChangeLoginFormValue(value) {
   return {
     type: 'LOGIN_FORM_VALUE',
-    value: value
+    value: value,
   };
 }
 
 export function onChangeSignUpFormValue(value) {
   return {
     type: 'SIGNUP_FORM_VALUE',
-    value: value
+    value: value,
   };
 }
 
@@ -157,6 +157,6 @@ export function logout() {
 
 export function authError() {
   return {
-    type: 'AUTH_ERROR'
+    type: 'AUTH_ERROR',
   };
 }

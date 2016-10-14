@@ -12,7 +12,7 @@ import { Actions } from 'react-native-router-flux';
 import * as sc from 'spatialconnect/native';
 import Rx from 'rx';
 import Color from 'color';
-import map from '../utils/map';
+import * as map from '../utils/map';
 import palette from '../style/palette';
 import CreateMenu from './CreateMenu';
 import { isEqual } from 'lodash';

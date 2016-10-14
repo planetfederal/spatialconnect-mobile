@@ -4,7 +4,7 @@ const API_URL = 'http://efc-dev.boundlessgeo.com/api/';
 let api = {
   getFormData(form, token) {
     return fetch(API_URL + `forms/${form.id}/results`, {
-      headers: { 'x-access-token': token }
+      headers: { 'x-access-token': token },
     })
       .then((response) => response.json())
       .then(data => data.map(f => {
@@ -27,7 +27,7 @@ let api = {
   },
   getForms(token) {
     return fetch(API_URL + 'forms', {
-      headers: { 'x-access-token': token }
+      headers: { 'x-access-token': token },
     })
     .then((response) => response.json());
   },
@@ -39,11 +39,11 @@ let api = {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     }).then((response) => response.json());
-  }
+  },
 };
 
 export default api;

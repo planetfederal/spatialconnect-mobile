@@ -13,13 +13,13 @@ export default (state = initialState, action) => {
     case sc.Commands.DATASERVICE_FORMLIST:
       return {
         ...state,
-        forms: action.payload.forms
+        forms: action.payload.forms,
       };
     case sc.Commands.DATASERVICE_ACTIVESTORESLIST:
       return {
         ...state,
         stores: action.payload.stores,
-        activeStores: action.payload.stores.map(s => s.storeId)
+        activeStores: action.payload.stores.map(s => s.storeId),
       };
     default:
       return state;
@@ -51,7 +51,7 @@ export const connectSC = store => {
       const granted = PermissionsAndroid.requestPermission(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
           'title': 'GPS permission',
-          'message': 'EFC needs access to your GPS '
+          'message': 'EFC needs access to your GPS',
         }
       );
       if (granted) {

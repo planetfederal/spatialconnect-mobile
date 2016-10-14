@@ -15,7 +15,7 @@ export default function reducer(state = initialState, action = {}) {
     case ActionConst.JUMP:
       return {
         ...state,
-        key: action.key
+        key: action.key,
       };
     default:
       return state;

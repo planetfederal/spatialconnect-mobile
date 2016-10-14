@@ -17,7 +17,7 @@ import * as sc from 'spatialconnect/native';
 import scformschema from 'spatialconnect-form-schema/native';
 import { omit, flatten, merge } from 'lodash';
 import { Actions } from 'react-native-router-flux';
-import map from '../utils/map';
+import * as mapUtils from '../utils/map';
 import turfPoint from 'turf-point';
 import turfPolygon from 'turf-polygon';
 import turfLinestring from 'turf-linestring';
@@ -72,7 +72,7 @@ class FeatureEdit extends Component {
   findPointIndexNearestCenter(region) {
     const center = turfPoint([region.longitude, region.latitude]);
     const points = this.state.coordinates.map(c => ([c.longitude, c.latitude]));
-    return map.findPointIndexNearestCenter(center, points);
+    return mapUtils.findPointIndexNearestCenter(center, points);
   }
 
   onChange(value) {
@@ -88,44 +88,42 @@ class FeatureEdit extends Component {
       });
       this.setState({
         region: region,
-        ...this.makeOverlaysAndPoints(newCoordinates)
+        ...this.makeOverlaysAndPoints(newCoordinates),
       });
     } else {
       if (this.state.panning) {
         this.setState({
-          region: region
+          region: region,
         });
       } else {
         this.setState({
           region: region,
-          nearestCoordIndex: this.findPointIndexNearestCenter(region)
+          nearestCoordIndex: this.findPointIndexNearestCenter(region),
         });
       }
     }
   }
 
   onReset() {
-    let region = map.findRegion(this.props.feature);
+    let region = mapUtils.findRegion(this.props.feature);
     this.setState({
-      ...this.makeOverlaysAndPoints(map.makeCoordinates(this.props.feature)),
+      ...this.makeOverlaysAndPoints(mapUtils.makeCoordinates(this.props.feature)),
       nearestCoordIndex: this.findPointIndexNearestCenter(region),
       region: region,
-      editing: false
+      editing: false,
     });
   }
 
   onEdit() {
     if (this.state.editing) {
-      this.setState({
-        editing: false
-      });
+      this.setState({ editing: false });
     } else {
       const nearestCoord = this.state.coordinates[this.state.nearestCoordIndex];
       if (nearestCoord) {
         this.setState({panning: true});
         this.map.animateToCoordinate({
           latitude: nearestCoord.latitude,
-          longitude: nearestCoord.longitude
+          longitude: nearestCoord.longitude,
         }, 200);
         setTimeout(() => {
           this.setState({
@@ -139,9 +137,7 @@ class FeatureEdit extends Component {
 
   makeOverlaysAndPoints(coordinates) {
     const c = flatten(coordinates);
-    let newState = {
-      coordinates: c
-    };
+    let newState = { coordinates: c };
     if (this.props.feature.geometry.type === 'Polygon') {
       newState.polygon = c;
     }
@@ -163,29 +159,27 @@ class FeatureEdit extends Component {
           type: val !== null ? typeof val : 'string',
           field_key: key,
           field_label :key,
-          position: idx++
+          position: idx++,
         });
       }
       const { schema, options } = scformschema.translate(form);
       return {
         schema: schema,
         options: options,
-        value: properties
+        value: properties,
       };
     } else return {};
   }
 
   makeRegion() {
-    return {
-      region: map.findRegion(this.props.feature)
-    };
+    return { region: mapUtils.findRegion(this.props.feature) };
   }
 
   componentWillMount() {
     let state = {
-      ...this.makeOverlaysAndPoints(map.makeCoordinates(this.props.feature)),
+      ...this.makeOverlaysAndPoints(mapUtils.makeCoordinates(this.props.feature)),
       ...this.makePropertyForm(),
-      ...this.makeRegion()
+      ...this.makeRegion(),
     };
     this.setState(state);
   }
@@ -324,10 +318,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   editing: {
-    backgroundColor: PIN_COLOR_SELECTING
+    backgroundColor: PIN_COLOR_SELECTING,
   },
   done: {
-    backgroundColor: PIN_COLOR_SELECTED
+    backgroundColor: PIN_COLOR_SELECTED,
   },
   doneText: {
     color: 'black',
