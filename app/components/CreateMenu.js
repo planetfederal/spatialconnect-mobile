@@ -216,8 +216,8 @@ class CreateMenu extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: 130,
-    height: 130,
+    width: 300,
+    height: 200,
     backgroundColor: 'transparent',
   },
   createFeature: {

@@ -181,7 +181,7 @@ export const queryStores = (bbox=[-180, -90, 180, 90], limit=50) => {
 
 export const upsertFeature = (newFeature) => {
   return (dispatch, getState) => {
-    sc.updateFeature(newFeature);
+    sc.updateFeature$(newFeature);
     const state = getState();
     let fId = findIndex(state.map.features, f => (
       f.id === newFeature.id &&

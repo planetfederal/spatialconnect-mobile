@@ -33,7 +33,7 @@ class FeatureCreate extends Component {
 
   componentWillMount() {
     const stores = this.props.stores.filter(s => (
-      s.vectorLayers.length && s.type === 'gpkg'
+      s.vectorLayers && s.vectorLayers.length && s.type === 'gpkg'
     ));
     this.setState({
       stores: stores,

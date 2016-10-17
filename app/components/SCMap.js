@@ -28,12 +28,13 @@ class SCMap extends Component {
       latitude: 37.78825,
       longitude: -95,
     };
+    this.region = {
+      ...this.center,
+      latitudeDelta: 20,
+      longitudeDelta: 70,
+    };
     this.state = {
-      region: new MapView.AnimatedRegion({
-        ...this.center,
-        latitudeDelta: 20,
-        longitudeDelta: 70,
-      }),
+      region: new MapView.AnimatedRegion(this.region),
       creating: false,
       renderPlaceholderOnly: true,
     };
