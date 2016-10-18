@@ -6,7 +6,7 @@ const test = (state, action) => {
       return {
         name: action.name,
         passed: false,
-        error: { message: 'no result' }
+        error: { message: 'no result' },
       };
     case 'TEST_PASSED':
       if (state.name !== action.name) {
@@ -14,7 +14,7 @@ const test = (state, action) => {
       }
       return {
         ...state,
-        passed: true
+        passed: true,
       };
     case 'TEST_FAILED':
       if (state.name !== action.name) {
@@ -23,7 +23,7 @@ const test = (state, action) => {
       return {
         ...state,
         passed: false,
-        error: action.error
+        error: action.error,
       };
     default:
       return state;
@@ -35,7 +35,7 @@ export default (state = [], action) => {
     case 'ADD_TEST':
       return [
         ...state,
-        test(undefined, action)
+        test(undefined, action),
       ];
     case 'TEST_PASSED':
       return state.map(t =>
@@ -53,14 +53,14 @@ export default (state = [], action) => {
 export const add = (name) => {
   return {
     type: 'ADD_TEST',
-    name: name
+    name: name,
   };
 };
 
 export const passed = (name) => {
   return {
     type: 'TEST_PASSED',
-    name: name
+    name: name,
   };
 };
 
@@ -68,6 +68,6 @@ export const failed = (name, error) => {
   return {
     type: 'TEST_FAILED',
     name: name,
-    error: error
+    error: error,
   };
 };

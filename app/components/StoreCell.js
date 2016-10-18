@@ -5,7 +5,7 @@ import {
   Text,
   TouchableHighlight,
   TouchableNativeFeedback,
-  View
+  View,
 } from 'react-native';
 
 import { cellStyles } from '../style/style.js';
@@ -39,7 +39,7 @@ StoreCell.propTypes = {
   onSelect: PropTypes.func.isRequired,
   onHighlight: PropTypes.func.isRequired,
   onUnhighlight: PropTypes.func.isRequired,
-  store: PropTypes.object.isRequired
+  store: PropTypes.object.isRequired,
 };
 
 export default StoreCell;

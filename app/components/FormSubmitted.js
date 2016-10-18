@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import palette from '../style/palette';
 
@@ -26,13 +26,13 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 0,
     padding: 10,
-    backgroundColor: palette.gray
+    backgroundColor: palette.gray,
   },
   subheader: {
     fontWeight: 'bold',
     marginTop: 5,
     marginBottom: 5,
-  }
+  },
 });
 
 export default FormSubmitted;

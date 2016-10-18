@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,21 +18,21 @@ let Form = t.form.Form;
 
 var Login = t.struct({
   email: t.String,
-  password: t.String
+  password: t.String,
 });
 
 const formOptions = {
   fields: {
     email: {
       autoCapitalize: 'none',
-      underlineColorAndroid: 'transparent'
+      underlineColorAndroid: 'transparent',
     },
     password: {
       password: true,
       secureTextEntry: true,
       autoCapitalize: 'none',
-      underlineColorAndroid: 'transparent'
-    }
+      underlineColorAndroid: 'transparent',
+    },
   },
 };
 
@@ -117,7 +117,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(authActions, dispatch)
+  actions: bindActionCreators(authActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginView);

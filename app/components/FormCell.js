@@ -5,7 +5,7 @@ import {
   Text,
   TouchableHighlight,
   TouchableNativeFeedback,
-  View
+  View,
 } from 'react-native';
 
 import { cellStyles } from '../style/style.js';

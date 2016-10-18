@@ -17,14 +17,14 @@ class SCDrawer extends Component {
         onOpen={()=>Actions.refresh({key:state.key, open: true})}
         onClose={()=>Actions.refresh({key:state.key, open: false})}
         type="displace"
-        content={<SideMenu isAuthenticated={this.props.auth.isAuthenticated} actions={this.props.actions} />}
+        content={<SideMenu routes={this.props.routes} isAuthenticated={this.props.auth.isAuthenticated} actions={this.props.actions} />}
         tapToClose={true}
         openDrawerOffset={0.5}
         panCloseMask={0.5}
         negotiatePan={true}
         tweenDuration={100}
         tweenHandler={(ratio) => ({
-          main: { opacity:Math.max(0.54,1-ratio) }
+          main: { opacity:Math.max(0.54,1-ratio) },
         })
       }>
         <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate} />
@@ -38,14 +38,16 @@ SCDrawer.propTypes = {
   navigationState: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  routes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
+  routes: state.routes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(authActions, dispatch)
+  actions: bindActionCreators(authActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SCDrawer);

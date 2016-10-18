@@ -28,7 +28,7 @@ class LayerItem extends Component {
 LayerItem.propTypes = {
   name: PropTypes.string.isRequired,
   onValueChange: PropTypes.func.isRequired,
-  active: PropTypes.bool.isRequired
+  active: PropTypes.bool.isRequired,
 };
 
 const LayerList = ({stores, activeStores, actions}) => {
@@ -48,7 +48,7 @@ const LayerList = ({stores, activeStores, actions}) => {
 };
 
 LayerList.contextTypes = {
-  drawer: React.PropTypes.object
+  drawer: React.PropTypes.object,
 };
 
 LayerList.propTypes = {

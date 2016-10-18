@@ -2,6 +2,7 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
+  InteractionManager,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,24 +10,17 @@ import {
   View,
 } from 'react-native';
 import palette from '../style/palette';
-import Button from 'react-native-button';
 import MapView from 'react-native-maps';
+import Color from 'color';
 import t from 'tcomb-form-native';
 import transform from 'tcomb-json-schema';
-import * as sc from 'spatialconnect/native';
 import scformschema from 'spatialconnect-form-schema/native';
-import { omit, flatten, merge } from 'lodash';
+import { omit, flatten } from 'lodash';
 import { Actions } from 'react-native-router-flux';
-import { buttonStyles } from '../style/style';
-import map from '../utils/map';
+import * as mapUtils from '../utils/map';
 import turfPoint from 'turf-point';
-import turfPolygon from 'turf-polygon';
-import turfLinestring from 'turf-linestring';
 
 const Form = t.form.Form;
-const PIN_COLOR_DEFAULT = '#cd211e';
-const PIN_COLOR_SELECTING = '#0544ad';
-const PIN_COLOR_SELECTED = '#ffa500';
 
 class FeatureEdit extends Component {
   constructor(props) {
@@ -37,40 +31,25 @@ class FeatureEdit extends Component {
       region: null,
       panning: false,
       editing: false,
+      renderPlaceholderOnly: true,
     };
-  }
-
-  //creates a geojson object from props and list of coordinates
-  createNewFeature(feature, newProps, newCoordinates) {
-    const props = JSON.parse(JSON.stringify(newProps, (k, v) => v == null ? '' : v));
-    const coords = newCoordinates.map(c => ([c.longitude, c.latitude]));
-    let newFeature;
-    if (feature.geometry && feature.geometry.type === 'Point') {
-      newFeature = turfPoint(coords[0], props);
-    }
-    if (feature.geometry && feature.geometry.type === 'Polygon') {
-      newFeature = turfPolygon([coords], props);
-    }
-    if (feature.geometry && feature.geometry.type === 'LineString') {
-      newFeature = turfLinestring(coords, props);
-    }
-    return merge({}, this.props.feature, newFeature);
   }
 
   save() {
     const value = this.state.value ? this.refs.form.getValue() : {};
     if (value) {
-      const newFeature = this.createNewFeature(this.props.feature, value, this.state.coordinates);
-      sc.updateFeature(newFeature);
-      this.props.actions.updateFeature(newFeature);
-      Actions.pop({refresh: {feature: newFeature}});
+      Actions.popTo('map');
+      InteractionManager.runAfterInteractions(() => {
+        const nf = mapUtils.overlayToGeojson(this.props.feature, value, this.state.coordinates);
+        this.props.actions.upsertFeature(nf);
+      });
     }
   }
 
   findPointIndexNearestCenter(region) {
     const center = turfPoint([region.longitude, region.latitude]);
     const points = this.state.coordinates.map(c => ([c.longitude, c.latitude]));
-    return map.findPointIndexNearestCenter(center, points);
+    return mapUtils.findPointIndexNearestCenter(center, points);
   }
 
   onChange(value) {
@@ -86,44 +65,42 @@ class FeatureEdit extends Component {
       });
       this.setState({
         region: region,
-        ...this.makeOverlaysAndPoints(newCoordinates)
+        ...this.makeOverlaysAndPoints(newCoordinates),
       });
     } else {
       if (this.state.panning) {
         this.setState({
-          region: region
+          region: region,
         });
       } else {
         this.setState({
           region: region,
-          nearestCoordIndex: this.findPointIndexNearestCenter(region)
+          nearestCoordIndex: this.findPointIndexNearestCenter(region),
         });
       }
     }
   }
 
   onReset() {
-    let region = map.findRegion(this.props.feature);
+    let region = mapUtils.findRegion(this.props.feature);
     this.setState({
-      ...this.makeOverlaysAndPoints(map.makeCoordinates(this.props.feature)),
+      ...this.makeOverlaysAndPoints(mapUtils.makeCoordinates(this.props.feature)),
       nearestCoordIndex: this.findPointIndexNearestCenter(region),
       region: region,
-      editing: false
+      editing: false,
     });
   }
 
   onEdit() {
     if (this.state.editing) {
-      this.setState({
-        editing: false
-      });
+      this.setState({ editing: false });
     } else {
       const nearestCoord = this.state.coordinates[this.state.nearestCoordIndex];
       if (nearestCoord) {
         this.setState({panning: true});
         this.map.animateToCoordinate({
           latitude: nearestCoord.latitude,
-          longitude: nearestCoord.longitude
+          longitude: nearestCoord.longitude,
         }, 200);
         setTimeout(() => {
           this.setState({
@@ -137,9 +114,7 @@ class FeatureEdit extends Component {
 
   makeOverlaysAndPoints(coordinates) {
     const c = flatten(coordinates);
-    let newState = {
-      coordinates: c
-    };
+    let newState = { coordinates: c };
     if (this.props.feature.geometry.type === 'Polygon') {
       newState.polygon = c;
     }
@@ -161,31 +136,36 @@ class FeatureEdit extends Component {
           type: val !== null ? typeof val : 'string',
           field_key: key,
           field_label :key,
-          position: idx++
+          position: idx++,
         });
       }
       const { schema, options } = scformschema.translate(form);
       return {
         schema: schema,
         options: options,
-        value: properties
+        value: properties,
       };
     } else return {};
   }
 
   makeRegion() {
-    return {
-      region: map.findRegion(this.props.feature)
-    };
+    return { region: mapUtils.findRegion(this.props.feature) };
   }
 
   componentWillMount() {
     let state = {
-      ...this.makeOverlaysAndPoints(map.makeCoordinates(this.props.feature)),
+      ...this.makeOverlaysAndPoints(mapUtils.makeCoordinates(this.props.feature)),
       ...this.makePropertyForm(),
-      ...this.makeRegion()
+      ...this.makeRegion(),
     };
     this.setState(state);
+  }
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      Actions.refresh({onRight: this.save.bind(this)});
+      this.setState({ renderPlaceholderOnly: false });
+    });
   }
 
   renderForm() {
@@ -198,6 +178,9 @@ class FeatureEdit extends Component {
   }
 
   renderMap() {
+    if (this.state.renderPlaceholderOnly) {
+      return <View></View>;
+    }
     return (
       <View>
         <Text style={styles.label}>Geometry</Text>
@@ -222,9 +205,9 @@ class FeatureEdit extends Component {
             {this.state.coordinates.map((c, idx) => {
               let pinColor;
               if (idx === this.state.nearestCoordIndex) {
-                pinColor = this.state.editing ? PIN_COLOR_SELECTED : PIN_COLOR_SELECTING;
+                pinColor = this.state.editing ? palette.orange : palette.lightblue;
               } else {
-                pinColor = PIN_COLOR_DEFAULT;
+                pinColor = palette.red;
               }
               return <MapView.Marker
                 pinColor={pinColor}
@@ -235,14 +218,14 @@ class FeatureEdit extends Component {
             {this.state.polygon ?
               <MapView.Polygon
                 coordinates={this.state.polygon}
-                fillColor="rgba(255,0,0,0.5)"
-                strokeColor={PIN_COLOR_DEFAULT}
+                fillColor={Color(palette.red).clearer(0.7).rgbString()}
+                strokeColor={palette.red}
               /> : null
             }
             {this.state.polyline ?
               <MapView.Polyline
                 coordinates={this.state.polyline}
-                strokeColor="#f00"
+                strokeColor={palette.red}
               /> : null
             }
           </MapView>
@@ -254,9 +237,8 @@ class FeatureEdit extends Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-      {this.state.value ? this.renderForm() : null }
+        {this.state.value ? this.renderForm() : null }
         {this.state.coordinates ? this.renderMap() : null }
-        <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.save.bind(this)}>Save</Button>
       </ScrollView>
     );
   }
@@ -313,10 +295,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   editing: {
-    backgroundColor: PIN_COLOR_SELECTING
+    backgroundColor: palette.lightblue,
   },
   done: {
-    backgroundColor: PIN_COLOR_SELECTED
+    backgroundColor: palette.orange,
   },
   doneText: {
     color: 'black',

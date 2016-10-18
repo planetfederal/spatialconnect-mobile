@@ -28,6 +28,6 @@ module.exports = {
       "error",
       "always"
     ],
-    "comma-dangle": 0
+    "comma-dangle": [2, "always-multiline"]
   }
 };
