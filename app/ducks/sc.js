@@ -40,7 +40,8 @@ export const connectSC = store => {
     }
   });
   sc.notifications$().take(1).subscribe(action => {
-    const n = action.payload.notification;
+    const n = typeof action.payload.notification === 'string' ?
+      JSON.parse(action.payload.notifcation) : action.payload.notifcation;
     if (action.payload.priority === 'alert') {
       Alert.alert(n.title, n.body);
     }

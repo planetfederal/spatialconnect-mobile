@@ -33,7 +33,10 @@ class FeatureCreate extends Component {
 
   componentWillMount() {
     const stores = this.props.stores.filter(s => (
-      s.vectorLayers && s.vectorLayers.length && s.type === 'gpkg'
+      s.vectorLayers && s.vectorLayers.length && s.type === 'gpkg' &&
+      s.storeId !== 'DEFAULT_STORE' &&
+      s.storeId !== 'FORM_STORE' &&
+      s.storeId !== 'LOCATION_STORE'
     ));
     this.setState({
       stores: stores,

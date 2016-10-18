@@ -12,10 +12,12 @@ class SCStore extends Component {
       <ScrollView style={propertyListStyles.container}>
         <Property name={'Name'} value={this.props.storeInfo.name} />
         <Property name={'Type'} value={this.props.storeInfo.type} />
-        <Property name={'Service'} value={this.props.storeInfo.service} />
         <Property name={'ID'} value={this.props.storeInfo.storeId} />
-        {this.props.storeInfo.layers.length ?
-          <Property name={'Layers'} value={this.props.storeInfo.layers.join('\n')} />
+        {this.props.storeInfo.vectorLayers && this.props.storeInfo.vectorLayers.length ?
+          <Property name={'Vector Layers'} value={this.props.storeInfo.vectorLayers.join('\n')} />
+        : null}
+        {this.props.storeInfo.rasterLayers && this.props.storeInfo.rasterLayers.length ?
+          <Property name={'Raster Layers'} value={this.props.storeInfo.rasterLayers.join('\n')} />
         : null}
       </ScrollView>
     );

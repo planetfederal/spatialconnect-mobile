@@ -167,9 +167,9 @@ export const queryStores = (bbox=[-180, -90, 180, 90], limit=50) => {
       type: 'CLEAR_FEATURES',
     });
     sc.geospatialQuery$(filter, state.map.activeStores)
-      .take(MAX_FEATURES)
-      .map(action => action.payload)
       .bufferWithTime(1000)
+      .take(5)
+      .map(actions => actions.map(a => a.payload))
       .subscribe(featureChunk => {
         dispatch({
           type: 'ADD_FEATURES',
@@ -207,7 +207,9 @@ export const createFeature = (storeId, layerId, feature) => {
     let f = sc.geometry(storeId, layerId, feature);
     sc.createFeature$(f.serialize()).first().subscribe(action => {
       dispatch(action);
-      Actions.editFeature({feature: action.payload});
+      const f = typeof action.payload === 'string' ?
+        JSON.parse(action.payload) : action.payload;
+      Actions.editFeature({ feature: f });
     });
   };
 };
