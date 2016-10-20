@@ -32,6 +32,7 @@
 		546D088C1D21B38400EBB95A /* SpatialConnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D088B1D21B38400EBB95A /* SpatialConnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		547F13981CF780ED0028EFF1 /* remote.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 547F13971CF780ED0028EFF1 /* remote.scfg */; };
 		54B1E4FC1D05FBCB00EEB033 /* SCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */; };
+		54B3A86E1DB90257000F9526 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54B3A86D1DB90257000F9526 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54B470BA1D4A6A030084C642 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B470B91D4A69FE0084C642 /* libRNImagePicker.a */; };
 		568849DC1D65F19A00D90A58 /* MQTTFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 568849DB1D65F19A00D90A58 /* MQTTFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		56AA58061D3D65CD00670AB7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AA58051D3D65CD00670AB7 /* Crashlytics.framework */; };
@@ -139,6 +140,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				54B3A86E1DB90257000F9526 /* CocoaLumberjack.framework in Embed Frameworks */,
 				568849DC1D65F19A00D90A58 /* MQTTFramework.framework in Embed Frameworks */,
 				546D088C1D21B38400EBB95A /* SpatialConnect.framework in Embed Frameworks */,
 				546D087D1D21B27E00EBB95A /* libgpkgios.framework in Embed Frameworks */,
@@ -184,6 +186,7 @@
 		547F13971CF780ED0028EFF1 /* remote.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = remote.scfg; sourceTree = "<group>"; };
 		54B1E4FA1D05FBCB00EEB033 /* SCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCBridge.h; path = SCMobile/SCBridge.h; sourceTree = "<group>"; };
 		54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCBridge.m; path = SCMobile/SCBridge.m; sourceTree = "<group>"; };
+		54B3A86D1DB90257000F9526 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = "<group>"; };
 		54B470B41D4A69FE0084C642 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		568849DB1D65F19A00D90A58 /* MQTTFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MQTTFramework.framework; path = Carthage/Build/iOS/MQTTFramework.framework; sourceTree = "<group>"; };
 		56AA58031D3D65A400670AB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -379,6 +382,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				54B3A86D1DB90257000F9526 /* CocoaLumberjack.framework */,
 				568849DB1D65F19A00D90A58 /* MQTTFramework.framework */,
 				56AA58031D3D65A400670AB7 /* Crashlytics.framework */,
 				546D088B1D21B38400EBB95A /* SpatialConnect.framework */,

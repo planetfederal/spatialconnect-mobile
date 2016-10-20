@@ -1,5 +1,5 @@
+/*global fetch*/
 'use strict';
-import api from '../utils/api';
 import * as sc from 'spatialconnect/native';
 
 const initialState = {
@@ -123,20 +123,34 @@ export function onChangeSignUpFormValue(value) {
 }
 
 export function signUpUser(form) {
-  return dispatch => {
-    dispatch(signUpUserRequest());
-    return api.signUp(form)
+  return (dispatch, getState) => {
+    const state = getState();
+    const backendUri = state.sc.backendUri;
+    if (backendUri) {
+      dispatch(signUpUserRequest());
+      return fetch(backendUri + 'users', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      })
+      .then(response => response.json())
       .then(body => {
-        if (body.success) {
+        if (body.result.errors) {
+          dispatch(signUpUserFailure(body.result.errors[0].message));
+        } else if (body.result.error) {
+          dispatch(signUpUserFailure(body.result.error));
+        } else if (body.error) {
+          dispatch(signUpUserFailure(body.error));
+        } else if (body.result && body.result.id) {
           dispatch(signUpUserSuccess());
-        } else {
-          if (body.error.errors) {
-            dispatch(signUpUserFailure(body.error.errors[0].message));
-          } else {
-            dispatch(signUpUserFailure(body.error));
-          }
         }
       });
+    } else {
+      dispatch(signUpUserFailure('Sign up unsuccessful.'));
+    }
   };
 }
 
