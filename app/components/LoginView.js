@@ -79,6 +79,7 @@ export class LoginView extends Component {
           <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.onPress.bind(this)}>
             Login
           </Button>
+          <Text onPress={this.onSignUpPress} style={buttonStyles.link}>Sign Up</Text>
         </View>
       </View>
     );

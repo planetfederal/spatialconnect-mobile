@@ -6,6 +6,7 @@ import { Alert, Platform, PermissionsAndroid } from 'react-native';
 const initialState = {
   forms: [],
   stores: [],
+  backendUri: null,
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +22,11 @@ export default (state = initialState, action) => {
         stores: action.payload.stores,
         activeStores: action.payload.stores.map(s => s.storeId),
       };
+    case sc.Commands.BACKENDSERVICE_HTTP_URI:
+      return {
+        ...state,
+        backendUri: action.payload.backendUri,
+      };
     default:
       return state;
   }
@@ -28,6 +34,7 @@ export default (state = initialState, action) => {
 
 export const connectSC = store => {
   sc.startAllServices();
+  sc.backendUri$().subscribe(store.dispatch);
   sc.loginStatus$().subscribe(action => {
     store.dispatch(action);
     if (action.payload === sc.AuthStatus.SCAUTH_AUTHENTICATED) {
