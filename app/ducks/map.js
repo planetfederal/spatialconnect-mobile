@@ -20,10 +20,12 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case sc.Commands.DATASERVICE_ACTIVESTORESLIST:
+    case sc.Commands.DATASERVICE_STORELIST:
       return {
         ...state,
-        activeStores: action.payload.stores.map(s => s.storeId),
+        activeStores: action.payload.stores
+          .filter(s => s.status === sc.StoreStatus.SC_DATASTORE_RUNNING)
+          .map(s => s.storeId),
       };
     case 'TOGGLE_STORE':
       return {

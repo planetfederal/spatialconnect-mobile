@@ -1,4 +1,5 @@
 import { Platform, StyleSheet } from 'react-native';
+import Color from 'color';
 import palette from './palette';
 
 export const listStyles = StyleSheet.create({
@@ -41,6 +42,19 @@ export const cellStyles = StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'row',
     padding: 10,
+  },
+  cellDetails: {
+    fontSize: 10,
+    color: palette.HELP_COLOR,
+  },
+  cellDetailsRed: {
+    color: Color(palette.red).desaturate(0.7).clearer(0).rgbString(),
+  },
+  cellDetailsOrange: {
+    color: Color(palette.orange).desaturate(0.7).clearer(0).rgbString(),
+  },
+  cellDetailsGreen: {
+    color: Color(palette.green).desaturate(0.7).clearer(0).rgbString(),
   },
 });
 
@@ -130,6 +144,11 @@ export const propertyListStyles = StyleSheet.create({
 export const routerStyles = StyleSheet.create({
   navBar: {
     backgroundColor: palette.lightblue,
+    elevation: 999,
+    shadowColor: '#333',
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+    shadowOpacity: 0.5,
   },
   title: {
     color: 'white',

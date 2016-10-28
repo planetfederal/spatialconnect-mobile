@@ -50,7 +50,7 @@
     NSString *cfgPath = [SCFileUtils filePathFromMainBundle:@"remote.scfg"];
     sc = [SpatialConnect sharedInstance];
     [sc.configService addConfigFilepath:cfgPath];
-    [sc startAllServices];
+    //TODO move this to bridge
     [sc.sensorService enableGPS];
   }
 }
