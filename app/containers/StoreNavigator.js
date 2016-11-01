@@ -1,8 +1,6 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
-import {
-  View
-} from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import StoreList from '../components/StoreList';
 import SCStore from '../components/SCStore';
@@ -32,13 +30,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatch: dispatch
+  dispatch: dispatch,
 });
 
 StoreNavigator.propTypes = {
   name: PropTypes.string.isRequired,
   stores: PropTypes.array.isRequired,
-  storeInfo: PropTypes.object
+  storeInfo: PropTypes.object,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StoreNavigator);

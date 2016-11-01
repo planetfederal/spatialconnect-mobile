@@ -22,7 +22,7 @@
 
  //Loading JavaScript code
 #ifdef DEBUG
-  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.143:8081/index.ios.bundle?platform=ios&dev=true"];
 #else
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 #endif
@@ -50,7 +50,7 @@
     NSString *cfgPath = [SCFileUtils filePathFromMainBundle:@"remote.scfg"];
     sc = [SpatialConnect sharedInstance];
     [sc.configService addConfigFilepath:cfgPath];
-    [sc startAllServices];
+    //TODO move this to bridge
     [sc.sensorService enableGPS];
   }
 }

@@ -15,11 +15,11 @@ export const requireAuth = (Component) => {
   }
 
   AuthenticatedComponent.propTypes = {
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
   };
 
   const mapStateToProps = (state) => ({
-    auth: state.auth
+    auth: state.auth,
   });
 
   return connect(mapStateToProps)(AuthenticatedComponent);

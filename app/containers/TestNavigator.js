@@ -30,13 +30,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(testActions, dispatch)
+  actions: bindActionCreators(testActions, dispatch),
 });
 
 TestNavigator.propTypes = {
   name: PropTypes.string.isRequired,
   tests: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
 };
 
 //export default TestNavigator;

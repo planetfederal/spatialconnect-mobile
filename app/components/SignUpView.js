@@ -3,8 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,29 +11,33 @@ import { Actions } from 'react-native-router-flux';
 import * as authActions from '../ducks/auth';
 import Button from 'react-native-button';
 import t from 'tcomb-form-native';
+import palette from '../style/palette';
 import { navStyles, buttonStyles } from '../style/style';
 
 let Form = t.form.Form;
 var SignUp = t.struct({
   name: t.String,
   email: t.String,
-  password: t.String
+  password: t.String,
 });
 
 var options = {
   fields: {
     name: {
-      autoCapitalize: 'none'
+      autoCapitalize: 'none',
+      underlineColorAndroid: 'transparent',
     },
     email: {
-      autoCapitalize: 'none'
+      autoCapitalize: 'none',
+      underlineColorAndroid: 'transparent',
     },
     password: {
       password: true,
       secureTextEntry: true,
-      autoCapitalize: 'none'
-    }
-  }
+      autoCapitalize: 'none',
+      underlineColorAndroid: 'transparent',
+    },
+  },
 };
 
 export class SignUpView extends Component {
@@ -51,7 +54,7 @@ export class SignUpView extends Component {
   }
 
   renderErrorView() {
-    return <Text>{ this.props.signUpError }</Text>;
+    return <Text style={styles.errorMessage}>{ this.props.signUpError }</Text>;
   }
 
   renderSuccessView() {
@@ -85,24 +88,35 @@ SignUpView.propTypes = {
   signUpError: PropTypes.string,
   signUpSuccess: PropTypes.bool.isRequired,
   isSigningUp: PropTypes.bool.isRequired,
-  signUpFormValue: PropTypes.object.isRequired
+  signUpFormValue: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({
   form: {
+    backgroundColor: palette.lightgray,
     padding: 20,
-  }
+    borderColor: palette.gray,
+    borderBottomWidth: 1,
+  },
+  errorMessage: {
+    color: '#a94442',
+    backgroundColor: '#f2dede',
+    padding: 15,
+    marginBottom: 15,
+    borderColor: '#ebccd1',
+    borderRadius: 4,
+  },
 });
 
 const mapStateToProps = (state) => ({
   signUpError: state.auth.signUpError,
   signUpSuccess: state.auth.signUpSuccess,
   isSigningUp: state.auth.isSigningUp,
-  signUpFormValue: state.auth.signUpFormValue
+  signUpFormValue: state.auth.signUpFormValue,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(authActions, dispatch)
+  actions: bindActionCreators(authActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpView);
