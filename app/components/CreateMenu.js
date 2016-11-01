@@ -231,6 +231,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: '#333',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.9,
   },
   createFeatureClose: {
     backgroundColor: palette.red,

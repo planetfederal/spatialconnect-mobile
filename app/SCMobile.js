@@ -2,7 +2,7 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
-
+/*global require*/
 import React, { Component } from 'react';
 import {
   Image,
@@ -33,7 +33,7 @@ const RouterWithRedux = connect()(Router);
 
 const store = createStore(
   reducer,
-  applyMiddleware(thunk, createLogger())
+  applyMiddleware(thunk /*, createLogger()*/)
 );
 
 const renderLeftButton = () => (

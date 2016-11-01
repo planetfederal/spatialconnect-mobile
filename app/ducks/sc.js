@@ -16,11 +16,10 @@ export default (state = initialState, action) => {
         ...state,
         forms: action.payload.forms,
       };
-    case sc.Commands.DATASERVICE_ACTIVESTORESLIST:
+    case sc.Commands.DATASERVICE_STORELIST:
       return {
         ...state,
         stores: action.payload.stores,
-        activeStores: action.payload.stores.map(s => s.storeId),
       };
     case sc.Commands.BACKENDSERVICE_HTTP_URI:
       return {
@@ -48,8 +47,8 @@ export const connectSC = store => {
   });
   sc.notifications$().take(1).subscribe(action => {
     const n = typeof action.payload.notification === 'string' ?
-      JSON.parse(action.payload.notifcation) : action.payload.notifcation;
-    if (action.payload.priority === 'alert') {
+      JSON.parse(action.payload.notification) : action.payload.notification;
+    if (action.payload.priority === 'alert' && n && n.title) {
       Alert.alert(n.title, n.body);
     }
   });

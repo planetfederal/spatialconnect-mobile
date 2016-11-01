@@ -6,6 +6,7 @@ import {
   View,
   Text,
 } from 'react-native';
+import { StoreStatus } from 'spatialconnect/native';
 import palette from '../style/palette';
 
 class LayerItem extends Component {
@@ -35,7 +36,9 @@ const LayerList = ({stores, activeStores, actions}) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.navBtnWrap}>
-        {stores.map(store => (
+        {stores
+          .filter(s => s.status === StoreStatus.SC_DATASTORE_RUNNING)
+          .map(store => (
           <LayerItem
             key={store.storeId}
             name={store.name}
