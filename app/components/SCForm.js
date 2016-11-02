@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import {
   Alert,
+  InteractionManager,
   ScrollView,
   StyleSheet,
   Text,
@@ -29,8 +30,8 @@ class SCForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: null,
-      value: {}
+      value: {},
+      renderPlaceholderOnly: true,
     };
   }
 
@@ -41,10 +42,10 @@ class SCForm extends Component {
           type: 'Point',
           coordinates: [
             position.coords.longitude,
-            position.coords.latitude
-          ]
+            position.coords.latitude,
+          ],
         },
-        properties: formData
+        properties: formData,
       };
       let f = sc.geometry('FORM_STORE', this.props.formInfo.form_key, gj);
       sc.createFeature$(f.serialize()).first().subscribe(this.formSubmitted.bind(this));
@@ -81,11 +82,14 @@ class SCForm extends Component {
   }
 
   componentWillMount() {
-    let { schema, options } = scformschema.translate(this.props.formInfo);
-    this.setState({ schema, options });
-    this.setInitialValue(schema);
-    this.TcombType = transform(schema);
-    this.options = options;
+    InteractionManager.runAfterInteractions(() => {
+      let { schema, options } = scformschema.translate(this.props.formInfo);
+      this.setState({ schema, options });
+      this.setInitialValue(schema);
+      this.TcombType = transform(schema);
+      this.options = options;
+      this.setState({ renderPlaceholderOnly: false });
+    });
   }
 
   onChange(value) {
@@ -93,6 +97,9 @@ class SCForm extends Component {
   }
 
   render() {
+    if (this.state.renderPlaceholderOnly) {
+      return <View></View>;
+    }
     return (
       <View style={styles.container}>
         <ScrollView style={styles.scrollView}>
@@ -128,7 +135,7 @@ const styles = StyleSheet.create({
   success: {
     flex: 1,
     padding: 10,
-    backgroundColor: palette.gray
+    backgroundColor: palette.gray,
   },
   scrollView: {
     flex: 1,
@@ -140,18 +147,18 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     borderColor: '#bbb',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
   formNameText: {
     color: '#333',
-    fontSize: 24
+    fontSize: 24,
   },
   form: {
     backgroundColor: palette.lightgray,
     padding: 20,
     borderColor: palette.gray,
-    borderBottomWidth: 1
-  }
+    borderBottomWidth: 1,
+  },
 });
 
 export default SCForm;

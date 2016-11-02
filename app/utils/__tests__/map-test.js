@@ -1,5 +1,5 @@
 /*global describe,it,expect*/
-import map from '../map';
+import * as map from '../map';
 
 let pt = {
   "type": "Feature",
