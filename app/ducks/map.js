@@ -164,7 +164,7 @@ export const toggleAllStores = (active) => {
 export const queryStores = (bbox=[-180, -90, 180, 90], limit=50) => {
   return (dispatch, getState) => {
     const state = getState();
-    var filter = sc.filter().geoBBOXContains(bbox).limit(limit);
+    let filter = sc.filter().geoBBOXContains(bbox).limit(limit);
     dispatch({
       type: 'CLEAR_FEATURES',
     });

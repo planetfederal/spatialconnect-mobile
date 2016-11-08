@@ -5,8 +5,7 @@ import {
   InteractionManager,
   ScrollView,
   StyleSheet,
-  Text,
-  View
+  View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Button from 'react-native-button';
@@ -60,33 +59,23 @@ class SCForm extends Component {
   formSubmitted() {
     Alert.alert('Form Submitted', '', [
       {text: 'OK', onPress: () => Actions.pop()},
-      {text: 'New Submission', onPress: () => this.setInitialValue(this.state.schema)},
+      {text: 'New Submission', onPress: () => this.setState({value: this.initialValues})},
     ]);
   }
 
   onPress() {
-    var value = this.refs.form.getValue();
-    if (value) {
-      this.saveForm(value);
+    var formData = this.refs.form.getValue();
+    if (formData) {
+      this.saveForm(formData);
     }
-  }
-
-  setInitialValue(schema) {
-    let initialValues = {};
-    for (let prop in schema.properties) {
-      if (schema.properties[prop].hasOwnProperty('initialValue')) {
-        initialValues[prop] = schema.properties[prop].initialValue;
-      }
-    }
-    this.setState({value: initialValues});
   }
 
   componentWillMount() {
     InteractionManager.runAfterInteractions(() => {
-      let { schema, options } = scformschema.translate(this.props.formInfo);
-      this.setState({ schema, options });
-      this.setInitialValue(schema);
+      let { schema, options, initialValues } = scformschema.translate(this.props.formInfo);
+      this.setState({ schema, options, value: initialValues });
       this.TcombType = transform(schema);
+      this.initialValues = initialValues;
       this.options = options;
       this.setState({ renderPlaceholderOnly: false });
     });
@@ -122,7 +111,7 @@ class SCForm extends Component {
 }
 
 SCForm.propTypes = {
-  formInfo: PropTypes.object.isRequired
+  formInfo: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({
