@@ -25,7 +25,7 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Submit a new build to google play alpha channel"
+  desc "Submit a new build to google play beta channel"
   lane :beta do
     gradle(
       task: "assemble",
