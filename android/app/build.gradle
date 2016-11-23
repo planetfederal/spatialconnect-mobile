@@ -80,6 +80,8 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+def generatedVersionCode = 4
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -88,7 +90,7 @@ android {
         applicationId "com.boundlessgeo.efc"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 4
+        versionCode generatedVersionCode
         versionName "1.8.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -163,3 +165,23 @@ task copyDownloadableDepsToLibs(type: Copy) {
   from configurations.compile
   into 'libs'
 }
+
+task incrementVersionCode << {
+  def versionPropsFile = file('version.properties')
+  def increaseBy = 1
+  if (versionPropsFile.canRead()) {
+    def Properties versionProps = new Properties()
+
+    versionProps.load(new FileInputStream(versionPropsFile))
+    generatedVersionCode = versionProps['VERSION_CODE'].toInteger() + increaseBy
+    println(":incrementVersionCode - Incrementing Version Code...")
+    versionProps['VERSION_CODE'] = generatedVersionCode.toString()
+    versionProps.store(versionPropsFile.newWriter(), null)
+
+  } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+}
+
+incrementVersionCode.mustRunAfter build
+assembleRelease.dependsOn incrementVersionCode
