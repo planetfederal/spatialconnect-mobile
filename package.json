@@ -42,7 +42,7 @@
     "rx": "^4.1.0",
     "slash": "^1.0.0",
     "spatialconnect": "file:../spatialconnect-js",
-    "spatialconnect-form-schema": "2.2.6",
+    "spatialconnect-form-schema": "2.2.7",
     "tcomb-form-native": "^0.5.1",
     "tcomb-json-schema": "^0.3.0",
     "turf-bbox": "3.0.12",
