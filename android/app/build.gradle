@@ -136,6 +136,14 @@ android {
     packagingOptions {
       exclude 'META-INF/LICENSE'
       exclude 'META-INF/NOTICE'
+      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-core/pom.xml'
+      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-core/pom.properties'
+      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-databind/pom.xml'
+      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-databind/pom.properties'
+      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-annotations/pom.xml'
+      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-annotations/pom.properties'
+      pickFirst 'META-INF/maven/commons-io/commons-io/pom.xml'
+      pickFirst 'META-INF/maven/commons-io/commons-io/pom.properties'
     }
 
     dexOptions {
