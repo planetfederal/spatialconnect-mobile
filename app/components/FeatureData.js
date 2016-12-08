@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
   ScrollView,
@@ -9,50 +8,53 @@ import Property from './Property';
 import { propertyListStyles } from '../style/style';
 
 class FeatureData extends Component {
-  //returns true if feature belongs to gpkg store
-  isEditable(stores, feature) {
+  // returns true if feature belongs to gpkg store
+  static isEditable(stores, feature) {
     if (!feature.metadata) return false;
     if (!feature.metadata.storeId) return false;
-    let store = find(stores,
-       s => s.storeId == feature.metadata.storeId
-    );
+    const store = find(stores, s => s.storeId === feature.metadata.storeId);
     return store.type === 'gpkg';
   }
-  //hide Edit button if feature is not editable
+  // hide Edit button if feature is not editable
   componentDidMount() {
-    if (this.isEditable(this.props.stores, this.props.feature)) {
-      Actions.refresh({rightTitle: 'Edit'});
+    if (FeatureData.isEditable(this.props.stores, this.props.feature)) {
+      Actions.refresh({ rightTitle: 'Edit' });
     } else {
-      Actions.refresh({rightTitle: ''});
+      Actions.refresh({ rightTitle: '' });
     }
   }
   renderMetadata() {
-    let feature = this.props.feature;
+    const feature = this.props.feature;
+    const featureId = { name: 'ID', value: feature.id };
     let metadata = [];
-    metadata.push({ name: 'ID', value: feature.id });
     if (feature.metadata) {
-      for (let key in feature.metadata) {
-        metadata.push({ name: key, value: feature.metadata[key]});
-      }
+      metadata = Object.keys(feature.metadata).map(key => (
+        { name: key, value: feature.metadata[key] }
+      ));
     }
+    metadata.unshift(featureId);
     return <Property name={'Metadata'} values={metadata} />;
   }
   renderProperties() {
-    let feature = this.props.feature;
+    const feature = this.props.feature;
     if (Object.keys(feature.properties).length) {
-      let fields = [];
-      for (let key in feature.properties) {
-        fields.push({ name: key, value: feature.properties[key] });
-      }
+      const fields = Object.keys(feature.properties).map(key => (
+        { name: key, value: feature.properties[key] }
+      ));
       return <Property name={'Properties'} values={fields} />;
-    } else return null;
+    }
+    return null;
   }
   renderLocation() {
-    let feature = this.props.feature;
+    const feature = this.props.feature;
     return (feature.geometry && feature.geometry.type === 'Point') ?
-      <Property name={'Location'} values={[
-        {name: 'Latitude', value: feature.geometry.coordinates[1]},
-        {name: 'Longitude', value: feature.geometry.coordinates[0]}]} />
+      <Property
+        name={'Location'}
+        values={[
+          { name: 'Latitude', value: feature.geometry.coordinates[1] },
+          { name: 'Longitude', value: feature.geometry.coordinates[0] },
+        ]}
+      />
       : null;
   }
   render() {

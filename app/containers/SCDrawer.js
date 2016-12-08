@@ -14,19 +14,22 @@ class SCDrawer extends Component {
       <Drawer
         ref="navigation"
         open={state.open}
-        onOpen={()=>Actions.refresh({key:state.key, open: true})}
-        onClose={()=>Actions.refresh({key:state.key, open: false})}
+        onOpen={() => Actions.refresh({ key: state.key, open: true })}
+        onClose={() => Actions.refresh({ key: state.key, open: false })}
         type="displace"
-        content={<SideMenu routes={this.props.routes} isAuthenticated={this.props.auth.isAuthenticated} actions={this.props.actions} />}
-        tapToClose={true}
+        content={<SideMenu
+          routes={this.props.routes} isAuthenticated={this.props.auth.isAuthenticated}
+          actions={this.props.actions}
+        />}
+        tapToClose
         openDrawerOffset={0.5}
         panCloseMask={0.5}
-        negotiatePan={true}
+        negotiatePan
         tweenDuration={100}
-        tweenHandler={(ratio) => ({
-          main: { opacity:Math.max(0.54,1-ratio) },
-        })
-      }>
+        tweenHandler={ratio => ({
+          main: { opacity: Math.max(0.54, 1 - ratio) },
+        })}
+      >
         <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate} />
       </Drawer>
     );
@@ -41,12 +44,12 @@ SCDrawer.propTypes = {
   routes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   auth: state.auth,
   routes: state.routes,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(authActions, dispatch),
 });
 

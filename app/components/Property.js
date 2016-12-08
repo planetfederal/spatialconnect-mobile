@@ -1,58 +1,35 @@
-'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
-  Image,
   Text,
   View,
 } from 'react-native';
+import PropertyValue from './PropertyValue';
 import { propertyListStyles } from '../style/style';
 
-class PropertyValue extends Component {
-  isImage(v) {
-    return (
-      typeof v === 'string' &&
-      v.indexOf('data:image/jpeg;base64') >= 0
-    );
-  }
-  render() {
-    const { value } = this.props;
-    return this.isImage(value) ?
-      <Image style={propertyListStyles.base64} source={{uri: value}} /> :
-      <Text style={propertyListStyles.valueText} ellipsizeMode={'tail'}>{value}</Text>;
-  }
-}
-
-PropertyValue.propTypes = {
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
-    React.PropTypes.object,
-    React.PropTypes.array,
-  ]),
-};
-
 class Property extends Component {
-  //values = [{name: foo, value: bar}]
-  renderValues(values) {
-    return <View>
+  // values = [{name: foo, value: bar}]
+  static renderValues(values) {
+    return (<View>
       {values.map((prop, idx) => (
-        <Text key={prop.name+'.'+idx}>
-          <Text style={propertyListStyles.name}>{prop.name+'\n'}</Text>
+        <Text key={`${prop.name}.${idx}`}>
+          <Text style={propertyListStyles.name}>{`${prop.name}\n`}</Text>
           <PropertyValue value={prop.value} />
         </Text>
       ))}
-    </View>;
+    </View>);
   }
   render() {
     return (
       <View style={propertyListStyles.section}>
         <View style={propertyListStyles.sectionHead}>
-          <Text style={propertyListStyles.sectionHeadText}
-            numberOfLines={1}>{this.props.name}</Text>
+          <Text
+            style={propertyListStyles.sectionHeadText}
+            numberOfLines={1}
+          >{this.props.name}</Text>
         </View>
         <View style={propertyListStyles.values}>
           {this.props.value ? <PropertyValue value={this.props.value} /> : null }
-          {this.props.values ? this.renderValues(this.props.values) : null }
+          {this.props.values ? Property.renderValues(this.props.values) : null }
         </View>
       </View>
     );

@@ -1,0 +1,16 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "no-return-assign": "off",
+    "no-use-before-define": ["error", { "functions": false }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/forbid-prop-types": [1, { "forbid": ["any"] }]
+  },
+  "globals": {
+    "console": false,
+    "window": false,
+    "document": false,
+    "navigator": false,
+    "fetch": false
+  }
+}

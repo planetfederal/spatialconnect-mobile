@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
   ListView,
@@ -11,6 +10,31 @@ import StoreCell from './StoreCell';
 import { listStyles } from '../style/style';
 
 class StoreList extends Component {
+
+  static selectStore(store) {
+    Actions.store({ title: store.name, storeInfo: store });
+  }
+
+  static renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
+    let style = listStyles.rowSeparator;
+    if (adjacentRowHighlighted) {
+      style = [style, listStyles.rowSeparatorHide];
+    }
+    return <View key={`SEP_${sectionID}_${rowID}`} style={style} />;
+  }
+
+  static renderRow(store, sectionID, rowID, highlightRowFunc) {
+    return (
+      <StoreCell
+        key={store.id}
+        onSelect={() => StoreList.selectStore(store)}
+        onHighlight={() => highlightRowFunc(sectionID, rowID)}
+        onUnhighlight={() => highlightRowFunc(null, null)}
+        store={store}
+      />
+    );
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,49 +43,16 @@ class StoreList extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
     };
-  }
 
-  selectStore(store) {
-    Actions.store({ title: store.name, storeInfo: store });
+    this.onRefresh = this.onRefresh.bind(this);
   }
 
   onRefresh() {
-    this.setState({refreshing: true});
-    sc.stores$().take(1).subscribe(action => {
-      this.setState({refreshing: false});
+    this.setState({ refreshing: true });
+    sc.stores$().take(1).subscribe((action) => {
+      this.setState({ refreshing: false });
       this.props.dispatch(action);
     });
-  }
-
-  renderSeparator(
-    sectionID,
-    rowID,
-    adjacentRowHighlighted
-  ) {
-    var style = listStyles.rowSeparator;
-    if (adjacentRowHighlighted) {
-      style = [style, listStyles.rowSeparatorHide];
-    }
-    return (
-      <View key={'SEP_' + sectionID + '_' + rowID}  style={style}/>
-    );
-  }
-
-  renderRow(
-    store,
-    sectionID,
-    rowID,
-    highlightRowFunc
-  ) {
-    return (
-      <StoreCell
-        key={store.id}
-        onSelect={() => this.selectStore(store)}
-        onHighlight={() => highlightRowFunc(sectionID, rowID)}
-        onUnhighlight={() => highlightRowFunc(null, null)}
-        store={store}
-      />
-    );
   }
 
   render() {
@@ -69,14 +60,14 @@ class StoreList extends Component {
       <View style={listStyles.mainContainer}>
         <ListView
           dataSource={this.state.dataSource.cloneWithRows(this.props.stores)}
-          renderSeparator={this.renderSeparator.bind(this)}
-          renderRow={this.renderRow.bind(this)}
+          renderSeparator={StoreList.renderSeparator}
+          renderRow={StoreList.renderRow}
           style={listStyles.listView}
-          enableEmptySections={true}
+          enableEmptySections
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
-              onRefresh={this.onRefresh.bind(this)}
+              onRefresh={this.onRefresh}
             />
           }
         />

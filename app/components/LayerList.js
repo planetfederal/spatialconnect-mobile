@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -8,57 +8,6 @@ import {
 } from 'react-native';
 import { StoreStatus } from 'spatialconnect/native';
 import palette from '../style/palette';
-
-class LayerItem extends Component {
-  render() {
-    const { name, onValueChange, active } = this.props;
-    return (
-      <View style={styles.layerItem}>
-        <Switch
-          style={styles.layerItemSwitch}
-          onValueChange={onValueChange}
-          value={active} />
-          <View style={styles.layerItemName}>
-            <Text style={styles.layerItemText}>{name}</Text>
-          </View>
-      </View>
-    );
-  }
-}
-
-LayerItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  onValueChange: PropTypes.func.isRequired,
-  active: PropTypes.bool.isRequired,
-};
-
-const LayerList = ({stores, activeStores, actions}) => {
-  return (
-    <ScrollView style={styles.container}>
-      <View style={styles.navBtnWrap}>
-        {stores
-          .filter(s => s.status === StoreStatus.SC_DATASTORE_RUNNING)
-          .map(store => (
-          <LayerItem
-            key={store.storeId}
-            name={store.name}
-            onValueChange={(value) => actions.toggleStore(store.storeId, value)}
-            active={activeStores.indexOf(store.storeId) >= 0} />
-        ))}
-      </View>
-    </ScrollView>
-  );
-};
-
-LayerList.contextTypes = {
-  drawer: React.PropTypes.object,
-};
-
-LayerList.propTypes = {
-  stores: PropTypes.array.isRequired,
-  activeStores: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -99,5 +48,51 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 });
+
+const LayerItem = ({ name, onValueChange, active }) => (
+  <View style={styles.layerItem}>
+    <Switch
+      style={styles.layerItemSwitch}
+      onValueChange={onValueChange}
+      value={active}
+    />
+    <View style={styles.layerItemName}>
+      <Text style={styles.layerItemText}>{name}</Text>
+    </View>
+  </View>
+);
+
+LayerItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  onValueChange: PropTypes.func.isRequired,
+  active: PropTypes.bool.isRequired,
+};
+
+const LayerList = ({ stores, activeStores, actions }) => (
+  <ScrollView style={styles.container}>
+    <View style={styles.navBtnWrap}>
+      {stores
+        .filter(s => s.status === StoreStatus.SC_DATASTORE_RUNNING)
+        .map(store => (
+          <LayerItem
+            key={store.storeId}
+            name={store.name}
+            onValueChange={value => actions.toggleStore(store.storeId, value)}
+            active={activeStores.indexOf(store.storeId) >= 0}
+          />
+      ))}
+    </View>
+  </ScrollView>
+);
+
+LayerList.contextTypes = {
+  drawer: React.PropTypes.object,
+};
+
+LayerList.propTypes = {
+  stores: PropTypes.array.isRequired,
+  activeStores: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
+};
 
 export default LayerList;

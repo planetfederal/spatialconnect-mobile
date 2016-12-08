@@ -1,5 +1,4 @@
-'use strict';
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import {
   Platform,
   Text,
@@ -8,9 +7,9 @@ import {
   View,
 } from 'react-native';
 import { StoreStatus } from 'spatialconnect/native';
-import { cellStyles } from '../style/style.js';
+import { cellStyles } from '../style/style';
 
-const statusText = store => {
+const statusText = (store) => {
   let text;
   switch (store.status) {
     case StoreStatus.SC_DATASTORE_STARTED:
@@ -26,9 +25,9 @@ const statusText = store => {
       text = <Text style={cellStyles.cellDetailsRed}>Stopped</Text>;
       break;
     case StoreStatus.SC_DATASTORE_DOWNLOADINGDATA:
-      text = <Text style={cellStyles.cellDetailsOrange}>
-        {`Downloading ${Math.floor(store.downloadProgress*100)}%`}
-      </Text>;
+      text = (<Text style={cellStyles.cellDetailsOrange}>
+        {`Downloading ${Math.floor(store.downloadProgress * 100)}%`}
+      </Text>);
       break;
     default:
       return false;
@@ -38,31 +37,30 @@ const statusText = store => {
     : null;
 };
 
-class StoreCell extends Component {
-  render() {
-    var TouchableElement = TouchableHighlight;
-    if (Platform.OS === 'android') {
-      TouchableElement = TouchableNativeFeedback;
-    }
-    return (
-      <View>
-        <TouchableElement
-          onPress={this.props.onSelect}
-          onShowUnderlay={this.props.onHighlight}
-          onHideUnderlay={this.props.onUnhighlight}>
-          <View style={cellStyles.cellRow}>
-            <View style={cellStyles.textContainer}>
-              <Text style={cellStyles.cellName} numberOfLines={2}>
-                {this.props.store.name}
-              </Text>
-              {statusText(this.props.store)}
-            </View>
-          </View>
-        </TouchableElement>
-      </View>
-    );
+const StoreCell = (props) => {
+  let TouchableElement = TouchableHighlight;
+  if (Platform.OS === 'android') {
+    TouchableElement = TouchableNativeFeedback;
   }
-}
+  return (
+    <View>
+      <TouchableElement
+        onPress={props.onSelect}
+        onShowUnderlay={props.onHighlight}
+        onHideUnderlay={props.onUnhighlight}
+      >
+        <View style={cellStyles.cellRow}>
+          <View style={cellStyles.textContainer}>
+            <Text style={cellStyles.cellName} numberOfLines={2}>
+              {props.store.name}
+            </Text>
+            {statusText(props.store)}
+          </View>
+        </View>
+      </TouchableElement>
+    </View>
+  );
+};
 
 StoreCell.propTypes = {
   onSelect: PropTypes.func.isRequired,

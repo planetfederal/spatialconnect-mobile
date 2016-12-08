@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
@@ -8,15 +7,32 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
-import * as authActions from '../ducks/auth';
 import Button from 'react-native-button';
 import t from 'tcomb-form-native';
+import * as authActions from '../ducks/auth';
 import palette from '../style/palette';
 import { navStyles, buttonStyles } from '../style/style';
 
-let Form = t.form.Form;
+const Form = t.form.Form;
 
-var Login = t.struct({
+const styles = StyleSheet.create({
+  form: {
+    backgroundColor: palette.lightgray,
+    padding: 20,
+    borderColor: palette.gray,
+    borderBottomWidth: 1,
+  },
+  errorMessage: {
+    color: '#a94442',
+    backgroundColor: '#f2dede',
+    padding: 15,
+    marginBottom: 15,
+    borderColor: '#ebccd1',
+    borderRadius: 4,
+  },
+});
+
+const Login = t.struct({
   email: t.String,
   password: t.String,
 });
@@ -36,21 +52,17 @@ const formOptions = {
   },
 };
 
-export class LoginView extends Component {
+class LoginView extends Component {
 
-  onPress() {
-    var value = this.refs.form.getValue();
-    if (value) {
-      this.props.actions.login(value.email, value.password);
-    }
-  }
-
-  onChange(value) {
-    this.props.actions.onChangeLoginFormValue(value);
-  }
-
-  onSignUpPress() {
+  static onSignUpPress() {
     Actions.signUp();
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.onPress = this.onPress.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,25 +73,39 @@ export class LoginView extends Component {
     }
   }
 
+  onPress() {
+    const value = this.form.getValue();
+    if (value) {
+      this.props.actions.login(value.email, value.password);
+    }
+  }
+
+  onChange(value) {
+    this.props.actions.onChangeLoginFormValue(value);
+  }
+
   render() {
     return (
       <View style={navStyles.container}>
         <View style={styles.form}>
           {this.props.hasAuthError ?
             <Text style={styles.errorMessage}>Login failed: Invalid credentials</Text> :
-            <Text></Text>
+            <Text />
           }
           <Form
-            ref="form"
+            ref={(ref) => { this.form = ref; }}
             value={this.props.loginFormValue}
             type={Login}
             options={formOptions}
-            onChange={this.onChange.bind(this)}
+            onChange={this.onChange}
           />
-          <Button style={buttonStyles.buttonText} containerStyle={buttonStyles.button} onPress={this.onPress.bind(this)}>
+          <Button
+            style={buttonStyles.buttonText} containerStyle={buttonStyles.button}
+            onPress={this.onPress}
+          >
             Login
           </Button>
-          <Text onPress={this.onSignUpPress} style={buttonStyles.link}>Sign Up</Text>
+          <Text onPress={LoginView.onSignUpPress} style={buttonStyles.link}>Sign Up</Text>
         </View>
       </View>
     );
@@ -93,31 +119,14 @@ LoginView.propTypes = {
   hasAuthError: PropTypes.bool.isRequired,
 };
 
-const styles = StyleSheet.create({
-  form: {
-    backgroundColor: palette.lightgray,
-    padding: 20,
-    borderColor: palette.gray,
-    borderBottomWidth: 1,
-  },
-  errorMessage: {
-    color: '#a94442',
-    backgroundColor: '#f2dede',
-    padding: 15,
-    marginBottom: 15,
-    borderColor: '#ebccd1',
-    borderRadius: 4,
-  },
-});
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isAuthenticating: state.auth.isAuthenticating,
   loginFormValue: state.auth.loginFormValue,
   isAuthenticated: state.auth.isAuthenticated,
-  hasAuthError:  state.auth.hasAuthError,
+  hasAuthError: state.auth.hasAuthError,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(authActions, dispatch),
 });
 

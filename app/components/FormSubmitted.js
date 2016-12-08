@@ -1,25 +1,10 @@
-'use strict';
-import React, { Component } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import palette from '../style/palette';
-
-class FormSubmitted extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.subheader}>Form submitted.</Text>
-      </View>
-    );
-  }
-}
-
-FormSubmitted.propTypes = {
-
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -34,5 +19,15 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+const FormSubmitted = () => (
+  <View style={styles.container}>
+    <Text style={styles.subheader}>Form submitted.</Text>
+  </View>
+);
+
+FormSubmitted.propTypes = {
+
+};
 
 export default FormSubmitted;

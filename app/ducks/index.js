@@ -1,4 +1,3 @@
-'use strict';
 import { combineReducers } from 'redux';
 import tests from './tests';
 import sc from './sc';
