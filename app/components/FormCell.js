@@ -1,5 +1,4 @@
-'use strict';
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import {
   Platform,
   Text,
@@ -8,32 +7,31 @@ import {
   View,
 } from 'react-native';
 
-import { cellStyles } from '../style/style.js';
+import { cellStyles } from '../style/style';
 
-class FormCell extends Component {
-  render() {
-    var TouchableElement = TouchableHighlight;
-    if (Platform.OS === 'android') {
-      TouchableElement = TouchableNativeFeedback;
-    }
-    return (
-      <View>
-        <TouchableElement
-          onPress={this.props.onSelect}
-          onShowUnderlay={this.props.onHighlight}
-          onHideUnderlay={this.props.onUnhighlight}>
-          <View style={cellStyles.cellRow}>
-            <View style={cellStyles.textContainer}>
-              <Text style={cellStyles.cellName} numberOfLines={2}>
-                {this.props.form.form_label}
-              </Text>
-            </View>
-          </View>
-        </TouchableElement>
-      </View>
-    );
+const FormCell = (props) => {
+  let TouchableElement = TouchableHighlight;
+  if (Platform.OS === 'android') {
+    TouchableElement = TouchableNativeFeedback;
   }
-}
+  return (
+    <View>
+      <TouchableElement
+        onPress={props.onSelect}
+        onShowUnderlay={props.onHighlight}
+        onHideUnderlay={props.onUnhighlight}
+      >
+        <View style={cellStyles.cellRow}>
+          <View style={cellStyles.textContainer}>
+            <Text style={cellStyles.cellName} numberOfLines={2}>
+              {props.form.form_label}
+            </Text>
+          </View>
+        </View>
+      </TouchableElement>
+    </View>
+  );
+};
 
 FormCell.propTypes = {
   onSelect: PropTypes.func.isRequired,
@@ -43,3 +41,4 @@ FormCell.propTypes = {
 };
 
 export default FormCell;
+

@@ -1,8 +1,7 @@
-'use strict';
 import { Actions } from 'react-native-router-flux';
+import { findIndex } from 'lodash';
 import * as sc from 'spatialconnect/native';
 import * as mapUtils from '../utils/map';
-import { findIndex } from 'lodash';
 
 const MAX_FEATURES = 100;
 
@@ -49,7 +48,7 @@ export default function reducer(state = initialState, action = {}) {
       if (state.features.length >= MAX_FEATURES) {
         return state;
       }
-      let newFeatures = state.features.concat(action.payload.featureChunk).slice(0, MAX_FEATURES);
+      const newFeatures = state.features.concat(action.payload.featureChunk).slice(0, MAX_FEATURES);
       return {
         ...state,
         features: newFeatures,
@@ -104,67 +103,65 @@ const makeOverlays = (overlays, features) => {
   let lines = [];
   features
   .filter(f => f.geometry)
-  .forEach(feature => {
+  .forEach((feature) => {
     switch (feature.geometry.type) {
       case 'Point':
       case 'MultiPoint': {
-        let point = mapUtils.makeCoordinates(feature).map(c => ({
+        const point = mapUtils.makeCoordinates(feature).map(c => ({
           latlng: c,
-          feature: feature,
+          feature,
         }));
         points = points.concat(point);
         break;
       }
       case 'Polygon':
       case 'MultiPolygon': {
-        let polygon = mapUtils.makeCoordinates(feature).map(c => ({
+        const polygon = mapUtils.makeCoordinates(feature).map(c => ({
           coordinates: c,
-          feature: feature,
+          feature,
         }));
         polygons = polygons.concat(polygon);
         break;
       }
       case 'LineString':
       case 'MultiLineString': {
-        let line = mapUtils.makeCoordinates(feature).map(c => ({
+        const line = mapUtils.makeCoordinates(feature).map(c => ({
           coordinates: c,
-          feature: feature,
+          feature,
         }));
         lines = lines.concat(line);
+        break;
       }
+      default:
+        break;
     }
   });
   return {
-    points: points,
-    polygons: polygons,
-    lines: lines,
+    points,
+    polygons,
+    lines,
   };
 };
 
-export const toggleStore = (storeId, active) => {
-  return {
-    type: 'TOGGLE_STORE',
-    payload: {
-      storeId: storeId,
-      active: active,
-    },
-  };
-};
+export const toggleStore = (storeId, active) => ({
+  type: 'TOGGLE_STORE',
+  payload: {
+    storeId,
+    active,
+  },
+});
 
-export const toggleAllStores = (active) => {
-  return (dispatch, getState) => {
+export const toggleAllStores = active =>
+  (dispatch, getState) => {
     const state = getState();
-    let stores = state.sc.stores;
-    stores.forEach(store => {
-      dispatch(toggleStore(store.storeId, active));
-    });
+    const stores = state.sc.stores;
+    stores.forEach(store => dispatch(toggleStore(store.storeId, active)));
   };
-};
 
-export const queryStores = (bbox=[-180, -90, 180, 90], limit=50) => {
-  return (dispatch, getState) => {
+export const queryStores = (bbox = [-180, -90, 180, 90], limit = 50) =>
+  (dispatch, getState) => {
     const state = getState();
-    let filter = sc.filter().geoBBOXContains(bbox).limit(limit);
+    const filter = sc.filter().geoBBOXContains(bbox).limit(limit);
     dispatch({
       type: 'CLEAR_FEATURES',
     });
@@ -172,20 +169,19 @@ export const queryStores = (bbox=[-180, -90, 180, 90], limit=50) => {
       .bufferWithTime(1000)
       .take(5)
       .map(actions => actions.map(a => a.payload))
-      .subscribe(featureChunk => {
+      .subscribe((featureChunk) => {
         dispatch({
           type: 'ADD_FEATURES',
           payload: { featureChunk },
         });
       });
   };
-};
 
-export const upsertFeature = (newFeature) => {
-  return (dispatch, getState) => {
+export const upsertFeature = newFeature =>
+  (dispatch, getState) => {
     sc.updateFeature$(newFeature);
     const state = getState();
-    let fId = findIndex(state.map.features, f => (
+    const fId = findIndex(state.map.features, f => (
       f.id === newFeature.id &&
       f.metadata.storeId === newFeature.metadata.storeId &&
       f.metadata.layerId === newFeature.metadata.layerId
@@ -202,36 +198,28 @@ export const upsertFeature = (newFeature) => {
       });
     }
   };
-};
 
-export const createFeature = (storeId, layerId, feature) => {
-  return dispatch => {
-    let f = sc.geometry(storeId, layerId, feature);
-    sc.createFeature$(f.serialize()).first().subscribe(action => {
+export const createFeature = (storeId, layerId, feature) =>
+  (dispatch) => {
+    const f = sc.geometry(storeId, layerId, feature);
+    sc.createFeature$(f.serialize()).first().subscribe((action) => {
       dispatch(action);
-      const f = typeof action.payload === 'string' ?
+      const newFeature = typeof action.payload === 'string' ?
         JSON.parse(action.payload) : action.payload;
-      Actions.editFeature({ feature: f });
+      Actions.editFeature({ feature: newFeature });
     });
   };
-};
 
-export const addCreatingPoint = point => {
-  return {
-    type: 'ADD_CREATING_POINT',
-    payload: { point },
-  };
-};
+export const addCreatingPoint = point => ({
+  type: 'ADD_CREATING_POINT',
+  payload: { point },
+});
 
-export const setCreatingType = type => {
-  return {
-    type: 'SET_CREATING_TYPE',
-    payload: { type },
-  };
-};
+export const setCreatingType = type => ({
+  type: 'SET_CREATING_TYPE',
+  payload: { type },
+});
 
-export const cancelCreating = () => {
-  return {
-    type: 'CANCEL_CREATING',
-  };
-};
+export const cancelCreating = () => ({
+  type: 'CANCEL_CREATING',
+});

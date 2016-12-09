@@ -1,8 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-/*global require*/
 import React, { Component } from 'react';
 import {
   Image,
@@ -16,7 +11,7 @@ import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { Modal, Scene, Router, Actions } from 'react-native-router-flux';
 import { connectSC } from './ducks/sc';
-import { requireAuth } from './containers/AuthComponent';
+import requireAuth from './containers/AuthComponent';
 import LoginView from './components/LoginView';
 import SignUpView from './components/SignUpView';
 import SCDrawer from './containers/SCDrawer';
@@ -33,21 +28,26 @@ const RouterWithRedux = connect()(Router);
 
 const store = createStore(
   reducer,
-  applyMiddleware(thunk /*, createLogger()*/)
+  applyMiddleware(thunk, createLogger()),
 );
+
+const layersImg = require('./img/layers.png');
+const menuImg = require('./img/menu.png');
 
 const renderLeftButton = () => (
   <TouchableOpacity
-    onPress={() => Actions.refresh({key: 'drawer', open: value => !value })}>
-    <Image source={require('./img/menu.png')} style={routerStyles.icon} />
+    onPress={() => Actions.refresh({ key: 'drawer', open: value => !value })}
+  >
+    <Image source={menuImg} style={routerStyles.icon} />
   </TouchableOpacity>
 );
 
 const renderLayersButton = () => (
   <TouchableOpacity
     style={routerStyles.layersIcon}
-    onPress={() =>  Actions.refresh({key: 'layerdrawer', open: value => !value })}>
-    <Image source={require('./img/layers.png')} style={routerStyles.layersIconImg} />
+    onPress={() => Actions.refresh({ key: 'layerdrawer', open: value => !value })}
+  >
+    <Image source={layersImg} style={routerStyles.layersIconImg} />
   </TouchableOpacity>
 );
 
@@ -55,50 +55,93 @@ const renderLayersButton = () => (
 const scenes = Actions.create(
   <Scene key="modal" component={Modal}>
     <Scene key="root" hideNavBar hideTabBar>
-      <Scene key="drawer" component={SCDrawer} open={false} initial={true}>
+      <Scene key="drawer" component={SCDrawer} open={false} initial>
         <Scene key="layerdrawer" component={LayerDrawer} open={false}>
-          <Scene key="main" tabs={true}>
+          <Scene key="main" tabs>
             <Scene key="formNav" title="Form List">
-              <Scene key="forms" title="Forms" component={requireAuth(FormNavigator)} renderLeftButton={renderLeftButton} />
-              <Scene key="form" title="" component={requireAuth(FormNavigator)} renderLeftButton={renderLeftButton}  />
-              <Scene key="formSubmitted" title="Form Submitted" component={requireAuth(FormNavigator)} renderLeftButton={renderLeftButton} />
+              <Scene
+                key="forms" title="Forms"
+                component={requireAuth(FormNavigator)}
+                renderLeftButton={renderLeftButton}
+              />
+              <Scene
+                key="form" title=""
+                component={requireAuth(FormNavigator)}
+                renderLeftButton={renderLeftButton}
+              />
+              <Scene
+                key="formSubmitted" title="Form Submitted"
+                component={requireAuth(FormNavigator)}
+                renderLeftButton={renderLeftButton}
+              />
             </Scene>
             <Scene key="storeNav" title="Store List">
-              <Scene key="stores" component={requireAuth(StoreNavigator)} title="Stores"  renderLeftButton={renderLeftButton}/>
-              <Scene key="store" component={requireAuth(StoreNavigator)} title="" renderLeftButton={renderLeftButton} />
+              <Scene
+                key="stores" title="Stores"
+                component={requireAuth(StoreNavigator)}
+                renderLeftButton={renderLeftButton}
+              />
+              <Scene
+                key="store" title=""
+                component={requireAuth(StoreNavigator)}
+                renderLeftButton={renderLeftButton}
+              />
             </Scene>
             <Scene key="mapNav" title="Store List">
-              <Scene key="map" component={requireAuth(MapNavigator)} title="Map" renderLeftButton={renderLeftButton}
-              renderRightButton={renderLayersButton} />
-              <Scene key="viewFeature" component={requireAuth(MapNavigator)} title="Feature" renderLeftButton={renderLeftButton}
+              <Scene
+                key="map" title="Map"
+                component={requireAuth(MapNavigator)}
+                renderLeftButton={renderLeftButton}
+                renderRightButton={renderLayersButton}
+              />
+              <Scene
+                key="viewFeature" title="Feature"
+                component={requireAuth(MapNavigator)}
+                renderLeftButton={renderLeftButton}
                 rightTitle="Edit" rightButtonTextStyle={routerStyles.buttonTextStyle}
-                onRight={ props => Actions.editFeature({feature: props.feature}) } />
-              <Scene component={requireAuth(MapNavigator)} title="Edit Feature"
+                onRight={props => Actions.editFeature({ feature: props.feature })}
+              />
+              <Scene
+                key="editFeature" title="Edit Feature"
+                component={requireAuth(MapNavigator)}
                 panHandlers={null}
-                key="editFeature"
                 rightTitle="Save" rightButtonTextStyle={routerStyles.buttonTextStyle}
-                onRight={ () => null }
-                onLeft={() => Actions.pop() } />
-              <Scene component={requireAuth(MapNavigator)} title="Create Feature"
+                onRight={() => null}
+                onLeft={() => Actions.pop()}
+              />
+              <Scene
+                key="createFeature" title="Create Feature"
+                component={requireAuth(MapNavigator)}
                 direction="vertical" panHandlers={null}
-                key="createFeature"  />
+              />
             </Scene>
             <Scene key="testNav" title="Tests">
-              <Scene key="test" component={requireAuth(TestNavigator)} title="Tests" renderLeftButton={renderLeftButton} />
+              <Scene
+                key="test" title="Tests"
+                component={requireAuth(TestNavigator)}
+                renderLeftButton={renderLeftButton}
+              />
             </Scene>
-            <Scene key="login" component={LoginView} title="Login" renderLeftButton={renderLeftButton} />
-            <Scene key="signUp" component={SignUpView} title="Sign Up" renderLeftButton={renderLeftButton} />
+            <Scene
+              key="login" title="Login"
+              component={LoginView}
+              renderLeftButton={renderLeftButton}
+            />
+            <Scene
+              key="signUp" title="Sign Up"
+              component={SignUpView}
+              renderLeftButton={renderLeftButton}
+            />
           </Scene>
         </Scene>
       </Scene>
     </Scene>
-  </Scene>
-);
+  </Scene>);
 
 class SCMobile extends Component {
 
   componentWillMount() {
-    connectSC(store); //connect spatialconnect to the redux store
+    connectSC(store); // connect spatialconnect to the redux store
     if (Platform.OS === 'ios') {
       StatusBar.setBarStyle('light-content', true);
     } else {
@@ -114,7 +157,8 @@ class SCMobile extends Component {
           titleStyle={routerStyles.title}
           leftButtonIconStyle={routerStyles.leftButtonIconStyle}
           duration={250}
-          scenes={scenes} />
+          scenes={scenes}
+        />
       </Provider>
     );
   }

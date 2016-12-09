@@ -1,42 +1,36 @@
-'use strict';
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import StoreList from '../components/StoreList';
 import SCStore from '../components/SCStore';
-import { navStyles } from '../style/style.js';
+import { navStyles } from '../style/style';
 
-class StoreNavigator extends Component {
-
-  render() {
-    var el;
-    if (this.props.name === 'stores') {
-      el = <StoreList {...this.props} />;
-    } else if (this.props.name === 'store') {
-      el = <SCStore {...this.props} />;
-    } else {
-      el = <View />;
-    }
-    return (
-      <View style={navStyles.container}>
-        {el}
-      </View>
-    );
+const StoreNavigator = (props) => {
+  let el;
+  if (props.name === 'stores') {
+    el = <StoreList {...props} />;
+  } else if (props.name === 'store') {
+    el = <SCStore {...props} />;
+  } else {
+    el = <View />;
   }
-}
+  return (
+    <View style={navStyles.container}>
+      {el}
+    </View>
+  );
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   stores: state.sc.stores,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatch: dispatch,
+const mapDispatchToProps = dispatch => ({
+  dispatch,
 });
 
 StoreNavigator.propTypes = {
   name: PropTypes.string.isRequired,
-  stores: PropTypes.array.isRequired,
-  storeInfo: PropTypes.object,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StoreNavigator);

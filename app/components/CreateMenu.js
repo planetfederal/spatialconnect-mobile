@@ -1,5 +1,4 @@
-'use strict';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   Animated,
   Easing,
@@ -16,203 +15,11 @@ const BUTTON_WIDTH = 40;
 const BUTTON_PADDING = 10;
 const ANIMATION_DURATION = 400;
 
-class CreateMenu extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rightPosition: new Animated.Value(0),
-      topPosition: new Animated.Value(0),
-      topPositionAdd: new Animated.Value(0),
-      errorPosition: new Animated.Value(5),
-      open: false,
-      activeTool: false,
-    };
-  }
-
-  animateMenu() {
-    if (this.state.open) {
-      this.props.cancelCreating();
-      this.closeMenu();
-    } else {
-      this.state.rightPosition.setValue(0);
-      Animated.timing(this.state.rightPosition, {
-        toValue: 1,
-        duration: ANIMATION_DURATION,
-        easing: Easing.elastic(2),
-      }).start();
-    }
-    this.setState({
-      open: !this.state.open,
-      activeTool: false,
-    });
-  }
-
-  setActiveTool(tool) {
-    this.props.addFeatureType(tool);
-    if (this.state.activeTool) {
-      //close
-      Animated.sequence([
-        Animated.parallel([
-          Animated.timing(this.state.topPosition, {
-            toValue: 0,
-            duration: ANIMATION_DURATION/2,
-            easing: Easing.elastic(1),
-          }),
-          Animated.timing(this.state.topPositionAdd, {
-            toValue: 0,
-            duration: ANIMATION_DURATION/2,
-            easing: Easing.elastic(1),
-          }),
-        ]),
-        Animated.parallel([
-          Animated.timing(this.state.topPosition, {
-            toValue: 1,
-            duration: ANIMATION_DURATION/2,
-            easing: Easing.elastic(1),
-          }),
-          Animated.timing(this.state.topPositionAdd, {
-            toValue: tool === 'pin' ? 0 : 1,
-            duration: ANIMATION_DURATION/2,
-            easing: Easing.elastic(1),
-          }),
-        ]),
-      ]).start();
-    } else {
-      this.props.addCenterPin();
-      Animated.timing(this.state.topPosition, {
-        toValue: 1,
-        duration: ANIMATION_DURATION,
-        easing: Easing.elastic(2),
-      }).start();
-      if (tool !== 'pin') {
-        Animated.timing(this.state.topPositionAdd, {
-          toValue: 1,
-          duration: ANIMATION_DURATION,
-          easing: Easing.elastic(2),
-        }).start();
-      }
-    }
-    this.setState({activeTool: tool});
-  }
-
-  closeMenu() {
-    Animated.parallel([
-      Animated.timing(this.state.rightPosition, {
-        toValue: 0,
-        duration: ANIMATION_DURATION,
-        easing: Easing.elastic(1),
-      }),
-      Animated.timing(this.state.topPosition, {
-        toValue: 0,
-        duration: ANIMATION_DURATION,
-        easing: Easing.elastic(1),
-      }),
-      Animated.timing(this.state.topPositionAdd, {
-        toValue: 0,
-        duration: ANIMATION_DURATION,
-        easing: Easing.elastic(1),
-      }),
-    ]).start();
-  }
-
-  shakeMenu() {
-    const duration = 100;
-    Animated.sequence([
-      Animated.timing(this.state.errorPosition, {
-        toValue: 7,
-        duration: duration,
-        easing: Easing.elastic(1),
-      }),
-      Animated.timing(this.state.errorPosition, {
-        toValue: 2,
-        duration: duration,
-        easing: Easing.elastic(1),
-      }),
-      Animated.timing(this.state.errorPosition, {
-        toValue: 6,
-        duration: duration,
-        easing: Easing.elastic(1),
-      }),
-      Animated.timing(this.state.errorPosition, {
-        toValue: 5,
-        duration: duration,
-        easing: Easing.elastic(1),
-      }),
-    ]).start();
-  }
-
-  save() {
-    let valid = this.props.saveFeature();
-    if (valid) {
-      this.closeMenu();
-      this.setState({
-        open: false,
-        activeTool: false,
-      });
-    } else {
-      this.shakeMenu();
-    }
-  }
-
-  render() {
-    let position1 = this.state.rightPosition.interpolate({
-      inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_PADDING],
-    });
-    let position2 = this.state.rightPosition.interpolate({
-      inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + BUTTON_PADDING*2],
-    });
-    let position3 = this.state.rightPosition.interpolate({
-      inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH*2 + BUTTON_PADDING*3],
-    });
-    let topPosition1 = this.state.topPosition.interpolate({
-      inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_PADDING],
-    });
-    let topPositionAdd = this.state.topPositionAdd.interpolate({
-      inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + BUTTON_PADDING*2],
-    });
-    let degreeRotation = this.state.rightPosition.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['0deg', '45deg'],
-    });
-    return (
-      <View style={styles.container} pointerEvents='box-none'>
-        <Animated.View style={[styles.featureTypeBtn, this.state.activeTool === 'polygon' && styles.featureTypeBtnActive, {right: position1}]}>
-          <TouchableOpacity onPress={() => this.setActiveTool('polygon')} style={styles.clickTarget}>
-            <Image source={require('../img/polygonicon.png')} resizeMode={Image.resizeMode.contain} style={styles.featureTypeIcon} />
-          </TouchableOpacity>
-        </Animated.View>
-        <Animated.View style={[styles.featureTypeBtn, this.state.activeTool === 'line' && styles.featureTypeBtnActive, {right: position2}]}>
-          <TouchableOpacity onPress={() => this.setActiveTool('line')} style={styles.clickTarget}>
-            <Image source={require('../img/lineicon.png')} resizeMode={Image.resizeMode.contain} style={styles.featureTypeIcon} />
-          </TouchableOpacity>
-        </Animated.View>
-        <Animated.View style={[styles.featureTypeBtn, this.state.activeTool === 'pin' && styles.featureTypeBtnActive, {right:position3}]}>
-          <TouchableOpacity onPress={() => this.setActiveTool('pin')} style={styles.clickTarget}>
-            <Image source={require('../img/pin.png')} resizeMode={Image.resizeMode.contain} style={styles.featureTypeIcon} />
-          </TouchableOpacity>
-        </Animated.View>
-        <Animated.View style={[styles.featureTypeBtn, styles.addFeatureBtn, {right: this.state.errorPosition, bottom: topPosition1}]}>
-          <TouchableOpacity onPress={this.save.bind(this)} style={styles.clickTarget}>
-            <Image source={require('../img/check.png')} resizeMode={Image.resizeMode.contain} style={styles.featureTypeIcon} />
-          </TouchableOpacity>
-        </Animated.View>
-        <Animated.View style={[styles.featureTypeBtn, {right: 5, bottom: topPositionAdd}]}>
-          <TouchableOpacity onPress={this.props.addNextPin} style={styles.clickTarget}>
-            <Image source={require('../img/plus.png')} resizeMode={Image.resizeMode.contain} style={styles.featureTypeIcon} />
-          </TouchableOpacity>
-        </Animated.View>
-        <TouchableOpacity style={[styles.createFeature, this.state.open && styles.createFeatureClose]} onPress={this.animateMenu.bind(this)}>
-          <Animated.Image source={require('../img/plus.png')} resizeMode={Image.resizeMode.contain} style={[styles.createFeatureText, {transform: [{rotate: degreeRotation}]}]} />
-        </TouchableOpacity>
-      </View>
-    );
-  }
-}
+const polygonIcon = require('../img/polygonicon.png');
+const lineIcon = require('../img/lineicon.png');
+const pointIcon = require('../img/pin.png');
+const checkIcon = require('../img/check.png');
+const plusIcon = require('../img/plus.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -294,8 +101,254 @@ const styles = StyleSheet.create({
   },
 });
 
-CreateMenu.PropTypes = {
+const CreateMenuIcon = props =>
+  <Animated.View style={props.style}>
+    <TouchableOpacity onPress={props.onPress} style={styles.clickTarget}>
+      <Image
+        source={props.icon}
+        resizeMode={Image.resizeMode.contain}
+        style={styles.featureTypeIcon}
+      />
+    </TouchableOpacity>
+  </Animated.View>;
 
+CreateMenuIcon.propTypes = {
+  icon: Image.propTypes.source,
+  onPress: PropTypes.func.isRequired,
+  style: PropTypes.array.isRequired,
+};
+
+class CreateMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rightPosition: new Animated.Value(0),
+      topPosition: new Animated.Value(0),
+      topPositionAdd: new Animated.Value(0),
+      errorPosition: new Animated.Value(5),
+      open: false,
+      activeTool: false,
+    };
+
+    this.save = this.save.bind(this);
+    this.animateMenu = this.animateMenu.bind(this);
+  }
+
+  setActiveTool(tool) {
+    this.props.addFeatureType(tool);
+    if (this.state.activeTool) {
+      // close
+      Animated.sequence([
+        Animated.parallel([
+          Animated.timing(this.state.topPosition, {
+            toValue: 0,
+            duration: ANIMATION_DURATION / 2,
+            easing: Easing.elastic(1),
+          }),
+          Animated.timing(this.state.topPositionAdd, {
+            toValue: 0,
+            duration: ANIMATION_DURATION / 2,
+            easing: Easing.elastic(1),
+          }),
+        ]),
+        Animated.parallel([
+          Animated.timing(this.state.topPosition, {
+            toValue: 1,
+            duration: ANIMATION_DURATION / 2,
+            easing: Easing.elastic(1),
+          }),
+          Animated.timing(this.state.topPositionAdd, {
+            toValue: tool === 'pin' ? 0 : 1,
+            duration: ANIMATION_DURATION / 2,
+            easing: Easing.elastic(1),
+          }),
+        ]),
+      ]).start();
+    } else {
+      this.props.addCenterPin();
+      Animated.timing(this.state.topPosition, {
+        toValue: 1,
+        duration: ANIMATION_DURATION,
+        easing: Easing.elastic(2),
+      }).start();
+      if (tool !== 'pin') {
+        Animated.timing(this.state.topPositionAdd, {
+          toValue: 1,
+          duration: ANIMATION_DURATION,
+          easing: Easing.elastic(2),
+        }).start();
+      }
+    }
+    this.setState({ activeTool: tool });
+  }
+
+  animateMenu() {
+    if (this.state.open) {
+      this.props.cancelCreating();
+      this.closeMenu();
+    } else {
+      this.state.rightPosition.setValue(0);
+      Animated.timing(this.state.rightPosition, {
+        toValue: 1,
+        duration: ANIMATION_DURATION,
+        easing: Easing.elastic(2),
+      }).start();
+    }
+    this.setState({
+      open: !this.state.open,
+      activeTool: false,
+    });
+  }
+
+  closeMenu() {
+    Animated.parallel([
+      Animated.timing(this.state.rightPosition, {
+        toValue: 0,
+        duration: ANIMATION_DURATION,
+        easing: Easing.elastic(1),
+      }),
+      Animated.timing(this.state.topPosition, {
+        toValue: 0,
+        duration: ANIMATION_DURATION,
+        easing: Easing.elastic(1),
+      }),
+      Animated.timing(this.state.topPositionAdd, {
+        toValue: 0,
+        duration: ANIMATION_DURATION,
+        easing: Easing.elastic(1),
+      }),
+    ]).start();
+  }
+
+  shakeMenu() {
+    const duration = 100;
+    Animated.sequence([
+      Animated.timing(this.state.errorPosition, {
+        toValue: 7,
+        duration,
+        easing: Easing.elastic(1),
+      }),
+      Animated.timing(this.state.errorPosition, {
+        toValue: 2,
+        duration,
+        easing: Easing.elastic(1),
+      }),
+      Animated.timing(this.state.errorPosition, {
+        toValue: 6,
+        duration,
+        easing: Easing.elastic(1),
+      }),
+      Animated.timing(this.state.errorPosition, {
+        toValue: 5,
+        duration,
+        easing: Easing.elastic(1),
+      }),
+    ]).start();
+  }
+
+  save() {
+    const valid = this.props.saveFeature();
+    if (valid) {
+      this.closeMenu();
+      this.setState({
+        open: false,
+        activeTool: false,
+      });
+    } else {
+      this.shakeMenu();
+    }
+  }
+
+  render() {
+    const position1 = this.state.rightPosition.interpolate({
+      inputRange: [0, 1],
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_PADDING],
+    });
+    const position2 = this.state.rightPosition.interpolate({
+      inputRange: [0, 1],
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + (BUTTON_PADDING * 2)],
+    });
+    const position3 = this.state.rightPosition.interpolate({
+      inputRange: [0, 1],
+      outputRange: [5, MAIN_BUTTON_WIDTH + (BUTTON_WIDTH * 2) + (BUTTON_PADDING * 3)],
+    });
+    const topPosition1 = this.state.topPosition.interpolate({
+      inputRange: [0, 1],
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_PADDING],
+    });
+    const topPositionAdd = this.state.topPositionAdd.interpolate({
+      inputRange: [0, 1],
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + (BUTTON_PADDING * 2)],
+    });
+    const degreeRotation = this.state.rightPosition.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '45deg'],
+    });
+    const polyStyle = [
+      styles.featureTypeBtn,
+      this.state.activeTool === 'polygon' && styles.featureTypeBtnActive,
+      { right: position1 },
+    ];
+    const lineStyle = [
+      styles.featureTypeBtn,
+      this.state.activeTool === 'line' && styles.featureTypeBtnActive,
+      { right: position2 },
+    ];
+    const pointStyle = [
+      styles.featureTypeBtn,
+      this.state.activeTool === 'pin' && styles.featureTypeBtnActive,
+      { right: position3 },
+    ];
+    const saveStyle = [
+      styles.featureTypeBtn,
+      styles.addFeatureBtn,
+      { right: this.state.errorPosition, bottom: topPosition1 },
+    ];
+    const addStyle = [
+      styles.featureTypeBtn,
+      { right: 5, bottom: topPositionAdd },
+    ];
+    const toggleStyle = [
+      styles.createFeature,
+      this.state.open && styles.createFeatureClose,
+    ];
+    const toggleImgStyle = [
+      styles.createFeatureText,
+      { transform: [{ rotate: degreeRotation }] },
+    ];
+    return (
+      <View style={styles.container} pointerEvents="box-none">
+        <CreateMenuIcon
+          style={polyStyle} onPress={() => this.setActiveTool('polygon')} icon={polygonIcon}
+        />
+        <CreateMenuIcon
+          style={lineStyle} onPress={() => this.setActiveTool('line')} icon={lineIcon}
+        />
+        <CreateMenuIcon
+          style={pointStyle} onPress={() => this.setActiveTool('pin')} icon={pointIcon}
+        />
+        <CreateMenuIcon
+          style={saveStyle} onPress={this.save} icon={checkIcon}
+        />
+        <CreateMenuIcon
+          style={addStyle} onPress={this.props.addNextPin} icon={plusIcon}
+        />
+        <TouchableOpacity style={toggleStyle} onPress={this.animateMenu}>
+          <Animated.Image
+            source={plusIcon} resizeMode={Image.resizeMode.contain} style={toggleImgStyle}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
+
+CreateMenu.propTypes = {
+  cancelCreating: PropTypes.func.isRequired,
+  addFeatureType: PropTypes.func.isRequired,
+  saveFeature: PropTypes.func.isRequired,
+  addCenterPin: PropTypes.func.isRequired,
+  addNextPin: PropTypes.func.isRequired,
 };
 
 export default CreateMenu;

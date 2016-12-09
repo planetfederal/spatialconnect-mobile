@@ -1,5 +1,3 @@
-/*global fetch*/
-'use strict';
 import * as sc from 'spatialconnect/native';
 
 const initialState = {
@@ -92,7 +90,7 @@ export function loginUserRequest() {
 export function signUpUserFailure(error) {
   return {
     type: 'SIGNUP_USER_FAILURE',
-    error: error,
+    error,
   };
 }
 
@@ -111,14 +109,14 @@ export function signUpUserRequest() {
 export function onChangeLoginFormValue(value) {
   return {
     type: 'LOGIN_FORM_VALUE',
-    value: value,
+    value,
   };
 }
 
 export function onChangeSignUpFormValue(value) {
   return {
     type: 'SIGNUP_FORM_VALUE',
-    value: value,
+    value,
   };
 }
 
@@ -128,16 +126,16 @@ export function signUpUser(form) {
     const backendUri = state.sc.backendUri;
     if (backendUri) {
       dispatch(signUpUserRequest());
-      return fetch(backendUri + 'users', {
+      return fetch(`${backendUri}users`, {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(form),
       })
       .then(response => response.json())
-      .then(body => {
+      .then((body) => {
         if (body.result.errors) {
           dispatch(signUpUserFailure(body.result.errors[0].message));
         } else if (body.result.error) {
@@ -148,22 +146,21 @@ export function signUpUser(form) {
           dispatch(signUpUserSuccess());
         }
       });
-    } else {
-      dispatch(signUpUserFailure('Sign up unsuccessful.'));
     }
+    return dispatch(signUpUserFailure('Sign up unsuccessful.'));
   };
 }
 
 
 export function login(email, password) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(loginUserRequest());
     sc.authenticate(email, password);
   };
 }
 
 export function logout() {
-  return dispatch => {
+  return (dispatch) => {
     sc.logout();
     dispatch({ type: 'LOGOUT' });
   };

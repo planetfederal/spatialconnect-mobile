@@ -1,27 +1,24 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 
-export const requireAuth = (Component) => {
-
-  class AuthenticatedComponent extends Component {
-    render() {
-      if (this.props.auth.isAuthenticated) {
-        return <Component {...this.props} />;
-      } else {
-        return <View />;
-      }
+const requireAuth = (Component) => {
+  const AuthenticatedComponent = (props) => {
+    if (props.auth.isAuthenticated) {
+      return <Component {...props} />;
     }
-  }
+    return <View />;
+  };
 
   AuthenticatedComponent.propTypes = {
     auth: PropTypes.object.isRequired,
   };
 
-  const mapStateToProps = (state) => ({
+  const mapStateToProps = state => ({
     auth: state.auth,
   });
 
   return connect(mapStateToProps)(AuthenticatedComponent);
-
 };
+
+export default requireAuth;

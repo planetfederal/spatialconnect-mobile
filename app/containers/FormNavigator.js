@@ -1,5 +1,4 @@
-'use strict';
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import {
   View,
 } from 'react-native';
@@ -7,41 +6,36 @@ import { connect } from 'react-redux';
 import FormList from '../components/FormList';
 import FormSubmitted from '../components/FormSubmitted';
 import SCForm from '../components/SCForm';
-import { navStyles } from '../style/style.js';
+import { navStyles } from '../style/style';
 
-class FormNavigator extends Component {
-
-  render() {
-    var el;
-    if (this.props.name === 'forms') {
-      el = <FormList {...this.props} />;
-    } else if (this.props.name === 'form') {
-      el = <SCForm {...this.props} />;
-    } else if (this.props.name === 'formSubmitted') {
-      el = <FormSubmitted {...this.props} />;
-    } else {
-      el = <View />;
-    }
-    return (
-      <View style={navStyles.container}>
-        {el}
-      </View>
-    );
+const FormNavigator = (props) => {
+  let el;
+  if (props.name === 'forms') {
+    el = <FormList {...props} />;
+  } else if (props.name === 'form') {
+    el = <SCForm {...props} />;
+  } else if (props.name === 'formSubmitted') {
+    el = <FormSubmitted {...props} />;
+  } else {
+    el = <View />;
   }
-}
+  return (
+    <View style={navStyles.container}>
+      {el}
+    </View>
+  );
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   forms: state.sc.forms,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatch: dispatch,
+const mapDispatchToProps = dispatch => ({
+  dispatch,
 });
 
 FormNavigator.propTypes = {
   name: PropTypes.string.isRequired,
-  formInfo: PropTypes.object,
-  forms: PropTypes.array.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormNavigator);

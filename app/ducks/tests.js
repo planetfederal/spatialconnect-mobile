@@ -1,4 +1,3 @@
-'use strict';
 
 const test = (state, action) => {
   switch (action.type) {
@@ -38,36 +37,26 @@ export default (state = [], action) => {
         test(undefined, action),
       ];
     case 'TEST_PASSED':
-      return state.map(t =>
-        test(t, action)
-      );
+      return state.map(t => test(t, action));
     case 'TEST_FAILED':
-      return state.map(t =>
-        test(t, action)
-      );
+      return state.map(t => test(t, action));
     default:
       return state;
   }
 };
 
-export const add = (name) => {
-  return {
-    type: 'ADD_TEST',
-    name: name,
-  };
-};
+export const add = name => ({
+  type: 'ADD_TEST',
+  name,
+});
 
-export const passed = (name) => {
-  return {
-    type: 'TEST_PASSED',
-    name: name,
-  };
-};
+export const passed = name => ({
+  type: 'TEST_PASSED',
+  name,
+});
 
-export const failed = (name, error) => {
-  return {
-    type: 'TEST_FAILED',
-    name: name,
-    error: error,
-  };
-};
+export const failed = (name, error) => ({
+  type: 'TEST_FAILED',
+  name,
+  error,
+});

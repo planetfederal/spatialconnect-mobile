@@ -15,22 +15,23 @@ class LayerDrawer extends Component {
         ref="navigation"
         open={nav.open}
         side="right"
-        onOpen={()=>Actions.refresh({key:nav.key, open: true})}
-        onClose={()=>Actions.refresh({key:nav.key, open: false})}
+        onOpen={() => Actions.refresh({ key: nav.key, open: true })}
+        onClose={() => Actions.refresh({ key: nav.key, open: false })}
         type="displace"
         content={<LayerList
           stores={this.props.stores}
           activeStores={this.props.activeStores}
-          actions={this.props.actions} />}
-        tapToClose={true}
+          actions={this.props.actions}
+        />}
+        tapToClose
         openDrawerOffset={0.3}
         panCloseMask={0.3}
-        negotiatePan={true}
+        negotiatePan
         tweenDuration={100}
-        tweenHandler={(ratio) => ({
-          main: { opacity:Math.max(0.54,1-ratio) },
-        })
-      }>
+        tweenHandler={ratio => ({
+          main: { opacity: Math.max(0.54, 1 - ratio) },
+        })}
+      >
         <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate} />
       </Drawer>
     );
@@ -45,12 +46,12 @@ LayerDrawer.propTypes = {
   activeStores: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   stores: state.sc.stores,
   activeStores: state.map.activeStores,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(mapActions, dispatch),
 });
 
