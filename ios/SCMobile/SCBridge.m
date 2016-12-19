@@ -40,22 +40,27 @@ RCT_EXPORT_METHOD(bindMapView:(nonnull NSNumber *)reactTag)
       if (![view isKindOfClass:[AIRMap class]]) {
         RCTLogError(@"Invalid view returned from registry, expecting AIRMap, got: %@", view);
       } else {
-        AIRMap *mapView = (AIRMap *)view;
-        NSArray *stores = [[[SpatialConnect sharedInstance] dataService] storesByProtocol:@protocol(SCRasterStore)];
-        [[[[[[stores rac_sequence] signal] filter:^BOOL(SCDataStore *store) {
-          return [((id<SCRasterStore>)store).rasterLayers count] > 0;
-        }] map:^RACTuple*(SCDataStore *store) {
-          return [RACTuple tupleWithObjects:store.storeId, ((id<SCRasterStore>)store).rasterLayers, nil];
-        }] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(RACTuple *t) {
-          id<SCRasterStore> rs =
-          (id<SCRasterStore>)[[[SpatialConnect sharedInstance] dataService] storeByIdentifier:[t first]];
-          for (id layer in [t second]) {
-            [rs overlayFromLayer:layer mapview:(AIRMap *)mapView];
-          }
-        }];
+        mapView = (AIRMap *)view;
       }
     }];
   });
+}
+
+RCT_EXPORT_METHOD(addRasterLayers:(NSArray *)storeIds)
+{
+  [mapView removeOverlays:mapView.overlays];
+  NSArray *stores = [[[SpatialConnect sharedInstance] dataService] storesByProtocol:@protocol(SCRasterStore)];
+  [[[[[[stores rac_sequence] signal] filter:^BOOL(SCDataStore *store) {
+    return [storeIds containsObject:store.storeId] && [((id<SCRasterStore>)store).rasterLayers count] > 0;
+  }] map:^RACTuple*(SCDataStore *store) {
+      return [RACTuple tupleWithObjects:store.storeId, ((id<SCRasterStore>)store).rasterLayers, nil];
+  }] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(RACTuple *t) {
+    id<SCRasterStore> rs =
+    (id<SCRasterStore>)[[[SpatialConnect sharedInstance] dataService] storeByIdentifier:[t first]];
+    for (id layer in [t second]) {
+      [rs overlayFromLayer:layer mapview:(AIRMap *)mapView];
+    }
+  }];
 }
 
 RCT_EXPORT_METHOD(handler:(NSDictionary *)action)

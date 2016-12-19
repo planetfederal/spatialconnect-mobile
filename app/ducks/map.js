@@ -1,3 +1,4 @@
+import { NativeModules } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { findIndex } from 'lodash';
 import * as sc from 'spatialconnect/native';
@@ -165,6 +166,7 @@ export const queryStores = (bbox = [-180, -90, 180, 90], limit = 50) =>
     dispatch({
       type: 'CLEAR_FEATURES',
     });
+    NativeModules.SCBridge.addRasterLayers(state.map.activeStores);
     sc.geospatialQuery$(filter, state.map.activeStores)
       .bufferWithTime(1000)
       .take(5)

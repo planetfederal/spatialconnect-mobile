@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "RCTBridgeModule.h"
+#import "AIRMap.h"
 #import <SpatialConnect/SpatialConnect.h>
 #import <SpatialConnect/SCRCTBridge.h>
 
 @interface SCBridge : NSObject <RCTBridgeModule> {
   SCRCTBridge *scBridge;
+  AIRMap *mapView;
 }
 
 @end
