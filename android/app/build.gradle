@@ -188,8 +188,8 @@ task incrementVersionCode << {
 
   } else {
         throw new GradleException("Could not read version.properties!")
-    }
+  }
+  dependsOn 'assembleRelease'
 }
 
 incrementVersionCode.mustRunAfter build
-assembleRelease.dependsOn incrementVersionCode
