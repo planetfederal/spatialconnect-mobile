@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import {
   Image,
   StyleSheet,
+  Text,
   View,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -9,6 +10,8 @@ import Button from 'react-native-button';
 import palette from '../style/palette';
 
 const efcIcon = require('../img/efc_app_87.png');
+const cIcon = require('../img/connected_icon.png');
+const dIcon = require('../img/disconnected_icon.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -38,6 +41,7 @@ const styles = StyleSheet.create({
   navBtnWrap: {
     marginLeft: 0,
     marginRight: 0,
+    flex: 0.95,
   },
   titleWrap: {
     flexDirection: 'row',
@@ -51,6 +55,22 @@ const styles = StyleSheet.create({
     marginTop: 8,
     color: 'white',
     fontSize: 16,
+  },
+  footerText: {
+    color: palette.lightgray,
+    fontSize: 16,
+    paddingLeft: 10,
+  },
+  footer: {
+    marginLeft: 0,
+    marginRight: 0,
+    flex: 0.05,
+    flexDirection: 'row',
+  },
+  connectionIcon: {
+    height: 20,
+    width: 20,
+    marginLeft: 10,
   },
 });
 
@@ -114,6 +134,10 @@ const SideMenu = (props, context) => {
           </View>
         }
       </View>
+      <View style={styles.footer}>
+        <Text style={styles.footerText}> Connection</Text>
+        <Image source={props.isConnected ? cIcon : dIcon} style={styles.connectionIcon} />
+      </View>
     </View>
   );
 };
@@ -125,6 +149,7 @@ const contextTypes = {
 const propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   routes: PropTypes.object.isRequired,
+  isConnected: PropTypes.bool.isRequired,
 };
 
 SideMenu.contextTypes = contextTypes;

@@ -3,6 +3,9 @@ apply plugin: 'io.fabric'
 
 repositories {
   maven { url 'https://maven.fabric.io/public' }
+  maven {
+        url "https://repo.eclipse.org/content/repositories/paho-releases/"
+    }
 }
 import com.android.build.OutputFile
 

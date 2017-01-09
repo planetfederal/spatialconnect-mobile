@@ -7,6 +7,7 @@ const initialState = {
   forms: [],
   stores: [],
   backendUri: null,
+  connectionStatus: false,
 };
 
 export default (state = initialState, action) => {
@@ -26,12 +27,18 @@ export default (state = initialState, action) => {
         ...state,
         backendUri: action.payload.backendUri,
       };
+    case sc.Commands.BACKENDSERVICE_MQTT_CONNECTED:
+      return {
+        ...state,
+        connectionStatus: action.payload === 1 ? true : false,
+      };
     default:
       return state;
   }
 };
 
 export const connectSC = store => {
+
   sc.startAllServices();
   sc.backendUri$().subscribe(store.dispatch);
   sc.loginStatus$().subscribe(action => {
@@ -39,6 +46,7 @@ export const connectSC = store => {
     if (action.payload === sc.AuthStatus.SCAUTH_AUTHENTICATED) {
       sc.forms$().subscribe(store.dispatch);
       sc.stores$().subscribe(store.dispatch);
+      sc.mqttConnected$().subscribe(store.dispatch);
       sc.xAccessToken$().subscribe(store.dispatch);
       Actions.formNav();
     } else {
@@ -52,7 +60,7 @@ export const connectSC = store => {
     }
   });
 
-  if (Platform.OS === 'android' && Platform.Version >= 23 ) {
+  if (Platform.OS === 'android' && Platform.Version >= 23) {
     try {
       const granted = PermissionsAndroid.requestPermission(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
