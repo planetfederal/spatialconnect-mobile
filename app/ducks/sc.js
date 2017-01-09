@@ -1,4 +1,3 @@
-'use strict';
 import * as sc from 'spatialconnect/native';
 import { Actions } from 'react-native-router-flux';
 import { Alert, Platform, PermissionsAndroid } from 'react-native';
@@ -30,18 +29,17 @@ export default (state = initialState, action) => {
     case sc.Commands.BACKENDSERVICE_MQTT_CONNECTED:
       return {
         ...state,
-        connectionStatus: action.payload === 1 ? true : false,
+        connectionStatus: action.payload.connected,
       };
     default:
       return state;
   }
 };
 
-export const connectSC = store => {
-
+export const connectSC = (store) => {
   sc.startAllServices();
   sc.backendUri$().subscribe(store.dispatch);
-  sc.loginStatus$().subscribe(action => {
+  sc.loginStatus$().subscribe((action) => {
     store.dispatch(action);
     if (action.payload === sc.AuthStatus.SCAUTH_AUTHENTICATED) {
       sc.forms$().subscribe(store.dispatch);
@@ -53,7 +51,7 @@ export const connectSC = store => {
       Actions.login();
     }
   });
-  sc.notifications$().take(1).subscribe(action => {
+  sc.notifications$().take(1).subscribe((action) => {
     const p = action.payload;
     if (p.priority === 'alert' && p && p.title) {
       Alert.alert(p.title, p.body);
@@ -64,9 +62,9 @@ export const connectSC = store => {
     try {
       const granted = PermissionsAndroid.requestPermission(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
-          'title': 'GPS permission',
-          'message': 'EFC needs access to your GPS',
-        }
+          title: 'GPS permission',
+          message: 'EFC needs access to your GPS',
+        },
       );
       if (granted) {
         sc.enableGPS();
