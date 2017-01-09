@@ -19,7 +19,7 @@ class SCDrawer extends Component {
         type="displace"
         content={<SideMenu
           routes={this.props.routes} isAuthenticated={this.props.auth.isAuthenticated}
-          actions={this.props.actions}
+          actions={this.props.actions} isConnected={this.props.isConnected}
         />}
         tapToClose
         openDrawerOffset={0.5}
@@ -42,11 +42,13 @@ SCDrawer.propTypes = {
   actions: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   routes: PropTypes.object.isRequired,
+  isConnected: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
   routes: state.routes,
+  isConnected: state.sc.connectionStatus,
 });
 
 const mapDispatchToProps = dispatch => ({
