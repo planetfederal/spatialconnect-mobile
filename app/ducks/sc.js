@@ -1,6 +1,6 @@
 import * as sc from 'spatialconnect/native';
 import { Actions } from 'react-native-router-flux';
-import { Alert, Platform, PermissionsAndroid } from 'react-native';
+import { Platform, PermissionsAndroid } from 'react-native';
 
 const initialState = {
   forms: [],
@@ -49,12 +49,6 @@ export const connectSC = (store) => {
       Actions.formNav();
     } else {
       Actions.login();
-    }
-  });
-  sc.notifications$().take(1).subscribe((action) => {
-    const p = action.payload;
-    if (p.priority === 'alert' && p && p.title) {
-      Alert.alert(p.title, p.body);
     }
   });
 

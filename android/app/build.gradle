@@ -86,7 +86,7 @@ def enableProguardInReleaseBuilds = false
 def generatedVersionCode = 4
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 25
     buildToolsVersion "23.0.2"
 
     defaultConfig {
