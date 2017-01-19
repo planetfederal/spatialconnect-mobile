@@ -69,7 +69,7 @@ public class MainActivity extends ReactActivity {
             .subscribe(new Action1<SCServiceStatusEvent>() {
                 @Override
                 public void call(SCServiceStatusEvent scServiceStatusEvent) {
-                    sc.getBackendService().notifications.subscribe(new Action1<SCNotification>() {
+                    sc.getBackendService().getNotifications().subscribe(new Action1<SCNotification>() {
                         @Override
                         public void call(SCNotification notification) {
                             showNotification(notification);
