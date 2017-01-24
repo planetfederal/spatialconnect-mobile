@@ -108,10 +108,10 @@ class SCForm extends Component {
         properties: formData,
       };
       const f = sc.geometry('FORM_STORE', this.props.formInfo.form_key, gj);
-      sc.createFeature$(f.serialize()).first().subscribe(this.formSubmitted.bind(this));
+      sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
     }, () => {
       const f = sc.spatialFeature('FORM_STORE', this.props.formInfo.form_key, formData);
-      sc.createFeature$(f.serialize()).first().subscribe(this.formSubmitted.bind(this));
+      sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
     }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
   }
 
