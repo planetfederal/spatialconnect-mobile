@@ -204,7 +204,7 @@ export const upsertFeature = newFeature =>
 export const createFeature = (storeId, layerId, feature) =>
   (dispatch) => {
     const f = sc.geometry(storeId, layerId, feature);
-    sc.createFeature$(f.serialize()).first().subscribe((action) => {
+    sc.createFeature$(f).first().subscribe((action) => {
       dispatch(action);
       const newFeature = typeof action.payload === 'string' ?
         JSON.parse(action.payload) : action.payload;
