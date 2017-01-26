@@ -52,7 +52,7 @@ const formOptions = {
   },
 };
 
-class LoginView extends Component {
+export class LoginView extends Component {
 
   static onSignUpPress() {
     Actions.signUp();

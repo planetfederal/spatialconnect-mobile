@@ -2,215 +2,147 @@ exports[`<FormList /> renders correctly 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#e4e7ec",
+      "backgroundColor": "#f0f1f4",
       "flex": 1,
       "flexDirection": "column",
       "justifyContent": "center",
       "padding": 0
     }
   }>
-  <ListView
+  <ScrollView
     dataSource={
       ListViewDataSource {
-        "_cachedRowCount": 3,
-        "_dataBlob": Object {
-          "s1": Array [
-            Object {
-              "fields": Array [
-                Object {
-                  "field_key": "weed_stage",
-                  "field_label": "Weed Stage",
-                  "id": 1,
-                  "is_integer": false,
-                  "is_required": true,
-                  "position": 0,
-                  "type": "number"
-                },
-                Object {
-                  "field_key": "number_of_plants",
-                  "field_label": "Number of Plants",
-                  "id": 2,
-                  "initial_value": "0",
-                  "position": 1,
-                  "type": "counter"
-                },
-                Object {
-                  "field_key": "infestation_size",
-                  "field_label": "Infestation Size",
-                  "id": 3,
-                  "initial_value": "0",
-                  "maximum": "100",
-                  "minimum": "0",
-                  "position": 2,
-                  "type": "slider"
-                },
-                Object {
-                  "field_key": "degree",
-                  "field_label": "Degree",
-                  "id": 4,
-                  "initial_value": "0",
-                  "is_required": true,
-                  "minimum": "0",
-                  "position": 3,
-                  "type": "counter"
-                },
-                Object {
-                  "field_key": "density",
-                  "field_label": "Density",
-                  "id": 5,
-                  "initial_value": "0",
-                  "maximum": "100",
-                  "minimum": "0",
-                  "position": 4,
-                  "type": "slider"
-                },
-                Object {
-                  "field_key": "source",
-                  "field_label": "Source",
-                  "id": 6,
-                  "is_required": true,
-                  "pattern": "",
-                  "position": 5,
-                  "type": "string"
-                },
-                Object {
-                  "field_key": "date_discovered",
-                  "field_label": "Data Discovered",
-                  "id": 7,
-                  "position": 6,
-                  "type": "date"
-                },
-                Object {
-                  "field_key": "common_name",
-                  "field_label": "Common Name",
-                  "id": 8,
-                  "is_required": true,
-                  "pattern": "",
-                  "position": 7,
-                  "type": "string"
-                },
-                Object {
-                  "field_key": "genus",
-                  "field_label": "Genus",
-                  "id": 9,
-                  "is_required": true,
-                  "pattern": "",
-                  "position": 8,
-                  "type": "string"
-                },
-                Object {
-                  "field_key": "species",
-                  "field_label": "Species",
-                  "id": 10,
-                  "pattern": "",
-                  "position": 9,
-                  "type": "string"
-                },
-                Object {
-                  "field_key": "scientific_name",
-                  "field_label": "Scientific Name",
-                  "id": 11,
-                  "pattern": "",
-                  "position": 10,
-                  "type": "string"
-                },
-                Object {
-                  "field_key": "class",
-                  "field_label": "Class",
-                  "id": 12,
-                  "pattern": "",
-                  "position": 11,
-                  "type": "string"
-                }
-              ],
-              "form_key": "weed_inspector",
-              "form_label": "Weed Inspector",
-              "id": 1,
-              "version": 0
-            },
-            Object {
-              "fields": Array [
-                Object {
-                  "field_key": "team",
-                  "field_label": "Favorite?",
-                  "id": 13,
-                  "position": 0,
-                  "type": "string"
-                },
-                Object {
-                  "field_key": "why",
-                  "field_label": "Why?",
-                  "id": 14,
-                  "position": 1,
-                  "type": "string"
-                }
-              ],
-              "form_key": "baseball_team",
-              "form_label": "Baseball Team",
-              "id": 2,
-              "version": 0
-            },
-            Object {
-              "fields": Array [
-                Object {
-                  "field_key": "bird_count",
-                  "field_label": "Bird Count",
-                  "id": 18,
-                  "initial_value": "0",
-                  "is_required": true,
-                  "position": 1,
-                  "type": "counter"
-                },
-                Object {
-                  "field_key": "bird_species",
-                  "field_label": "Bird Species",
-                  "id": 17,
-                  "is_required": true,
-                  "pattern": "",
-                  "position": 0,
-                  "type": "string"
-                }
-              ],
-              "form_key": "bird_counter",
-              "form_label": "Bird Counter",
-              "id": 5,
-              "version": 3
-            }
-          ]
-        },
-        "_dirtyRows": Array [
-          Array [
-            true,
-            true,
-            true
-          ]
-        ],
-        "_dirtySections": Array [
-          true
-        ],
-        "_getRowData": [Function defaultGetRowData],
-        "_getSectionHeaderData": [Function defaultGetSectionHeaderData],
-        "_rowHasChanged": [Function rowHasChanged],
-        "_sectionHeaderHasChanged": [Function anonymous],
-        "rowIdentities": Array [
-          Array [
-            "0",
-            "1",
-            "2"
-          ]
-        ],
-        "sectionIdentities": Array [
-          "s1"
-        ]
+        "items": 1
       }
     }
     enableEmptySections={true}
-    renderRow={[Function bound renderRow]}
-    renderSeparator={[Function bound renderSeparator]}
+    initialListSize={10}
+    onContentSizeChange={[Function bound _onContentSizeChange]}
+    onEndReachedThreshold={1000}
+    onKeyboardDidHide={undefined}
+    onKeyboardDidShow={undefined}
+    onKeyboardWillHide={undefined}
+    onKeyboardWillShow={undefined}
+    onLayout={[Function bound _onLayout]}
+    onScroll={[Function bound _onScroll]}
+    pageSize={1}
+    refreshControl={
+      <function (props, context, updater) {
+            // This constructor gets overridden by mocks. The argument is used
+            // by mocks to assert on what gets mounted.
+      
+            if (process.env.NODE_ENV !== 'production') {
+              process.env.NODE_ENV !== 'production' ? warning(this instanceof Constructor, 'Something is calling a React component directly. Use a factory or ' + 'JSX instead. See: https://fb.me/react-legacyfactory') : void 0;
+            }
+      
+            // Wire up auto-binding
+            if (this.__reactAutoBindPairs.length) {
+              bindAutoBindMethods(this);
+            }
+      
+            this.props = props;
+            this.context = context;
+            this.refs = emptyObject;
+            this.updater = updater || ReactNoopUpdateQueue;
+      
+            this.state = null;
+      
+            // ReactClasses doesn't have constructors. Instead, they use the
+            // getInitialState and componentWillMount methods for initialization.
+      
+            var initialState = this.getInitialState ? this.getInitialState() : null;
+            if (process.env.NODE_ENV !== 'production') {
+              // We allow auto-mocks to proceed as if they're returning null.
+              if (initialState === undefined && this.getInitialState._isMockFunction) {
+                // This is probably bad practice. Consider warning here and
+                // deprecating this convenience.
+                initialState = null;
+              }
+            }
+            !(typeof initialState === 'object' && !Array.isArray(initialState)) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.getInitialState(): must return an object or null', Constructor.displayName || 'ReactCompositeComponent') : _prodInvariant('82', Constructor.displayName || 'ReactCompositeComponent') : void 0;
+      
+            this.state = initialState;
+          }
+        onRefresh={[Function bound onRefresh]}
+        refreshing={false} />
+    }
+    removeClippedSubviews={true}
+    renderRow={[Function renderRow]}
+    renderSeparator={[Function renderSeparator]}
+    scrollEventThrottle={50}
+    scrollRenderAheadDistance={1000}
+    stickyHeaderIndices={Array []}
     style={
       Object {
         "flex": 1
       }
-    } />
+    }>
+    <View>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hitSlop={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent"
+            },
+            undefined
+          ]
+        }
+        testID={undefined}>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "flexDirection": "row",
+              "padding": 10
+            }
+          }>
+          <View
+            style={
+              Object {
+                "flex": 1
+              }
+            }>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              numberOfLines={2}
+              style={
+                Object {
+                  "color": "black",
+                  "flex": 1,
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                  "marginBottom": 2
+                }
+              }>
+              test form
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#dddddd",
+          "height": 1,
+          "marginLeft": 0
+        }
+      } />
+  </ScrollView>
 </View>
 `;

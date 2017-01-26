@@ -11,6 +11,10 @@
     "window": false,
     "document": false,
     "navigator": false,
-    "fetch": false
+    "fetch": false,
+    "jest": false,
+    "describe": false,
+    "it": false,
+    "expect": false,
   }
 }

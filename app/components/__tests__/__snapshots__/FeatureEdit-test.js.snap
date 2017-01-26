@@ -16,17 +16,44 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
           "marginBottom": 10
         }
       }>
-      <Text
+      <View
         style={
           Object {
-            "color": "#000000",
-            "fontSize": 17,
-            "fontWeight": "500",
-            "marginBottom": 7
+            "flex": 1,
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "justifyContent": "space-between"
           }
         }>
-        team
-      </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "flex": 1,
+              "flexWrap": "wrap",
+              "fontSize": 17,
+              "fontWeight": "500",
+              "marginBottom": 7
+            }
+          }>
+          team
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#999999",
+              "flex": 0.3,
+              "textAlign": "right"
+            }
+          }>
+          text
+        </Text>
+      </View>
       <TextInput
         accessibilityLabel="team"
         autoCapitalize={undefined}
@@ -70,8 +97,8 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
             "padding": 7
           }
         }
-        underlineColorAndroid={undefined}
-        value="O's" />
+        underlineColorAndroid="transparent"
+        value="O\'s" />
     </View>
     <View
       style={
@@ -79,17 +106,44 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
           "marginBottom": 10
         }
       }>
-      <Text
+      <View
         style={
           Object {
-            "color": "#000000",
-            "fontSize": 17,
-            "fontWeight": "500",
-            "marginBottom": 7
+            "flex": 1,
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "justifyContent": "space-between"
           }
         }>
-        why
-      </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "flex": 1,
+              "flexWrap": "wrap",
+              "fontSize": 17,
+              "fontWeight": "500",
+              "marginBottom": 7
+            }
+          }>
+          why
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#999999",
+              "flex": 0.3,
+              "textAlign": "right"
+            }
+          }>
+          text
+        </Text>
+      </View>
       <TextInput
         accessibilityLabel="why"
         autoCapitalize={undefined}
@@ -133,130 +187,10 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
             "padding": 7
           }
         }
-        underlineColorAndroid={undefined}
+        underlineColorAndroid="transparent"
         value="testing" />
     </View>
   </View>
-  <View>
-    <Text
-      style={
-        Object {
-          "fontSize": 17,
-          "fontWeight": "500",
-          "marginBottom": 7
-        }
-      }>
-      Location
-    </Text>
-    <View
-      style={
-        Object {
-          "backgroundColor": "rgba(0,0,0,0)",
-          "flex": 1,
-          "height": 300,
-          "marginBottom": 10
-        }
-      }>
-      <View
-        style={
-          Array [
-            Object {
-              "alignSelf": "flex-start",
-              "borderColor": "red",
-              "borderWidth": 1
-            },
-            Object {
-              "bottom": 0,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "top": 0
-            }
-          ]
-        }>
-        <View
-          style={
-            Array [
-              Object {
-                "alignSelf": "flex-start",
-                "borderColor": "red",
-                "borderWidth": 1
-              },
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "position": "absolute"
-                },
-                undefined
-              ]
-            ]
-          } />
-      </View>
-      <Text
-        onPress={[Function bound onReset]}
-        style={
-          Object {
-            "fontSize": 12,
-            "position": "absolute",
-            "right": 10,
-            "textDecorationLine": "underline",
-            "top": 10
-          }
-        }>
-        Reset
-      </Text>
-    </View>
-  </View>
-  <View
-    accessibilityComponentType={undefined}
-    accessibilityLabel={undefined}
-    accessibilityTraits={undefined}
-    accessible={true}
-    hitSlop={undefined}
-    onLayout={undefined}
-    onResponderGrant={[Function bound touchableHandleResponderGrant]}
-    onResponderMove={[Function bound touchableHandleResponderMove]}
-    onResponderRelease={[Function bound touchableHandleResponderRelease]}
-    onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
-    onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
-    onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
-    style={
-      Object {
-        "alignSelf": "stretch",
-        "backgroundColor": "#35507D",
-        "borderColor": "#35507D",
-        "borderRadius": 5,
-        "borderWidth": 1,
-        "height": 36,
-        "justifyContent": "center",
-        "margin": 0,
-        "marginBottom": 10,
-        "opacity": 1,
-        "padding": 5
-      }
-    }
-    testID={undefined}>
-    <Text
-      style={
-        Array [
-          Object {
-            "color": "#007aff",
-            "fontFamily": ".HelveticaNeueInterface-MediumP4",
-            "fontSize": 17,
-            "fontWeight": "bold",
-            "textAlign": "center"
-          },
-          null,
-          Object {
-            "alignSelf": "center",
-            "color": "white",
-            "fontSize": 16
-          },
-          null
-        ]
-      }>
-      Save
-    </Text>
-  </View>
+  <View />
 </ScrollView>
 `;

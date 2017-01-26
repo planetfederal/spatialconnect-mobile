@@ -38,6 +38,9 @@ exports[`<FormCell /> renders correctly 1`] = `
           }
         }>
         <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
           numberOfLines={2}
           style={
             Object {
@@ -48,7 +51,7 @@ exports[`<FormCell /> renders correctly 1`] = `
               "marginBottom": 2
             }
           }>
-          Weed Inspector
+          test form
         </Text>
       </View>
     </View>

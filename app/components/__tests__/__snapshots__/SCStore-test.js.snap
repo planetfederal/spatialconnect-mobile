@@ -1,29 +1,153 @@
 exports[`<SCStore /> renders correctly 1`] = `
-<View
+<ScrollView
   style={
     Object {
-      "backgroundColor": "#e4e7ec",
+      "backgroundColor": "#fff",
       "flex": 1,
-      "marginTop": 0,
-      "padding": 10
+      "flexDirection": "column",
+      "marginTop": -1
     }
   }>
-  <Text
-    numberOfLines={1}>
-    Name: 
-    gj1
-  </Text>
-  <Text
-    numberOfLines={1}>
-    Type: 
-  </Text>
-  <Text
-    numberOfLines={1}>
-    Service: 
-  </Text>
-  <Text
-    numberOfLines={0}>
-    ID: 
-  </Text>
-</View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flexDirection": "column"
+      }
+    }>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "backgroundColor": "#f0f1f4",
+          "borderBottomWidth": 0,
+          "borderColor": "#dddddd",
+          "borderTopWidth": 0,
+          "justifyContent": "center",
+          "padding": 10
+        }
+      }>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          Object {
+            "fontSize": 14,
+            "fontWeight": "bold"
+          }
+        }>
+        Name
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flex": 1,
+          "justifyContent": "center",
+          "padding": 10
+        }
+      }>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "fontSize": 12
+          }
+        }>
+        gj1
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flexDirection": "column"
+      }
+    }>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "backgroundColor": "#f0f1f4",
+          "borderBottomWidth": 0,
+          "borderColor": "#dddddd",
+          "borderTopWidth": 0,
+          "justifyContent": "center",
+          "padding": 10
+        }
+      }>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          Object {
+            "fontSize": 14,
+            "fontWeight": "bold"
+          }
+        }>
+        Type
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flex": 1,
+          "justifyContent": "center",
+          "padding": 10
+        }
+      } />
+  </View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flexDirection": "column"
+      }
+    }>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "backgroundColor": "#f0f1f4",
+          "borderBottomWidth": 0,
+          "borderColor": "#dddddd",
+          "borderTopWidth": 0,
+          "justifyContent": "center",
+          "padding": 10
+        }
+      }>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        style={
+          Object {
+            "fontSize": 14,
+            "fontWeight": "bold"
+          }
+        }>
+        ID
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flex": 1,
+          "justifyContent": "center",
+          "padding": 10
+        }
+      } />
+  </View>
+</ScrollView>
 `;

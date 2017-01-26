@@ -2,15 +2,18 @@ exports[`<SignUpView /> renders correctly 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#e4e7ec",
+      "backgroundColor": undefined,
       "flex": 1,
       "justifyContent": "flex-start",
-      "marginTop": 65
+      "marginTop": 64
     }
   }>
   <View
     style={
       Object {
+        "backgroundColor": "#f0f1f4",
+        "borderBottomWidth": 1,
+        "borderColor": "#e4e7ec",
         "padding": 20
       }
     }>
@@ -24,6 +27,9 @@ exports[`<SignUpView /> renders correctly 1`] = `
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
@@ -77,7 +83,7 @@ exports[`<SignUpView /> renders correctly 1`] = `
                 "padding": 7
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
         <View
@@ -87,6 +93,9 @@ exports[`<SignUpView /> renders correctly 1`] = `
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
@@ -140,7 +149,7 @@ exports[`<SignUpView /> renders correctly 1`] = `
                 "padding": 7
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
         <View
@@ -150,6 +159,9 @@ exports[`<SignUpView /> renders correctly 1`] = `
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
@@ -203,14 +215,14 @@ exports[`<SignUpView /> renders correctly 1`] = `
                 "padding": 7
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
       </View>
       <View
-        accessibilityComponentType={undefined}
+        accessibilityComponentType="button"
         accessibilityLabel={undefined}
-        accessibilityTraits={undefined}
+        accessibilityTraits="button"
         accessible={true}
         hitSlop={undefined}
         onLayout={undefined}
@@ -237,11 +249,14 @@ exports[`<SignUpView /> renders correctly 1`] = `
         }
         testID={undefined}>
         <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
           style={
             Array [
               Object {
                 "color": "#007aff",
-                "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                "fontFamily": "HelveticaNeue-Medium",
                 "fontSize": 17,
                 "fontWeight": "bold",
                 "textAlign": "center"
@@ -267,20 +282,36 @@ exports[`<SignUpView /> shows sign up error 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#e4e7ec",
+      "backgroundColor": undefined,
       "flex": 1,
       "justifyContent": "flex-start",
-      "marginTop": 65
+      "marginTop": 64
     }
   }>
   <View
     style={
       Object {
+        "backgroundColor": "#f0f1f4",
+        "borderBottomWidth": 1,
+        "borderColor": "#e4e7ec",
         "padding": 20
       }
     }>
     <View>
-      <Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "backgroundColor": "#f2dede",
+            "borderColor": "#ebccd1",
+            "borderRadius": 4,
+            "color": "#a94442",
+            "marginBottom": 15,
+            "padding": 15
+          }
+        }>
         Error
       </Text>
     </View>
@@ -294,6 +325,9 @@ exports[`<SignUpView /> shows sign up error 1`] = `
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
@@ -347,7 +381,7 @@ exports[`<SignUpView /> shows sign up error 1`] = `
                 "padding": 7
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
         <View
@@ -357,6 +391,9 @@ exports[`<SignUpView /> shows sign up error 1`] = `
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
@@ -410,7 +447,7 @@ exports[`<SignUpView /> shows sign up error 1`] = `
                 "padding": 7
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
         <View
@@ -420,6 +457,9 @@ exports[`<SignUpView /> shows sign up error 1`] = `
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
@@ -473,14 +513,14 @@ exports[`<SignUpView /> shows sign up error 1`] = `
                 "padding": 7
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
       </View>
       <View
-        accessibilityComponentType={undefined}
+        accessibilityComponentType="button"
         accessibilityLabel={undefined}
-        accessibilityTraits={undefined}
+        accessibilityTraits="button"
         accessible={true}
         hitSlop={undefined}
         onLayout={undefined}
@@ -507,11 +547,14 @@ exports[`<SignUpView /> shows sign up error 1`] = `
         }
         testID={undefined}>
         <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
           style={
             Array [
               Object {
                 "color": "#007aff",
-                "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                "fontFamily": "HelveticaNeue-Medium",
                 "fontSize": 17,
                 "fontWeight": "bold",
                 "textAlign": "center"

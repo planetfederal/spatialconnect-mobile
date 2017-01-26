@@ -2,96 +2,411 @@ exports[`<StoreList /> renders correctly 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#e4e7ec",
+      "backgroundColor": "#f0f1f4",
       "flex": 1,
       "flexDirection": "column",
       "justifyContent": "center",
       "padding": 0
     }
   }>
-  <ListView
+  <ScrollView
     dataSource={
       ListViewDataSource {
-        "_cachedRowCount": 5,
-        "_dataBlob": Object {
-          "s1": Array [
-            Object {
-              "default_layers": Array [],
-              "id": "3dc5afc9-393b-444c-8581-582e2c2d98a3",
-              "name": "gj1",
-              "store_type": "geojson",
-              "uri": "simple.geojson",
-              "version": "1"
-            },
-            Object {
-              "default_layers": Array [],
-              "id": "3e6c072e-8e62-41be-8d1a-7a3116df9c16",
-              "name": "gj2",
-              "store_type": "geojson",
-              "uri": "feature.geojson",
-              "version": "1"
-            },
-            Object {
-              "default_layers": Array [],
-              "id": "f6dcc750-1349-46b9-a324-0223764d46d1",
-              "name": "Haiti",
-              "store_type": "gpkg",
-              "uri": "http://www.geopackage.org/data/haiti-vectors-split.gpkg",
-              "version": "1"
-            },
-            Object {
-              "default_layers": Array [],
-              "id": "fad33ae1-f529-4c79-affc-befc37c104ae",
-              "name": "Whitehorse",
-              "store_type": "gpkg",
-              "uri": "https://portal.opengeospatial.org/files/63156",
-              "version": "1"
-            },
-            Object {
-              "default_layers": Array [
-                "spatialconnect:baseball_team"
-              ],
-              "id": "71522e9b-3ec6-48c3-8d5c-57c8d14baf6a",
-              "name": "wfstest",
-              "store_type": "wfs",
-              "uri": "http://efc-dev.boundlessgeo.com:8080/geoserver/spatialconnect/ows",
-              "version": "1.1.0"
-            }
-          ]
-        },
-        "_dirtyRows": Array [
-          Array [
-            true,
-            true,
-            true,
-            true,
-            true
-          ]
-        ],
-        "_dirtySections": Array [
-          true
-        ],
-        "_getRowData": [Function defaultGetRowData],
-        "_getSectionHeaderData": [Function defaultGetSectionHeaderData],
-        "_rowHasChanged": [Function rowHasChanged],
-        "_sectionHeaderHasChanged": [Function anonymous],
-        "rowIdentities": Array [
-          Array [
-            "0",
-            "1",
-            "2",
-            "3",
-            "4"
-          ]
-        ],
-        "sectionIdentities": Array [
-          "s1"
-        ]
+        "items": 5
       }
     }
     enableEmptySections={true}
-    renderRow={[Function bound renderRow]}
-    renderSeparator={[Function bound renderSeparator]}
-    style={Object {}} />
+    initialListSize={10}
+    onContentSizeChange={[Function bound _onContentSizeChange]}
+    onEndReachedThreshold={1000}
+    onKeyboardDidHide={undefined}
+    onKeyboardDidShow={undefined}
+    onKeyboardWillHide={undefined}
+    onKeyboardWillShow={undefined}
+    onLayout={[Function bound _onLayout]}
+    onScroll={[Function bound _onScroll]}
+    pageSize={1}
+    refreshControl={
+      <function (props, context, updater) {
+            // This constructor gets overridden by mocks. The argument is used
+            // by mocks to assert on what gets mounted.
+      
+            if (process.env.NODE_ENV !== 'production') {
+              process.env.NODE_ENV !== 'production' ? warning(this instanceof Constructor, 'Something is calling a React component directly. Use a factory or ' + 'JSX instead. See: https://fb.me/react-legacyfactory') : void 0;
+            }
+      
+            // Wire up auto-binding
+            if (this.__reactAutoBindPairs.length) {
+              bindAutoBindMethods(this);
+            }
+      
+            this.props = props;
+            this.context = context;
+            this.refs = emptyObject;
+            this.updater = updater || ReactNoopUpdateQueue;
+      
+            this.state = null;
+      
+            // ReactClasses doesn't have constructors. Instead, they use the
+            // getInitialState and componentWillMount methods for initialization.
+      
+            var initialState = this.getInitialState ? this.getInitialState() : null;
+            if (process.env.NODE_ENV !== 'production') {
+              // We allow auto-mocks to proceed as if they're returning null.
+              if (initialState === undefined && this.getInitialState._isMockFunction) {
+                // This is probably bad practice. Consider warning here and
+                // deprecating this convenience.
+                initialState = null;
+              }
+            }
+            !(typeof initialState === 'object' && !Array.isArray(initialState)) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.getInitialState(): must return an object or null', Constructor.displayName || 'ReactCompositeComponent') : _prodInvariant('82', Constructor.displayName || 'ReactCompositeComponent') : void 0;
+      
+            this.state = initialState;
+          }
+        onRefresh={[Function bound onRefresh]}
+        refreshing={false} />
+    }
+    removeClippedSubviews={true}
+    renderRow={[Function renderRow]}
+    renderSeparator={[Function renderSeparator]}
+    scrollEventThrottle={50}
+    scrollRenderAheadDistance={1000}
+    stickyHeaderIndices={Array []}
+    style={
+      Object {
+        "flex": 1
+      }
+    }>
+    <View>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hitSlop={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent"
+            },
+            undefined
+          ]
+        }
+        testID={undefined}>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "flexDirection": "row",
+              "padding": 10
+            }
+          }>
+          <View
+            style={
+              Object {
+                "flex": 1
+              }
+            }>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              numberOfLines={2}
+              style={
+                Object {
+                  "color": "black",
+                  "flex": 1,
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                  "marginBottom": 2
+                }
+              }>
+              gj1
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#dddddd",
+          "height": 1,
+          "marginLeft": 0
+        }
+      } />
+    <View>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hitSlop={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent"
+            },
+            undefined
+          ]
+        }
+        testID={undefined}>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "flexDirection": "row",
+              "padding": 10
+            }
+          }>
+          <View
+            style={
+              Object {
+                "flex": 1
+              }
+            }>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              numberOfLines={2}
+              style={
+                Object {
+                  "color": "black",
+                  "flex": 1,
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                  "marginBottom": 2
+                }
+              }>
+              gj2
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#dddddd",
+          "height": 1,
+          "marginLeft": 0
+        }
+      } />
+    <View>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hitSlop={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent"
+            },
+            undefined
+          ]
+        }
+        testID={undefined}>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "flexDirection": "row",
+              "padding": 10
+            }
+          }>
+          <View
+            style={
+              Object {
+                "flex": 1
+              }
+            }>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              numberOfLines={2}
+              style={
+                Object {
+                  "color": "black",
+                  "flex": 1,
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                  "marginBottom": 2
+                }
+              }>
+              Haiti
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#dddddd",
+          "height": 1,
+          "marginLeft": 0
+        }
+      } />
+    <View>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hitSlop={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent"
+            },
+            undefined
+          ]
+        }
+        testID={undefined}>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "flexDirection": "row",
+              "padding": 10
+            }
+          }>
+          <View
+            style={
+              Object {
+                "flex": 1
+              }
+            }>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              numberOfLines={2}
+              style={
+                Object {
+                  "color": "black",
+                  "flex": 1,
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                  "marginBottom": 2
+                }
+              }>
+              Whitehorse
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#dddddd",
+          "height": 1,
+          "marginLeft": 0
+        }
+      } />
+    <View>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hitSlop={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent"
+            },
+            undefined
+          ]
+        }
+        testID={undefined}>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "flexDirection": "row",
+              "padding": 10
+            }
+          }>
+          <View
+            style={
+              Object {
+                "flex": 1
+              }
+            }>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              numberOfLines={2}
+              style={
+                Object {
+                  "color": "black",
+                  "flex": 1,
+                  "fontSize": 18,
+                  "fontWeight": "500",
+                  "marginBottom": 2
+                }
+              }>
+              wfstest
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#dddddd",
+          "height": 1,
+          "marginLeft": 0
+        }
+      } />
+  </ScrollView>
 </View>
 `;

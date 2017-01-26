@@ -38,6 +38,9 @@ exports[`<StoreCell /> renders correctly 1`] = `
           }
         }>
         <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
           numberOfLines={2}
           style={
             Object {
