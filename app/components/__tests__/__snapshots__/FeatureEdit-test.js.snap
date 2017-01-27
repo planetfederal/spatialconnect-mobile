@@ -5,7 +5,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
       "backgroundColor": "#e4e7ec",
       "flex": 1,
       "marginTop": 0,
-      "padding": 10
+      "padding": 10,
     }
   }>
   <View
@@ -13,7 +13,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
     <View
       style={
         Object {
-          "marginBottom": 10
+          "marginBottom": 10,
         }
       }>
       <View
@@ -22,7 +22,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
             "flex": 1,
             "flexDirection": "row",
             "flexWrap": "wrap",
-            "justifyContent": "space-between"
+            "justifyContent": "space-between",
           }
         }>
         <Text
@@ -35,7 +35,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
               "flexWrap": "wrap",
               "fontSize": 17,
               "fontWeight": "500",
-              "marginBottom": 7
+              "marginBottom": 7,
             }
           }>
           team
@@ -48,7 +48,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
             Object {
               "color": "#999999",
               "flex": 0.3,
-              "textAlign": "right"
+              "textAlign": "right",
             }
           }>
           text
@@ -71,7 +71,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
         numberOfLines={undefined}
         onBlur={undefined}
         onChange={undefined}
-        onChangeText={[Function onChangeText]}
+        onChangeText={[Function]}
         onEndEditing={undefined}
         onFocus={undefined}
         onKeyPress={undefined}
@@ -94,7 +94,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
             "fontSize": 17,
             "height": 36,
             "marginBottom": 5,
-            "padding": 7
+            "padding": 7,
           }
         }
         underlineColorAndroid="transparent"
@@ -103,7 +103,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
     <View
       style={
         Object {
-          "marginBottom": 10
+          "marginBottom": 10,
         }
       }>
       <View
@@ -112,7 +112,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
             "flex": 1,
             "flexDirection": "row",
             "flexWrap": "wrap",
-            "justifyContent": "space-between"
+            "justifyContent": "space-between",
           }
         }>
         <Text
@@ -125,7 +125,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
               "flexWrap": "wrap",
               "fontSize": 17,
               "fontWeight": "500",
-              "marginBottom": 7
+              "marginBottom": 7,
             }
           }>
           why
@@ -138,7 +138,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
             Object {
               "color": "#999999",
               "flex": 0.3,
-              "textAlign": "right"
+              "textAlign": "right",
             }
           }>
           text
@@ -161,7 +161,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
         numberOfLines={undefined}
         onBlur={undefined}
         onChange={undefined}
-        onChangeText={[Function onChangeText]}
+        onChangeText={[Function]}
         onEndEditing={undefined}
         onFocus={undefined}
         onKeyPress={undefined}
@@ -184,7 +184,7 @@ exports[`<FeatureEdit /> renders correctly 1`] = `
             "fontSize": 17,
             "height": 36,
             "marginBottom": 5,
-            "padding": 7
+            "padding": 7,
           }
         }
         underlineColorAndroid="transparent"

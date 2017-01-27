@@ -7,18 +7,18 @@ exports[`<FormCell /> renders correctly 1`] = `
     accessible={true}
     hitSlop={undefined}
     onLayout={undefined}
-    onResponderGrant={[Function bound touchableHandleResponderGrant]}
-    onResponderMove={[Function bound touchableHandleResponderMove]}
-    onResponderRelease={[Function bound touchableHandleResponderRelease]}
-    onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
-    onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
-    onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       Array [
         Object {
-          "backgroundColor": "transparent"
+          "backgroundColor": "transparent",
         },
-        undefined
+        undefined,
       ]
     }
     testID={undefined}>
@@ -28,13 +28,13 @@ exports[`<FormCell /> renders correctly 1`] = `
           "alignItems": "center",
           "backgroundColor": "white",
           "flexDirection": "row",
-          "padding": 10
+          "padding": 10,
         }
       }>
       <View
         style={
           Object {
-            "flex": 1
+            "flex": 1,
           }
         }>
         <Text
@@ -48,7 +48,7 @@ exports[`<FormCell /> renders correctly 1`] = `
               "flex": 1,
               "fontSize": 18,
               "fontWeight": "500",
-              "marginBottom": 2
+              "marginBottom": 2,
             }
           }>
           test form

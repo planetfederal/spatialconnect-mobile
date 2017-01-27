@@ -11,7 +11,7 @@
     "setupFiles": [
       "./test-setup.js"
     ],
-    "preprocessorIgnorePatterns": [
+    "transformIgnorePatterns": [
       "node_modules/(?!react-native|react-clone-referenced-element|tcomb-form-native|spatialconnect-form-schema|react-native-slider|react-native-button)"
     ],
     "moduleFileExtensions": [

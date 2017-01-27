@@ -5,7 +5,7 @@ exports[`<LoginView /> renders correctly 1`] = `
       "backgroundColor": undefined,
       "flex": 1,
       "justifyContent": "flex-start",
-      "marginTop": 64
+      "marginTop": 64,
     }
   }>
   <View
@@ -14,7 +14,7 @@ exports[`<LoginView /> renders correctly 1`] = `
         "backgroundColor": "#f0f1f4",
         "borderBottomWidth": 1,
         "borderColor": "#e4e7ec",
-        "padding": 20
+        "padding": 20,
       }
     }>
     <Text
@@ -26,7 +26,7 @@ exports[`<LoginView /> renders correctly 1`] = `
       <View
         style={
           Object {
-            "marginBottom": 10
+            "marginBottom": 10,
           }
         }>
         <Text
@@ -38,7 +38,7 @@ exports[`<LoginView /> renders correctly 1`] = `
               "color": "#000000",
               "fontSize": 17,
               "fontWeight": "500",
-              "marginBottom": 7
+              "marginBottom": 7,
             }
           }>
           Email
@@ -60,7 +60,7 @@ exports[`<LoginView /> renders correctly 1`] = `
           numberOfLines={undefined}
           onBlur={undefined}
           onChange={undefined}
-          onChangeText={[Function onChangeText]}
+          onChangeText={[Function]}
           onEndEditing={undefined}
           onFocus={undefined}
           onKeyPress={undefined}
@@ -83,7 +83,7 @@ exports[`<LoginView /> renders correctly 1`] = `
               "fontSize": 17,
               "height": 36,
               "marginBottom": 5,
-              "padding": 7
+              "padding": 7,
             }
           }
           underlineColorAndroid="transparent"
@@ -92,7 +92,7 @@ exports[`<LoginView /> renders correctly 1`] = `
       <View
         style={
           Object {
-            "marginBottom": 10
+            "marginBottom": 10,
           }
         }>
         <Text
@@ -104,7 +104,7 @@ exports[`<LoginView /> renders correctly 1`] = `
               "color": "#000000",
               "fontSize": 17,
               "fontWeight": "500",
-              "marginBottom": 7
+              "marginBottom": 7,
             }
           }>
           Password
@@ -126,7 +126,7 @@ exports[`<LoginView /> renders correctly 1`] = `
           numberOfLines={undefined}
           onBlur={undefined}
           onChange={undefined}
-          onChangeText={[Function onChangeText]}
+          onChangeText={[Function]}
           onEndEditing={undefined}
           onFocus={undefined}
           onKeyPress={undefined}
@@ -149,7 +149,7 @@ exports[`<LoginView /> renders correctly 1`] = `
               "fontSize": 17,
               "height": 36,
               "marginBottom": 5,
-              "padding": 7
+              "padding": 7,
             }
           }
           underlineColorAndroid="transparent"
@@ -163,12 +163,12 @@ exports[`<LoginView /> renders correctly 1`] = `
       accessible={true}
       hitSlop={undefined}
       onLayout={undefined}
-      onResponderGrant={[Function bound touchableHandleResponderGrant]}
-      onResponderMove={[Function bound touchableHandleResponderMove]}
-      onResponderRelease={[Function bound touchableHandleResponderRelease]}
-      onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
-      onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
-      onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
           "alignSelf": "stretch",
@@ -181,7 +181,7 @@ exports[`<LoginView /> renders correctly 1`] = `
           "margin": 0,
           "marginBottom": 10,
           "opacity": 1,
-          "padding": 5
+          "padding": 5,
         }
       }
       testID={undefined}>
@@ -196,15 +196,15 @@ exports[`<LoginView /> renders correctly 1`] = `
               "fontFamily": "HelveticaNeue-Medium",
               "fontSize": 17,
               "fontWeight": "bold",
-              "textAlign": "center"
+              "textAlign": "center",
             },
             null,
             Object {
               "alignSelf": "center",
               "color": "white",
-              "fontSize": 16
+              "fontSize": 16,
             },
-            null
+            null,
           ]
         }>
         Login
@@ -214,10 +214,10 @@ exports[`<LoginView /> renders correctly 1`] = `
       accessible={true}
       allowFontScaling={true}
       ellipsizeMode="tail"
-      onPress={[Function onSignUpPress]}
+      onPress={[Function]}
       style={
         Object {
-          "color": "blue"
+          "color": "blue",
         }
       }>
       Sign Up

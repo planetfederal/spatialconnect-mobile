@@ -6,75 +6,40 @@ exports[`<FormList /> renders correctly 1`] = `
       "flex": 1,
       "flexDirection": "column",
       "justifyContent": "center",
-      "padding": 0
+      "padding": 0,
     }
   }>
   <ScrollView
     dataSource={
       ListViewDataSource {
-        "items": 1
+        "items": 1,
       }
     }
     enableEmptySections={true}
     initialListSize={10}
-    onContentSizeChange={[Function bound _onContentSizeChange]}
+    onContentSizeChange={[Function]}
     onEndReachedThreshold={1000}
     onKeyboardDidHide={undefined}
     onKeyboardDidShow={undefined}
     onKeyboardWillHide={undefined}
     onKeyboardWillShow={undefined}
-    onLayout={[Function bound _onLayout]}
-    onScroll={[Function bound _onScroll]}
+    onLayout={[Function]}
+    onScroll={[Function]}
     pageSize={1}
     refreshControl={
-      <function (props, context, updater) {
-            // This constructor gets overridden by mocks. The argument is used
-            // by mocks to assert on what gets mounted.
-      
-            if (process.env.NODE_ENV !== 'production') {
-              process.env.NODE_ENV !== 'production' ? warning(this instanceof Constructor, 'Something is calling a React component directly. Use a factory or ' + 'JSX instead. See: https://fb.me/react-legacyfactory') : void 0;
-            }
-      
-            // Wire up auto-binding
-            if (this.__reactAutoBindPairs.length) {
-              bindAutoBindMethods(this);
-            }
-      
-            this.props = props;
-            this.context = context;
-            this.refs = emptyObject;
-            this.updater = updater || ReactNoopUpdateQueue;
-      
-            this.state = null;
-      
-            // ReactClasses doesn't have constructors. Instead, they use the
-            // getInitialState and componentWillMount methods for initialization.
-      
-            var initialState = this.getInitialState ? this.getInitialState() : null;
-            if (process.env.NODE_ENV !== 'production') {
-              // We allow auto-mocks to proceed as if they're returning null.
-              if (initialState === undefined && this.getInitialState._isMockFunction) {
-                // This is probably bad practice. Consider warning here and
-                // deprecating this convenience.
-                initialState = null;
-              }
-            }
-            !(typeof initialState === 'object' && !Array.isArray(initialState)) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.getInitialState(): must return an object or null', Constructor.displayName || 'ReactCompositeComponent') : _prodInvariant('82', Constructor.displayName || 'ReactCompositeComponent') : void 0;
-      
-            this.state = initialState;
-          }
-        onRefresh={[Function bound onRefresh]}
+      <RefreshControl
+        onRefresh={[Function]}
         refreshing={false} />
     }
     removeClippedSubviews={true}
-    renderRow={[Function renderRow]}
-    renderSeparator={[Function renderSeparator]}
+    renderRow={[Function]}
+    renderSeparator={[Function]}
     scrollEventThrottle={50}
     scrollRenderAheadDistance={1000}
     stickyHeaderIndices={Array []}
     style={
       Object {
-        "flex": 1
+        "flex": 1,
       }
     }>
     <View>
@@ -85,18 +50,18 @@ exports[`<FormList /> renders correctly 1`] = `
         accessible={true}
         hitSlop={undefined}
         onLayout={undefined}
-        onResponderGrant={[Function bound touchableHandleResponderGrant]}
-        onResponderMove={[Function bound touchableHandleResponderMove]}
-        onResponderRelease={[Function bound touchableHandleResponderRelease]}
-        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
-        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
-        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Array [
             Object {
-              "backgroundColor": "transparent"
+              "backgroundColor": "transparent",
             },
-            undefined
+            undefined,
           ]
         }
         testID={undefined}>
@@ -106,13 +71,13 @@ exports[`<FormList /> renders correctly 1`] = `
               "alignItems": "center",
               "backgroundColor": "white",
               "flexDirection": "row",
-              "padding": 10
+              "padding": 10,
             }
           }>
           <View
             style={
               Object {
-                "flex": 1
+                "flex": 1,
               }
             }>
             <Text
@@ -126,7 +91,7 @@ exports[`<FormList /> renders correctly 1`] = `
                   "flex": 1,
                   "fontSize": 18,
                   "fontWeight": "500",
-                  "marginBottom": 2
+                  "marginBottom": 2,
                 }
               }>
               test form
@@ -140,7 +105,7 @@ exports[`<FormList /> renders correctly 1`] = `
         Object {
           "backgroundColor": "#dddddd",
           "height": 1,
-          "marginLeft": 0
+          "marginLeft": 0,
         }
       } />
   </ScrollView>
