@@ -1,4 +1,3 @@
-/*global describe,it,expect*/
 import * as map from '../map';
 
 let pt = {
@@ -92,20 +91,20 @@ let polygon = {
 
 describe('map utils', () => {
   it('makes coordinates - point', () => {
-    let c = map.makeCoordinates(pt);
+    const c = map.makeCoordinates(pt);
     expect(c.length).toEqual(1);
     expect(c[0].latitude).toEqual(pt.geometry.coordinates[1]);
     expect(c[0].longitude).toEqual(pt.geometry.coordinates[0]);
   });
 
   it('makes coordinates - polygon', () => {
-    let c = map.makeCoordinates(polygon);
+    const c = map.makeCoordinates(polygon);
     expect(c.length).toEqual(1);
     expect(c[0].length).toEqual(6);
   });
 
   it('finds region - polygon', () => {
-    let r = map.findRegion(polygon);
+    const r = map.findRegion(polygon);
     expect(r.latitude).toBeDefined();
     expect(r.longitude).toBeDefined();
     expect(r.latitudeDelta).toBeGreaterThan(0);
@@ -113,8 +112,7 @@ describe('map utils', () => {
   });
 
   it('finds nearest point', () => {
-    let n = map.findPointNearestCenter(pt, pts.features);
-    expect(n).toEqual(pts.features[0]);
+    const n = map.findPointIndexNearestCenter(pt, pts.features);
+    expect(n).toEqual(0);
   });
-
 });

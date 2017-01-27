@@ -2,16 +2,19 @@ exports[`<SignUpView /> renders correctly 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#e4e7ec",
+      "backgroundColor": undefined,
       "flex": 1,
       "justifyContent": "flex-start",
-      "marginTop": 65
+      "marginTop": 64,
     }
   }>
   <View
     style={
       Object {
-        "padding": 20
+        "backgroundColor": "#f0f1f4",
+        "borderBottomWidth": 1,
+        "borderColor": "#e4e7ec",
+        "padding": 20,
       }
     }>
     <View>
@@ -20,16 +23,19 @@ exports[`<SignUpView /> renders correctly 1`] = `
         <View
           style={
             Object {
-              "marginBottom": 10
+              "marginBottom": 10,
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
                 "fontSize": 17,
                 "fontWeight": "500",
-                "marginBottom": 7
+                "marginBottom": 7,
               }
             }>
             Name
@@ -51,7 +57,7 @@ exports[`<SignUpView /> renders correctly 1`] = `
             numberOfLines={undefined}
             onBlur={undefined}
             onChange={undefined}
-            onChangeText={[Function onChangeText]}
+            onChangeText={[Function]}
             onEndEditing={undefined}
             onFocus={undefined}
             onKeyPress={undefined}
@@ -74,25 +80,28 @@ exports[`<SignUpView /> renders correctly 1`] = `
                 "fontSize": 17,
                 "height": 36,
                 "marginBottom": 5,
-                "padding": 7
+                "padding": 7,
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
         <View
           style={
             Object {
-              "marginBottom": 10
+              "marginBottom": 10,
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
                 "fontSize": 17,
                 "fontWeight": "500",
-                "marginBottom": 7
+                "marginBottom": 7,
               }
             }>
             Email
@@ -114,7 +123,7 @@ exports[`<SignUpView /> renders correctly 1`] = `
             numberOfLines={undefined}
             onBlur={undefined}
             onChange={undefined}
-            onChangeText={[Function onChangeText]}
+            onChangeText={[Function]}
             onEndEditing={undefined}
             onFocus={undefined}
             onKeyPress={undefined}
@@ -137,25 +146,28 @@ exports[`<SignUpView /> renders correctly 1`] = `
                 "fontSize": 17,
                 "height": 36,
                 "marginBottom": 5,
-                "padding": 7
+                "padding": 7,
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
         <View
           style={
             Object {
-              "marginBottom": 10
+              "marginBottom": 10,
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
                 "fontSize": 17,
                 "fontWeight": "500",
-                "marginBottom": 7
+                "marginBottom": 7,
               }
             }>
             Password
@@ -177,7 +189,7 @@ exports[`<SignUpView /> renders correctly 1`] = `
             numberOfLines={undefined}
             onBlur={undefined}
             onChange={undefined}
-            onChangeText={[Function onChangeText]}
+            onChangeText={[Function]}
             onEndEditing={undefined}
             onFocus={undefined}
             onKeyPress={undefined}
@@ -200,26 +212,26 @@ exports[`<SignUpView /> renders correctly 1`] = `
                 "fontSize": 17,
                 "height": 36,
                 "marginBottom": 5,
-                "padding": 7
+                "padding": 7,
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
       </View>
       <View
-        accessibilityComponentType={undefined}
+        accessibilityComponentType="button"
         accessibilityLabel={undefined}
-        accessibilityTraits={undefined}
+        accessibilityTraits="button"
         accessible={true}
         hitSlop={undefined}
         onLayout={undefined}
-        onResponderGrant={[Function bound touchableHandleResponderGrant]}
-        onResponderMove={[Function bound touchableHandleResponderMove]}
-        onResponderRelease={[Function bound touchableHandleResponderRelease]}
-        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
-        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
-        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignSelf": "stretch",
@@ -232,27 +244,30 @@ exports[`<SignUpView /> renders correctly 1`] = `
             "margin": 0,
             "marginBottom": 10,
             "opacity": 1,
-            "padding": 5
+            "padding": 5,
           }
         }
         testID={undefined}>
         <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
           style={
             Array [
               Object {
                 "color": "#007aff",
-                "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                "fontFamily": "HelveticaNeue-Medium",
                 "fontSize": 17,
                 "fontWeight": "bold",
-                "textAlign": "center"
+                "textAlign": "center",
               },
               null,
               Object {
                 "alignSelf": "center",
                 "color": "white",
-                "fontSize": 16
+                "fontSize": 16,
               },
-              null
+              null,
             ]
           }>
           Sign Up
@@ -267,20 +282,36 @@ exports[`<SignUpView /> shows sign up error 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#e4e7ec",
+      "backgroundColor": undefined,
       "flex": 1,
       "justifyContent": "flex-start",
-      "marginTop": 65
+      "marginTop": 64,
     }
   }>
   <View
     style={
       Object {
-        "padding": 20
+        "backgroundColor": "#f0f1f4",
+        "borderBottomWidth": 1,
+        "borderColor": "#e4e7ec",
+        "padding": 20,
       }
     }>
     <View>
-      <Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "backgroundColor": "#f2dede",
+            "borderColor": "#ebccd1",
+            "borderRadius": 4,
+            "color": "#a94442",
+            "marginBottom": 15,
+            "padding": 15,
+          }
+        }>
         Error
       </Text>
     </View>
@@ -290,16 +321,19 @@ exports[`<SignUpView /> shows sign up error 1`] = `
         <View
           style={
             Object {
-              "marginBottom": 10
+              "marginBottom": 10,
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
                 "fontSize": 17,
                 "fontWeight": "500",
-                "marginBottom": 7
+                "marginBottom": 7,
               }
             }>
             Name
@@ -321,7 +355,7 @@ exports[`<SignUpView /> shows sign up error 1`] = `
             numberOfLines={undefined}
             onBlur={undefined}
             onChange={undefined}
-            onChangeText={[Function onChangeText]}
+            onChangeText={[Function]}
             onEndEditing={undefined}
             onFocus={undefined}
             onKeyPress={undefined}
@@ -344,25 +378,28 @@ exports[`<SignUpView /> shows sign up error 1`] = `
                 "fontSize": 17,
                 "height": 36,
                 "marginBottom": 5,
-                "padding": 7
+                "padding": 7,
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
         <View
           style={
             Object {
-              "marginBottom": 10
+              "marginBottom": 10,
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
                 "fontSize": 17,
                 "fontWeight": "500",
-                "marginBottom": 7
+                "marginBottom": 7,
               }
             }>
             Email
@@ -384,7 +421,7 @@ exports[`<SignUpView /> shows sign up error 1`] = `
             numberOfLines={undefined}
             onBlur={undefined}
             onChange={undefined}
-            onChangeText={[Function onChangeText]}
+            onChangeText={[Function]}
             onEndEditing={undefined}
             onFocus={undefined}
             onKeyPress={undefined}
@@ -407,25 +444,28 @@ exports[`<SignUpView /> shows sign up error 1`] = `
                 "fontSize": 17,
                 "height": 36,
                 "marginBottom": 5,
-                "padding": 7
+                "padding": 7,
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
         <View
           style={
             Object {
-              "marginBottom": 10
+              "marginBottom": 10,
             }
           }>
           <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
             style={
               Object {
                 "color": "#000000",
                 "fontSize": 17,
                 "fontWeight": "500",
-                "marginBottom": 7
+                "marginBottom": 7,
               }
             }>
             Password
@@ -447,7 +487,7 @@ exports[`<SignUpView /> shows sign up error 1`] = `
             numberOfLines={undefined}
             onBlur={undefined}
             onChange={undefined}
-            onChangeText={[Function onChangeText]}
+            onChangeText={[Function]}
             onEndEditing={undefined}
             onFocus={undefined}
             onKeyPress={undefined}
@@ -470,26 +510,26 @@ exports[`<SignUpView /> shows sign up error 1`] = `
                 "fontSize": 17,
                 "height": 36,
                 "marginBottom": 5,
-                "padding": 7
+                "padding": 7,
               }
             }
-            underlineColorAndroid={undefined}
+            underlineColorAndroid="transparent"
             value="" />
         </View>
       </View>
       <View
-        accessibilityComponentType={undefined}
+        accessibilityComponentType="button"
         accessibilityLabel={undefined}
-        accessibilityTraits={undefined}
+        accessibilityTraits="button"
         accessible={true}
         hitSlop={undefined}
         onLayout={undefined}
-        onResponderGrant={[Function bound touchableHandleResponderGrant]}
-        onResponderMove={[Function bound touchableHandleResponderMove]}
-        onResponderRelease={[Function bound touchableHandleResponderRelease]}
-        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
-        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
-        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignSelf": "stretch",
@@ -502,27 +542,30 @@ exports[`<SignUpView /> shows sign up error 1`] = `
             "margin": 0,
             "marginBottom": 10,
             "opacity": 1,
-            "padding": 5
+            "padding": 5,
           }
         }
         testID={undefined}>
         <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
           style={
             Array [
               Object {
                 "color": "#007aff",
-                "fontFamily": ".HelveticaNeueInterface-MediumP4",
+                "fontFamily": "HelveticaNeue-Medium",
                 "fontSize": 17,
                 "fontWeight": "bold",
-                "textAlign": "center"
+                "textAlign": "center",
               },
               null,
               Object {
                 "alignSelf": "center",
                 "color": "white",
-                "fontSize": 16
+                "fontSize": 16,
               },
-              null
+              null,
             ]
           }>
           Sign Up

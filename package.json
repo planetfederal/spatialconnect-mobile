@@ -7,11 +7,11 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "jest-react-native",
+    "preset": "react-native",
     "setupFiles": [
       "./test-setup.js"
     ],
-    "preprocessorIgnorePatterns": [
+    "transformIgnorePatterns": [
       "node_modules/(?!react-native|react-clone-referenced-element|tcomb-form-native|spatialconnect-form-schema|react-native-slider|react-native-button)"
     ],
     "moduleFileExtensions": [
@@ -28,13 +28,13 @@
     "color": "0.11.3",
     "jwt-decode": "2.0.1",
     "lodash": "4.17.2",
-    "react": "15.3.1",
-    "react-native": "0.35.0",
+    "react": "15.4.2",
+    "react-native": "0.38.1",
     "react-native-button": "^1.6.0",
     "react-native-drawer": "^2.2.3",
     "react-native-image-picker": "^0.22.9",
     "react-native-maps": "file:../react-native-maps",
-    "react-native-router-flux": "3.36.0",
+    "react-native-router-flux": "3.37.0",
     "react-native-slider": "^0.8.0",
     "react-redux": "4.4.5",
     "redux": "3.5.2",
@@ -44,7 +44,7 @@
     "should": "9.0.2",
     "slash": "^1.0.0",
     "spatialconnect": "file:../spatialconnect-js",
-    "spatialconnect-form-schema": "2.2.7",
+    "spatialconnect-form-schema": "2.3.1",
     "tcomb-form-native": "^0.5.1",
     "tcomb-json-schema": "^0.3.0",
     "turf-bbox": "3.0.12",
@@ -56,17 +56,16 @@
   },
   "devDependencies": {
     "babel": "6.5.2",
-    "babel-jest": "15.0.0",
+    "babel-jest": "18.0.0",
     "babel-preset-react-native": "1.9.0",
     "eslint": "3.11.1",
     "eslint-config-airbnb": "13.0.0",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-react": "6.8.0",
-    "jest": "15.1.1",
-    "jest-react-native": "15.0.0",
+    "jest": "18.1.0",
     "jsdom": "^8.4.1",
-    "react-test-renderer": "15.3.0",
+    "react-test-renderer": "15.4.2",
     "redux-mock-store": "1.1.2"
   }
 }

@@ -28,7 +28,7 @@ const RouterWithRedux = connect()(Router);
 
 const store = createStore(
   reducer,
-  applyMiddleware(thunk, createLogger()),
+  applyMiddleware(thunk),
 );
 
 const layersImg = require('./img/layers.png');

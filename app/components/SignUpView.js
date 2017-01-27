@@ -57,11 +57,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class SignUpView extends Component {
-
-  static renderErrorView() {
-    return <Text style={styles.errorMessage}>{ this.props.signUpError }</Text>;
-  }
+export class SignUpView extends Component {
 
   static renderSuccessView() {
     return (
@@ -89,11 +85,15 @@ class SignUpView extends Component {
     this.props.actions.onChangeSignUpFormValue(value);
   }
 
+  renderErrorView() {
+    return <Text style={styles.errorMessage}>{ this.props.signUpError }</Text>;
+  }
+
   render() {
     return (
       <View style={navStyles.container}>
         <View style={styles.form}>
-          {this.props.signUpError ? <View>{ SignUpView.renderErrorView() }</View> : null}
+          {this.props.signUpError ? <View>{ this.renderErrorView() }</View> : null}
           {this.props.signUpSuccess ? <View>{ SignUpView.renderSuccessView() }</View> :
           <View>
             <Form
