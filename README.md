@@ -1,3 +1,5 @@
+![Build status](http://ci.signal.boundlessgeo.com:8080/job/spatialconnect-mobile%20%28Develop%29/badge/icon)
+
 ### Running apps locally for development
 
 To start the Android app, first you need to start an emulator.  Then you

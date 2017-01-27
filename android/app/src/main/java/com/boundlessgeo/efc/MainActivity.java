@@ -62,22 +62,6 @@ public class MainActivity extends ReactActivity {
             fos.write(data);
             is.close();
             fos.close();
-
-            //list for notifications
-            final SpatialConnect sc = SpatialConnect.getInstance();
-            sc.serviceRunning(SCBackendService.serviceId())
-            .subscribe(new Action1<SCServiceStatusEvent>() {
-                @Override
-                public void call(SCServiceStatusEvent scServiceStatusEvent) {
-                    sc.getBackendService().getNotifications().subscribe(new Action1<SCNotification>() {
-                        @Override
-                        public void call(SCNotification notification) {
-                            showNotification(notification);
-                        }
-                    });
-                }
-            });
-
         }
         catch (IOException e) {
             e.printStackTrace();
