@@ -1,13 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import {
+  Button,
+  InteractionManager,
   ScrollView,
+  Text,
 } from 'react-native';
 import { find } from 'lodash';
-import { Actions } from 'react-native-router-flux';
 import Property from './Property';
-import { propertyListStyles } from '../style/style';
+import { propertyListStyles, routerStyles } from '../style/style';
 
 class FeatureData extends Component {
+  static navigationOptions = {
+    header: (nav, defaultHeader) => {
+      return nav.state.params.editable ? ({
+        ...defaultHeader,
+        right: (<Button
+          color={'white'}
+          title={'Edit'}
+          onPress={() => nav.navigate('editFeature', { feature: nav.state.params.feature })}
+        />),
+      }) : defaultHeader;
+    },
+  }
   // returns true if feature belongs to gpkg store
   static isEditable(stores, feature) {
     if (!feature.metadata) return false;
@@ -17,14 +31,14 @@ class FeatureData extends Component {
   }
   // hide Edit button if feature is not editable
   componentDidMount() {
-    if (FeatureData.isEditable(this.props.stores, this.props.feature)) {
-      Actions.refresh({ rightTitle: 'Edit' });
-    } else {
-      Actions.refresh({ rightTitle: '' });
-    }
+    InteractionManager.runAfterInteractions(() => {
+      const { params } = this.props.navigation.state;
+      const editable = FeatureData.isEditable(params.stores, params.feature);
+      this.props.navigation.setParams({ editable });
+    });
   }
   renderMetadata() {
-    const feature = this.props.feature;
+    const feature = this.props.navigation.state.params.feature;
     const featureId = { name: 'ID', value: feature.id };
     let metadata = [];
     if (feature.metadata) {
@@ -36,7 +50,7 @@ class FeatureData extends Component {
     return <Property name={'Metadata'} values={metadata} />;
   }
   renderProperties() {
-    const feature = this.props.feature;
+    const feature = this.props.navigation.state.params.feature;
     if (Object.keys(feature.properties).length) {
       const fields = Object.keys(feature.properties).map(key => (
         { name: key, value: feature.properties[key] }
@@ -46,7 +60,8 @@ class FeatureData extends Component {
     return null;
   }
   renderLocation() {
-    const feature = this.props.feature;
+    //const feature = this.props.feature;
+    const feature = this.props.navigation.state.params.feature;
     return (feature.geometry && feature.geometry.type === 'Point') ?
       <Property
         name={'Location'}
@@ -69,8 +84,7 @@ class FeatureData extends Component {
 }
 
 FeatureData.propTypes = {
-  feature: PropTypes.object.isRequired,
-  stores: PropTypes.array.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default FeatureData;

@@ -31,6 +31,8 @@
 		546D08801D21B27E00EBB95A /* ZipZap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D087C1D21B27E00EBB95A /* ZipZap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		546D088C1D21B38400EBB95A /* SpatialConnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D088B1D21B38400EBB95A /* SpatialConnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		547F13981CF780ED0028EFF1 /* remote.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 547F13971CF780ED0028EFF1 /* remote.scfg */; };
+		54AEC2EF1E3B9C9C00D469F1 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54AEC2DB1E3B9C6E00D469F1 /* libRCTAnimation.a */; };
+		54AEC3251E4A612800D469F1 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54AEC3241E4A612800D469F1 /* Ionicons.ttf */; };
 		54B1E4FC1D05FBCB00EEB033 /* SCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */; };
 		54B3A86E1DB90257000F9526 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54B3A86D1DB90257000F9526 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54B470BA1D4A6A030084C642 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B470B91D4A69FE0084C642 /* libRNImagePicker.a */; };
@@ -159,6 +161,20 @@
 			remoteGlobalIDString = 2D2A28131D9B038B00D4039D;
 			remoteInfo = "React-tvOS";
 		};
+		54AEC2DA1E3B9C6E00D469F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 54AEC2D31E3B9C6E00D469F1 /* RCTAnimation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTAnimation;
+		};
+		54AEC2DC1E3B9C6E00D469F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 54AEC2D31E3B9C6E00D469F1 /* RCTAnimation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
+			remoteInfo = "RCTAnimation-tvOS";
+		};
 		54B470B81D4A69FE0084C642 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 54B470B41D4A69FE0084C642 /* RNImagePicker.xcodeproj */;
@@ -233,6 +249,8 @@
 		546D087C1D21B27E00EBB95A /* ZipZap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZipZap.framework; path = Carthage/Build/iOS/ZipZap.framework; sourceTree = "<group>"; };
 		546D088B1D21B38400EBB95A /* SpatialConnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpatialConnect.framework; path = Carthage/Build/iOS/SpatialConnect.framework; sourceTree = "<group>"; };
 		547F13971CF780ED0028EFF1 /* remote.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = remote.scfg; sourceTree = "<group>"; };
+		54AEC2D31E3B9C6E00D469F1 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		54AEC3241E4A612800D469F1 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		54B1E4FA1D05FBCB00EEB033 /* SCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCBridge.h; path = SCMobile/SCBridge.h; sourceTree = "<group>"; };
 		54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCBridge.m; path = SCMobile/SCBridge.m; sourceTree = "<group>"; };
 		54B3A86D1DB90257000F9526 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = "<group>"; };
@@ -257,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				545E9F451D53CEE4000C4190 /* libAirMaps.a in Frameworks */,
+				54AEC2EF1E3B9C9C00D469F1 /* libRCTAnimation.a in Frameworks */,
 				54B470BA1D4A6A030084C642 /* libRNImagePicker.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -369,6 +388,7 @@
 				547F13971CF780ED0028EFF1 /* remote.scfg */,
 				54B1E4FA1D05FBCB00EEB033 /* SCBridge.h */,
 				54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */,
+				54AEC3241E4A612800D469F1 /* Ionicons.ttf */,
 			);
 			name = SCMobile;
 			sourceTree = "<group>";
@@ -386,6 +406,15 @@
 			isa = PBXGroup;
 			children = (
 				545E9F441D53CEDB000C4190 /* libAirMaps.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		54AEC2D41E3B9C6E00D469F1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				54AEC2DB1E3B9C6E00D469F1 /* libRCTAnimation.a */,
+				54AEC2DD1E3B9C6E00D469F1 /* libRCTAnimation-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -414,6 +443,7 @@
 				54B470B41D4A69FE0084C642 /* RNImagePicker.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
+				54AEC2D31E3B9C6E00D469F1 /* RCTAnimation.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
 				00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */,
 				78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */,
@@ -550,6 +580,10 @@
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
+				},
+				{
+					ProductGroup = 54AEC2D41E3B9C6E00D469F1 /* Products */;
+					ProjectRef = 54AEC2D31E3B9C6E00D469F1 /* RCTAnimation.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -713,6 +747,20 @@
 			remoteRef = 54AEC2AC1E3AA6BE00D469F1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		54AEC2DB1E3B9C6E00D469F1 /* libRCTAnimation.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTAnimation.a;
+			remoteRef = 54AEC2DA1E3B9C6E00D469F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		54AEC2DD1E3B9C6E00D469F1 /* libRCTAnimation-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTAnimation-tvOS.a";
+			remoteRef = 54AEC2DC1E3B9C6E00D469F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		54B470B91D4A69FE0084C642 /* libRNImagePicker.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -751,6 +799,7 @@
 				5403ECDC1CCED8EE00A56D23 /* all.geojson in Resources */,
 				543E8AEA1D2EDB4F009FE68F /* simple.geojson in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				54AEC3251E4A612800D469F1 /* Ionicons.ttf in Resources */,
 				547F13981CF780ED0028EFF1 /* remote.scfg in Resources */,
 				5403ECDD1CCED8EE00A56D23 /* tests.scfg in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,

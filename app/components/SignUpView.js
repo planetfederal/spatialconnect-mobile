@@ -1,17 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import {
+  Button,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Actions } from 'react-native-router-flux';
-import Button from 'react-native-button';
+import RNButton from 'react-native-button';
 import t from 'tcomb-form-native';
 import * as authActions from '../ducks/auth';
 import palette from '../style/palette';
-import { navStyles, buttonStyles } from '../style/style';
+import { navStyles, buttonStyles, routerStyles } from '../style/style';
 
 const Form = t.form.Form;
 
@@ -58,14 +58,18 @@ const styles = StyleSheet.create({
 });
 
 export class SignUpView extends Component {
-
-  static renderSuccessView() {
-    return (
-      <Text>Sign up successful.
-        <Text style={buttonStyles.link} onPress={Actions.login}>Login</Text>
-        with your new account.
-      </Text>);
-  }
+  static navigationOptions = {
+    header: (nav) => ({
+      title: 'Sign Up',
+      style: routerStyles.navBar,
+      tintColor: 'white',
+      left: (<Button
+        color="white"
+        title="Cancel"
+        onPress={() => { nav.goBack(); }}
+      />),
+    }),
+  };
 
   constructor(props) {
     super(props);
@@ -89,12 +93,22 @@ export class SignUpView extends Component {
     return <Text style={styles.errorMessage}>{ this.props.signUpError }</Text>;
   }
 
+  renderSuccessView() {
+    return (
+      <Text>Sign up successful.
+        <Text
+          style={buttonStyles.link}
+          onPress={() => { this.props.navigation.navigate('login'); }}
+        > Sign in</Text> with your new account.
+      </Text>);
+  }
+
   render() {
     return (
       <View style={navStyles.container}>
         <View style={styles.form}>
           {this.props.signUpError ? <View>{ this.renderErrorView() }</View> : null}
-          {this.props.signUpSuccess ? <View>{ SignUpView.renderSuccessView() }</View> :
+          {this.props.signUpSuccess ? <View>{ this.renderSuccessView() }</View> :
           <View>
             <Form
               ref={(ref) => { this.form = ref; }}
@@ -103,11 +117,11 @@ export class SignUpView extends Component {
               options={options}
               onChange={this.onChange}
             />
-            <Button
+            <RNButton
               disabled={this.props.isSigningUp} styleDisabled={buttonStyles.disabled}
               style={buttonStyles.buttonText} containerStyle={buttonStyles.button}
               onPress={this.onPress}
-            >Sign Up</Button>
+            >Sign Up</RNButton>
           </View> }
         </View>
       </View>
@@ -116,6 +130,7 @@ export class SignUpView extends Component {
 }
 
 SignUpView.propTypes = {
+  navigation: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   signUpError: PropTypes.string,
   signUpSuccess: PropTypes.bool.isRequired,

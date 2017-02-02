@@ -12,7 +12,7 @@ import palette from '../style/palette';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 64,
+    paddingTop: 0,
     backgroundColor: palette.gray,
   },
   navBtn: {

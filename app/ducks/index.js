@@ -2,15 +2,15 @@ import { combineReducers } from 'redux';
 import tests from './tests';
 import sc from './sc';
 import auth from './auth';
-import routes from './routes';
 import map from './map';
+import nav from './nav';
 
 const reducer = combineReducers({
   tests,
   sc,
   auth,
-  routes,
   map,
+  nav,
 });
 
 export default reducer;

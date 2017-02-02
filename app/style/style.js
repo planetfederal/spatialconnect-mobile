@@ -62,8 +62,8 @@ export const navStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    marginTop: (Platform.OS === 'ios') ? 64 : 54,
-    backgroundColor: palette.white,
+    marginTop: 0,
+    backgroundColor: 'white',
   },
 });
 
@@ -86,7 +86,7 @@ export const buttonStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   disabled: {
-    color: '#999',
+    opacity: 0.5,
   },
   link: {
     color: 'blue',
@@ -144,11 +144,6 @@ export const propertyListStyles = StyleSheet.create({
 export const routerStyles = StyleSheet.create({
   navBar: {
     backgroundColor: palette.lightblue,
-    elevation: 999,
-    shadowColor: '#333',
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-    shadowOpacity: 0.5,
   },
   title: {
     color: 'white',
@@ -161,8 +156,10 @@ export const routerStyles = StyleSheet.create({
     color: 'white',
   },
   icon: {
-    left: 0,
-    tintColor: 'white',
+    tintColor: 'green',
+    backgroundColor: 'red',
+    width: 25,
+    height: 25,
   },
   layersIcon: {
     right: 10,

@@ -1,5 +1,4 @@
 import * as sc from 'spatialconnect/native';
-import { Actions } from 'react-native-router-flux';
 import { Platform, PermissionsAndroid } from 'react-native';
 
 const initialState = {
@@ -46,9 +45,6 @@ export const connectSC = (store) => {
       sc.stores$().subscribe(store.dispatch);
       sc.mqttConnected$().subscribe(store.dispatch);
       sc.xAccessToken$().subscribe(store.dispatch);
-      Actions.formNav();
-    } else {
-      Actions.login();
     }
   });
 
