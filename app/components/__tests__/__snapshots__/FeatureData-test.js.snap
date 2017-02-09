@@ -5,14 +5,14 @@ exports[`<FeatureData /> renders correctly 1`] = `
       "backgroundColor": "#fff",
       "flex": 1,
       "flexDirection": "column",
-      "marginTop": -1
+      "marginTop": -1,
     }
   }>
   <View
     style={
       Object {
         "backgroundColor": "#fff",
-        "flexDirection": "column"
+        "flexDirection": "column",
       }
     }>
     <View
@@ -24,7 +24,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
           "borderColor": "#dddddd",
           "borderTopWidth": 0,
           "justifyContent": "center",
-          "padding": 10
+          "padding": 10,
         }
       }>
       <Text
@@ -35,7 +35,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
         style={
           Object {
             "fontSize": 14,
-            "fontWeight": "bold"
+            "fontWeight": "bold",
           }
         }>
         Metadata
@@ -47,7 +47,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
           "alignItems": "flex-start",
           "flex": 1,
           "justifyContent": "center",
-          "padding": 10
+          "padding": 10,
         }
       }>
       <View>
@@ -62,7 +62,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             style={
               Object {
                 "fontSize": 12,
-                "fontWeight": "bold"
+                "fontWeight": "bold",
               }
             }>
             ID
@@ -74,7 +74,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "fontSize": 12
+                "fontSize": 12,
               }
             }>
             (null).REVGQVVMVF9TVE9SRS1CRDhDOUE5OC1DODg5LTQyNUYtQkY5Ni1EQ0IxNzE2NEM4Q0M=.NQ==
@@ -91,7 +91,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             style={
               Object {
                 "fontSize": 12,
-                "fontWeight": "bold"
+                "fontWeight": "bold",
               }
             }>
             created_at
@@ -103,7 +103,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "fontSize": 12
+                "fontSize": 12,
               }
             }>
             2016-06-17 14:30:52 EDT
@@ -120,7 +120,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             style={
               Object {
                 "fontSize": 12,
-                "fontWeight": "bold"
+                "fontWeight": "bold",
               }
             }>
             client
@@ -132,7 +132,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "fontSize": 12
+                "fontSize": 12,
               }
             }>
             BD8C9A98-C889-425F-BF96-DCB17164C8CC
@@ -145,7 +145,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
     style={
       Object {
         "backgroundColor": "#fff",
-        "flexDirection": "column"
+        "flexDirection": "column",
       }
     }>
     <View
@@ -157,7 +157,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
           "borderColor": "#dddddd",
           "borderTopWidth": 0,
           "justifyContent": "center",
-          "padding": 10
+          "padding": 10,
         }
       }>
       <Text
@@ -168,7 +168,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
         style={
           Object {
             "fontSize": 14,
-            "fontWeight": "bold"
+            "fontWeight": "bold",
           }
         }>
         Location
@@ -180,7 +180,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
           "alignItems": "flex-start",
           "flex": 1,
           "justifyContent": "center",
-          "padding": 10
+          "padding": 10,
         }
       }>
       <View>
@@ -195,7 +195,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             style={
               Object {
                 "fontSize": 12,
-                "fontWeight": "bold"
+                "fontWeight": "bold",
               }
             }>
             Latitude
@@ -207,7 +207,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "fontSize": 12
+                "fontSize": 12,
               }
             }>
             38.35388793147947
@@ -224,7 +224,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             style={
               Object {
                 "fontSize": 12,
-                "fontWeight": "bold"
+                "fontWeight": "bold",
               }
             }>
             Longitude
@@ -236,7 +236,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "fontSize": 12
+                "fontSize": 12,
               }
             }>
             -75.61079864397236
@@ -249,7 +249,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
     style={
       Object {
         "backgroundColor": "#fff",
-        "flexDirection": "column"
+        "flexDirection": "column",
       }
     }>
     <View
@@ -261,7 +261,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
           "borderColor": "#dddddd",
           "borderTopWidth": 0,
           "justifyContent": "center",
-          "padding": 10
+          "padding": 10,
         }
       }>
       <Text
@@ -272,7 +272,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
         style={
           Object {
             "fontSize": 14,
-            "fontWeight": "bold"
+            "fontWeight": "bold",
           }
         }>
         Properties
@@ -284,7 +284,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
           "alignItems": "flex-start",
           "flex": 1,
           "justifyContent": "center",
-          "padding": 10
+          "padding": 10,
         }
       }>
       <View>
@@ -299,7 +299,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             style={
               Object {
                 "fontSize": 12,
-                "fontWeight": "bold"
+                "fontWeight": "bold",
               }
             }>
             team
@@ -311,7 +311,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "fontSize": 12
+                "fontSize": 12,
               }
             }>
             O\'s
@@ -328,7 +328,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             style={
               Object {
                 "fontSize": 12,
-                "fontWeight": "bold"
+                "fontWeight": "bold",
               }
             }>
             why
@@ -340,7 +340,7 @@ exports[`<FeatureData /> renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "fontSize": 12
+                "fontSize": 12,
               }
             }>
             testing
