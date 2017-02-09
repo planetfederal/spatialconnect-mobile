@@ -5,22 +5,29 @@ import {
 import Property from './Property';
 import { propertyListStyles } from '../style/style';
 
-const SCStore = props => (
-  <ScrollView style={propertyListStyles.container}>
-    <Property name={'Name'} value={props.storeInfo.name} />
-    <Property name={'Type'} value={props.storeInfo.type} />
-    <Property name={'ID'} value={props.storeInfo.storeId} />
-    {props.storeInfo.vectorLayers && props.storeInfo.vectorLayers.length ?
-      <Property name={'Vector Layers'} value={props.storeInfo.vectorLayers.join('\n')} />
-    : null}
-    {props.storeInfo.rasterLayers && props.storeInfo.rasterLayers.length ?
-      <Property name={'Raster Layers'} value={props.storeInfo.rasterLayers.join('\n')} />
-    : null}
-  </ScrollView>
-);
+const SCStore = (props) => {
+  const store = props.navigation.state.params.store;
+  return (
+    <ScrollView style={propertyListStyles.container}>
+      <Property name={'Name'} value={store.name} />
+      <Property name={'Type'} value={store.type} />
+      <Property name={'ID'} value={store.storeId} />
+      {store.vectorLayers && store.vectorLayers.length ?
+        <Property name={'Vector Layers'} value={store.vectorLayers.join('\n')} />
+      : null}
+      {store.rasterLayers && store.rasterLayers.length ?
+        <Property name={'Raster Layers'} value={store.rasterLayers.join('\n')} />
+      : null}
+    </ScrollView>
+  );
+};
+
+SCStore.navigationOptions = {
+  title: ({ state }) => state.params.store.name,
+};
 
 SCStore.propTypes = {
-  storeInfo: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default SCStore;

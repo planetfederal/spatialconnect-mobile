@@ -7,7 +7,12 @@ import SCStore from '../SCStore';
 describe('<SCStore />', () => {
   it('renders correctly', () => {
     const tree = renderer.create(
-      <SCStore storeInfo={stores[0]} />
+      <SCStore
+        navigation={{
+          navigate: jest.fn(),
+          state: { params: { store: stores[0] } },
+        }}
+      />,
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });

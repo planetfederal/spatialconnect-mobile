@@ -1,11 +1,10 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   Image,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import Button from 'react-native-button';
 import palette from '../style/palette';
 
@@ -16,8 +15,6 @@ const dIcon = require('../img/disconnected_icon.png');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 0,
-    paddingTop: 10,
     backgroundColor: '#1e2e47',
   },
   navBtns: {
@@ -51,10 +48,20 @@ const styles = StyleSheet.create({
     width: 50,
     margin: 10,
   },
+  titleInner: {
+    marginTop: 10,
+    marginBottom: 10,
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+  },
   title: {
-    marginTop: 8,
     color: 'white',
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    color: 'white',
+    fontSize: 11,
   },
   footerText: {
     color: palette.lightgray,
@@ -90,69 +97,104 @@ SideMenuButton.propTypes = {
   active: PropTypes.bool.isRequired,
 };
 
-const SideMenu = (props, context) => {
-  const drawer = context.drawer;
-  const key = props.routes.key;
-  return (
-    <View style={styles.container}>
-      <View style={styles.navBtnWrap}>
-        <View style={styles.titleWrap}>
-          <Image source={efcIcon} style={styles.icon} />
-        </View>
-        {props.isAuthenticated ?
-          <View style={styles.navBtns}>
-            <SideMenuButton
-              active={key === 'formNav'} text="Forms"
-              onPress={() => { drawer.close(); Actions.formNav(); }}
-            />
-            <SideMenuButton
-              active={key === 'storeNav'} text="Stores"
-              onPress={() => { drawer.close(); Actions.storeNav(); }}
-            />
-            <SideMenuButton
-              active={key === 'mapNav'} text="Map"
-              onPress={() => { drawer.close(); Actions.mapNav(); }}
-            />
-            <SideMenuButton
-              active={key === 'testNav'} text="Tests"
-              onPress={() => { drawer.close(); Actions.testNav(); }}
-            />
-            <SideMenuButton
-              active={false} text="Logout"
-              onPress={() => { drawer.close(); props.actions.logout(); }}
-            />
-          </View> :
-          <View style={styles.navBtns}>
-            <SideMenuButton
-              active={key === 'login'} text="Login"
-              onPress={() => { drawer.close(); Actions.login(); }}
-            />
-            <SideMenuButton
-              active={key === 'signUp'} text="Sign Up"
-              onPress={() => { drawer.close(); Actions.signUp(); }}
-            />
-          </View>
-        }
-      </View>
-      <View style={styles.footer}>
-        <Text style={styles.footerText}> Connection</Text>
-        <Image source={props.isConnected ? cIcon : dIcon} style={styles.connectionIcon} />
-      </View>
-    </View>
-  );
-};
+class SideMenu extends Component {
 
-const contextTypes = {
-  drawer: React.PropTypes.object,
-};
+  renderLogin() {
+    const { navigation } = this.props;
+    return (
+      <View style={styles.navBtns}>
+        <SideMenuButton
+          active={false}
+          text="Login"
+          onPress={() => {
+            navigation.navigate('DrawerClose');
+            navigation.navigate('login');
+          }}
+        />
+        <SideMenuButton
+          active={false}
+          text="Sign Up"
+          onPress={() => {
+            navigation.navigate('DrawerClose');
+            navigation.navigate('signUp');
+          }}
+        />
+      </View>
+    );
+  }
+
+  renderRoutes() {
+    const {
+      navigation,
+      activeTintColor,
+      activeBackgroundColor,
+      inactiveTintColor,
+      inactiveBackgroundColor,
+      getLabelText,
+      renderIcon } = this.props;
+    return navigation.state.routes.map((route, index) => {
+      const focused = navigation.state.index === index;
+      const color = focused ? activeTintColor : inactiveTintColor;
+      const scene = { route, index, focused, tintColor: color };
+      const label = getLabelText(scene);
+      return (
+        <SideMenuButton
+          active={focused}
+          text={label}
+          key={route.key}
+          onPress={() => {
+            navigation.navigate('DrawerClose');
+            navigation.navigate(route.routeName);
+          }}
+        />
+      );
+    });
+  }
+
+  render() {
+    const {
+      isConnected,
+      auth,
+      actions } = this.props;
+    return (
+      <View style={styles.container}>
+        <View style={styles.navBtnWrap}>
+          <View style={styles.titleWrap}>
+            <Image source={efcIcon} style={styles.icon} />
+            <View style={styles.titleInner}>
+              <Text style={styles.title}>Expedited Field Capability</Text>
+            </View>
+          </View>
+          {auth.isAuthenticated ?
+            <View style={styles.navBtns}>
+              {this.renderRoutes()}
+              <SideMenuButton
+                active={false} text="Sign Out"
+                onPress={() => {
+                  this.props.navigation.navigate('DrawerClose');
+                  actions.logout();
+                }}
+              />
+            </View> :
+            this.renderRoutes()
+          }
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.footerText}> Connection</Text>
+          <Image source={isConnected ? cIcon : dIcon} style={styles.connectionIcon} />
+        </View>
+      </View>
+    );
+  }
+}
 
 const propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-  routes: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   isConnected: PropTypes.bool.isRequired,
+  navigation: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
-SideMenu.contextTypes = contextTypes;
 SideMenu.propTypes = propTypes;
 
 export default SideMenu;

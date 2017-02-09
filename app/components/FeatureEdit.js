@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {
+  Button,
   InteractionManager,
   ScrollView,
   StyleSheet,
@@ -8,13 +9,15 @@ import {
   View,
 } from 'react-native';
 import MapView from 'react-native-maps';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Color from 'color';
 import t from 'tcomb-form-native';
 import transform from 'tcomb-json-schema';
 import scformschema from 'spatialconnect-form-schema/native';
 import { omit, flatten } from 'lodash';
 import turfPoint from 'turf-point';
-import { Actions } from 'react-native-router-flux';
+import * as mapActions from '../ducks/map';
 import * as mapUtils from '../utils/map';
 import palette from '../style/palette';
 
@@ -77,13 +80,27 @@ const styles = StyleSheet.create({
 });
 
 class FeatureEdit extends Component {
+  static navigationOptions = {
+    header: (nav, defaultHeader) => {
+      return nav.state.params.onRight ? ({
+        ...defaultHeader,
+        title: 'Edit Feature',
+        right: (<Button
+          color={'white'}
+          title={'Save'}
+          onPress={nav.state.params.onRight}
+        />),
+      }) : defaultHeader;
+    },
+  }
 
   constructor(props) {
     super(props);
+    const feature = props.navigation.state.params.feature;
     this.state = {
-      value: null,
-      coordinates: null,
-      region: null,
+      ...this.makeOverlaysAndPoints(mapUtils.makeCoordinates(feature)),
+      ...this.makePropertyForm(),
+      ...this.makeRegion(),
       panning: false,
       editing: false,
       renderPlaceholderOnly: true,
@@ -95,18 +112,9 @@ class FeatureEdit extends Component {
     this.onEdit = this.onEdit.bind(this);
   }
 
-  componentWillMount() {
-    const state = {
-      ...this.makeOverlaysAndPoints(mapUtils.makeCoordinates(this.props.feature)),
-      ...this.makePropertyForm(),
-      ...this.makeRegion(),
-    };
-    this.setState(state);
-  }
-
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      Actions.refresh({ onRight: this.save.bind(this) });
+      this.props.navigation.setParams({ onRight: this.save.bind(this) });
       this.setState({ renderPlaceholderOnly: false });
     });
   }
@@ -141,9 +149,10 @@ class FeatureEdit extends Component {
   }
 
   onReset() {
-    const region = mapUtils.findRegion(this.props.feature);
+    const feature = this.props.navigation.state.params.feature;
+    const region = mapUtils.findRegion(feature);
     this.setState({
-      ...this.makeOverlaysAndPoints(mapUtils.makeCoordinates(this.props.feature)),
+      ...this.makeOverlaysAndPoints(mapUtils.makeCoordinates(feature)),
       nearestCoordIndex: this.findPointIndexNearestCenter(region),
       region,
       editing: false,
@@ -173,10 +182,11 @@ class FeatureEdit extends Component {
 
   save() {
     const value = this.state.value ? this.form.getValue() : {};
+    const feature = this.props.navigation.state.params.feature;
     if (value) {
-      Actions.popTo('map');
+      this.props.navigation.navigate('map');
       InteractionManager.runAfterInteractions(() => {
-        const nf = mapUtils.overlayToGeojson(this.props.feature, value, this.state.coordinates);
+        const nf = mapUtils.overlayToGeojson(feature, value, this.state.coordinates);
         this.props.actions.upsertFeature(nf);
       });
     }
@@ -189,25 +199,28 @@ class FeatureEdit extends Component {
   }
 
   makeRegion() {
-    return { region: mapUtils.findRegion(this.props.feature) };
+    const feature = this.props.navigation.state.params.feature;
+    return { region: mapUtils.findRegion(feature) };
   }
 
   makeOverlaysAndPoints(coordinates) {
     const c = flatten(coordinates);
     const newState = { coordinates: c };
-    if (this.props.feature.geometry.type === 'Polygon') {
+    const feature = this.props.navigation.state.params.feature;
+    if (feature.geometry.type === 'Polygon') {
       newState.polygon = c;
     }
-    if (this.props.feature.geometry.type === 'LineString') {
+    if (feature.geometry.type === 'LineString') {
       newState.polyline = c;
     }
     return newState;
   }
 
   makePropertyForm() {
-    if (Object.keys(this.props.feature.properties).length) {
-      const form = {};
-      const properties = omit(this.props.feature.properties, 'bbox');
+    const feature = this.props.navigation.state.params.feature;
+    if (Object.keys(feature.properties).length) {
+      const form = { };
+      const properties = omit(feature.properties, 'bbox');
       form.fields = Object.keys(properties).map((key, idx) => (
         {
           id: idx,
@@ -238,9 +251,6 @@ class FeatureEdit extends Component {
   }
 
   renderMap() {
-    if (this.state.renderPlaceholderOnly) {
-      return <View />;
-    }
     return (
       <View>
         <Text style={styles.label}>Geometry</Text>
@@ -304,6 +314,9 @@ class FeatureEdit extends Component {
   }
 
   render() {
+    if (this.state.renderPlaceholderOnly) {
+      return <View />;
+    }
     return (
       <ScrollView style={styles.container}>
         {this.state.value ? this.renderForm() : null }
@@ -314,8 +327,14 @@ class FeatureEdit extends Component {
 }
 
 FeatureEdit.propTypes = {
-  feature: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
 };
 
-export default FeatureEdit;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(mapActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeatureEdit);

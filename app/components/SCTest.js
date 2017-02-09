@@ -7,6 +7,8 @@ import {
 import should from 'should';
 import * as sc from 'spatialconnect/native';
 
+const properties = { team: 'foo', why: 'bar' };
+
 const styles = StyleSheet.create({
   testContainer: {
     padding: 10,
@@ -103,38 +105,6 @@ class SCTest extends Component {
       },
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
       );
-    });
-    this.it('should create spatialFeature', (done) => {
-      const sf = sc.spatialFeature('DEFAULT_STORE', 'baseball_team', { team: 'foo', why: 'bar' });
-      sc.createFeature$(sf.serialize())
-      .map(action => action.payload)
-      .subscribe((data) => {
-        try {
-          data.should.be.a.Object();
-          data.id.should.be.a.String();
-          done(true);
-        } catch (e) {
-          done(false, e);
-        }
-      });
-    });
-    this.it('should create geometry', (done) => {
-      const gj = {
-        geometry: { type: 'Point', coordinates: [30, -70] },
-        properties: { team: 'foo', why: 'bar' },
-      };
-      const g = sc.geometry('DEFAULT_STORE', 'baseball_team', gj);
-      sc.createFeature$(g.serialize()).first()
-      .map(action => action.payload)
-      .subscribe((data) => {
-        try {
-          data.should.be.a.Object();
-          data.id.should.be.a.String();
-          done(true);
-        } catch (e) {
-          done(false, e);
-        }
-      });
     });
   }
 

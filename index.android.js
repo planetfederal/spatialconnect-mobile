@@ -1,5 +1,5 @@
 import { AppRegistry } from 'react-native';
-import SCMobile from './app/SCMobile';
+import SCMobile from './app/SCIndex';
 
 console.ignoredYellowBox = [
   'Warning: Failed propType',

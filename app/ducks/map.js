@@ -1,5 +1,4 @@
-import { NativeModules } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { NavigationActions } from 'react-navigation';
 import { findIndex } from 'lodash';
 import * as sc from 'spatialconnect/native';
 import * as mapUtils from '../utils/map';
@@ -208,7 +207,11 @@ export const createFeature = (storeId, layerId, feature) =>
       dispatch(action);
       const newFeature = typeof action.payload === 'string' ?
         JSON.parse(action.payload) : action.payload;
-      Actions.editFeature({ feature: newFeature });
+      const navAction = NavigationActions.navigate({
+        routeName: 'editFeature',
+        params: { feature: newFeature },
+      });
+      dispatch(navAction);
     });
   };
 

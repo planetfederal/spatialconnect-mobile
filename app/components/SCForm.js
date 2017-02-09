@@ -6,7 +6,6 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
@@ -61,6 +60,9 @@ const styles = StyleSheet.create({
 
 
 class SCForm extends Component {
+  static navigationOptions = {
+    title: ({ state }) => state.params.form.form_label,
+  };
 
   constructor(props) {
     super(props);
@@ -75,7 +77,8 @@ class SCForm extends Component {
 
   componentWillMount() {
     InteractionManager.runAfterInteractions(() => {
-      const { schema, options, initialValues } = scformschema.translate(this.props.formInfo);
+      const formInfo = this.props.navigation.state.params.form;
+      const { schema, options, initialValues } = scformschema.translate(formInfo);
       this.setState({ schema, options, value: initialValues });
       this.TcombType = transform(schema);
       this.initialValues = initialValues;
@@ -96,6 +99,7 @@ class SCForm extends Component {
   }
 
   saveForm(formData) {
+    const formInfo = this.props.navigation.state.params.form;
     navigator.geolocation.getCurrentPosition((position) => {
       const gj = {
         geometry: {
@@ -107,17 +111,17 @@ class SCForm extends Component {
         },
         properties: formData,
       };
-      const f = sc.geometry('FORM_STORE', this.props.formInfo.form_key, gj);
+      const f = sc.geometry('FORM_STORE', formInfo.form_key, gj);
       sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
     }, () => {
-      const f = sc.spatialFeature('FORM_STORE', this.props.formInfo.form_key, { properties: formData });
+      const f = sc.spatialFeature('FORM_STORE', formInfo.form_key, { properties: formData });
       sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
     }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
   }
 
   formSubmitted() {
     Alert.alert('Form Submitted', '', [
-      { text: 'OK', onPress: () => Actions.pop() },
+      { text: 'OK', onPress: () => this.props.navigation.goBack() },
       { text: 'New Submission', onPress: () => this.setState({ value: this.initialValues }) },
     ]);
   }
@@ -151,7 +155,7 @@ class SCForm extends Component {
 }
 
 SCForm.propTypes = {
-  formInfo: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default SCForm;

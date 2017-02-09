@@ -2,10 +2,10 @@ exports[`<LoginView /> renders correctly 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": undefined,
+      "backgroundColor": "white",
       "flex": 1,
       "justifyContent": "flex-start",
-      "marginTop": 64,
+      "marginTop": 0,
     }
   }>
   <View
@@ -207,7 +207,7 @@ exports[`<LoginView /> renders correctly 1`] = `
             null,
           ]
         }>
-        Login
+        Sign In
       </Text>
     </View>
     <Text

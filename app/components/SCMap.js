@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native';
 import MapView from 'react-native-maps';
-import { Actions } from 'react-native-router-flux';
 import * as sc from 'spatialconnect/native';
 import Rx from 'rx';
 import Color from 'color';
@@ -75,6 +74,7 @@ const styles = StyleSheet.create({
 });
 
 class SCMap extends Component {
+
   constructor(props) {
     super(props);
     this.center = {
@@ -184,7 +184,11 @@ class SCMap extends Component {
     if (valid) {
       this.setState({ creating: false });
       this.props.actions.cancelCreating();
-      Actions.createFeature({ feature: geojson });
+      this.props.navigation.navigate('createFeature', {
+        stores: this.props.stores,
+        feature: geojson,
+        actions: this.props.actions,
+      });
     }
     return valid;
   }
@@ -213,10 +217,16 @@ class SCMap extends Component {
                 key={`point.${point.feature.id}.${idx += 1}`}
                 pinColor={palette.red}
                 onPress={() => {
-                  Actions.viewFeature({ feature: point.feature });
+                  this.props.navigation.navigate('viewFeature', {
+                    stores: this.props.stores,
+                    feature: point.feature,
+                  });
                 }}
                 onSelect={() => {
-                  Actions.viewFeature({ feature: point.feature });
+                  this.props.navigation.navigate('viewFeature', {
+                    stores: this.props.stores,
+                    feature: point.feature,
+                  });
                 }}
               />
             ))}
@@ -227,7 +237,10 @@ class SCMap extends Component {
                 fillColor={Color(palette.red).clearer(0.7).rgbString()}
                 strokeColor={palette.red}
                 onPress={() => {
-                  Actions.viewFeature({ feature: p.feature });
+                  this.props.navigation.navigate('viewFeature', {
+                    stores: this.props.stores,
+                    feature: p.feature,
+                  });
                 }}
               />
             ))}
@@ -237,7 +250,10 @@ class SCMap extends Component {
                 coordinates={l.coordinates}
                 strokeColor={palette.red}
                 onPress={() => {
-                  Actions.viewFeature({ feature: l.feature });
+                  this.props.navigation.navigate('viewFeature', {
+                    stores: this.props.stores,
+                    feature: l.feature,
+                  });
                 }}
               />
             ))}
@@ -288,11 +304,13 @@ class SCMap extends Component {
 }
 
 SCMap.propTypes = {
+  stores: PropTypes.array.isRequired,
   activeStores: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
   overlays: PropTypes.object.isRequired,
   creatingType: PropTypes.string,
   creatingPoints: PropTypes.array.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default SCMap;

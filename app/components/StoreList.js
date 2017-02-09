@@ -4,16 +4,11 @@ import {
   RefreshControl,
   View,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import * as sc from 'spatialconnect/native';
 import StoreCell from './StoreCell';
 import { listStyles } from '../style/style';
 
 class StoreList extends Component {
-
-  static selectStore(store) {
-    Actions.store({ title: store.name, storeInfo: store });
-  }
 
   static renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
     let style = listStyles.rowSeparator;
@@ -21,18 +16,6 @@ class StoreList extends Component {
       style = [style, listStyles.rowSeparatorHide];
     }
     return <View key={`SEP_${sectionID}_${rowID}`} style={style} />;
-  }
-
-  static renderRow(store, sectionID, rowID, highlightRowFunc) {
-    return (
-      <StoreCell
-        key={store.id}
-        onSelect={() => StoreList.selectStore(store)}
-        onHighlight={() => highlightRowFunc(sectionID, rowID)}
-        onUnhighlight={() => highlightRowFunc(null, null)}
-        store={store}
-      />
-    );
   }
 
   constructor(props) {
@@ -45,6 +28,7 @@ class StoreList extends Component {
     };
 
     this.onRefresh = this.onRefresh.bind(this);
+    this.renderRow = this.renderRow.bind(this);
   }
 
   onRefresh() {
@@ -55,13 +39,25 @@ class StoreList extends Component {
     });
   }
 
+  renderRow(store, sectionID, rowID, highlightRowFunc) {
+    return (
+      <StoreCell
+        key={store.id}
+        onSelect={() => this.props.navigation.navigate('store', { store })}
+        onHighlight={() => highlightRowFunc(sectionID, rowID)}
+        onUnhighlight={() => highlightRowFunc(null, null)}
+        store={store}
+      />
+    );
+  }
+
   render() {
     return (
       <View style={listStyles.mainContainer}>
         <ListView
           dataSource={this.state.dataSource.cloneWithRows(this.props.stores)}
           renderSeparator={StoreList.renderSeparator}
-          renderRow={StoreList.renderRow}
+          renderRow={this.renderRow}
           style={listStyles.listView}
           enableEmptySections
           refreshControl={
@@ -79,6 +75,7 @@ class StoreList extends Component {
 StoreList.propTypes = {
   stores: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default StoreList;

@@ -2,10 +2,10 @@ exports[`<SignUpView /> renders correctly 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": undefined,
+      "backgroundColor": "white",
       "flex": 1,
       "justifyContent": "flex-start",
-      "marginTop": 64,
+      "marginTop": 0,
     }
   }>
   <View
@@ -282,10 +282,10 @@ exports[`<SignUpView /> shows sign up error 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": undefined,
+      "backgroundColor": "white",
       "flex": 1,
       "justifyContent": "flex-start",
-      "marginTop": 64,
+      "marginTop": 0,
     }
   }>
   <View

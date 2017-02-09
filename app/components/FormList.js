@@ -4,16 +4,11 @@ import {
   RefreshControl,
   View,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import * as sc from 'spatialconnect/native';
 import FormCell from './FormCell';
 import { listStyles } from '../style/style';
 
 class FormList extends Component {
-
-  static selectForm(form) {
-    Actions.form({ title: form.form_label, formInfo: form });
-  }
 
   static renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
     let style = listStyles.rowSeparator;
@@ -21,18 +16,6 @@ class FormList extends Component {
       style = [style, listStyles.rowSeparatorHide];
     }
     return <View key={`SEP_${sectionID}_${rowID}`} style={style} />;
-  }
-
-  static renderRow(form, sectionID, rowID, highlightRowFunc) {
-    return (
-      <FormCell
-        key={form.id}
-        onSelect={() => FormList.selectForm(form)}
-        onHighlight={() => highlightRowFunc(sectionID, rowID)}
-        onUnhighlight={() => highlightRowFunc(null, null)}
-        form={form}
-      />
-    );
   }
 
   constructor(props) {
@@ -45,6 +28,7 @@ class FormList extends Component {
     };
 
     this.onRefresh = this.onRefresh.bind(this);
+    this.renderRow = this.renderRow.bind(this);
   }
 
   onRefresh() {
@@ -55,13 +39,25 @@ class FormList extends Component {
     });
   }
 
+  renderRow(form, sectionID, rowID, highlightRowFunc) {
+    return (
+      <FormCell
+        key={form.id}
+        onSelect={() => this.props.navigation.navigate('form', { form })}
+        onHighlight={() => highlightRowFunc(sectionID, rowID)}
+        onUnhighlight={() => highlightRowFunc(null, null)}
+        form={form}
+      />
+    );
+  }
+
   render() {
     return (
       <View style={listStyles.mainContainer}>
         <ListView
           dataSource={this.state.dataSource.cloneWithRows(this.props.forms)}
           renderSeparator={FormList.renderSeparator}
-          renderRow={FormList.renderRow}
+          renderRow={this.renderRow}
           style={listStyles.listView}
           enableEmptySections
           refreshControl={
@@ -77,6 +73,7 @@ class FormList extends Component {
 }
 
 FormList.propTypes = {
+  navigation: PropTypes.object.isRequired,
   forms: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
 };

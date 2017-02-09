@@ -3,7 +3,7 @@ import * as sc from 'spatialconnect/native';
 const initialState = {
   token: null,
   userName: null,
-  isAuthenticated: false,
+  isAuthenticated: null,
   isAuthenticating: false,
   statusText: null,
   isSigningUp: false,
@@ -76,7 +76,11 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         hasAuthError: true,
       };
-    case 'LOGOUT': return initialState;
+    case 'LOGOUT':
+      return {
+        ...initialState,
+        isAuthenticated: false,
+      };
     default: return state;
   }
 }

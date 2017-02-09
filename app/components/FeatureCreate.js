@@ -45,7 +45,8 @@ class FeatureCreate extends Component {
   }
 
   componentWillMount() {
-    const stores = this.props.stores.filter(s => (
+    const params = this.props.navigation.state.params;
+    const stores = params.stores.filter(s => (
       s.vectorLayers && s.vectorLayers.length && s.type === 'gpkg' &&
       s.storeId !== 'DEFAULT_STORE' &&
       s.storeId !== 'FORM_STORE' &&
@@ -59,8 +60,9 @@ class FeatureCreate extends Component {
   }
 
   onCreate() {
-    this.props.actions.createFeature(
-      this.state.selectedStoreId, this.state.selectedLayerId, this.props.feature,
+    const params = this.props.navigation.state.params;
+    params.actions.createFeature(
+      this.state.selectedStoreId, this.state.selectedLayerId, params.feature,
     );
   }
 
@@ -120,9 +122,7 @@ class FeatureCreate extends Component {
 }
 
 FeatureCreate.propTypes = {
-  feature: PropTypes.object.isRequired,
-  stores: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default FeatureCreate;

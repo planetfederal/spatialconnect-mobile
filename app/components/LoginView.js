@@ -6,12 +6,11 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Actions } from 'react-native-router-flux';
-import Button from 'react-native-button';
+import RNButton from 'react-native-button';
 import t from 'tcomb-form-native';
 import * as authActions from '../ducks/auth';
 import palette from '../style/palette';
-import { navStyles, buttonStyles } from '../style/style';
+import { navStyles, buttonStyles, routerStyles } from '../style/style';
 
 const Form = t.form.Form;
 
@@ -53,16 +52,20 @@ const formOptions = {
 };
 
 export class LoginView extends Component {
-
-  static onSignUpPress() {
-    Actions.signUp();
-  }
+  static navigationOptions = {
+    header: () => ({
+      title: 'Expedited Field Capability',
+      style: routerStyles.navBar,
+      tintColor: 'white',
+    }),
+  };
 
   constructor(props) {
     super(props);
 
     this.onPress = this.onPress.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onSignUpPress = this.onSignUpPress.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,6 +74,10 @@ export class LoginView extends Component {
         this.props.actions.authError();
       }
     }
+  }
+
+  onSignUpPress() {
+    this.props.navigation.navigate('signUp');
   }
 
   onPress() {
@@ -99,13 +106,14 @@ export class LoginView extends Component {
             options={formOptions}
             onChange={this.onChange}
           />
-          <Button
+          <RNButton
             style={buttonStyles.buttonText} containerStyle={buttonStyles.button}
-            onPress={this.onPress}
+            styleDisabled={buttonStyles.disabled}
+            onPress={this.onPress} disabled={this.props.isAuthenticating}
           >
-            Login
-          </Button>
-          <Text onPress={LoginView.onSignUpPress} style={buttonStyles.link}>Sign Up</Text>
+            {this.props.isAuthenticating ? 'Signing In...' : 'Sign In'}
+          </RNButton>
+          <Text onPress={this.onSignUpPress} style={buttonStyles.link}>Sign Up</Text>
         </View>
       </View>
     );
@@ -113,6 +121,7 @@ export class LoginView extends Component {
 }
 
 LoginView.propTypes = {
+  navigation: PropTypes.object.isRequired,
   isAuthenticating: PropTypes.bool.isRequired,
   actions: PropTypes.object.isRequired,
   loginFormValue: PropTypes.object.isRequired,
