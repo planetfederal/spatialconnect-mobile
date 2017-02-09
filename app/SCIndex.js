@@ -17,15 +17,17 @@ const store = createStore(
   applyMiddleware(thunk),
 );
 
+connectSC(store); // connect spatialconnect to the redux store
+
 class App extends Component {
-  componentWillMount() {
-    connectSC(store); // connect spatialconnect to the redux store
+  componentDidMount() {
     if (Platform.OS === 'ios') {
       StatusBar.setBarStyle('light-content', true);
     } else {
       StatusBar.setBackgroundColor(palette.lightblue, true);
     }
   }
+
   render() {
     return (
       <Provider store={store}>

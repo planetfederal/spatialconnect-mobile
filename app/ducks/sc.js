@@ -1,4 +1,5 @@
 import * as sc from 'spatialconnect/native';
+import Rx from 'rx';
 import { Platform, PermissionsAndroid } from 'react-native';
 
 const initialState = {
@@ -41,10 +42,12 @@ export const connectSC = (store) => {
   sc.loginStatus$().subscribe((action) => {
     store.dispatch(action);
     if (action.payload === sc.AuthStatus.SCAUTH_AUTHENTICATED) {
-      sc.forms$().subscribe(store.dispatch);
-      sc.stores$().subscribe(store.dispatch);
-      sc.mqttConnected$().subscribe(store.dispatch);
-      sc.xAccessToken$().subscribe(store.dispatch);
+      Rx.Observable.merge(
+        sc.forms$(),
+        sc.stores$(),
+        sc.mqttConnected$(),
+        sc.xAccessToken$(),
+      ).subscribe(store.dispatch);
     }
   });
 
