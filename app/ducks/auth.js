@@ -10,8 +10,8 @@ const initialState = {
   signUpError: null,
   signUpSuccess: false,
   loginFormValue: {
-    email: 'admin@something.com',
-    password: 'admin',
+    email: '',
+    password: '',
   },
   signUpFormValue: {
     name: '',

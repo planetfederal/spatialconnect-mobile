@@ -28,6 +28,7 @@ class FormList extends Component {
     };
 
     this.onRefresh = this.onRefresh.bind(this);
+    this.renderRow = this.renderRow.bind(this);
   }
 
   onRefresh() {
@@ -56,7 +57,7 @@ class FormList extends Component {
         <ListView
           dataSource={this.state.dataSource.cloneWithRows(this.props.forms)}
           renderSeparator={FormList.renderSeparator}
-          renderRow={this.renderRow.bind(this)}
+          renderRow={this.renderRow}
           style={listStyles.listView}
           enableEmptySections
           refreshControl={

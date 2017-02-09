@@ -1,9 +1,5 @@
 import React, { PropTypes } from 'react';
-import {
-  Platform,
-} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 
 const LayersButton = props => (
   <Icon

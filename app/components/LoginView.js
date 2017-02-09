@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import {
-  Button,
   StyleSheet,
   Text,
   View,
@@ -54,7 +53,7 @@ const formOptions = {
 
 export class LoginView extends Component {
   static navigationOptions = {
-    header: (nav) => ({
+    header: () => ({
       title: 'Expedited Field Capability',
       style: routerStyles.navBar,
       tintColor: 'white',

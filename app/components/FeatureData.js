@@ -3,11 +3,10 @@ import {
   Button,
   InteractionManager,
   ScrollView,
-  Text,
 } from 'react-native';
 import { find } from 'lodash';
 import Property from './Property';
-import { propertyListStyles, routerStyles } from '../style/style';
+import { propertyListStyles } from '../style/style';
 
 class FeatureData extends Component {
   static navigationOptions = {
@@ -60,7 +59,6 @@ class FeatureData extends Component {
     return null;
   }
   renderLocation() {
-    //const feature = this.props.feature;
     const feature = this.props.navigation.state.params.feature;
     return (feature.geometry && feature.geometry.type === 'Point') ?
       <Property

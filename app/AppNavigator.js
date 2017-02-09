@@ -1,16 +1,9 @@
-import React, { Component } from 'react';
-import {
-  Dimensions,
-  View,
-  Platform,
-  StatusBar,
-} from 'react-native';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import {
   DrawerNavigator,
   StackNavigator,
-  TabNavigator,
-  addNavigationHelpers
+  addNavigationHelpers,
 } from 'react-navigation';
 import FormContainer from './containers/FormContainer';
 import SCForm from './components/SCForm';
@@ -94,18 +87,19 @@ export const AppNavigator = StackNavigator({
   navigationOptions: { header: { visible: false } },
 });
 
-class AppWithNavigationState extends Component {
-  render() {
-    return (
-      <AppNavigator
-        navigation={addNavigationHelpers({
-          dispatch: this.props.dispatch,
-          state: this.props.nav,
-        })}
-      />
-    );
-  }
-}
+const AppWithNavigationState = props => (
+  <AppNavigator
+    navigation={addNavigationHelpers({
+      dispatch: props.dispatch,
+      state: props.nav,
+    })}
+  />
+);
+
+AppWithNavigationState.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  nav: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = state => ({
   nav: state.nav,

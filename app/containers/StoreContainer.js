@@ -2,8 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import StoreList from '../components/StoreList';
-import SCStore from '../components/SCStore';
-import { navStyles, routerStyles } from '../style/style';
+import { navStyles } from '../style/style';
 import MenuButton from '../components/MenuButton';
 
 class StoreContainer extends Component {
@@ -16,7 +15,7 @@ class StoreContainer extends Component {
       return {
         ...defaultHeader,
         left: <MenuButton navigation={navigation} />,
-      }
+      };
     },
   }
 
