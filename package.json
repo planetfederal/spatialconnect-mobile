@@ -12,7 +12,7 @@
       "./test-setup.js"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!react-native|react-clone-referenced-element|tcomb-form-native|spatialconnect-form-schema|react-native-slider|react-native-button)"
+      "node_modules/(?!react-native|react-navigation|react-clone-referenced-element|tcomb-form-native|spatialconnect-form-schema|react-native-slider|react-native-button)"
     ],
     "moduleFileExtensions": [
       "js",

@@ -7,14 +7,6 @@ jest.mock('Linking', () => {
     getInitialURL: jest.fn(),
   };
 });
-jest.mock('react-native-router-flux', () => ({
-  Actions: {
-    refresh: jest.fn(),
-    push: jest.fn(),
-    pop: jest.fn(),
-    reset: jest.fn(),
-  },
-}));
 // Mocking the global.fetch included in React Native
 global.fetch = jest.fn();
 

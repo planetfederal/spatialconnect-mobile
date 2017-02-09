@@ -6,40 +6,75 @@ exports[`<StoreList /> renders correctly 1`] = `
       "flex": 1,
       "flexDirection": "column",
       "justifyContent": "center",
-      "padding": 0,
+      "padding": 0
     }
   }>
   <ScrollView
     dataSource={
       ListViewDataSource {
-        "items": 5,
+        "items": 5
       }
     }
     enableEmptySections={true}
     initialListSize={10}
-    onContentSizeChange={[Function]}
+    onContentSizeChange={[Function bound _onContentSizeChange]}
     onEndReachedThreshold={1000}
     onKeyboardDidHide={undefined}
     onKeyboardDidShow={undefined}
     onKeyboardWillHide={undefined}
     onKeyboardWillShow={undefined}
-    onLayout={[Function]}
-    onScroll={[Function]}
+    onLayout={[Function bound _onLayout]}
+    onScroll={[Function bound _onScroll]}
     pageSize={1}
     refreshControl={
-      <RefreshControl
-        onRefresh={[Function]}
+      <function (props,context,updater){
+      
+      
+      
+      if(process.env.NODE_ENV!=='production'){
+      process.env.NODE_ENV!=='production'?warning(this instanceof Constructor,'Something is calling a React component directly. Use a factory or '+'JSX instead. See: https://fb.me/react-legacyfactory'):void 0;
+      }
+      
+      
+      if(this.__reactAutoBindPairs.length){
+      bindAutoBindMethods(this);
+      }
+      
+      this.props=props;
+      this.context=context;
+      this.refs=emptyObject;
+      this.updater=updater||ReactNoopUpdateQueue;
+      
+      this.state=null;
+      
+      
+      
+      
+      var initialState=this.getInitialState?this.getInitialState():null;
+      if(process.env.NODE_ENV!=='production'){
+      
+      if(initialState===undefined&&this.getInitialState._isMockFunction){
+      
+      
+      initialState=null;
+      }
+      }
+      !(typeof initialState==='object'&&!Array.isArray(initialState))?process.env.NODE_ENV!=='production'?invariant(false,'%s.getInitialState(): must return an object or null',Constructor.displayName||'ReactCompositeComponent'):_prodInvariant('82',Constructor.displayName||'ReactCompositeComponent'):void 0;
+      
+      this.state=initialState;
+      }
+        onRefresh={[Function bound onRefresh]}
         refreshing={false} />
     }
     removeClippedSubviews={true}
-    renderRow={[Function]}
-    renderSeparator={[Function]}
+    renderRow={[Function bound renderRow]}
+    renderSeparator={[Function renderSeparator]}
     scrollEventThrottle={50}
     scrollRenderAheadDistance={1000}
     stickyHeaderIndices={Array []}
     style={
       Object {
-        "flex": 1,
+        "flex": 1
       }
     }>
     <View>
@@ -50,18 +85,18 @@ exports[`<StoreList /> renders correctly 1`] = `
         accessible={true}
         hitSlop={undefined}
         onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
         style={
           Array [
             Object {
-              "backgroundColor": "transparent",
+              "backgroundColor": "transparent"
             },
-            undefined,
+            undefined
           ]
         }
         testID={undefined}>
@@ -71,13 +106,13 @@ exports[`<StoreList /> renders correctly 1`] = `
               "alignItems": "center",
               "backgroundColor": "white",
               "flexDirection": "row",
-              "padding": 10,
+              "padding": 10
             }
           }>
           <View
             style={
               Object {
-                "flex": 1,
+                "flex": 1
               }
             }>
             <Text
@@ -91,7 +126,7 @@ exports[`<StoreList /> renders correctly 1`] = `
                   "flex": 1,
                   "fontSize": 18,
                   "fontWeight": "500",
-                  "marginBottom": 2,
+                  "marginBottom": 2
                 }
               }>
               gj1
@@ -105,7 +140,7 @@ exports[`<StoreList /> renders correctly 1`] = `
         Object {
           "backgroundColor": "#dddddd",
           "height": 1,
-          "marginLeft": 0,
+          "marginLeft": 0
         }
       } />
     <View>
@@ -116,18 +151,18 @@ exports[`<StoreList /> renders correctly 1`] = `
         accessible={true}
         hitSlop={undefined}
         onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
         style={
           Array [
             Object {
-              "backgroundColor": "transparent",
+              "backgroundColor": "transparent"
             },
-            undefined,
+            undefined
           ]
         }
         testID={undefined}>
@@ -137,13 +172,13 @@ exports[`<StoreList /> renders correctly 1`] = `
               "alignItems": "center",
               "backgroundColor": "white",
               "flexDirection": "row",
-              "padding": 10,
+              "padding": 10
             }
           }>
           <View
             style={
               Object {
-                "flex": 1,
+                "flex": 1
               }
             }>
             <Text
@@ -157,7 +192,7 @@ exports[`<StoreList /> renders correctly 1`] = `
                   "flex": 1,
                   "fontSize": 18,
                   "fontWeight": "500",
-                  "marginBottom": 2,
+                  "marginBottom": 2
                 }
               }>
               gj2
@@ -171,7 +206,7 @@ exports[`<StoreList /> renders correctly 1`] = `
         Object {
           "backgroundColor": "#dddddd",
           "height": 1,
-          "marginLeft": 0,
+          "marginLeft": 0
         }
       } />
     <View>
@@ -182,18 +217,18 @@ exports[`<StoreList /> renders correctly 1`] = `
         accessible={true}
         hitSlop={undefined}
         onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
         style={
           Array [
             Object {
-              "backgroundColor": "transparent",
+              "backgroundColor": "transparent"
             },
-            undefined,
+            undefined
           ]
         }
         testID={undefined}>
@@ -203,13 +238,13 @@ exports[`<StoreList /> renders correctly 1`] = `
               "alignItems": "center",
               "backgroundColor": "white",
               "flexDirection": "row",
-              "padding": 10,
+              "padding": 10
             }
           }>
           <View
             style={
               Object {
-                "flex": 1,
+                "flex": 1
               }
             }>
             <Text
@@ -223,7 +258,7 @@ exports[`<StoreList /> renders correctly 1`] = `
                   "flex": 1,
                   "fontSize": 18,
                   "fontWeight": "500",
-                  "marginBottom": 2,
+                  "marginBottom": 2
                 }
               }>
               Haiti
@@ -237,7 +272,7 @@ exports[`<StoreList /> renders correctly 1`] = `
         Object {
           "backgroundColor": "#dddddd",
           "height": 1,
-          "marginLeft": 0,
+          "marginLeft": 0
         }
       } />
     <View>
@@ -248,18 +283,18 @@ exports[`<StoreList /> renders correctly 1`] = `
         accessible={true}
         hitSlop={undefined}
         onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
         style={
           Array [
             Object {
-              "backgroundColor": "transparent",
+              "backgroundColor": "transparent"
             },
-            undefined,
+            undefined
           ]
         }
         testID={undefined}>
@@ -269,13 +304,13 @@ exports[`<StoreList /> renders correctly 1`] = `
               "alignItems": "center",
               "backgroundColor": "white",
               "flexDirection": "row",
-              "padding": 10,
+              "padding": 10
             }
           }>
           <View
             style={
               Object {
-                "flex": 1,
+                "flex": 1
               }
             }>
             <Text
@@ -289,7 +324,7 @@ exports[`<StoreList /> renders correctly 1`] = `
                   "flex": 1,
                   "fontSize": 18,
                   "fontWeight": "500",
-                  "marginBottom": 2,
+                  "marginBottom": 2
                 }
               }>
               Whitehorse
@@ -303,7 +338,7 @@ exports[`<StoreList /> renders correctly 1`] = `
         Object {
           "backgroundColor": "#dddddd",
           "height": 1,
-          "marginLeft": 0,
+          "marginLeft": 0
         }
       } />
     <View>
@@ -314,18 +349,18 @@ exports[`<StoreList /> renders correctly 1`] = `
         accessible={true}
         hitSlop={undefined}
         onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
+        onResponderGrant={[Function bound touchableHandleResponderGrant]}
+        onResponderMove={[Function bound touchableHandleResponderMove]}
+        onResponderRelease={[Function bound touchableHandleResponderRelease]}
+        onResponderTerminate={[Function bound touchableHandleResponderTerminate]}
+        onResponderTerminationRequest={[Function bound touchableHandleResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function bound touchableHandleStartShouldSetResponder]}
         style={
           Array [
             Object {
-              "backgroundColor": "transparent",
+              "backgroundColor": "transparent"
             },
-            undefined,
+            undefined
           ]
         }
         testID={undefined}>
@@ -335,13 +370,13 @@ exports[`<StoreList /> renders correctly 1`] = `
               "alignItems": "center",
               "backgroundColor": "white",
               "flexDirection": "row",
-              "padding": 10,
+              "padding": 10
             }
           }>
           <View
             style={
               Object {
-                "flex": 1,
+                "flex": 1
               }
             }>
             <Text
@@ -355,7 +390,7 @@ exports[`<StoreList /> renders correctly 1`] = `
                   "flex": 1,
                   "fontSize": 18,
                   "fontWeight": "500",
-                  "marginBottom": 2,
+                  "marginBottom": 2
                 }
               }>
               wfstest
@@ -369,7 +404,7 @@ exports[`<StoreList /> renders correctly 1`] = `
         Object {
           "backgroundColor": "#dddddd",
           "height": 1,
-          "marginLeft": 0,
+          "marginLeft": 0
         }
       } />
   </ScrollView>
