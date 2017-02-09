@@ -331,8 +331,10 @@ FeatureEdit.propTypes = {
   actions: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = () => ({});
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(mapActions, dispatch),
 });
 
-export default connect(() => {}, mapDispatchToProps)(FeatureEdit);
+export default connect(mapStateToProps, mapDispatchToProps)(FeatureEdit);
