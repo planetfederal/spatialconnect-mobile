@@ -94,6 +94,22 @@ android {
     compileSdkVersion 25
     buildToolsVersion "23.0.2"
 
+    //method used to increment version code on assembleRelease
+    ext.incrementVersionCode = {
+      def versionPropsFile = file('version.properties')
+      def increaseBy = 1
+      if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+        generatedVersionCode = versionProps['VERSION_CODE'].toInteger() + increaseBy
+        println(":incrementVersionCode - Incrementing Version Code...")
+        versionProps['VERSION_CODE'] = generatedVersionCode.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+      } else {
+            throw new GradleException("Could not read version.properties!")
+      }
+    }
+
     defaultConfig {
         applicationId "com.boundlessgeo.efc"
         minSdkVersion 16
@@ -141,6 +157,13 @@ android {
             }
         }
     }
+
+    // check if the assembleRelease task is among the tasks to be executed
+    gradle.taskGraph.whenReady {taskGraph ->
+    if (taskGraph.hasTask(assembleRelease)) { /* when run release task */
+        incrementVersionCode()
+    }
+}
     packagingOptions {
       exclude 'META-INF/LICENSE'
       exclude 'META-INF/NOTICE'
@@ -181,23 +204,3 @@ task copyDownloadableDepsToLibs(type: Copy) {
   from configurations.compile
   into 'libs'
 }
-
-task incrementVersionCode << {
-  def versionPropsFile = file('version.properties')
-  def increaseBy = 1
-  if (versionPropsFile.canRead()) {
-    def Properties versionProps = new Properties()
-
-    versionProps.load(new FileInputStream(versionPropsFile))
-    generatedVersionCode = versionProps['VERSION_CODE'].toInteger() + increaseBy
-    println(":incrementVersionCode - Incrementing Version Code...")
-    versionProps['VERSION_CODE'] = generatedVersionCode.toString()
-    versionProps.store(versionPropsFile.newWriter(), null)
-
-  } else {
-        throw new GradleException("Could not read version.properties!")
-  }
-  dependsOn 'assembleRelease'
-}
-
-incrementVersionCode.mustRunAfter build
