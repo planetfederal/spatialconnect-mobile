@@ -1,6 +1,6 @@
 import { NavigationActions } from 'react-navigation';
 import { findIndex } from 'lodash';
-import * as sc from 'spatialconnect/native';
+import * as sc from 'react-native-spatialconnect';
 import * as mapUtils from '../utils/map';
 
 const MAX_FEATURES = 100;

@@ -40,23 +40,9 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
 
-  [self startSpatialConnect];
 
   return YES;
 }
 
-- (void)startSpatialConnect {
-  if (!sc) {
-    NSString *cfgPath = [SCFileUtils filePathFromMainBundle:@"remote.scfg"];
-    sc = [SpatialConnect sharedInstance];
-    [sc.configService addConfigFilepath:cfgPath];
-    //TODO move this to bridge
-    [sc.sensorService enableGPS];
-  }
-}
-
-- (SpatialConnect *)spatialConnectSharedInstance {
-  return sc;
-}
 
 @end

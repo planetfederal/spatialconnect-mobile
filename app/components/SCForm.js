@@ -10,7 +10,7 @@ import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
 import scformschema from 'spatialconnect-form-schema/native';
-import * as sc from 'spatialconnect/native';
+import * as sc from 'react-native-spatialconnect';
 import palette from '../style/palette';
 import { buttonStyles } from '../style/style';
 

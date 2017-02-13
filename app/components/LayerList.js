@@ -6,7 +6,7 @@ import {
   View,
   Text,
 } from 'react-native';
-import { StoreStatus } from 'spatialconnect/native';
+import { StoreStatus } from 'react-native-spatialconnect';
 import palette from '../style/palette';
 
 const styles = StyleSheet.create({

@@ -1,4 +1,4 @@
-import * as sc from 'spatialconnect/native';
+import * as sc from 'react-native-spatialconnect';
 
 const initialState = {
   token: null,

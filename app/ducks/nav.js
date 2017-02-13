@@ -1,4 +1,4 @@
-import * as sc from 'spatialconnect/native';
+import * as sc from 'react-native-spatialconnect';
 import { NavigationActions } from 'react-navigation';
 import { AppNavigator } from '../AppNavigator';
 

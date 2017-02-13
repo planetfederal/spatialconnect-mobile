@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import MapView from 'react-native-maps';
-import * as sc from 'spatialconnect/native';
+import * as sc from 'react-native-spatialconnect';
 import Rx from 'rx';
 import Color from 'color';
 import { isEqual } from 'lodash';
