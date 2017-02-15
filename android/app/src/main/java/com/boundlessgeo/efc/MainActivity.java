@@ -28,11 +28,6 @@ import com.boundlessgeo.spatialconnect.services.SCServiceStatusEvent;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.react.ReactActivity;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import io.fabric.sdk.android.Fabric;
 import org.json.JSONException;
 import rx.functions.Action1;
@@ -53,19 +48,6 @@ public class MainActivity extends ReactActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        try {
-            InputStream is = getApplicationContext().getResources().openRawResource(R.raw.config);
-            // write the file to the internal storage location
-            FileOutputStream fos = getApplicationContext().openFileOutput("config.scfg", Context.MODE_PRIVATE);
-            byte[] data = new byte[is.available()];
-            is.read(data);
-            fos.write(data);
-            is.close();
-            fos.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void showNotification(SCNotification notification) {
