@@ -165,7 +165,6 @@ export const queryStores = (bbox = [-180, -90, 180, 90], limit = 50) =>
     dispatch({
       type: 'CLEAR_FEATURES',
     });
-    sc.addRasterLayers(state.map.activeStores);
     sc.spatialQuery$(filter, state.map.activeStores)
       .bufferWithTime(1000)
       .take(5)
