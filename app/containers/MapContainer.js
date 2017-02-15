@@ -46,6 +46,10 @@ class MapContainer extends Component {
         tweenHandler={ratio => ({
           main: { opacity: Math.max(0.54, 1 - ratio) },
         })}
+        onClose={() => {
+          console.log('onClode');
+          this.props.navigation.setParams({ open: false });
+        }}
       >
         <View style={navStyles.container}>
           <SCMap {...this.props} />
