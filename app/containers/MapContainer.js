@@ -47,7 +47,6 @@ class MapContainer extends Component {
           main: { opacity: Math.max(0.54, 1 - ratio) },
         })}
         onClose={() => {
-          console.log('onClode');
           this.props.navigation.setParams({ open: false });
         }}
       >
