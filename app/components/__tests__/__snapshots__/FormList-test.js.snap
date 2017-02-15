@@ -88,7 +88,6 @@ exports[`<FormList /> renders correctly 1`] = `
               style={
                 Object {
                   "color": "black",
-                  "flex": 1,
                   "fontSize": 18,
                   "fontWeight": "500",
                   "marginBottom": 2,
