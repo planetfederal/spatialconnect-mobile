@@ -6,7 +6,7 @@ import {
   TouchableNativeFeedback,
   View,
 } from 'react-native';
-import { StoreStatus } from 'spatialconnect/native';
+import { StoreStatus } from 'react-native-spatialconnect';
 import { cellStyles } from '../style/style';
 
 const statusText = (store) => {

@@ -23,20 +23,13 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		5403ECDC1CCED8EE00A56D23 /* all.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDA1CCED8EE00A56D23 /* all.geojson */; };
 		5403ECDD1CCED8EE00A56D23 /* tests.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDB1CCED8EE00A56D23 /* tests.scfg */; };
+		540F8B0F1E5233850082F908 /* libRNSpatialConnect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 540F8B0E1E52336C0082F908 /* libRNSpatialConnect.a */; };
 		543E8AEA1D2EDB4F009FE68F /* simple.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 543E8AE91D2EDB4F009FE68F /* simple.geojson */; };
 		545E9F451D53CEE4000C4190 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 545E9F441D53CEDB000C4190 /* libAirMaps.a */; };
-		546D087D1D21B27E00EBB95A /* libgpkgios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D08791D21B27E00EBB95A /* libgpkgios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		546D087E1D21B27E00EBB95A /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D087A1D21B27E00EBB95A /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		546D087F1D21B27E00EBB95A /* wkb_ios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D087B1D21B27E00EBB95A /* wkb_ios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		546D08801D21B27E00EBB95A /* ZipZap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D087C1D21B27E00EBB95A /* ZipZap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		546D088C1D21B38400EBB95A /* SpatialConnect.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 546D088B1D21B38400EBB95A /* SpatialConnect.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		547F13981CF780ED0028EFF1 /* remote.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 547F13971CF780ED0028EFF1 /* remote.scfg */; };
 		54AEC2EF1E3B9C9C00D469F1 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54AEC2DB1E3B9C6E00D469F1 /* libRCTAnimation.a */; };
 		54AEC3251E4A612800D469F1 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54AEC3241E4A612800D469F1 /* Ionicons.ttf */; };
-		54B1E4FC1D05FBCB00EEB033 /* SCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */; };
-		54B3A86E1DB90257000F9526 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 54B3A86D1DB90257000F9526 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		54B470BA1D4A6A030084C642 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54B470B91D4A69FE0084C642 /* libRNImagePicker.a */; };
-		568849DC1D65F19A00D90A58 /* MQTTFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 568849DB1D65F19A00D90A58 /* MQTTFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		56AA58061D3D65CD00670AB7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AA58051D3D65CD00670AB7 /* Crashlytics.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
@@ -104,6 +97,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		540F8B0D1E52336C0082F908 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 540F8B091E52336C0082F908 /* RNSpatialConnect.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 540F8AE81E522C9F0082F908;
+			remoteInfo = RNSpatialConnect;
 		};
 		545E9F431D53CEDB000C4190 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -199,19 +199,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		547F13861CF7699D0028EFF1 /* Embed Frameworks */ = {
+		54AEC42C1E51FAC500D469F1 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				54B3A86E1DB90257000F9526 /* CocoaLumberjack.framework in Embed Frameworks */,
-				568849DC1D65F19A00D90A58 /* MQTTFramework.framework in Embed Frameworks */,
-				546D088C1D21B38400EBB95A /* SpatialConnect.framework in Embed Frameworks */,
-				546D087D1D21B27E00EBB95A /* libgpkgios.framework in Embed Frameworks */,
-				546D087E1D21B27E00EBB95A /* ReactiveCocoa.framework in Embed Frameworks */,
-				546D087F1D21B27E00EBB95A /* wkb_ios.framework in Embed Frameworks */,
-				546D08801D21B27E00EBB95A /* ZipZap.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,23 +233,14 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		5403ECDA1CCED8EE00A56D23 /* all.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = all.geojson; path = SCMobile/all.geojson; sourceTree = "<group>"; };
 		5403ECDB1CCED8EE00A56D23 /* tests.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = tests.scfg; path = SCMobile/tests.scfg; sourceTree = "<group>"; };
+		540F8B091E52336C0082F908 /* RNSpatialConnect.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSpatialConnect.xcodeproj; path = "../node_modules/react-native-spatialconnect/ios/RNSpatialConnect.xcodeproj"; sourceTree = "<group>"; };
 		5418A5EF1DA3EC2F00F6B7AD /* EFC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = EFC.entitlements; path = SCMobile/EFC.entitlements; sourceTree = "<group>"; };
 		543E8AE91D2EDB4F009FE68F /* simple.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = simple.geojson; path = SCMobile/simple.geojson; sourceTree = "<group>"; };
 		545E9F3F1D53CEDB000C4190 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
-		546D08791D21B27E00EBB95A /* libgpkgios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libgpkgios.framework; path = Carthage/Build/iOS/libgpkgios.framework; sourceTree = "<group>"; };
-		546D087A1D21B27E00EBB95A /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
-		546D087B1D21B27E00EBB95A /* wkb_ios.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = wkb_ios.framework; path = Carthage/Build/iOS/wkb_ios.framework; sourceTree = "<group>"; };
-		546D087C1D21B27E00EBB95A /* ZipZap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZipZap.framework; path = Carthage/Build/iOS/ZipZap.framework; sourceTree = "<group>"; };
-		546D088B1D21B38400EBB95A /* SpatialConnect.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpatialConnect.framework; path = Carthage/Build/iOS/SpatialConnect.framework; sourceTree = "<group>"; };
 		547F13971CF780ED0028EFF1 /* remote.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = remote.scfg; sourceTree = "<group>"; };
 		54AEC2D31E3B9C6E00D469F1 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		54AEC3241E4A612800D469F1 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		54B1E4FA1D05FBCB00EEB033 /* SCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCBridge.h; path = SCMobile/SCBridge.h; sourceTree = "<group>"; };
-		54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCBridge.m; path = SCMobile/SCBridge.m; sourceTree = "<group>"; };
-		54B3A86D1DB90257000F9526 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/iOS/CocoaLumberjack.framework; sourceTree = "<group>"; };
 		54B470B41D4A69FE0084C642 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
-		568849DB1D65F19A00D90A58 /* MQTTFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MQTTFramework.framework; path = Carthage/Build/iOS/MQTTFramework.framework; sourceTree = "<group>"; };
-		56AA58031D3D65A400670AB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		56AA58051D3D65CD00670AB7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -274,6 +258,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				540F8B0F1E5233850082F908 /* libRNSpatialConnect.a in Frameworks */,
 				545E9F451D53CEE4000C4190 /* libAirMaps.a in Frameworks */,
 				54AEC2EF1E3B9C9C00D469F1 /* libRCTAnimation.a in Frameworks */,
 				54B470BA1D4A6A030084C642 /* libRNImagePicker.a in Frameworks */,
@@ -386,8 +371,6 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				547F13971CF780ED0028EFF1 /* remote.scfg */,
-				54B1E4FA1D05FBCB00EEB033 /* SCBridge.h */,
-				54B1E4FB1D05FBCB00EEB033 /* SCBridge.m */,
 				54AEC3241E4A612800D469F1 /* Ionicons.ttf */,
 			);
 			name = SCMobile;
@@ -398,6 +381,14 @@
 			children = (
 				146834041AC3E56700842450 /* libReact.a */,
 				54AEC2AD1E3AA6BE00D469F1 /* libReact-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		540F8B0A1E52336C0082F908 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				540F8B0E1E52336C0082F908 /* libRNSpatialConnect.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -439,6 +430,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				540F8B091E52336C0082F908 /* RNSpatialConnect.xcodeproj */,
 				545E9F3F1D53CEDB000C4190 /* AirMaps.xcodeproj */,
 				54B470B41D4A69FE0084C642 /* RNImagePicker.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -468,14 +460,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				54B3A86D1DB90257000F9526 /* CocoaLumberjack.framework */,
-				568849DB1D65F19A00D90A58 /* MQTTFramework.framework */,
-				56AA58031D3D65A400670AB7 /* Crashlytics.framework */,
-				546D088B1D21B38400EBB95A /* SpatialConnect.framework */,
-				546D08791D21B27E00EBB95A /* libgpkgios.framework */,
-				546D087A1D21B27E00EBB95A /* ReactiveCocoa.framework */,
-				546D087B1D21B27E00EBB95A /* wkb_ios.framework */,
-				546D087C1D21B27E00EBB95A /* ZipZap.framework */,
 				56AA58051D3D65CD00670AB7 /* Crashlytics.framework */,
 				13B07FAE1A68108700A75B9A /* SCMobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -524,9 +508,9 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				547F13861CF7699D0028EFF1 /* Embed Frameworks */,
-				569C04281CFFB14200FFAE3F /* ShellScript */,
 				56AA58021D3D655B00670AB7 /* ShellScript */,
+				54AEC42C1E51FAC500D469F1 /* Embed Frameworks */,
+				540F8AD81E51FEA00082F908 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -625,6 +609,10 @@
 					ProductGroup = 54B470B51D4A69FE0084C642 /* Products */;
 					ProjectRef = 54B470B41D4A69FE0084C642 /* RNImagePicker.xcodeproj */;
 				},
+				{
+					ProductGroup = 540F8B0A1E52336C0082F908 /* Products */;
+					ProjectRef = 540F8B091E52336C0082F908 /* RNSpatialConnect.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -689,6 +677,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		540F8B0E1E52336C0082F908 /* libRNSpatialConnect.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSpatialConnect.a;
+			remoteRef = 540F8B0D1E52336C0082F908 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		545E9F441D53CEDB000C4190 /* libAirMaps.a */ = {
@@ -823,25 +818,27 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
-		569C04281CFFB14200FFAE3F /* ShellScript */ = {
+		540F8AD81E51FEA00082F908 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/ReactiveCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/libgpkgios.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/ZipZap.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/wkb_ios.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SpatialConnect.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/MQTTFramework.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CocoaLumberjack.framework",
+				"$(SRCROOT)/../node_modules/react-native-spatialconnect/iOS/Carthage/Build/iOS/ReactiveCocoa.framework",
+				"$(SRCROOT)/../node_modules/react-native-spatialconnect/iOS/Carthage/Build/iOS/SpatialConnect.framework",
+				"$(SRCROOT)/../node_modules/react-native-spatialconnect/iOS/Carthage/Build/iOS/wkb_ios.framework",
+				"$(SRCROOT)/../node_modules/react-native-spatialconnect/iOS/Carthage/Build/iOS/JWT.framework",
+				"$(SRCROOT)/../node_modules/react-native-spatialconnect/iOS/Carthage/Build/iOS/libgpkgios.framework",
+				"$(SRCROOT)/../node_modules/react-native-spatialconnect/iOS/Carthage/Build/iOS/MQTTFramework.framework",
+				"$(SRCROOT)/../node_modules/react-native-spatialconnect/iOS/Carthage/Build/iOS/proj4.framework",
+				"$(SRCROOT)/../node_modules/react-native-spatialconnect/iOS/Carthage/Build/iOS/ZipZap.framework",
+				"$(SRCROOT)/../node_modules/react-native-spatialconnect/iOS/Carthage/Build/iOS/CocoaLumberjack.framework",
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 		56AA58021D3D655B00670AB7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -871,7 +868,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54B1E4FC1D05FBCB00EEB033 /* SCBridge.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -936,6 +932,7 @@
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -950,15 +947,14 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
+					"$(SRCROOT)/../node_modules/react-native-spatialconnect/ios/Carthage/Build/iOS/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(PROJECT_DIR)/include/**",
-					"$(SRCROOT)/../node_modules/react-native-maps/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 				);
 				INFOPLIST_FILE = SCMobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -987,6 +983,7 @@
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -1000,15 +997,14 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
+					"$(SRCROOT)/../node_modules/react-native-spatialconnect/ios/Carthage/Build/iOS/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(PROJECT_DIR)/include/**",
-					"$(SRCROOT)/../node_modules/react-native-maps/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 				);
 				INFOPLIST_FILE = SCMobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;

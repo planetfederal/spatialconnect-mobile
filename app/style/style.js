@@ -31,7 +31,6 @@ export const cellStyles = StyleSheet.create({
     flex: 1,
   },
   cellName: {
-    flex: 1,
     fontSize: 18,
     fontWeight: '500',
     marginBottom: 2,

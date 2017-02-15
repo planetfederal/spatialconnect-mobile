@@ -5,7 +5,7 @@ import {
   Text,
 } from 'react-native';
 import should from 'should';
-import * as sc from 'spatialconnect/native';
+import * as sc from 'react-native-spatialconnect';
 
 const properties = { team: 'foo', why: 'bar' };
 

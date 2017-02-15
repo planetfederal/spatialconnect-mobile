@@ -1,4 +1,4 @@
-import * as sc from 'spatialconnect/native';
+import * as sc from 'react-native-spatialconnect';
 import Rx from 'rx';
 import { Platform, PermissionsAndroid } from 'react-native';
 
@@ -37,6 +37,7 @@ export default (state = initialState, action) => {
 };
 
 export const connectSC = (store) => {
+  sc.addConfigFilepath('remote.scfg');
   sc.startAllServices();
   sc.backendUri$().subscribe(store.dispatch);
   sc.loginStatus$().subscribe((action) => {

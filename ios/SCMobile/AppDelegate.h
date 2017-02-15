@@ -8,14 +8,12 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <SpatialConnect/SpatialConnect.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
-  SpatialConnect *sc;
+
 }
 
 @property (nonatomic, strong) UIWindow *window;
 
-- (SpatialConnect*)spatialConnectSharedInstance;
 
 @end

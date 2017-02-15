@@ -4,7 +4,7 @@ import {
   RefreshControl,
   View,
 } from 'react-native';
-import * as sc from 'spatialconnect/native';
+import * as sc from 'react-native-spatialconnect';
 import FormCell from './FormCell';
 import { listStyles } from '../style/style';
 
