@@ -8,7 +8,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
-import com.boundlessgeo.spatialconnect.jsbridge.SCReactPackage;
+import com.boundlessgeo.spatialconnect.jsbridge.RNSpatialConnectPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 
@@ -29,7 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
                     new MainReactPackage(),
                     new ImagePickerPackage(),
                     new MapsPackage(),
-                    new SCReactPackage()
+                    new RNSpatialConnectPackage()
             );
         }
     };
