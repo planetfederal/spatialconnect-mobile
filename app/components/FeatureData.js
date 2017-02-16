@@ -1,23 +1,23 @@
 import React, { Component, PropTypes } from 'react';
 import {
-  Button,
+  Text,
+  TouchableHighlight,
   InteractionManager,
   ScrollView,
 } from 'react-native';
 import { find } from 'lodash';
 import Property from './Property';
-import { propertyListStyles } from '../style/style';
+import { propertyListStyles, routerStyles } from '../style/style';
 
 class FeatureData extends Component {
   static navigationOptions = {
     header: (nav, defaultHeader) => {
       return nav.state.params.editable ? ({
         ...defaultHeader,
-        right: (<Button
-          color={'white'}
-          title={'Edit'}
-          onPress={() => nav.navigate('editFeature', { feature: nav.state.params.feature })}
-        />),
+        right: (<TouchableHighlight
+          onPress={() => nav.navigate('editFeature', { feature: nav.state.params.feature })} >
+          <Text style={routerStyles.buttonTextStyle}>Edit</Text>
+        </TouchableHighlight>),
       }) : defaultHeader;
     },
   }
