@@ -104,8 +104,11 @@ class SCMap extends Component {
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({ renderPlaceholderOnly: false }, () => {
-        sc.addRasterLayers(this.props.activeStores);
-        sc.bindMapView(findNodeHandle(this.scMap));
+        sc.bindMapView(findNodeHandle(this.scMap), (error) => {
+          if (!error) {
+            sc.addRasterLayers(this.props.activeStores);
+          }
+        });
       });
       this.regionChangeComplete$ = new Rx.Subject();
       this.regionChangeComplete$

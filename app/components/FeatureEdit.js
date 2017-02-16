@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {
-  Button,
+  TouchableHighlight,
   InteractionManager,
   ScrollView,
   StyleSheet,
@@ -20,6 +20,7 @@ import turfPoint from 'turf-point';
 import * as mapActions from '../ducks/map';
 import * as mapUtils from '../utils/map';
 import palette from '../style/palette';
+import { routerStyles } from '../style/style';
 
 const Form = t.form.Form;
 
@@ -85,11 +86,10 @@ class FeatureEdit extends Component {
       return nav.state.params.onRight ? ({
         ...defaultHeader,
         title: 'Edit Feature',
-        right: (<Button
-          color={'white'}
-          title={'Save'}
-          onPress={nav.state.params.onRight}
-        />),
+        right: (<TouchableHighlight
+          onPress={nav.state.params.onRight}>
+          <Text style={routerStyles.buttonTextStyle}>Save</Text>
+        </TouchableHighlight>),
       }) : defaultHeader;
     },
   }

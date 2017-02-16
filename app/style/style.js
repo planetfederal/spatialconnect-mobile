@@ -153,6 +153,8 @@ export const routerStyles = StyleSheet.create({
   },
   buttonTextStyle: {
     color: 'white',
+    fontWeight: 'bold',
+    paddingRight: 10,
   },
   icon: {
     tintColor: 'green',
