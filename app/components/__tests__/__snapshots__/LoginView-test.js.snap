@@ -2,7 +2,7 @@ exports[`<LoginView /> renders correctly 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "white",
+      "backgroundColor": "#f0f1f4",
       "flex": 1,
       "justifyContent": "flex-start",
       "marginTop": 0,
@@ -11,7 +11,7 @@ exports[`<LoginView /> renders correctly 1`] = `
   <View
     style={
       Object {
-        "backgroundColor": "#f0f1f4",
+        "backgroundColor": "white",
         "borderBottomWidth": 1,
         "borderColor": "#e4e7ec",
         "padding": 20,
@@ -174,12 +174,12 @@ exports[`<LoginView /> renders correctly 1`] = `
           "alignSelf": "stretch",
           "backgroundColor": "#35507D",
           "borderColor": "#35507D",
-          "borderRadius": 5,
+          "borderRadius": 2,
           "borderWidth": 1,
-          "height": 36,
+          "height": 46,
           "justifyContent": "center",
-          "margin": 0,
           "marginBottom": 10,
+          "marginTop": 10,
           "opacity": 1,
           "padding": 5,
         }

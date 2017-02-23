@@ -11,12 +11,10 @@ import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
 import scformschema from 'spatialconnect-form-schema/native';
 import * as sc from 'react-native-spatialconnect';
+import PlaceHolder from './PlaceHolder';
 import palette from '../style/palette';
 import { buttonStyles } from '../style/style';
 
-tcomb.form.Form.stylesheet.textbox.normal.backgroundColor = '#ffffff';
-tcomb.form.Form.stylesheet.textbox.error.backgroundColor = '#ffffff';
-tcomb.form.Form.stylesheet.helpBlock.normal.fontSize = 12;
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
@@ -28,6 +26,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     justifyContent: 'center',
     flexDirection: 'column',
+    backgroundColor: palette.lightgray,
   },
   success: {
     flex: 1,
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   form: {
-    backgroundColor: palette.lightgray,
+    backgroundColor: 'white',
     padding: 20,
     borderColor: palette.gray,
     borderBottomWidth: 1,
@@ -128,7 +127,7 @@ class SCForm extends Component {
 
   render() {
     if (this.state.renderPlaceholderOnly) {
-      return <View />;
+      return <PlaceHolder />;
     }
     return (
       <View style={styles.container}>

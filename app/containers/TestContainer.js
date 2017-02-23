@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import {
   View,
+  Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 import * as testActions from '../ducks/tests';
 import SCTest from '../components/SCTest';
 import { navStyles } from '../style/style';
@@ -14,6 +16,14 @@ class TestContainer extends Component {
     title: 'Tests',
     drawer: () => ({
       label: 'Tests',
+      icon: () => (
+        <Icon
+          name={Platform.OS === 'ios' ? 'ios-build-outline' : 'md-build'}
+          size={30}
+          color="#fff"
+          style={{ paddingRight: 10 }}
+        />
+      ),
     }),
     header: (navigation, defaultHeader) => ({
       ...defaultHeader,

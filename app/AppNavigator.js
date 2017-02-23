@@ -5,6 +5,7 @@ import {
   StackNavigator,
   addNavigationHelpers,
 } from 'react-navigation';
+import t from 'tcomb-form-native';
 import FormContainer from './containers/FormContainer';
 import SCForm from './components/SCForm';
 import StoreContainer from './containers/StoreContainer';
@@ -19,6 +20,12 @@ import SignUpView from './components/SignUpView';
 import SplashScreen from './components/SplashScreen';
 import TestContainer from './containers/TestContainer';
 import { routerStyles } from './style/style';
+
+t.form.Form.stylesheet.textbox.normal.borderRadius = 2;
+t.form.Form.stylesheet.textbox.error.borderRadius = 2;
+t.form.Form.stylesheet.textbox.normal.backgroundColor = '#ffffff';
+t.form.Form.stylesheet.textbox.error.backgroundColor = '#ffffff';
+t.form.Form.stylesheet.helpBlock.normal.fontSize = 12;
 
 const navigationOptions = {
   header: {

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import {
-  TouchableHighlight,
   InteractionManager,
   ScrollView,
   StyleSheet,
@@ -21,6 +20,7 @@ import * as mapActions from '../ducks/map';
 import * as mapUtils from '../utils/map';
 import palette from '../style/palette';
 import { routerStyles } from '../style/style';
+import PlaceHolder from './PlaceHolder';
 
 const Form = t.form.Form;
 
@@ -28,8 +28,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 0,
-    padding: 10,
+    padding: 0,
     backgroundColor: palette.gray,
+  },
+  form: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderColor: palette.gray,
+    borderBottomWidth: 1,
   },
   subheader: {
     fontWeight: 'bold',
@@ -86,10 +92,10 @@ class FeatureEdit extends Component {
       return nav.state.params.onRight ? ({
         ...defaultHeader,
         title: 'Edit Feature',
-        right: (<TouchableHighlight
+        right: (<TouchableOpacity
           onPress={nav.state.params.onRight}>
           <Text style={routerStyles.buttonTextStyle}>Save</Text>
-        </TouchableHighlight>),
+        </TouchableOpacity>),
       }) : defaultHeader;
     },
   }
@@ -315,12 +321,14 @@ class FeatureEdit extends Component {
 
   render() {
     if (this.state.renderPlaceholderOnly) {
-      return <View />;
+      return <PlaceHolder />;
     }
     return (
       <ScrollView style={styles.container}>
-        {this.state.value ? this.renderForm() : null }
-        {this.state.coordinates ? this.renderMap() : null }
+        <View style={styles.form}>
+          {this.state.value ? this.renderForm() : null }
+          {this.state.coordinates ? this.renderMap() : null }
+        </View>
       </ScrollView>
     );
   }

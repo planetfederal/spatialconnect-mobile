@@ -16,28 +16,10 @@ export default (state, action) => {
       });
       return AppNavigator.router.getStateForAction(resetAction, state);
     }
-    // not authenticated, navigate to login page
-    const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [
-        NavigationActions.navigate({
-          routeName: 'login',
-        }),
-      ],
+    const resetAction = NavigationActions.navigate({
+      routeName: 'login',
     });
     return AppNavigator.router.getStateForAction(resetAction, state);
-  }
-  // add login route to stack
-  if (action.type === 'LOGOUT') {
-    const routes = [
-      ...state.routes,
-      { key: 'login', routeName: 'login' },
-    ];
-    return {
-      ...state,
-      routes,
-      index: routes.length - 1,
-    };
   }
   return AppNavigator.router.getStateForAction(action, state);
 };

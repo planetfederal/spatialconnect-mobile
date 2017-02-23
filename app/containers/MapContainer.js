@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import {
   View,
+  Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Drawer from 'react-native-drawer';
+import Icon from 'react-native-vector-icons/Ionicons';
 import * as mapActions from '../ducks/map';
 import SCMap from '../components/SCMap';
 import { navStyles } from '../style/style';
@@ -17,6 +19,14 @@ class MapContainer extends Component {
     title: 'Map',
     drawer: () => ({
       label: 'Map',
+      icon: () => (
+        <Icon
+          name={Platform.OS === 'ios' ? 'ios-map-outline' : 'md-map'}
+          size={30}
+          color="#fff"
+          style={{ paddingRight: 10 }}
+        />
+      ),
     }),
     header: (navigation, defaultHeader) => ({
       ...defaultHeader,
