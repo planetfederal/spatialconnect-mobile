@@ -47,13 +47,13 @@ export const cellStyles = StyleSheet.create({
     color: palette.HELP_COLOR,
   },
   cellDetailsRed: {
-    color: Color(palette.red).desaturate(0.7).clearer(0).rgbString(),
+    color: Color(palette.red).desaturate(0.7).fade(0).rgb().string(),
   },
   cellDetailsOrange: {
-    color: Color(palette.orange).desaturate(0.7).clearer(0).rgbString(),
+    color: Color(palette.orange).desaturate(0.7).fade(0).rgb().string(),
   },
   cellDetailsGreen: {
-    color: Color(palette.green).desaturate(0.7).clearer(0).rgbString(),
+    color: Color(palette.green).desaturate(0.7).fade(0).rgb().string(),
   },
 });
 

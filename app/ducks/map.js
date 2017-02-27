@@ -3,7 +3,7 @@ import { findIndex } from 'lodash';
 import * as sc from 'react-native-spatialconnect';
 import * as mapUtils from '../utils/map';
 
-const MAX_FEATURES = 100;
+const MAX_FEATURES = 500;
 
 const initialState = {
   activeStores: [],
