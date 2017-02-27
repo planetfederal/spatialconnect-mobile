@@ -275,7 +275,7 @@ class SCMap extends Component {
                 <MapView.Polyline
                   key={`line.${l.feature.id}.${idx += 1}`}
                   coordinates={l.coordinates}
-                  strokeColor={Color(style.strokeColor).fade(style.strokeOpacity).rgb.string()}
+                  strokeColor={Color(style.strokeColor).fade(1 - +style.strokeOpacity).rgb().string()}
                   strokeWidth={+style.strokeWidth}
                   onPress={() => {
                     this.props.navigation.navigate('viewFeature', {
