@@ -129,13 +129,13 @@ class SideMenu extends Component {
       activeBackgroundColor,
       inactiveTintColor,
       inactiveBackgroundColor,
-      getLabelText,
+      getLabel,
       renderIcon } = this.props;
     return navigation.state.routes.map((route, index) => {
       const focused = navigation.state.index === index;
       const color = focused ? activeTintColor : inactiveTintColor;
       const scene = { route, index, focused, tintColor: color };
-      const label = getLabelText(scene);
+      const label = getLabel(scene);
       const icon = renderIcon(scene);
       return (
         <SideMenuButton
