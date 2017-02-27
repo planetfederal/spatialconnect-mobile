@@ -62,7 +62,7 @@ export const navStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     marginTop: 0,
-    backgroundColor: 'white',
+    backgroundColor: palette.lightgray,
   },
 });
 
@@ -73,13 +73,13 @@ export const buttonStyles = StyleSheet.create({
     alignSelf: 'center',
   },
   button: {
-    height: 36,
+    height: 46,
     backgroundColor: palette.lightblue,
     borderColor: palette.lightblue,
     borderWidth: 1,
-    borderRadius: 5,
-    margin: 0,
+    borderRadius: 2,
     padding: 5,
+    marginTop: 10,
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -155,12 +155,6 @@ export const routerStyles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     paddingRight: 10,
-  },
-  icon: {
-    tintColor: 'green',
-    backgroundColor: 'red',
-    width: 25,
-    height: 25,
   },
   layersIcon: {
     right: 10,

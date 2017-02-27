@@ -16,7 +16,7 @@ const Form = t.form.Form;
 
 const styles = StyleSheet.create({
   form: {
-    backgroundColor: palette.lightgray,
+    backgroundColor: 'white',
     padding: 20,
     borderColor: palette.gray,
     borderBottomWidth: 1,
@@ -57,7 +57,9 @@ export class LoginView extends Component {
       title: 'Expedited Field Capability',
       style: routerStyles.navBar,
       tintColor: 'white',
+      left: null,
     }),
+    cardStack: { gesturesEnabled: false },
   };
 
   constructor(props) {

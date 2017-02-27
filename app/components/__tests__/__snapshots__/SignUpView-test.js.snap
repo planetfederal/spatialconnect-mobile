@@ -2,7 +2,7 @@ exports[`<SignUpView /> renders correctly 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "white",
+      "backgroundColor": "#f0f1f4",
       "flex": 1,
       "justifyContent": "flex-start",
       "marginTop": 0,
@@ -237,12 +237,12 @@ exports[`<SignUpView /> renders correctly 1`] = `
             "alignSelf": "stretch",
             "backgroundColor": "#35507D",
             "borderColor": "#35507D",
-            "borderRadius": 5,
+            "borderRadius": 2,
             "borderWidth": 1,
-            "height": 36,
+            "height": 46,
             "justifyContent": "center",
-            "margin": 0,
             "marginBottom": 10,
+            "marginTop": 10,
             "opacity": 1,
             "padding": 5,
           }
@@ -282,7 +282,7 @@ exports[`<SignUpView /> shows sign up error 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "white",
+      "backgroundColor": "#f0f1f4",
       "flex": 1,
       "justifyContent": "flex-start",
       "marginTop": 0,
@@ -535,12 +535,12 @@ exports[`<SignUpView /> shows sign up error 1`] = `
             "alignSelf": "stretch",
             "backgroundColor": "#35507D",
             "borderColor": "#35507D",
-            "borderRadius": 5,
+            "borderRadius": 2,
             "borderWidth": 1,
-            "height": 36,
+            "height": 46,
             "justifyContent": "center",
-            "margin": 0,
             "marginBottom": 10,
+            "marginTop": 10,
             "opacity": 1,
             "padding": 5,
           }

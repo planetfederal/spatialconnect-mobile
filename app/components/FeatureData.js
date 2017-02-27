@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import {
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   InteractionManager,
   ScrollView,
 } from 'react-native';
@@ -14,10 +14,10 @@ class FeatureData extends Component {
     header: (nav, defaultHeader) => {
       return nav.state.params.editable ? ({
         ...defaultHeader,
-        right: (<TouchableHighlight
+        right: (<TouchableOpacity
           onPress={() => nav.navigate('editFeature', { feature: nav.state.params.feature })} >
           <Text style={routerStyles.buttonTextStyle}>Edit</Text>
-        </TouchableHighlight>),
+        </TouchableOpacity>),
       }) : defaultHeader;
     },
   }

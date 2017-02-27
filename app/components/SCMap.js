@@ -17,6 +17,7 @@ import turfLinestring from 'turf-linestring';
 import * as map from '../utils/map';
 import palette from '../style/palette';
 import CreateMenu from './CreateMenu';
+import PlaceHolder from './PlaceHolder';
 
 const crosshairIcon = require('../img/crosshair.png');
 
@@ -200,7 +201,7 @@ class SCMap extends Component {
 
   render() {
     if (this.state.renderPlaceholderOnly) {
-      return <View />;
+      return <PlaceHolder />;
     }
     let idx = 0;
     return (

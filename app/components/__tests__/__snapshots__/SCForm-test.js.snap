@@ -1,1 +1,22 @@
-exports[`<SCForm /> renders correctly - Baseball Team 1`] = `<View />`;
+exports[`<SCForm /> renders correctly - Baseball Team 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "flexDirection": "column",
+      "justifyContent": "center",
+      "marginTop": 0,
+    }
+  }>
+  <ActivityIndicator
+    animating={true}
+    color="#999999"
+    hidesWhenStopped={true}
+    size="small"
+    style={
+      Object {
+        "height": 80,
+      }
+    } />
+</View>
+`;

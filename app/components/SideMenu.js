@@ -4,8 +4,10 @@ import {
   StyleSheet,
   Text,
   View,
+  Platform,
 } from 'react-native';
 import Button from 'react-native-button';
+import Icon from 'react-native-vector-icons/Ionicons';
 import palette from '../style/palette';
 
 const efcIcon = require('../img/efc_app_87.png');
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
   navBtn: {
     color: palette.lightgray,
     textAlign: 'left',
-    paddingLeft: 10,
+    paddingLeft: 15,
   },
   navBtnContainer: {
     paddingTop: 10,
@@ -79,15 +81,36 @@ const styles = StyleSheet.create({
     width: 20,
     marginLeft: 10,
   },
+  sideMenu: {
+    flexDirection: 'row',
+  },
+  sideMenuTextWrap: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sideMenuText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  sideMenuIcon: {
+    marginLeft: 10,
+    width: 35,
+  },
 });
 
-const SideMenuButton = ({ text, onPress, active }) => (
+const SideMenuButton = ({ text, icon, onPress, active }) => (
   <Button
     style={styles.navBtn}
     containerStyle={[styles.navBtnContainer, active && styles.navBtnContainerActive]}
     onPress={onPress}
   >
-    {text}
+    <View style={styles.sideMenu}>
+      <View style={styles.sideMenuIcon}>{icon}</View>
+      <View style={styles.sideMenuTextWrap}>
+        <Text style={styles.sideMenuText}>{text}</Text>
+      </View>
+    </View>
   </Button>
 );
 
@@ -98,30 +121,6 @@ SideMenuButton.propTypes = {
 };
 
 class SideMenu extends Component {
-
-  renderLogin() {
-    const { navigation } = this.props;
-    return (
-      <View style={styles.navBtns}>
-        <SideMenuButton
-          active={false}
-          text="Login"
-          onPress={() => {
-            navigation.navigate('DrawerClose');
-            navigation.navigate('login');
-          }}
-        />
-        <SideMenuButton
-          active={false}
-          text="Sign Up"
-          onPress={() => {
-            navigation.navigate('DrawerClose');
-            navigation.navigate('signUp');
-          }}
-        />
-      </View>
-    );
-  }
 
   renderRoutes() {
     const {
@@ -137,10 +136,12 @@ class SideMenu extends Component {
       const color = focused ? activeTintColor : inactiveTintColor;
       const scene = { route, index, focused, tintColor: color };
       const label = getLabelText(scene);
+      const icon = renderIcon(scene);
       return (
         <SideMenuButton
           active={focused}
           text={label}
+          icon={icon}
           key={route.key}
           onPress={() => {
             navigation.navigate('DrawerClose');
@@ -162,7 +163,7 @@ class SideMenu extends Component {
           <View style={styles.titleWrap}>
             <Image source={efcIcon} style={styles.icon} />
             <View style={styles.titleInner}>
-              <Text style={styles.title}>Expedited Field Capability</Text>
+              <Text style={styles.title}>EFC</Text>
             </View>
           </View>
           {auth.isAuthenticated ?
@@ -170,6 +171,12 @@ class SideMenu extends Component {
               {this.renderRoutes()}
               <SideMenuButton
                 active={false} text="Sign Out"
+                icon={<Icon
+                  name={Platform.OS === 'ios' ? 'ios-log-out' : 'md-log-out'}
+                  size={30}
+                  color="#fff"
+                  style={{ paddingRight: 10 }}
+                />}
                 onPress={() => {
                   this.props.navigation.navigate('DrawerClose');
                   actions.logout();

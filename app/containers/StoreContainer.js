@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 import StoreList from '../components/StoreList';
 import { navStyles } from '../style/style';
 import MenuButton from '../components/MenuButton';
@@ -10,6 +11,14 @@ class StoreContainer extends Component {
     title: 'Stores',
     drawer: () => ({
       label: 'Stores',
+      icon: () => (
+        <Icon
+          name={Platform.OS === 'ios' ? 'ios-cube-outline' : 'md-cube'}
+          size={30}
+          color="#fff"
+          style={{ paddingRight: 10 }}
+        />
+      ),
     }),
     header: (navigation, defaultHeader) => {
       return {
