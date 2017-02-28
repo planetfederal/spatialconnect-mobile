@@ -14,7 +14,7 @@ import { isEqual, find } from 'lodash';
 import turfPoint from 'turf-point';
 import turfPolygon from 'turf-polygon';
 import turfLinestring from 'turf-linestring';
-import * as map from '../utils/map';
+import * as mapUtils from '../utils/map';
 import palette from '../style/palette';
 import CreateMenu from './CreateMenu';
 import PlaceHolder from './PlaceHolder';
@@ -116,7 +116,7 @@ class SCMap extends Component {
         .throttle(2000)
         .subscribe(() => {
           if (!this.state.creating) {
-            this.props.actions.queryStores(map.regionToBbox(this.region));
+            this.props.actions.queryStores(mapUtils.regionToBbox(this.region));
           }
         });
     });
@@ -125,7 +125,7 @@ class SCMap extends Component {
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.activeStores, nextProps.activeStores)) {
       sc.addRasterLayers(nextProps.activeStores);
-      this.props.actions.queryStores(map.regionToBbox(this.region));
+      this.props.actions.queryStores(mapUtils.regionToBbox(this.region));
     }
   }
 
@@ -230,7 +230,7 @@ class SCMap extends Component {
             onRegionChangeComplete={this.onRegionChangeComplete}
           >
             {this.props.overlays.points.map((point) => {
-              const style = this.getStyle(point);
+              const style = mapUtils.getStyle(this.props.stores, point.feature);
               return (<MapView.Marker
                 coordinate={point.latlng}
                 title={point.title}
@@ -252,7 +252,7 @@ class SCMap extends Component {
               />);
             })}
             {this.props.overlays.polygons.map((p) => {
-              const style = this.getStyle(p);
+              const style = mapUtils.getStyle(this.props.stores, p.feature);
               return (
                 <MapView.Polygon
                   key={`polygon.${p.feature.id}.${idx += 1}`}
@@ -270,7 +270,7 @@ class SCMap extends Component {
               );
             })}
             {this.props.overlays.lines.map((l) => {
-              const style = this.getStyle(l);
+              const style = mapUtils.getStyle(this.props.stores, l.feature);
               return (
                 <MapView.Polyline
                   key={`line.${l.feature.id}.${idx += 1}`}

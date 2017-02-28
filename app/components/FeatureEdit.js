@@ -257,6 +257,8 @@ class FeatureEdit extends Component {
   }
 
   renderMap() {
+    const feature = this.props.navigation.state.params.feature;
+    const style = mapUtils.getStyle(this.props.stores, feature);
     return (
       <View>
         <Text style={styles.label}>Geometry</Text>
@@ -303,14 +305,16 @@ class FeatureEdit extends Component {
             {this.state.polygon ?
               <MapView.Polygon
                 coordinates={this.state.polygon}
-                fillColor={Color(palette.red).clearer(0.7).rgbString()}
-                strokeColor={palette.red}
+                fillColor={Color(style.fillColor).fade(1 - +style.fillOpacity).rgb().string()}
+                strokeColor={Color(style.strokeColor).fade(1 - +style.strokeOpacity).rgb().string()}
+                strokeWidth={+style.strokeWidth}
               /> : null
             }
             {this.state.polyline ?
               <MapView.Polyline
                 coordinates={this.state.polyline}
-                strokeColor={palette.red}
+                strokeColor={Color(style.strokeColor).fade(1 - +style.strokeOpacity).rgb().string()}
+                strokeWidth={+style.strokeWidth}
               /> : null
             }
           </MapView>
@@ -337,9 +341,12 @@ class FeatureEdit extends Component {
 FeatureEdit.propTypes = {
   navigation: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
+  stores: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  stores: state.sc.stores,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(mapActions, dispatch),

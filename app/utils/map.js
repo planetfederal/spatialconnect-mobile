@@ -3,7 +3,7 @@ import turfDistance from 'turf-distance';
 import turfPoint from 'turf-point';
 import turfPolygon from 'turf-polygon';
 import turfLinestring from 'turf-linestring';
-import { merge } from 'lodash';
+import { merge, find, get, defaults } from 'lodash';
 
 export const makeCoordinates = feature => {
   const makePoint = c => {
@@ -94,6 +94,25 @@ export const overlayToGeojson = (feature, newProps, newCoordinates) => {
     newFeature = turfLinestring(coords, props);
   }
   return merge({}, feature, newFeature);
+};
+
+export const getStyle = (stores, feature) => {
+  const defaultStyle = {
+    fillColor: '#ff0000',
+    fillOpacity: '0.5',
+    strokeColor: '#ff0000',
+    strokeOpacity: '1',
+    strokeWidth: '3',
+  };
+  let storeStyle = {};
+  const storeId = get(feature, 'metadata.storeId', false);
+  if (storeId) {
+    const store = find(stores, { storeId });
+    if (store && store.style) {
+      storeStyle = store.style;
+    }
+  }
+  return defaults({}, storeStyle, defaultStyle);
 };
 
 // export default map;
