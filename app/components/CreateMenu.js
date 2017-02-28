@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50,
-    backgroundColor: Color(palette.lightblue).clearer(0.5).hexString(),
+    backgroundColor: Color(palette.lightblue).fade(0.8).rgb().string(),
     position: 'absolute',
     bottom: 0,
     right: 0,
