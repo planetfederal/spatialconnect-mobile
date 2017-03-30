@@ -35,7 +35,7 @@
     "react-native-image-picker": "^0.22.9",
     "react-native-maps": "file:../react-native-maps",
     "react-native-slider": "^0.8.0",
-    "react-native-spatialconnect": "0.9.4",
+    "react-native-spatialconnect": "^0.9.5",
     "react-native-vector-icons": "4.0.0",
     "react-navigation": "1.0.0-beta.6",
     "react-redux": "4.4.5",
