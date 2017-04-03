@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import <React/AppDelegate.h>
+#import "AppDelegate.h"
 #import <React/RCTRootView.h>
 #import <React/RCTBundleURLProvider.h>
 #import <Crashlytics/Crashlytics.h>
