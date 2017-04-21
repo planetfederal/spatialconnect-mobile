@@ -1,2 +1,1 @@
-ios/remote.scfg merge=ours
-android/app/src/main/res/raw/config.scfg merge=ours
+*.pbxproj -text

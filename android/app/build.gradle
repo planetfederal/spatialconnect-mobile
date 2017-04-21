@@ -1,12 +1,5 @@
 apply plugin: "com.android.application"
-apply plugin: 'io.fabric'
 
-repositories {
-  maven { url 'https://maven.fabric.io/public' }
-  maven {
-        url "https://repo.eclipse.org/content/repositories/paho-releases/"
-    }
-}
 import com.android.build.OutputFile
 
 /**
@@ -62,16 +55,17 @@ import com.android.build.OutputFile
  *   // date; if you have any other folders that you want to ignore for performance reasons (gradle
  *   // indexes the entire tree), add them here. Alternatively, if you have JS files in android/
  *   // for example, you might want to remove it from here.
- *   inputExcludes: ["android/**", "ios/**"]
+ *   inputExcludes: ["android/**", "ios/**"],
+ *
+ *   // override which node gets called and with what additional arguments
+ *   nodeExecutableAndArgs: ["node"]
+ *
+ *   // supply additional arguments to the packager
+ *   extraPackagerArgs: []
  * ]
  */
 
-project.ext.vectoricons = [
-    iconFontNames: [ 'Ionicons.ttf' ] // Name of the font files you want to copy
-]
-
 apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -88,38 +82,19 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
-def generatedVersionCode = 4
-
 android {
-    compileSdkVersion 25
-    buildToolsVersion "23.0.2"
-
-    //method used to increment version code on assembleRelease
-    ext.incrementVersionCode = {
-      def versionPropsFile = file('version.properties')
-      def increaseBy = 1
-      if (versionPropsFile.canRead()) {
-        def Properties versionProps = new Properties()
-        versionProps.load(new FileInputStream(versionPropsFile))
-        generatedVersionCode = versionProps['VERSION_CODE'].toInteger() + increaseBy
-        println(":incrementVersionCode - Incrementing Version Code...")
-        versionProps['VERSION_CODE'] = generatedVersionCode.toString()
-        versionProps.store(versionPropsFile.newWriter(), null)
-      } else {
-            throw new GradleException("Could not read version.properties!")
-      }
-    }
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.boundlessgeo.efc"
+        applicationId "com.scmobile"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode generatedVersionCode
-        versionName "1.8.0"
+        versionCode 1
+        versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        multiDexEnabled true
     }
     splits {
         abi {
@@ -129,19 +104,10 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
-    signingConfigs {
-        release {
-            storeFile file(SC_RELEASE_STORE_FILE)
-            storePassword SC_RELEASE_STORE_PASSWORD
-            keyAlias SC_RELEASE_KEY_ALIAS
-            keyPassword SC_RELEASE_KEY_PASSWORD
-        }
-    }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -157,48 +123,17 @@ android {
             }
         }
     }
-
-    // check if the assembleRelease task is among the tasks to be executed
-    gradle.taskGraph.whenReady {taskGraph ->
-    if (taskGraph.hasTask(assembleRelease)) { /* when run release task */
-        incrementVersionCode()
-    }
-}
-    packagingOptions {
-      exclude 'META-INF/LICENSE'
-      exclude 'META-INF/NOTICE'
-      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-core/pom.xml'
-      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-core/pom.properties'
-      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-databind/pom.xml'
-      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-databind/pom.properties'
-      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-annotations/pom.xml'
-      pickFirst 'META-INF/maven/com.fasterxml.jackson.core/jackson-annotations/pom.properties'
-      pickFirst 'META-INF/maven/commons-io/commons-io/pom.xml'
-      pickFirst 'META-INF/maven/commons-io/commons-io/pom.properties'
-    }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
-
 }
 
 dependencies {
-    compile project(':react-native-image-picker')
-    compile project(':react-native-maps')
-    compile project(':react-native-spatialconnect')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
-    compile "com.android.support:multidex:1.0.0"
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.1@aar') {
-      transitive = true;
-    }
 }
 
 // Run this once to be able to run the application with BUCK
 // puts all compile dependencies into folder libs for BUCK to use
 task copyDownloadableDepsToLibs(type: Copy) {
-  from configurations.compile
-  into 'libs'
+    from configurations.compile
+    into 'libs'
 }

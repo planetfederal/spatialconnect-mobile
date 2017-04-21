@@ -22,40 +22,32 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
-# Android/IJ
+# Android/IntelliJ
 #
+build/
 .idea
 .gradle
 local.properties
+*.iml
 
 # node.js
 #
 node_modules/
 npm-debug.log
 
-# Fastlane temporary profiling data
-ios/fastlane/report.xml
-ios/fastlane/Error*.png
-ios/fastlane/Preview.html
-ios/fastlane/screenshots/*/*-portrait.png
-ios/fastlane/screenshots/*/*-landscape.png
-ios/fastlane/screenshots/screenshots.html
-ios/fastlane/screenshots/*/*-portrait_framed.png
-ios/fastlane/screenshots/*/*-landscape_framed.png
 # BUCK
 buck-out/
 \.buckd/
 android/app/libs
-android/keystores/debug.keystore
-# never check in the release keystore!
-android/app/spatialconnect-release.keystore
+*.keystore
 
-*.zip
-*.cer
-*.mobileprovision
-com_crashlytics_export_strings.xml
-android/app/fabric.properties
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
 
-# React Native
-ios/main.jsbundle
-ios/main.jsbundle.meta
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
