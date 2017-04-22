@@ -1,0 +1,8 @@
+{
+  "build":"npm i",
+  "install":"",
+  "unit_test":"",
+  "integration_test":"",
+  "run":"react-native run-ios",
+  "release":""
+}
