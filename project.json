@@ -1,0 +1,6 @@
+{
+  "build":"npm i",
+  "test":"npm test",
+  "deploy" : "fastlane beta",
+  "run":"react-native run-ios"
+}
