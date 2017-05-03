@@ -4,6 +4,7 @@ import {
   InteractionManager,
   ScrollView,
   StyleSheet,
+  Text,
   View,
 } from 'react-native';
 import Button from 'react-native-button';
@@ -18,6 +19,8 @@ import { buttonStyles } from '../style/style';
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
+const t = require('tcomb-validation');
+const validate = t.validate;
 const Form = tcomb.form.Form;
 
 const styles = StyleSheet.create({
@@ -55,10 +58,13 @@ const styles = StyleSheet.create({
     borderColor: palette.gray,
     borderBottomWidth: 1,
   },
+  err: {
+    color: 'red',
+  }
 });
 
-
 class SCForm extends Component {
+
   static navigationOptions = {
     title: ({ state }) => state.params.form.form_label,
   };
@@ -68,10 +74,12 @@ class SCForm extends Component {
     this.state = {
       value: {},
       renderPlaceholderOnly: true,
+      message: ''
     };
 
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
+    this.errCheck = this.errCheck.bind(this);
   }
 
   componentWillMount() {
@@ -82,6 +90,7 @@ class SCForm extends Component {
       this.TcombType = transform(schema);
       this.initialValues = initialValues;
       this.options = options;
+      this.setState({ message: ''});
       this.setState({ renderPlaceholderOnly: false });
     });
   }
@@ -90,18 +99,63 @@ class SCForm extends Component {
     const formData = this.form.getValue();
     if (formData) {
       this.saveForm(formData);
+
     }
   }
 
   onChange(value) {
-    this.setState({ value });
+    this.errCheck(value);
   }
+
+  errCheck(value) {
+    const formInfo = this.props.navigation.state.params.form;
+    let n, s;
+    let typeStr = formInfo['fields'][0]['type'];
+    let typeNum = formInfo['fields'][1]['type'];
+
+    if(formInfo['form_key'] === 'potholes'){
+
+      typeStr = formInfo['fields'][0]['type'];
+      severity = value['severity'];
+      console.log(s);
+    }
+
+      if(formInfo['form_key'] === 'basic_data_collection'){
+        // Value from occurences, should be numbers
+        nValue = typeof value['occurences'];
+        // Value from description, should be text or numbers
+        sValue = typeof value['description'];
+
+       if (sValue) {
+         this.setState({ message: ''});
+         s = value['description'];
+         let min = formInfo['fields'][0]['constraints']['minimum_length'];
+
+         if (sValue != typeStr || s.length < min || s.length <= 0){
+          this.setState({ message: 'Please enter 5 or more characters for the description'});
+        }
+      }
+      if (nValue) {
+        let n = +value['occurences'];
+        let max = formInfo['fields'][1]['constraints']['maximum'];
+
+        if (isNaN(n) || n <= 0){
+          console.log(value['occurences']);
+          this.setState({ message: 'Numbers only please'});
+        } else if (n > max) {
+          this.setState({message: 'Occurences must be less than ' + max});
+        }
+      }
+      this.setState({ value });
+    }
+      }
+
 
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
     navigator.geolocation.getCurrentPosition((position) => {
       const gj = {
-        geometry: {
+          geometry: {
           type: 'Point',
           coordinates: [
             position.coords.longitude,
@@ -131,6 +185,7 @@ class SCForm extends Component {
     }
     return (
       <View style={styles.container}>
+
         <ScrollView style={styles.scrollView}>
           <View style={styles.form}>
             <Form
@@ -140,6 +195,9 @@ class SCForm extends Component {
               options={this.options}
               onChange={this.onChange}
             />
+
+            <Text style={styles.err}>{this.state.message}</Text>
+
             <Button
               style={buttonStyles.buttonText} containerStyle={buttonStyles.button}
               onPress={this.onPress}
