@@ -17,6 +17,9 @@ import palette from '../style/palette';
 import { buttonStyles } from '../style/style';
 import validate from 'tcomb-validation'
 import * as ErrorMessages from './rules';
+import {ruleRunner, run} from './ruleRunner';
+//import * as TextField from './TextField';
+//import isEmpty from 'lodash/isEmpty';
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
@@ -109,10 +112,6 @@ class SCForm extends Component {
 
     const formInfo = this.props.navigation.state.params.form;
     var field_key, type, max, min, field_label;
-    var newState = this.setState({
-      showErrors: !this.state.showErrors,
-      message: 'hard coded message'
-    });
     // gets the value of what has been entered and expected type
     for(var i = 0; i < formInfo.fields.length; i++) {
       //input
@@ -122,6 +121,10 @@ class SCForm extends Component {
       // max and min values. i.e. length of string or max # of occurences
       max = formInfo.fields[i].constraints.maximum;
       min = formInfo.fields[i].constraints.minimum;
+
+      const fieldValidations = [
+        ruleRunner('occurences', 'Occurences', ErrorMessages.mustBeANum(type, field_key))
+      ]
       // if the field_key is expected to be a number, convert it to a number.
       // this is getting cumbersome... Find a better way to do this.
       if (type === 'number') {
@@ -129,20 +132,16 @@ class SCForm extends Component {
       }
       //Weeds out anything that hasn't been filled in
       if (field_key != undefined) {
-        //
-        console.log(field_key);
-        console.log(type);
+        let newState = update(this.state, {
+        [field_key]: {$set: e.target.value}
+        });
         // if the field type should be number and it isn't. Error.
         if (type === 'number' && isNaN(field_key)) {
-          console.log('Numbers only');
+          console.log('Must be a number');
         }
       }
     }
   }
-
-
-
-
 
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
