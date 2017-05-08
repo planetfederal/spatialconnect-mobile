@@ -16,11 +16,10 @@ import PlaceHolder from './PlaceHolder';
 import palette from '../style/palette';
 import { buttonStyles } from '../style/style';
 import validate from 'tcomb-validation'
+import * as ErrorMessages from './rules';
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
-//const t = require('tcomb-validation');
-//const validate = t.validate;
 const Form = tcomb.form.Form;
 
 const styles = StyleSheet.create({
@@ -74,6 +73,7 @@ class SCForm extends Component {
     this.state = {
       value: {},
       renderPlaceholderOnly: true,
+      showErrors: false,
       message: ''
     };
 
@@ -101,33 +101,49 @@ class SCForm extends Component {
     }
   }
 
-  onChange(value,schema) {
+  onChange(value) {
     this.errCheck(value);
   }
 
-  errCheck(value, schema) {
-    const formInfo = this.props.navigation.state.params.form;
-    var field_key, type, max;
-    // gets the value of what has been entered and expected type
-    for (var i = 0; i < formInfo.fields.length; i++) {
-      field_key = value[formInfo.fields[i]['field_key']];
-      type = formInfo.fields[i]['type'];
-      max = formInfo.fields[i]['constraints']['maximum'];
-      min = formInfo.fields[i]['constraints']['minimum'];
+  errCheck(value) {
 
+    const formInfo = this.props.navigation.state.params.form;
+    var field_key, type, max, min, field_label;
+    var newState = this.setState({
+      showErrors: !this.state.showErrors,
+      message: 'hard coded message'
+    });
+    // gets the value of what has been entered and expected type
+    for(var i = 0; i < formInfo.fields.length; i++) {
+      //input
+      field_key = value[formInfo.fields[i].field_key];
+      //expected type
+      type = formInfo.fields[i].type;
+      // max and min values. i.e. length of string or max # of occurences
+      max = formInfo.fields[i].constraints.maximum;
+      min = formInfo.fields[i].constraints.minimum;
       // if the field_key is expected to be a number, convert it to a number.
-      if(type === 'number') {
+      // this is getting cumbersome... Find a better way to do this.
+      if (type === 'number') {
         field_key = +[field_key];
       }
       //Weeds out anything that hasn't been filled in
-      if (field_key != undefined ) {
-        //validation starts
-
+      if (field_key != undefined) {
+        //
+        console.log(field_key);
+        console.log(type);
+        // if the field type should be number and it isn't. Error.
+        if (type === 'number' && isNaN(field_key)) {
+          console.log('Numbers only');
         }
       }
     }
   }
-  
+
+
+
+
+
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
     navigator.geolocation.getCurrentPosition((position) => {
@@ -162,7 +178,6 @@ class SCForm extends Component {
     }
     return (
       <View style={styles.container}>
-
         <ScrollView style={styles.scrollView}>
           <View style={styles.form}>
             <Form
@@ -172,8 +187,10 @@ class SCForm extends Component {
               options={this.options}
               onChange={this.onChange}
             />
-
-            <Text style={styles.err}>{this.state.message}</Text>
+          <Text
+            showErrors={this.state.showErrors}
+            message={this.state.message}
+            />
 
             <Button
               style={buttonStyles.buttonText} containerStyle={buttonStyles.button}
