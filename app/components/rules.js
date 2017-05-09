@@ -5,7 +5,7 @@ import * as ErrorMessages from './errorMessages.js';
 //if there is an types  match return null if not return error message
 export const mustBeANum = (type, field_key) => {
   return (field_key) => {
-    return type === 'number' && isNaN(field_key) ? console.log('YAY! NOT A NUM!') : null;
+    return type === 'number' && isNaN(field_key) ? ErrorMessages.mustBeANum(field_label) : null;
   }
 }
 /*
