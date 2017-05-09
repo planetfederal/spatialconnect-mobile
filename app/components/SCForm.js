@@ -19,7 +19,7 @@ import validate from 'tcomb-validation'
 import * as ErrorMessages from './rules';
 import {ruleRunner, run} from './ruleRunner';
 //import * as TextField from './TextField';
-//import isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
@@ -77,7 +77,7 @@ class SCForm extends Component {
       value: {},
       renderPlaceholderOnly: true,
       showErrors: false,
-      message: ''
+      message: 'Default'
     };
 
     this.onChange = this.onChange.bind(this);
@@ -106,6 +106,7 @@ class SCForm extends Component {
 
   onChange(value) {
     this.errCheck(value);
+
   }
 
   errCheck(value) {
@@ -124,25 +125,25 @@ class SCForm extends Component {
 
       const fieldValidations = [
         ruleRunner('occurences', 'Occurences', ErrorMessages.mustBeANum(type, field_key))
-      ]
+      ];
       // if the field_key is expected to be a number, convert it to a number.
       // this is getting cumbersome... Find a better way to do this.
       if (type === 'number') {
         field_key = +[field_key];
       }
-      //Weeds out anything that hasn't been filled in
       if (field_key != undefined) {
-        let newState = update(this.state, {
-        [field_key]: {$set: e.target.value}
-        });
-        // if the field type should be number and it isn't. Error.
-        if (type === 'number' && isNaN(field_key)) {
-          console.log('Must be a number');
-        }
-      }
+      (field_key) => (e) => {
+        this.setState({ [field_key]: e.target.value }, () => {
+        const validationErrors = run(this.state, fieldValidations);
+        this.setState({ validationErrors });
+
+      });
     }
   }
-
+  this.setState({ field_key });
+    if (!isEmpty(this.state.validationErrors)) return null;
+}
+}
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
     navigator.geolocation.getCurrentPosition((position) => {

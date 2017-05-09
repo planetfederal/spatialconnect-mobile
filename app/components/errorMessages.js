@@ -6,6 +6,7 @@
 
 export const mustBeANum = field_label => {
   return (field_label) => `${field_label} must be a ${type}`;
+  console.log('must be a number');
 };
 /*
 // error message for minimum length error
