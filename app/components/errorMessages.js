@@ -3,7 +3,6 @@
 //article about code https://spin.atomicobject.com/2016/10/05/form-validation-react/
 // error message for mismatched types
 
-
 export const mustBeANum = field_label => {
   return (field_label) => `${field_label} must be a ${type}`;
   console.log('must be a number');
