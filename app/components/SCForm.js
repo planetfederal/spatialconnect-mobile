@@ -24,6 +24,10 @@ transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
 const Form = tcomb.form.Form;
+let type, field_key;
+const fieldValidations = [
+  ruleRunner('occurences', 'Occurences', ErrorMessages.mustBeANum(type, field_key))
+];
 
 const styles = StyleSheet.create({
   container: {
@@ -79,7 +83,7 @@ class SCForm extends Component {
       showErrors: false,
       validationErrors: {}
     };
-
+    this.state.validationErrors = run(this.state, fieldValidations);
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
   }
@@ -105,39 +109,42 @@ class SCForm extends Component {
     }
   }
 
-  onChange = (value) => (e) => {
+  onChange(value) {
     const formInfo = this.props.navigation.state.params.form;
-    var field, type, max, min, field_label, newState;
+    var max, min;
+    var length = formInfo.fields.length;
     // gets the value of what has been entered and expected type
-    for(var i = 0; i < formInfo.fields.length; i++) {
+    for (var i = 0; i < length; i++) {
       //input
-      field = value[formInfo.fields[i].field_key];
+      field_key = value[formInfo.fields[i].field_key];
+      field_name = formInfo.fields[i].field_key;
+      field_label = formInfo.fields[i].field_label
       //expected type
       type = formInfo.fields[i].type;
       // max and min values. i.e. length of string or max # of occurences
       max = formInfo.fields[i].constraints.maximum;
       min = formInfo.fields[i].constraints.minimum;
-
-      const fieldValidations = [
-        ruleRunner('occurences', 'Occurences', ErrorMessages.mustBeANum(type, field))
-      ];
       // if the field_key is expected to be a number, convert it to a number.
-      // this is getting cumbersome... Find a better way to do this.
       if (type === 'number') {
-        field = +[field];
+        field_key = +[field_key];
       }
-        this.setState({ [field]: e.target.value }, () => {
-        const validationErrors = run(this.state, fieldValidations);
-        this.setState({ validationErrors });
-        console.log(value);
-      });
 
+      // if (field_key != undefined) {
+      //   // Run validations
+      // }
+    }
   }
-  this.setState({ newState });
-  //console.log(newState);
-    if (!isEmpty(this.state.validationErrors)) return null;
-}
 
+  handleFieldChanged(name, key) {
+    this.setState({
+      field_name: field_key
+    }, () => {
+      const validationErrors = run(this.state, fieldValidations);
+      this.setState({
+        validationErrors
+      });
+    });
+  }
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
     navigator.geolocation.getCurrentPosition((position) => {
@@ -180,10 +187,8 @@ class SCForm extends Component {
               type={this.TcombType}
               options={this.options}
               onChange={this.onChange}
-            />
-          <Text
-            showErrors={this.state.showErrors}
-            message={this.state.message}
+              text={this.props.occurences}
+              showErrors={this.showErrors}
             />
 
             <Button
