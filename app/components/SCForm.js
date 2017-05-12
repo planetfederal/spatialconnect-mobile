@@ -1,12 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  Alert,
-  InteractionManager,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Alert, InteractionManager, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
@@ -15,18 +8,20 @@ import * as sc from 'react-native-spatialconnect';
 import PlaceHolder from './PlaceHolder';
 import palette from '../style/palette';
 import { buttonStyles } from '../style/style';
-import validate from 'tcomb-validation'
+import validate from 'tcomb-validation';
 import * as ErrorMessages from './rules';
-import {ruleRunner, run} from './ruleRunner';
+import { ruleRunner, run } from './ruleRunner';
 import * as TextField from './TextField';
 import isEmpty from 'lodash/isEmpty';
+import update from 'immutability-helper';
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
 const Form = tcomb.form.Form;
-let type, field_key;
+let type,
+  field_key;
 const fieldValidations = [
-  ruleRunner('occurences', 'Occurences', ErrorMessages.mustBeANum(type, field_key))
+  ruleRunner('occurences', 'Occurences', ErrorMessages.mustBeANum(type, field_key)),
 ];
 
 const styles = StyleSheet.create({
@@ -66,11 +61,10 @@ const styles = StyleSheet.create({
   },
   err: {
     color: 'red',
-  }
+  },
 });
 
 class SCForm extends Component {
-
   static navigationOptions = {
     title: ({ state }) => state.params.form.form_label,
   };
@@ -80,12 +74,13 @@ class SCForm extends Component {
     this.state = {
       value: {},
       renderPlaceholderOnly: true,
-      showErrors: false,
-      validationErrors: {}
+      showErrors: true,
+      validationErrors: {},
     };
     this.state.validationErrors = run(this.state, fieldValidations);
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
+    this.handleFieldChanged = this.handleFieldChanged.bind(this);
   }
 
   componentWillMount() {
@@ -111,15 +106,16 @@ class SCForm extends Component {
 
   onChange(value) {
     const formInfo = this.props.navigation.state.params.form;
-    var max, min;
+    var max,
+      min;
     var length = formInfo.fields.length;
     // gets the value of what has been entered and expected type
     for (var i = 0; i < length; i++) {
-      //input
+      // input
       field_key = value[formInfo.fields[i].field_key];
       field_name = formInfo.fields[i].field_key;
-      field_label = formInfo.fields[i].field_label
-      //expected type
+      field_label = formInfo.fields[i].field_label;
+      // expected type
       type = formInfo.fields[i].type;
       // max and min values. i.e. length of string or max # of occurences
       max = formInfo.fields[i].constraints.maximum;
@@ -128,42 +124,45 @@ class SCForm extends Component {
       if (type === 'number') {
         field_key = +[field_key];
       }
-
-      // if (field_key != undefined) {
-      //   // Run validations
-      // }
     }
   }
 
-  handleFieldChanged(name, key) {
-    this.setState({
-      field_name: field_key
-    }, () => {
-      const validationErrors = run(this.state, fieldValidations);
-      this.setState({
-        validationErrors
+  handleFieldChanged(field_name) {
+    return (e) => {
+      // update() is provided by React Immutability Helpers
+      // https://facebook.github.io/react/docs/update.html
+      let newState = update(this.state, {
+        [field_key]: {
+          $set: e.target.value,
+        },
       });
-    });
+      newState.validationErrors = run(newState, fieldValidations);
+      this.setState(newState);
+
+      if ($.isEmptyObject(this.state.validationErrors) == false) return null;
+    };
   }
+
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
-    navigator.geolocation.getCurrentPosition((position) => {
-      const gj = {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const gj = {
           geometry: {
-          type: 'Point',
-          coordinates: [
-            position.coords.longitude,
-            position.coords.latitude,
-          ],
-        },
-        properties: formData,
-      };
-      const f = sc.geometry('FORM_STORE', formInfo.form_key, gj);
-      sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
-    }, () => {
-      const f = sc.spatialFeature('FORM_STORE', formInfo.form_key, { properties: formData });
-      sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
-    }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
+            type: 'Point',
+            coordinates: [position.coords.longitude, position.coords.latitude],
+          },
+          properties: formData,
+        };
+        const f = sc.geometry('FORM_STORE', formInfo.form_key, gj);
+        sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
+      },
+      () => {
+        const f = sc.spatialFeature('FORM_STORE', formInfo.form_key, { properties: formData });
+        sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
+      },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
   }
 
   formSubmitted() {
@@ -182,17 +181,22 @@ class SCForm extends Component {
         <ScrollView style={styles.scrollView}>
           <View style={styles.form}>
             <Form
-              ref={(ref) => { this.form = ref; }}
+              ref={(ref) => {
+                this.form = ref;
+              }}
               value={this.state.value}
               type={this.TcombType}
               options={this.options}
               onChange={this.onChange}
-              text={this.props.occurences}
-              showErrors={this.showErrors}
             />
-
+            <Text
+              style={styles.err}
+              showErrors={this.state.showErrors}
+              onFieldChanged={this.handleFieldChanged('Occurences')}
+            />
             <Button
-              style={buttonStyles.buttonText} containerStyle={buttonStyles.button}
+              style={buttonStyles.buttonText}
+              containerStyle={buttonStyles.button}
               onPress={this.onPress}
             >
               Submit
