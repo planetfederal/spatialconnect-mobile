@@ -1,13 +1,10 @@
 // original code from https://github.com/ok2ju/react-form-validation
-//article about code https://spin.atomicobject.com/2016/10/05/form-validation-react/
+// article about code https://spin.atomicobject.com/2016/10/05/form-validation-react/
 import * as ErrorMessages from './errorMessages.js';
 
-//if there is an types  match return null if not return error message
-export const mustBeANum = (type, field) => {
-  return (field_key) => {
-    return type === 'number' && isNaN(field_key) ? ErrorMessages.mustBeANum(field_label) : null;
-  }
-}
+// if there is an types  match return null if not return error message
+export const mustBeANum = (type, field_key, field_label) => field_key =>
+  type === 'number' && isNaN(field_key) ? ErrorMessages.mustBeANum(field_label) : null;
 /*
 // if length of input is over the minimum return null, else return error message
 export const minLength = (min) => {

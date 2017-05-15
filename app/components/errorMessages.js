@@ -1,12 +1,13 @@
 // errorMessages.js
 // original code from https://github.com/ok2ju/react-form-validation
-//article about code https://spin.atomicobject.com/2016/10/05/form-validation-react/
+// article about code https://spin.atomicobject.com/2016/10/05/form-validation-react/
 // error message for mismatched types
 
-export const mustBeANum = field_label => {
-  return (field_label) => `${field_label} must be a ${type}`;
+export const mustBeANum = (field_label, type) => {
+  return field_label => `${field_label} must be a ${type}`;
   console.log('must be a number');
 };
+
 /*
 // error message for minimum length error
 

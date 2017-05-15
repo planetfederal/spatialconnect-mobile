@@ -18,8 +18,9 @@ transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
 const Form = tcomb.form.Form;
-let type,
-  field_key;
+var type;
+var field_key;
+
 const fieldValidations = [
   ruleRunner('occurences', 'Occurences', ErrorMessages.mustBeANum(type, field_key)),
 ];
@@ -74,9 +75,11 @@ class SCForm extends Component {
     this.state = {
       value: {},
       renderPlaceholderOnly: true,
-      showErrors: true,
+      showErrors: false,
       validationErrors: {},
+      type_arr: [],
     };
+
     this.state.validationErrors = run(this.state, fieldValidations);
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
@@ -106,8 +109,9 @@ class SCForm extends Component {
 
   onChange(value) {
     const formInfo = this.props.navigation.state.params.form;
-    var max,
-      min;
+    var newState = {};
+    var max;
+    var min;
     var length = formInfo.fields.length;
     // gets the value of what has been entered and expected type
     for (var i = 0; i < length; i++) {
@@ -126,21 +130,31 @@ class SCForm extends Component {
       }
     }
   }
-
-  handleFieldChanged(field_name) {
+  // I don't think this is ever getting called.
+  // update() is provided by React Immutability Helpers
+  // https://facebook.github.io/react/docs/update.html
+  // called whenever text in form changes. Creates copy of state and updating
+  // it with the value that just changed. Then calls run passing in the newState
+  // and the list of validation rulerunners declared above.
+  handleFieldChanged(field) {
     return (e) => {
-      // update() is provided by React Immutability Helpers
-      // https://facebook.github.io/react/docs/update.html
-      let newState = update(this.state, {
-        [field_key]: {
+      console.log(e);
+
+      newState = update(this.state, {
+        field_key: {
           $set: e.target.value,
         },
       });
       newState.validationErrors = run(newState, fieldValidations);
+      console.log(validationErrors);
       this.setState(newState);
-
-      if ($.isEmptyObject(this.state.validationErrors) == false) return null;
     };
+  }
+
+  handleSubmitClicked() {
+    this.setState({ showErrors: true });
+    if (_.isEmptyObject(this.state.validationErrors) == false) return null;
+    // ... continue submitting data to server
   }
 
   saveForm(formData) {
@@ -192,7 +206,8 @@ class SCForm extends Component {
             <Text
               style={styles.err}
               showErrors={this.state.showErrors}
-              onFieldChanged={this.handleFieldChanged('Occurences')}
+              onchange={this.onChange}
+              onFieldChanged={this.handleFieldChanged(this.field_name, this.field_key)}
             />
             <Button
               style={buttonStyles.buttonText}
