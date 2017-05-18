@@ -28,10 +28,8 @@ t.form.Form.stylesheet.textbox.error.backgroundColor = '#ffffff';
 t.form.Form.stylesheet.helpBlock.normal.fontSize = 12;
 
 const navigationOptions = {
-  header: {
-    style: routerStyles.navBar,
-    tintColor: 'white',
-  },
+  headerStyle: routerStyles.navBar,
+  headerTintColor: 'white',
 };
 
 const FormNav = StackNavigator({
@@ -82,16 +80,24 @@ const AuthedNavigator = DrawerNavigator({
   contentComponent: DrawerContainer,
 });
 
+const UnAuthedNavigator = StackNavigator({
+  login: { screen: LoginView },
+  signUp: { screen: SignUpView },
+}, {
+  initialRouteName: 'login',
+  headerMode: 'screen',
+  navigationOptions,
+});
+
 export const AppNavigator = StackNavigator({
   splash: { screen: SplashScreen },
   AuthedNavigator: { screen: AuthedNavigator },
-  login: { screen: LoginView },
-  signUp: { screen: SignUpView },
+  UnAuthedNavigator: { screen: UnAuthedNavigator },
 }, {
   initialRouteName: 'splash',
   headerMode: 'screen',
   mode: 'modal',
-  navigationOptions: { header: { visible: false } },
+  navigationOptions: { header: null },
 });
 
 const AppWithNavigationState = props => (

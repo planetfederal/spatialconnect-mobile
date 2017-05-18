@@ -22,9 +22,9 @@ const SCStore = (props) => {
   );
 };
 
-SCStore.navigationOptions = {
-  title: ({ state }) => state.params.store.name,
-};
+SCStore.navigationOptions = ({ navigation }) => ({
+  headerTitle: navigation.state.params.store.name,
+});
 
 SCStore.propTypes = {
   navigation: PropTypes.object.isRequired,

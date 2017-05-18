@@ -87,17 +87,14 @@ const styles = StyleSheet.create({
 });
 
 class FeatureEdit extends Component {
-  static navigationOptions = {
-    header: (nav, defaultHeader) => {
-      return nav.state.params.onRight ? ({
-        ...defaultHeader,
-        title: 'Edit Feature',
-        right: (<TouchableOpacity
-          onPress={nav.state.params.onRight}>
-          <Text style={routerStyles.buttonTextStyle}>Save</Text>
-        </TouchableOpacity>),
-      }) : defaultHeader;
-    },
+  static navigationOptions = ({ navigation }) => {
+    return navigation.state.params.onRight ? {
+      headerTitle: 'Edit Feature',
+      headerRight: (<TouchableOpacity
+        onPress={navigation.state.params.onRight}>
+        <Text style={routerStyles.buttonTextStyle}>Save</Text>
+      </TouchableOpacity>),
+    } : {};
   }
 
   constructor(props) {

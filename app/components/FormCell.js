@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 
-import { cellStyles } from '../style/style';
+import { cellStyles, listStyles } from '../style/style';
 
 const FormCell = (props) => {
   let TouchableElement = TouchableHighlight;
@@ -16,11 +16,7 @@ const FormCell = (props) => {
   }
   return (
     <View>
-      <TouchableElement
-        onPress={props.onSelect}
-        onShowUnderlay={props.onHighlight}
-        onHideUnderlay={props.onUnhighlight}
-      >
+      <TouchableElement onPress={props.onSelect}>
         <View style={cellStyles.cellRow}>
           <View style={cellStyles.textContainer}>
             <Text style={cellStyles.cellName} numberOfLines={2}>
@@ -29,14 +25,13 @@ const FormCell = (props) => {
           </View>
         </View>
       </TouchableElement>
+      <View style={listStyles.rowSeparator} />
     </View>
   );
 };
 
 FormCell.propTypes = {
   onSelect: PropTypes.func.isRequired,
-  onHighlight: PropTypes.func.isRequired,
-  onUnhighlight: PropTypes.func.isRequired,
   form: PropTypes.object.isRequired,
 };
 

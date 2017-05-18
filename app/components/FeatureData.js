@@ -10,17 +10,15 @@ import Property from './Property';
 import { propertyListStyles, routerStyles } from '../style/style';
 
 class FeatureData extends Component {
-  static navigationOptions = {
-    header: (nav, defaultHeader) => {
-      return nav.state.params.editable ? ({
-        ...defaultHeader,
-        right: (<TouchableOpacity
-          onPress={() => nav.navigate('editFeature', { feature: nav.state.params.feature })} >
-          <Text style={routerStyles.buttonTextStyle}>Edit</Text>
+  static navigationOptions = ({ navigation }) => {
+    return navigation.state.params.editable ? {
+      headerRight: (<TouchableOpacity
+        onPress={() => navigation.navigate('editFeature', { feature: navigation.state.params.feature })} >
+        <Text style={routerStyles.buttonTextStyle}>Edit</Text>
         </TouchableOpacity>),
-      }) : defaultHeader;
-    },
+    } : {};
   }
+
   // returns true if feature belongs to gpkg store
   static isEditable(stores, feature) {
     if (!feature.metadata) return false;
