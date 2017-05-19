@@ -1,10 +1,108 @@
 {
-"remote": {
-"http_protocol": "http",
-"http_host": "efc-dev.boundlessgeo.com",
-"http_port": 8085,
-"mqtt_protocol": "tcp",
-"mqtt_host": "efc-dev.boundlessgeo.com",
-"mqtt_port": 1883
-}
+	"remote": {
+		"http_protocol": "http",
+		"http_host": "dev.spatialconnect.boundlessgeo.com",
+		"http_port": 8085,
+		"mqtt_protocol": "tcp",
+		"mqtt_host": "dev.spatialconnect.boundlessgeo.com",
+		"mqtt_port": 1883
+	},
+	"stores": [{
+			"store_type": "geojson",
+			"version": "1",
+			"uri": "all.geojson",
+			"id": "63602599-3ad3-439f-9c49-3c8a7579933b",
+			"name": "Simple"
+		},
+		{
+			"store_type": "geojson",
+			"version": "1",
+			"name": "20m Points",
+			"uri": "gz_2010_us_500_11_20m.json",
+			"id": "a5d93796-5026-46f7-a2ff-e5dec85d116b"
+		},
+		{
+			"store_type": "geojson",
+			"version": "1",
+			"name": "bars",
+			"uri": "https://s3.amazonaws.com/test.spacon/bars.geojson",
+			"id": "a5d93796-5026-46f7-a2ff-e5dec85d116c"
+		},
+		{
+			"store_type": "gpkg",
+			"version": "1",
+			"name": "Haiti",
+			"uri": "https://s3.amazonaws.com/test.spacon/haiti4mobile.gpkg",
+			"id": "f6dcc750-1349-46b9-a324-0223764d46d1"
+		},
+		{
+			"store_type": "gpkg",
+			"version": "1",
+			"name": "Whitehorse",
+			"uri": "https://portal.opengeospatial.org/files/63156",
+			"id": "ba293796-5026-46f7-a2ff-e5dec85heh6b"
+		},
+		{
+			"store_type": "wfs",
+			"version": "1.1.0",
+			"name": "WFS Demo",
+			"default_layers": ["spatialconnect:baseball_team"],
+			"uri": "http://efc-dev.boundlessgeo.com:8080/geoserver/wfs",
+			"id": "0f193979-b871-47cd-b60d-e271d6504359"
+		},
+		{
+			"store_type": "geojson",
+			"name": "earthquake feed",
+			"default_layers": [],
+			"style": [{
+				"id": "default",
+				"paint": {
+					"fill-color": "#ff0000",
+					"fill-opacity": 0.5,
+					"line-color": "#ff0000",
+					"line-opacity": 1,
+					"icon-color": "#ff0000"
+				}
+			}],
+			"id": "5d7ddb49-83f1-48a1-b1b6-e48767b30c48",
+			"team_id": 1,
+			"options": null,
+			"uri": "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson",
+			"version": "1"
+		}
+	],
+	"forms": [{
+		"id": 32,
+		"form_key": "potholes",
+		"form_label": "potholes",
+		"version": 3,
+		"team_id": 2,
+		"fields": [{
+			"constraints": {
+				"pattern": ""
+			},
+			"field_key": "street",
+			"type": "string",
+			"minimum": 3,
+			"is_required": false,
+			"field_label": "street",
+			"id": 118,
+			"position": 0
+		},{
+			"constraints": {
+				"pattern": ""
+			},
+			"field_key": "test",
+			"type": "number",
+			"minimum": 3,
+			"is_required": false,
+			"field_label": "two",
+			"id": 119,
+			"position": 0
+		}],
+		"metadata": {
+			"count": null,
+			"lastActivity": null
+		}
+	}]
 }

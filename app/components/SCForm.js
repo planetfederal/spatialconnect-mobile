@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Alert, InteractionManager, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, InteractionManager, ScrollView, StyleSheet, View } from 'react-native';
 import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
@@ -8,22 +8,13 @@ import * as sc from 'react-native-spatialconnect';
 import PlaceHolder from './PlaceHolder';
 import palette from '../style/palette';
 import { buttonStyles } from '../style/style';
-import validate from 'tcomb-validation';
 import * as ErrorMessages from './rules';
 import { ruleRunner, run } from './ruleRunner';
-import * as TextField from './TextField';
-import isEmpty from 'lodash/isEmpty';
-import update from 'immutability-helper';
+// import * as TextField from './TextField';
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
 const Form = tcomb.form.Form;
-var type;
-var field_key;
-
-const fieldValidations = [
-  ruleRunner('occurences', 'Occurences', ErrorMessages.mustBeANum(type, field_key)),
-];
 
 const styles = StyleSheet.create({
   container: {
@@ -77,13 +68,10 @@ class SCForm extends Component {
       renderPlaceholderOnly: true,
       showErrors: false,
       validationErrors: {},
-      type_arr: [],
     };
 
-    this.state.validationErrors = run(this.state, fieldValidations);
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
-    this.handleFieldChanged = this.handleFieldChanged.bind(this);
   }
 
   componentWillMount() {
@@ -95,8 +83,6 @@ class SCForm extends Component {
       this.initialValues = initialValues;
       this.options = options;
       this.setState({ renderPlaceholderOnly: false });
-      const validationErrors = run(this.state, fieldValidations);
-      this.setState({ validationErrors });
     });
   }
 
@@ -109,54 +95,35 @@ class SCForm extends Component {
 
   onChange(value) {
     const formInfo = this.props.navigation.state.params.form;
-    var newState = {};
-    var max;
-    var min;
-    var length = formInfo.fields.length;
-    // gets the value of what has been entered and expected type
-    for (var i = 0; i < length; i++) {
+    const length = formInfo.fields.length;
+    let newState = {};
+    let fieldValue, fieldKey, max, min;
+    let fieldValidations = [];
+
+    for (let i = 0; i < length; i++) {
       // input
-      field_key = value[formInfo.fields[i].field_key];
-      field_name = formInfo.fields[i].field_key;
-      field_label = formInfo.fields[i].field_label;
-      // expected type
-      type = formInfo.fields[i].type;
-      // max and min values. i.e. length of string or max # of occurences
-      max = formInfo.fields[i].constraints.maximum;
-      min = formInfo.fields[i].constraints.minimum;
-      // if the field_key is expected to be a number, convert it to a number.
-      if (type === 'number') {
-        field_key = +[field_key];
+      let type = formInfo.fields[i].type;
+      let field = formInfo.fields[i];
+      min = formInfo.fields[i].minimum;
+      max = formInfo.fields[i].maximum;
+      fieldKey = formInfo.fields[i].field_key;
+      fieldValue = value[formInfo.fields[i].field_key];
+
+      if (fieldValue !== undefined) {
+        if (type === 'number') {
+          fieldValue = +[fieldValue];
+          ruleRunner(field.fieldKey, field.fieldLabel,
+                ErrorMessages.mustBeANum(field.type, field.fieldValue));
+          fieldValidations.push(ruleRunner);
+        } else if (field.type === 'string') {
+          ruleRunner(field.fieldKey, field.fieldLabel,
+               ErrorMessages.strValidation(min, max, fieldValue));
+          fieldValidations.push(ruleRunner);
+        }
       }
+      console.log(fieldValidations);
     }
   }
-  // I don't think this is ever getting called.
-  // update() is provided by React Immutability Helpers
-  // https://facebook.github.io/react/docs/update.html
-  // called whenever text in form changes. Creates copy of state and updating
-  // it with the value that just changed. Then calls run passing in the newState
-  // and the list of validation rulerunners declared above.
-  handleFieldChanged(field) {
-    return (e) => {
-      console.log(e);
-
-      newState = update(this.state, {
-        field_key: {
-          $set: e.target.value,
-        },
-      });
-      newState.validationErrors = run(newState, fieldValidations);
-      console.log(validationErrors);
-      this.setState(newState);
-    };
-  }
-
-  handleSubmitClicked() {
-    this.setState({ showErrors: true });
-    if (_.isEmptyObject(this.state.validationErrors) == false) return null;
-    // ... continue submitting data to server
-  }
-
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
     navigator.geolocation.getCurrentPosition(
@@ -203,12 +170,7 @@ class SCForm extends Component {
               options={this.options}
               onChange={this.onChange}
             />
-            <Text
-              style={styles.err}
-              showErrors={this.state.showErrors}
-              onchange={this.onChange}
-              onFieldChanged={this.handleFieldChanged(this.field_name, this.field_key)}
-            />
+
             <Button
               style={buttonStyles.buttonText}
               containerStyle={buttonStyles.button}
