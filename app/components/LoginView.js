@@ -53,13 +53,11 @@ const formOptions = {
 
 export class LoginView extends Component {
   static navigationOptions = {
-    header: () => ({
-      title: 'Expedited Field Capability',
-      style: routerStyles.navBar,
-      tintColor: 'white',
-      left: null,
-    }),
-    cardStack: { gesturesEnabled: false },
+    headerTitle: 'Expedited Field Capability',
+    headerStyle: routerStyles.navBar,
+    headerTintColor: 'white',
+    headerLeft: null,
+    gesturesEnabled: false,
   };
 
   constructor(props) {

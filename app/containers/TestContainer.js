@@ -12,24 +12,19 @@ import { navStyles } from '../style/style';
 import MenuButton from '../components/MenuButton';
 
 class TestContainer extends Component {
-  static navigationOptions = {
-    title: 'Tests',
-    drawer: () => ({
-      label: 'Tests',
-      icon: () => (
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: 'Tests',
+    headerLeft: <MenuButton navigation={navigation} />,
+    drawerLabel: 'Tests',
+    drawerIcon: () => (
         <Icon
           name={Platform.OS === 'ios' ? 'ios-build-outline' : 'md-build'}
           size={30}
           color="#fff"
           style={{ paddingRight: 10 }}
         />
-      ),
-    }),
-    header: (navigation, defaultHeader) => ({
-      ...defaultHeader,
-      left: <MenuButton navigation={navigation} />,
-    }),
-  }
+    ),
+  })
 
   render() {
     return (

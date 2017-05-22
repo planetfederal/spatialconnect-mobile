@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1e2e47',
+    paddingTop: 15,
   },
   navBtns: {
     borderTopWidth: 1,

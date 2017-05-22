@@ -9,6 +9,8 @@ const initialState = {
   connectionStatus: false,
 };
 
+console.log(sc);
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case sc.Commands.DATASERVICE_FORMLIST:
@@ -67,6 +69,6 @@ export const connectSC = (store) => {
       console.warn(err);
     }
   } else {
-    sc.enableGPS();
+    //sc.enableGPS();
   }
 };

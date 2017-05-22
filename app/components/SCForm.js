@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
 
 
 class SCForm extends Component {
-  static navigationOptions = {
-    title: ({ state }) => state.params.form.form_label,
-  };
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: navigation.state.params.form.form_label,
+  });
 
   constructor(props) {
     super(props);

@@ -15,25 +15,20 @@ import LayersButton from '../components/LayersButton';
 import LayerList from '../components/LayerList';
 
 class MapContainer extends Component {
-  static navigationOptions = {
-    title: 'Map',
-    drawer: () => ({
-      label: 'Map',
-      icon: () => (
-        <Icon
-          name={Platform.OS === 'ios' ? 'ios-map-outline' : 'md-map'}
-          size={30}
-          color="#fff"
-          style={{ paddingRight: 10 }}
-        />
-      ),
-    }),
-    header: (navigation, defaultHeader) => ({
-      ...defaultHeader,
-      left: <MenuButton navigation={navigation} />,
-      right: <LayersButton navigation={navigation} />,
-    }),
-  }
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: 'Map',
+    headerLeft: <MenuButton navigation={navigation} />,
+    headerRight: <LayersButton navigation={navigation} />,
+    drawerLabel: 'Map',
+    drawerIcon: () => (
+      <Icon
+        name={Platform.OS === 'ios' ? 'ios-map-outline' : 'md-map'}
+        size={30}
+        color="#fff"
+        style={{ paddingRight: 10 }}
+      />
+    ),
+  })
 
   render() {
     const params = this.props.navigation.state.params;

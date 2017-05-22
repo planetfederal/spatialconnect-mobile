@@ -58,18 +58,16 @@ const styles = StyleSheet.create({
 });
 
 export class SignUpView extends Component {
-  static navigationOptions = {
-    header: (nav) => ({
-      title: 'Sign Up',
-      style: routerStyles.navBar,
-      tintColor: 'white',
-      left: (<Button
-        color="white"
-        title="Cancel"
-        onPress={() => { nav.goBack(); }}
-      />),
-    }),
-  };
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: 'Sign Up',
+    headerStyle: routerStyles.navBar,
+    headerTintColor: 'white',
+    headerLeft: (<Button
+      color="white"
+      title="Cancel"
+      onPress={() => { navigation.goBack(); }}
+    />),
+  });
 
   constructor(props) {
     super(props);

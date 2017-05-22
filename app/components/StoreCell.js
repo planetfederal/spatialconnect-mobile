@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import { StoreStatus } from 'react-native-spatialconnect';
-import { cellStyles } from '../style/style';
+import { cellStyles, listStyles } from '../style/style';
 
 const statusText = (store) => {
   let text;
@@ -44,11 +44,7 @@ const StoreCell = (props) => {
   }
   return (
     <View>
-      <TouchableElement
-        onPress={props.onSelect}
-        onShowUnderlay={props.onHighlight}
-        onHideUnderlay={props.onUnhighlight}
-      >
+      <TouchableElement onPress={props.onSelect}>
         <View style={cellStyles.cellRow}>
           <View style={cellStyles.textContainer}>
             <Text style={cellStyles.cellName} numberOfLines={2}>
@@ -58,14 +54,13 @@ const StoreCell = (props) => {
           </View>
         </View>
       </TouchableElement>
+      <View style={listStyles.rowSeparator} />
     </View>
   );
 };
 
 StoreCell.propTypes = {
   onSelect: PropTypes.func.isRequired,
-  onHighlight: PropTypes.func.isRequired,
-  onUnhighlight: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
 };
 

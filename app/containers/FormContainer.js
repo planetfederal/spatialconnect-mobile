@@ -10,24 +10,19 @@ import { navStyles } from '../style/style';
 import MenuButton from '../components/MenuButton';
 
 class FormContainer extends Component {
-  static navigationOptions = {
-    title: 'Forms',
-    drawer: () => ({
-      label: 'Forms',
-      icon: () => (
-        <Icon
-          name={Platform.OS === 'ios' ? 'ios-filing-outline' : 'md-filing'}
-          size={35}
-          color="#fff"
-          style={{ paddingRight: 10 }}
-        />
-      ),
-    }),
-    header: (navigation, defaultHeader) => ({
-      ...defaultHeader,
-      left: <MenuButton navigation={navigation} />,
-    }),
-  }
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: 'Forms',
+    headerLeft: <MenuButton navigation={navigation} />,
+    drawerLabel: 'Forms',
+    drawerIcon: () => (
+      <Icon
+        name={Platform.OS === 'ios' ? 'ios-filing-outline' : 'md-filing'}
+        size={35}
+        color="#fff"
+        style={{ paddingRight: 10 }}
+      />
+    ),
+  })
 
   render() {
     return (

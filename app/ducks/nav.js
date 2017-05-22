@@ -8,6 +8,7 @@ export default (state, action) => {
       // authenticated, navigate to main navigator
       const resetAction = NavigationActions.reset({
         index: 0,
+        key: null,
         actions: [
           NavigationActions.navigate({
             routeName: 'AuthedNavigator',
@@ -17,7 +18,7 @@ export default (state, action) => {
       return AppNavigator.router.getStateForAction(resetAction, state);
     }
     const resetAction = NavigationActions.navigate({
-      routeName: 'login',
+      routeName: 'UnAuthedNavigator',
     });
     return AppNavigator.router.getStateForAction(resetAction, state);
   }
