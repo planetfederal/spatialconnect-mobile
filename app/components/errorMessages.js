@@ -1,18 +1,8 @@
 export const numErrMessage = fieldLabel =>
-(type) => {
-  `${fieldLabel} must be a ${type}`;
-};
-//
+type => `${fieldLabel} must be a ${type}`;
 
-/*
-// error message for minimum length error
-
-export const minLength = min => {
-  return (field_label) => `${field_label} must be at least ${min} characters`;
-};
+export const minErrMessage = min =>
+  fieldLabel => `${fieldLabel} must be at least ${min} characters`;
 // error message for maximum length error
-export const maxLength = max => {
-  return (field_label) => `${field_label} must be at least ${max} characters`;
-};
-
-*/
+export const maxErrMessage = max =>
+  fieldLabel => `${fieldLabel} must be at least ${max} characters`;

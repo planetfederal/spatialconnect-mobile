@@ -10,7 +10,7 @@ import palette from '../style/palette';
 import { buttonStyles } from '../style/style';
 import * as ErrorMessages from './rules';
 import { ruleRunner, run } from './ruleRunner';
-// import * as TextField from './TextField';
+
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
@@ -66,7 +66,7 @@ class SCForm extends Component {
     this.state = {
       value: {},
       renderPlaceholderOnly: true,
-      showErrors: false,
+      showErrors: true,
       validationErrors: {},
     };
 
@@ -96,9 +96,12 @@ class SCForm extends Component {
   onChange(value) {
     const formInfo = this.props.navigation.state.params.form;
     const length = formInfo.fields.length;
-    let newState = {};
     let fieldValue, fieldKey, max, min;
     let fieldValidations = [];
+    let newState = ({
+      ...this.state,
+      field_key: fieldValue
+    });
 
     for (let i = 0; i < length; i++) {
       // input
@@ -112,16 +115,18 @@ class SCForm extends Component {
       if (fieldValue !== undefined) {
         if (type === 'number') {
           fieldValue = +[fieldValue];
-          ruleRunner(field.fieldKey, field.fieldLabel,
+          const numRuleRunner = ruleRunner(field.field_key, field.field_label,
                 ErrorMessages.mustBeANum(field.type, field.fieldValue));
           fieldValidations.push(ruleRunner);
         } else if (field.type === 'string') {
-          ruleRunner(field.fieldKey, field.fieldLabel,
-               ErrorMessages.strValidation(min, max, fieldValue));
+          const strMax = ruleRunner(field.field_key, field.field_label,
+              ErrorMessages.strMax(max, fieldValue));
+          const strMin = ruleRunner(field.field_key, field.field_label,
+              ErrorMessages.strMin(min, fieldValue));
           fieldValidations.push(ruleRunner);
+          run(newState, fieldValidations);
         }
       }
-      console.log(fieldValidations);
     }
   }
   saveForm(formData) {
@@ -169,6 +174,7 @@ class SCForm extends Component {
               type={this.TcombType}
               options={this.options}
               onChange={this.onChange}
+              showErrors={this.showErrors}
             />
 
             <Button
