@@ -8,7 +8,7 @@ import * as sc from 'react-native-spatialconnect';
 import PlaceHolder from './PlaceHolder';
 import palette from '../style/palette';
 import { buttonStyles } from '../style/style';
-import * as ErrorMessages from './rules';
+import * as Rules from './rules';
 import { ruleRunner, run } from './ruleRunner';
 
 transform.registerType('date', tcomb.Date);
@@ -96,35 +96,59 @@ class SCForm extends Component {
   onChange(value) {
     const formInfo = this.props.navigation.state.params.form;
     const length = formInfo.fields.length;
-    let fieldValue, fieldKey, max, min;
+    let fieldValue, fieldKey, max, min, isInt, isRequired, minLength;
     let fieldValidations = [];
-    let newState = ({
-      ...this.state,
-      field_key: fieldValue
-    });
 
     for (let i = 0; i < length; i++) {
       // input
       let type = formInfo.fields[i].type;
       let field = formInfo.fields[i];
-      min = formInfo.fields[i].minimum;
-      max = formInfo.fields[i].maximum;
+      let constraints = formInfo.fields[i].constraints;
+      // min = formInfo.fields[i].minimum;
+      // max = formInfo.fields[i].maximum;
       fieldKey = formInfo.fields[i].field_key;
       fieldValue = value[formInfo.fields[i].field_key];
-
+      let constraintsArr = [];
       if (fieldValue !== undefined) {
         if (type === 'number') {
           fieldValue = +[fieldValue];
-          const numRuleRunner = ruleRunner(field.field_key, field.field_label,
-                ErrorMessages.mustBeANum(field.type, field.fieldValue));
-          fieldValidations.push(ruleRunner);
+          // check to see if field has a constraint. If it does then add the
+          // validation. if not don't add it.
+          // move this so it is reusable below for str cases.
+          for (const key of Object.keys(constraints)) {
+            // console.log(key, constraints[key]);
+            switch (key) {
+              case 'minimum':
+                min = constraints[key];
+                // constraintsArr.push(key, min);
+                break;
+              case 'maximum':
+                max = constraints[key];
+                break;
+              case 'is_required':
+                isRequired = constraints[key];
+                break;
+              case 'minimum_length':
+                minLength = constraints[key];
+            }
+            // still needs attention here. Rules.mustBeANum needs modifying to check
+            // the additional vars added to rule runner. (min, max, etc)
+            const numRuleRunner = ruleRunner(field.field_key, field.field_label,
+               min, max, isRequired, Rules.mustBeANum(field.type, field.fieldValue));
+            fieldValidations.push(numRuleRunner);
+          }
         } else if (field.type === 'string') {
+          // check constraints
+          for (const key of Object.keys(constraints)) {
+            console.log('todo: string validations');
+          }
           const strMax = ruleRunner(field.field_key, field.field_label,
-              ErrorMessages.strMax(max, fieldValue));
+              Rules.strMax(max, fieldValue));
+          fieldValidations.push(strMax);
           const strMin = ruleRunner(field.field_key, field.field_label,
-              ErrorMessages.strMin(min, fieldValue));
-          fieldValidations.push(ruleRunner);
-          run(newState, fieldValidations);
+              Rules.strMin(min, fieldValue));
+          fieldValidations.push(strMin);
+          run(this.state, fieldValidations);
         }
       }
     }
