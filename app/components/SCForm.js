@@ -69,7 +69,6 @@ class SCForm extends Component {
       showErrors: true,
       validationErrors: {},
     };
-
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
   }
@@ -104,11 +103,8 @@ class SCForm extends Component {
       let type = formInfo.fields[i].type;
       let field = formInfo.fields[i];
       let constraints = formInfo.fields[i].constraints;
-      // min = formInfo.fields[i].minimum;
-      // max = formInfo.fields[i].maximum;
       fieldKey = formInfo.fields[i].field_key;
       fieldValue = value[formInfo.fields[i].field_key];
-      let constraintsArr = [];
       if (fieldValue !== undefined) {
         if (type === 'number') {
           fieldValue = +[fieldValue];
@@ -116,7 +112,39 @@ class SCForm extends Component {
           // validation. if not don't add it.
           // move this so it is reusable below for str cases.
           for (const key of Object.keys(constraints)) {
-            // console.log(key, constraints[key]);
+            switch (key) {
+              case 'minimum':
+                min = constraints[key];
+                break;
+              case 'maximum':
+                max = constraints[key];
+                break;
+              case 'is_required':
+                isRequired = constraints[key];
+                break;
+              case 'minimum_length':
+                minLength = constraints[key];
+            }
+            // still needs attention here. Rules.mustBeANum needs modifying to check
+            // the additional vars added to rule runner. (min, max, etc)
+          }
+          console.log(field.field_key); // prints 'occurences' if in occurences
+          const numRuleRunner = ruleRunner(field.field_key,
+             field.field_label, Rules.mustBeANum(field.type, fieldValue));
+
+          fieldValidations.push(numRuleRunner);
+
+          let newState = this.setState({ fieldValue: fieldValue });
+
+          newState.validationErrors = run(newState, fieldValidations);
+
+          console.log(newState.validationErrors);
+
+          this.setState(newState);
+
+        } else if (field.type === 'string') {
+          // check constraints
+          for (const key of Object.keys(constraints)) {
             switch (key) {
               case 'minimum':
                 min = constraints[key];
@@ -131,24 +159,14 @@ class SCForm extends Component {
               case 'minimum_length':
                 minLength = constraints[key];
             }
-            // still needs attention here. Rules.mustBeANum needs modifying to check
-            // the additional vars added to rule runner. (min, max, etc)
-            const numRuleRunner = ruleRunner(field.field_key, field.field_label,
-               min, max, isRequired, Rules.mustBeANum(field.type, field.fieldValue));
-            fieldValidations.push(numRuleRunner);
+            const strMax = ruleRunner(field.field_key, field.field_label, min, max,
+                Rules.strMax(max, fieldValue));
+            fieldValidations.push(strMax);
+            const strMin = ruleRunner(field.field_key, field.field_label, min, max,
+                Rules.strMin(min, fieldValue));
+            fieldValidations.push(strMin);
+            // run(this.state, fieldValidations);
           }
-        } else if (field.type === 'string') {
-          // check constraints
-          for (const key of Object.keys(constraints)) {
-            console.log('todo: string validations');
-          }
-          const strMax = ruleRunner(field.field_key, field.field_label,
-              Rules.strMax(max, fieldValue));
-          fieldValidations.push(strMax);
-          const strMin = ruleRunner(field.field_key, field.field_label,
-              Rules.strMin(min, fieldValue));
-          fieldValidations.push(strMin);
-          run(this.state, fieldValidations);
         }
       }
     }
