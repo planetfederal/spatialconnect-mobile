@@ -4,6 +4,6 @@ include ':app'
 include ':react-native-image-picker'
 project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
 include ':react-native-maps'
-project(':react-native-maps').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-maps/android')
+project(':react-native-maps').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-maps/lib/android')
 include ':react-native-spatialconnect'
 project(':react-native-spatialconnect').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-spatialconnect/android')
