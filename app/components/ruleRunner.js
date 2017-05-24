@@ -2,10 +2,12 @@ export const ruleRunner = (fieldName, fieldLabel, ...validations) => {
   // ...validation is an arr of funcs.
   // loop through and call each validator to get the error messages.
   return (state) => {
+    console.log('ruleRunner function');
     for (let v of validations) {
-      // fieldName = undefined here...
+      console.log(fieldLabel);
       let errorMessageFunc = v(state[fieldName], state);
       if (errorMessageFunc) {
+        console.log('errorMessageFunc in ruleRunner');
         return { [fieldName]: errorMessageFunc(fieldLabel) };
       }
     }

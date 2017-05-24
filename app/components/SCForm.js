@@ -3,6 +3,7 @@ import { Alert, InteractionManager, ScrollView, StyleSheet, View } from 'react-n
 import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
+import { _ } from 'lodash/core';
 import scformschema from 'spatialconnect-form-schema/native';
 import * as sc from 'react-native-spatialconnect';
 import PlaceHolder from './PlaceHolder';
@@ -66,7 +67,7 @@ class SCForm extends Component {
     this.state = {
       value: {},
       renderPlaceholderOnly: true,
-      showErrors: true,
+      showErrors: false,
       validationErrors: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -93,10 +94,10 @@ class SCForm extends Component {
   }
 
   onChange(value) {
-    const formInfo = this.props.navigation.state.params.form;
-    const length = formInfo.fields.length;
+    let formInfo = this.props.navigation.state.params.form;
+    let length = formInfo.fields.length;
     let fieldValue, fieldKey, max, min, isInt, isRequired, minLength;
-    let fieldValidations = [];
+    const fieldValidations = [];
 
     for (let i = 0; i < length; i++) {
       // input
@@ -106,7 +107,7 @@ class SCForm extends Component {
       fieldKey = formInfo.fields[i].field_key;
       fieldValue = value[formInfo.fields[i].field_key];
       if (fieldValue !== undefined) {
-        if (type === 'number') {
+        if (field.type === 'number') {
           fieldValue = +[fieldValue];
           // check to see if field has a constraint. If it does then add the
           // validation. if not don't add it.
@@ -126,22 +127,20 @@ class SCForm extends Component {
                 minLength = constraints[key];
             }
             // still needs attention here. Rules.mustBeANum needs modifying to check
-            // the additional vars added to rule runner. (min, max, etc)
+            // the min, max, etc. 
           }
-          console.log(field.field_key); // prints 'occurences' if in occurences
           const numRuleRunner = ruleRunner(field.field_key,
              field.field_label, Rules.mustBeANum(field.type, fieldValue));
 
-          fieldValidations.push(numRuleRunner);
+            fieldValidations.push(numRuleRunner);
+            this.setState({ value: value });
+            const validationErrors = run(value, fieldValidations);
 
-          let newState = this.setState({ fieldValue: fieldValue });
-
-          newState.validationErrors = run(newState, fieldValidations);
-
-          console.log(newState.validationErrors);
-
-          this.setState(newState);
-
+            // originally in a onSubmit function. Since we don't want to wait for
+            // a submit. I included it below.
+            this.setState({showErrors: true});
+          if (_.isEmpty(this.state.validationErrors) === false) return null;
+          // currently only working on type === number. NOT on type === string
         } else if (field.type === 'string') {
           // check constraints
           for (const key of Object.keys(constraints)) {
@@ -159,13 +158,13 @@ class SCForm extends Component {
               case 'minimum_length':
                 minLength = constraints[key];
             }
-            const strMax = ruleRunner(field.field_key, field.field_label, min, max,
-                Rules.strMax(max, fieldValue));
+            const strMax = ruleRunner(field.field_key, field.field_label,
+                Rules.strMax(max, value));
             fieldValidations.push(strMax);
-            const strMin = ruleRunner(field.field_key, field.field_label, min, max,
+            const strMin = ruleRunner(field.field_key, field.field_label,
                 Rules.strMin(min, fieldValue));
             fieldValidations.push(strMin);
-            // run(this.state, fieldValidations);
+            run(this.state.value, fieldValidations);
           }
         }
       }

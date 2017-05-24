@@ -2,15 +2,14 @@
 // article about code https://spin.atomicobject.com/2016/10/05/form-validation-react/
 import * as ErrorMessages from './errorMessages';
 
-let fieldLabel;
-let max;
+// let max;
 // if there is an types  match return null if not return error message
 // export const mustBeANum = (type, fieldValue) =>
 //   isNaN(fieldValue) ? ErrorMessages.numErrMessage({ fieldLabel }, type) : null;
 export const mustBeANum = (type, fieldValue) => {
-  console.log(this.state);
-  return (fieldValue, state) => {
-    isNaN(fieldValue) ? ErrorMessages.numErrMessage({ fieldLabel }, type) : null;
+  return (fieldLabel, state) => {
+    console.log('must be a num func');
+    isNaN(fieldValue) ? ErrorMessages.numErrMessage(fieldLabel, type) : null;
   };
 };
 
