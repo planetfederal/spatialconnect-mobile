@@ -4,7 +4,6 @@ export const ruleRunner = (fieldName, fieldLabel, ...validations) => {
   return (state) => {
     console.log('ruleRunner function');
     for (let v of validations) {
-      console.log(fieldLabel);
       let errorMessageFunc = v(state[fieldName], state);
       if (errorMessageFunc) {
         console.log('errorMessageFunc in ruleRunner');
@@ -14,7 +13,6 @@ export const ruleRunner = (fieldName, fieldLabel, ...validations) => {
     return null;
   };
 };
-
 // // calls all the validation rule runners and aggregates their results
 // // into a single object. Allows for the results of all the fields into one object.
 export const run = (state, runners) =>

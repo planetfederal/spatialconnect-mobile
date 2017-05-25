@@ -1,5 +1,6 @@
-export const numErrMessage = fieldLabel =>
-type => `${fieldLabel} must be a ${type}`;
+export const numErrMessage = (fieldValue) => {
+  return type => `${fieldValue} must be a ${type}`;
+};
 
 export const minErrMessage = min =>
   fieldLabel => `${fieldLabel} must be at least ${min} characters`;

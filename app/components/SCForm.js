@@ -127,19 +127,19 @@ class SCForm extends Component {
                 minLength = constraints[key];
             }
             // still needs attention here. Rules.mustBeANum needs modifying to check
-            // the min, max, etc. 
+            // the min, max, etc.
+            //{ value: { occurences: '1' }
           }
-          const numRuleRunner = ruleRunner(field.field_key,
-             field.field_label, Rules.mustBeANum(field.type, fieldValue));
-
-            fieldValidations.push(numRuleRunner);
-            this.setState({ value: value });
-            const validationErrors = run(value, fieldValidations);
-
+          const numRuleRunner = ruleRunner(field.field_label,
+             field.field_label, Rules.mustBeANum(fieldValue, field.type));
+          fieldValidations.push(numRuleRunner);
+          this.setState({ value: value });
+          const validationErrors = run(value, fieldValidations);
             // originally in a onSubmit function. Since we don't want to wait for
             // a submit. I included it below.
-            this.setState({showErrors: true});
+          this.setState({ showErrors: true });
           if (_.isEmpty(this.state.validationErrors) === false) return null;
+          // need more after?
           // currently only working on type === number. NOT on type === string
         } else if (field.type === 'string') {
           // check constraints

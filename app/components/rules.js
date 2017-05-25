@@ -6,10 +6,10 @@ import * as ErrorMessages from './errorMessages';
 // if there is an types  match return null if not return error message
 // export const mustBeANum = (type, fieldValue) =>
 //   isNaN(fieldValue) ? ErrorMessages.numErrMessage({ fieldLabel }, type) : null;
-export const mustBeANum = (type, fieldValue) => {
-  return (fieldLabel, state) => {
+export const mustBeANum = (fieldValue, type) => {
+  return (ieldValue, state) => {
     console.log('must be a num func');
-    isNaN(fieldValue) ? ErrorMessages.numErrMessage(fieldLabel, type) : null;
+    isNaN(this.fieldValue) ? ErrorMessages.numErrMessage(type, this.fieldValue) : null;
   };
 };
 
