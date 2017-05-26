@@ -1,4 +1,5 @@
 export const ruleRunner = (fieldName, fieldLabel, ...validations) => {
+
   // ...validation is an arr of funcs.
   // loop through and call each validator to get the error messages.
   return (state) => {
