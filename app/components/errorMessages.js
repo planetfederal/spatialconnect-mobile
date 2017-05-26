@@ -1,5 +1,5 @@
-export const numErrMessage = (fieldValue) => {
-  return type => `${fieldValue} must be a ${type}`;
+export const numErrMessage = (type, fieldValue) => {
+  return text => `${fieldValue} must be a ${type}`;
 };
 
 export const minErrMessage = min =>

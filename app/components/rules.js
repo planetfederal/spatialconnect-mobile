@@ -9,6 +9,7 @@ import * as ErrorMessages from './errorMessages';
 export const mustBeANum = (fieldValue, type) => {
   return (fieldValue, state) => {
     console.log('must be a num func');
+    console.log(fieldValue);
     isNaN(fieldValue) ? ErrorMessages.numErrMessage(type, fieldValue) : null;
   };
 };

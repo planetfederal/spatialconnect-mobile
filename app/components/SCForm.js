@@ -94,13 +94,12 @@ class SCForm extends Component {
   }
 
   onChange(value) {
-    let formInfo = this.props.navigation.state.params.form;
+    const formInfo = this.props.navigation.state.params.form;
     let length = formInfo.fields.length;
     let fieldValue, fieldKey, max, min, isInt, isRequired, minLength;
     const fieldValidations = [];
 
     for (let i = 0; i < length; i++) {
-      // input
       let type = formInfo.fields[i].type;
       let field = formInfo.fields[i];
       let constraints = formInfo.fields[i].constraints;
@@ -109,9 +108,6 @@ class SCForm extends Component {
       if (fieldValue !== undefined) {
         if (field.type === 'number') {
           fieldValue = +[fieldValue];
-          // check to see if field has a constraint. If it does then add the
-          // validation. if not don't add it.
-          // move this so it is reusable below for str cases.
           for (const key of Object.keys(constraints)) {
             switch (key) {
               case 'minimum':
@@ -128,45 +124,21 @@ class SCForm extends Component {
             }
             // still needs attention here. Rules.mustBeANum needs modifying to check
             // the min, max, etc.
-            //{ value: { occurences: '1' }
           }
           const numRuleRunner = ruleRunner(field.field_label,
              field.field_label, Rules.mustBeANum(fieldValue, field.type));
           fieldValidations.push(numRuleRunner);
-          this.setState({ value: value });
-          const validationErrors = run(value, fieldValidations);
-            // originally in a onSubmit function. Since we don't want to wait for
-            // a submit. I included it below.
-          this.setState({ showErrors: true });
-          if (_.isEmpty(this.state.validationErrors) === false) return null;
-          // need more after?
-          // currently only working on type === number. NOT on type === string
-        } else if (field.type === 'string') {
-          // check constraints
-          for (const key of Object.keys(constraints)) {
-            switch (key) {
-              case 'minimum':
-                min = constraints[key];
-                // constraintsArr.push(key, min);
-                break;
-              case 'maximum':
-                max = constraints[key];
-                break;
-              case 'is_required':
-                isRequired = constraints[key];
-                break;
-              case 'minimum_length':
-                minLength = constraints[key];
-            }
-            const strMax = ruleRunner(field.field_key, field.field_label,
-                Rules.strMax(max, value));
-            fieldValidations.push(strMax);
-            const strMin = ruleRunner(field.field_key, field.field_label,
-                Rules.strMin(min, fieldValue));
-            fieldValidations.push(strMin);
-            run(this.state.value, fieldValidations);
-          }
         }
+        this.setState({
+          value: fieldValue,
+          showErrors: true
+        });
+        this.state.validationErrors = run(fieldValue, fieldValidations);
+        console.log(this.state.validationErrors);
+        // if (_.isEmpty(this.state.validationErrors) === false) return null;
+      } else if (field.type === 'string') {
+          // check constraints
+        console.log(`Type is: ${field.type}`);
       }
     }
   }
