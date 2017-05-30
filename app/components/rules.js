@@ -6,17 +6,22 @@ import * as ErrorMessages from './errorMessages';
 // if there is an types  match return null if not return error message
 // export const mustBeANum = (type, fieldValue) =>
 //   isNaN(fieldValue) ? ErrorMessages.numErrMessage({ fieldLabel }, type) : null;
-export const mustBeANum = (fieldValue, type) => {
-  return (fieldValue, state) => {
+export const mustBeANum = (text, field) => {
     console.log('must be a num func');
-    console.log(fieldValue);
-    isNaN(fieldValue) ? ErrorMessages.numErrMessage(type, fieldValue) : null;
-  };
+    text = +[text];
+    console.log(text);
+  if (isNaN(text)) {
+    console.log('ERROR TRIGGERED');
+    return ErrorMessages.numErrMessage(text, field);
+  } else {
+    return null;
+  }
 };
 
-export const strMin = (min, fieldValue) =>
-  fieldValue.length < min ? ErrorMessages.minErrMessage(min, fieldValue) : null;
-
-
-export const strMax = (max, fieldValue) =>
-  fieldValue.length > max ? ErrorMessages.maxErrMessage(max, fieldValue) : null;
+// export const strMin = (min, field) =>
+// // this should return a function
+//   field.field_key.length < min ? ErrorMessages.minErrMessage(min) : null;
+//
+//
+// export const strMax = (max) =>
+//   fieldValue.length > max ? ErrorMessages.maxErrMessage(max) : null;

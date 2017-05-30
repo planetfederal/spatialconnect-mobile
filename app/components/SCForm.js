@@ -70,10 +70,10 @@ class SCForm extends Component {
       showErrors: false,
       validationErrors: {},
     };
+
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
   }
-
   componentWillMount() {
     InteractionManager.runAfterInteractions(() => {
       const formInfo = this.props.navigation.state.params.form;
@@ -102,41 +102,39 @@ class SCForm extends Component {
     for (let i = 0; i < length; i++) {
       let type = formInfo.fields[i].type;
       let field = formInfo.fields[i];
-      let constraints = formInfo.fields[i].constraints;
-      fieldKey = formInfo.fields[i].field_key;
       fieldValue = value[formInfo.fields[i].field_key];
-      if (fieldValue !== undefined) {
-        if (field.type === 'number') {
-          fieldValue = +[fieldValue];
-          for (const key of Object.keys(constraints)) {
-            switch (key) {
-              case 'minimum':
-                min = constraints[key];
-                break;
-              case 'maximum':
-                max = constraints[key];
-                break;
-              case 'is_required':
-                isRequired = constraints[key];
-                break;
-              case 'minimum_length':
-                minLength = constraints[key];
-            }
+      let constraints = formInfo.fields[i].constraints;
+      // fieldKey = formInfo.fields[i].field_key;
+      // fieldValue = value[formInfo.fields[i].field_key];
+      if (field.type === 'number' && fieldValue !== undefined) {
+        for (const key of Object.keys(constraints)) {
+          switch (key) {
+            case 'minimum':
+              min = constraints[key];
+              break;
+            case 'maximum':
+              max = constraints[key];
+              break;
+            case 'is_required':
+              isRequired = constraints[key];
+              break;
+            case 'minimum_length':
+              minLength = constraints[key];
+          }
             // still needs attention here. Rules.mustBeANum needs modifying to check
             // the min, max, etc.
-          }
-          const numRuleRunner = ruleRunner(field.field_label,
-             field.field_label, Rules.mustBeANum(fieldValue, field.type));
+      const numRuleRunner = ruleRunner(field.field_key,
+          field.field_label, Rules.mustBeANum(fieldValue, field.type));
           fieldValidations.push(numRuleRunner);
+          this.setState({
+            value,
+            showErrors: true,
+            validationErrors: run(this.state, fieldValidations),
+          });
         }
-        this.setState({
-          value: fieldValue,
-          showErrors: true
-        });
-        this.state.validationErrors = run(fieldValue, fieldValidations);
         console.log(this.state.validationErrors);
-        // if (_.isEmpty(this.state.validationErrors) === false) return null;
-      } else if (field.type === 'string') {
+        if (_.isEmpty(this.state.validationErrors) === false) return null;
+      } else if (value[field.field_key] !== undefined && field.type === 'string') {
           // check constraints
         console.log(`Type is: ${field.type}`);
       }
