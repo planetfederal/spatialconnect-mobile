@@ -97,7 +97,6 @@ class SCForm extends Component {
     const formInfo = this.props.navigation.state.params.form;
     let length = formInfo.fields.length;
     let fieldValue, fieldKey, max, min, isInt, isRequired, minLength;
-    const fieldValidations = [];
 
     for (let i = 0; i < length; i++) {
       let type = formInfo.fields[i].type;
@@ -105,8 +104,9 @@ class SCForm extends Component {
       fieldValue = value[formInfo.fields[i].field_key];
       let constraints = formInfo.fields[i].constraints;
       // fieldKey = formInfo.fields[i].field_key;
-      // fieldValue = value[formInfo.fields[i].field_key];
       if (field.type === 'number' && fieldValue !== undefined) {
+        const fieldValidations = [ruleRunner(field.field_key,
+          field.field_label, Rules.mustBeANum(fieldValue, field.type))];
         for (const key of Object.keys(constraints)) {
           switch (key) {
             case 'minimum':
@@ -121,20 +121,20 @@ class SCForm extends Component {
             case 'minimum_length':
               minLength = constraints[key];
           }
+          console.log(fieldValidations);
             // still needs attention here. Rules.mustBeANum needs modifying to check
             // the min, max, etc.
-      const numRuleRunner = ruleRunner(field.field_key,
-          field.field_label, Rules.mustBeANum(fieldValue, field.type));
-          fieldValidations.push(numRuleRunner);
+      // const numRuleRunner = ruleRunner(field.field_key,
+      //     field.field_label, Rules.mustBeANum(fieldValue, field.type));
+      //     fieldValidations.push(numRuleRunner);
           this.setState({
             value,
             showErrors: true,
             validationErrors: run(this.state, fieldValidations),
           });
         }
-        console.log(this.state.validationErrors);
         if (_.isEmpty(this.state.validationErrors) === false) return null;
-      } else if (value[field.field_key] !== undefined && field.type === 'string') {
+      } else if (fieldValue !== undefined && field.type === 'string') {
           // check constraints
         console.log(`Type is: ${field.type}`);
       }

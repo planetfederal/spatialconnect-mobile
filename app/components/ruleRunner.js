@@ -5,6 +5,7 @@ export const ruleRunner = (field, name, ...validations) => {
       let errorMessageFunc = v(state[field], state);
       if (errorMessageFunc) {
         console.log('errorMessageFunc in ruleRunner');
+        console.log(errorMessageFunc());
         return { [field]: errorMessageFunc(name) };
       }
     }

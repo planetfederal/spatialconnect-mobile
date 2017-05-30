@@ -8,10 +8,10 @@ import * as ErrorMessages from './errorMessages';
 //   isNaN(fieldValue) ? ErrorMessages.numErrMessage({ fieldLabel }, type) : null;
 export const mustBeANum = (text, field) => {
     console.log('must be a num func');
-    text = +[text];
-    console.log(text);
-  if (isNaN(text)) {
+    textValue = +[text];
+  if (isNaN(textValue)) {
     console.log('ERROR TRIGGERED');
+
     return ErrorMessages.numErrMessage(text, field);
   } else {
     return null;
