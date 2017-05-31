@@ -69,6 +69,6 @@ export const connectSC = (store) => {
       console.warn(err);
     }
   } else {
-    //sc.enableGPS();
+    sc.enableGPS();
   }
 };
