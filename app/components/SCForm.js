@@ -3,14 +3,12 @@ import { Alert, InteractionManager, ScrollView, StyleSheet, View } from 'react-n
 import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
-import { _ } from 'lodash/core';
+import { _ } from 'lodash';
 import scformschema from 'spatialconnect-form-schema/native';
 import * as sc from 'react-native-spatialconnect';
 import PlaceHolder from './PlaceHolder';
 import palette from '../style/palette';
 import { buttonStyles } from '../style/style';
-import * as Rules from './rules';
-import { ruleRunner, run } from './ruleRunner';
 
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
@@ -67,13 +65,13 @@ class SCForm extends Component {
     this.state = {
       value: {},
       renderPlaceholderOnly: true,
-      showErrors: false,
-      validationErrors: {},
+      showErrors: true,
     };
 
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
   }
+
   componentWillMount() {
     InteractionManager.runAfterInteractions(() => {
       const formInfo = this.props.navigation.state.params.form;
@@ -96,50 +94,46 @@ class SCForm extends Component {
   onChange(value) {
     const formInfo = this.props.navigation.state.params.form;
     let length = formInfo.fields.length;
-    let fieldValue, fieldKey, max, min, isInt, isRequired, minLength;
-
+    let fieldKey, max, min, isInt, isRequired, minLength, ruleNumErr;
     for (let i = 0; i < length; i++) {
-      let type = formInfo.fields[i].type;
+      type = formInfo.fields[i].type;
       let field = formInfo.fields[i];
-      fieldValue = value[formInfo.fields[i].field_key];
+      let fieldValue = value[formInfo.fields[i].field_key];
       let constraints = formInfo.fields[i].constraints;
-      // fieldKey = formInfo.fields[i].field_key;
+      max = formInfo.fields[i].constraints.maximum;
+      let rules_arr = [];
+      const errMessObj = {
+        notANumErr: `${field.field_label} must be a ${field.type}`,
+        overMaxErr: `${field.field_label} can not be over ${max}`,
+        overMinErr: `${field.field_label} can not be under ${min}`,
+        requiredErr: `${field.field_label} is required`,
+      };
+
       if (field.type === 'number' && fieldValue !== undefined) {
-        const fieldValidations = [ruleRunner(field.field_key,
-          field.field_label, Rules.mustBeANum(fieldValue, field.type))];
-        for (const key of Object.keys(constraints)) {
-          switch (key) {
-            case 'minimum':
-              min = constraints[key];
-              break;
-            case 'maximum':
-              max = constraints[key];
-              break;
-            case 'is_required':
-              isRequired = constraints[key];
-              break;
-            case 'minimum_length':
-              minLength = constraints[key];
-          }
-          console.log(fieldValidations);
-            // still needs attention here. Rules.mustBeANum needs modifying to check
-            // the min, max, etc.
-      // const numRuleRunner = ruleRunner(field.field_key,
-      //     field.field_label, Rules.mustBeANum(fieldValue, field.type));
-      //     fieldValidations.push(numRuleRunner);
-          this.setState({
-            value,
-            showErrors: true,
-            validationErrors: run(this.state, fieldValidations),
-          });
+        fieldValue = _.toNumber(fieldValue);
+        if (isNaN(fieldValue)) {
+          rules_arr.push(errMessObj.notANumErr);
         }
-        if (_.isEmpty(this.state.validationErrors) === false) return null;
-      } else if (fieldValue !== undefined && field.type === 'string') {
+        if (fieldValue > max) {
+          rules_arr.push(errMessObj.overMaxErr);
+        }
+        if (fieldValue < min) {
+          rules_arr.push(errMessObj.underMinErr);
+        }
+        if (fieldValue === 0) {
+          rules_arr.push(errMessObj.requiredErr);
+        }
+      } else if (field.type === 'string' && fieldValue !== undefined) {
           // check constraints
-        console.log(`Type is: ${field.type}`);
+        fieldValue = _.trim(fieldValue);
+        if (_.isEmpty(fieldValue)) {
+          rules_arr.push(errMessObj.requiredErr);
+          console.log(rules_arr[0]);
+        }
       }
     }
   }
+
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
     navigator.geolocation.getCurrentPosition(
