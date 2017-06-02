@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Alert, InteractionManager, ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, InteractionManager, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
@@ -9,12 +9,12 @@ import * as sc from 'react-native-spatialconnect';
 import PlaceHolder from './PlaceHolder';
 import palette from '../style/palette';
 import { buttonStyles } from '../style/style';
+import { nanErr, overMax, overMin, isReqNum, isReqStr } from './helpers';
 
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
 const Form = tcomb.form.Form;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -65,7 +65,7 @@ class SCForm extends Component {
     this.state = {
       value: {},
       renderPlaceholderOnly: true,
-      showErrors: true,
+      showErrors: false,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -94,46 +94,38 @@ class SCForm extends Component {
   onChange(value) {
     const formInfo = this.props.navigation.state.params.form;
     let length = formInfo.fields.length;
-    let fieldKey, max, min, isInt, isRequired, minLength, ruleNumErr;
+    let fieldKey,
+      max,
+      min;
+    let field;
+    let fieldValue;
+    let constraints;
+    let err_arr = [];
     for (let i = 0; i < length; i++) {
       type = formInfo.fields[i].type;
-      let field = formInfo.fields[i];
-      let fieldValue = value[formInfo.fields[i].field_key];
-      let constraints = formInfo.fields[i].constraints;
+      field = formInfo.fields[i];
+      fieldValue = value[formInfo.fields[i].field_key];
+      constraints = formInfo.fields[i].constraints;
       max = formInfo.fields[i].constraints.maximum;
-      let rules_arr = [];
-      const errMessObj = {
+      let errMessObj = {
         notANumErr: `${field.field_label} must be a ${field.type}`,
         overMaxErr: `${field.field_label} can not be over ${max}`,
         overMinErr: `${field.field_label} can not be under ${min}`,
         requiredErr: `${field.field_label} is required`,
       };
-
       if (field.type === 'number' && fieldValue !== undefined) {
         fieldValue = _.toNumber(fieldValue);
-        if (isNaN(fieldValue)) {
-          rules_arr.push(errMessObj.notANumErr);
-        }
-        if (fieldValue > max) {
-          rules_arr.push(errMessObj.overMaxErr);
-        }
-        if (fieldValue < min) {
-          rules_arr.push(errMessObj.underMinErr);
-        }
-        if (fieldValue === 0) {
-          rules_arr.push(errMessObj.requiredErr);
-        }
+        nanErr(fieldValue);
+        overMax(fieldValue, max);
+        overMin(fieldValue, min);
+        isReqNum(fieldValue);
       } else if (field.type === 'string' && fieldValue !== undefined) {
-          // check constraints
+        // trim whitespace
         fieldValue = _.trim(fieldValue);
-        if (_.isEmpty(fieldValue)) {
-          rules_arr.push(errMessObj.requiredErr);
-          console.log(rules_arr[0]);
-        }
+        isReqStr(fieldValue);
       }
     }
   }
-
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
     navigator.geolocation.getCurrentPosition(
@@ -172,6 +164,7 @@ class SCForm extends Component {
         <ScrollView style={styles.scrollView}>
           <View style={styles.form}>
             <Form
+              message={this.state.message}
               ref={(ref) => {
                 this.form = ref;
               }}
@@ -179,7 +172,7 @@ class SCForm extends Component {
               type={this.TcombType}
               options={this.options}
               onChange={this.onChange}
-              showErrors={this.showErrors}
+
             />
 
             <Button
