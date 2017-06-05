@@ -243,12 +243,6 @@ class SCMap extends Component {
                     feature: point.feature,
                   });
                 }}
-                onSelect={() => {
-                  this.props.navigation.navigate('viewFeature', {
-                    stores: this.props.stores,
-                    feature: point.feature,
-                  });
-                }}
               />);
             })}
             {this.props.overlays.polygons.map((p) => {
