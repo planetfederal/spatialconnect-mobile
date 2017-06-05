@@ -66,10 +66,16 @@ class SCForm extends Component {
       value: {},
       renderPlaceholderOnly: true,
       showErrors: false,
+      notANumErr: '',
+      overMaxErr: '',
+      overMinErr: '',
+      requireNumErr: '',
+      requireStrErr: '',
     };
 
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   componentWillMount() {
@@ -94,38 +100,37 @@ class SCForm extends Component {
   onChange(value) {
     const formInfo = this.props.navigation.state.params.form;
     let length = formInfo.fields.length;
-    let fieldKey,
-      max,
-      min;
+    let fieldKey;
+    let max;
+    let min;
     let field;
     let fieldValue;
-    let constraints;
+    // let constraints;
     let err_arr = [];
     for (let i = 0; i < length; i++) {
       type = formInfo.fields[i].type;
       field = formInfo.fields[i];
       fieldValue = value[formInfo.fields[i].field_key];
-      constraints = formInfo.fields[i].constraints;
+      // constraints = formInfo.fields[i].constraints;
       max = formInfo.fields[i].constraints.maximum;
-      let errMessObj = {
-        notANumErr: `${field.field_label} must be a ${field.type}`,
-        overMaxErr: `${field.field_label} can not be over ${max}`,
-        overMinErr: `${field.field_label} can not be under ${min}`,
-        requiredErr: `${field.field_label} is required`,
-      };
+
       if (field.type === 'number' && fieldValue !== undefined) {
         fieldValue = _.toNumber(fieldValue);
-        nanErr(fieldValue);
-        overMax(fieldValue, max);
-        overMin(fieldValue, min);
-        isReqNum(fieldValue);
+        err_arr.push(nanErr);
+        err_arr.push(overMax);
+        err_arr.push(overMin);
+        err_arr.push(isReqNum);
       } else if (field.type === 'string' && fieldValue !== undefined) {
-        // trim whitespace
         fieldValue = _.trim(fieldValue);
-        isReqStr(fieldValue);
+        err_arr.push(isReqStr);
       }
     }
   }
+
+  handleBlur = () => {
+    console.log('Blur!');
+  }
+
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
     navigator.geolocation.getCurrentPosition(
@@ -172,7 +177,7 @@ class SCForm extends Component {
               type={this.TcombType}
               options={this.options}
               onChange={this.onChange}
-
+              onBlur={this.handleBlur}
             />
 
             <Button
