@@ -9,7 +9,7 @@ import * as sc from 'react-native-spatialconnect';
 import PlaceHolder from './PlaceHolder';
 import palette from '../style/palette';
 import { buttonStyles } from '../style/style';
-import { nanErr, overMax, overMin, isReqNum, isReqStr } from './helpers';
+import { nanErr, overMax, underMin, isReqNum, isReqStr } from './helpers';
 
 transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
@@ -118,13 +118,16 @@ class SCForm extends Component {
         fieldValue = _.toNumber(fieldValue);
         err_arr.push(nanErr);
         err_arr.push(overMax);
-        err_arr.push(overMin);
+        err_arr.push(underMin);
         err_arr.push(isReqNum);
       } else if (field.type === 'string' && fieldValue !== undefined) {
         fieldValue = _.trim(fieldValue);
         err_arr.push(isReqStr);
       }
     }
+    err_arr.forEach((err) => {
+      err();
+    });
   }
 
   handleBlur = () => {
