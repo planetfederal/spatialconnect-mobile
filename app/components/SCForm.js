@@ -59,23 +59,16 @@ class SCForm extends Component {
   static navigationOptions = {
     title: ({ state }) => state.params.form.form_label,
   };
-
   constructor(props) {
     super(props);
     this.state = {
       value: {},
       renderPlaceholderOnly: true,
       showErrors: false,
-      notANumErr: '',
-      overMaxErr: '',
-      overMinErr: '',
-      requireNumErr: '',
-      requireStrErr: '',
     };
 
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
   }
 
   componentWillMount() {
@@ -108,30 +101,37 @@ class SCForm extends Component {
     // let constraints;
     let err_arr = [];
     for (let i = 0; i < length; i++) {
-      type = formInfo.fields[i].type;
       field = formInfo.fields[i];
       fieldValue = value[formInfo.fields[i].field_key];
-      // constraints = formInfo.fields[i].constraints;
       max = formInfo.fields[i].constraints.maximum;
+      min = formInfo.fields[i].constraints.minimum;
 
       if (field.type === 'number' && fieldValue !== undefined) {
         fieldValue = _.toNumber(fieldValue);
-        err_arr.push(nanErr);
-        err_arr.push(overMax);
-        err_arr.push(underMin);
-        err_arr.push(isReqNum);
+        // err_arr.push(isReqNum);
+        if (isReqNum(fieldValue) === true) {
+          console.log(`${field.field_label} is required`);
+        }
+        // err_arr.push(nanErr);
+        if (nanErr(fieldValue) === true) {
+          console.log(`${field.field_label} must be a ${field.type}`);
+        }
+        // err_arr.push(overMax);
+          if(overMax(fieldValue, max) === true) {
+            console.log(`${field.field_label} must be under ${max}`);
+          }
+        // err_arr.push(underMin);
+        if (underMin(fieldValue, min) === true) {
+          console.log(`${field.field_label} must be at least ${min}`);
+        }
       } else if (field.type === 'string' && fieldValue !== undefined) {
         fieldValue = _.trim(fieldValue);
-        err_arr.push(isReqStr);
+        // err_arr.push(isReqStr);
+        if (isReqStr(fieldValue) === true) {
+          console.log(`${field.field_label} is required`);
+        }
       }
     }
-    err_arr.forEach((err) => {
-      err();
-    });
-  }
-
-  handleBlur = () => {
-    console.log('Blur!');
   }
 
   saveForm(formData) {

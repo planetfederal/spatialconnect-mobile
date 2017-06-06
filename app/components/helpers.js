@@ -1,31 +1,50 @@
-import SCForm from './SCForm';
 import { _ } from 'lodash';
-let err_arr = [];
 
 export function nanErr(fieldValue) {
-  _.isNaN(fieldValue) ? this.state.notANumErr : null;
-  console.log('nanErr ran');
+  if (_.isNaN(fieldValue) === true) {
+    return true;
+  } else if (isNaN(fieldValue) === false) {
+    return false;
+  } else if (isNaN(fieldValue) === undefined) {
+    console.log('SOMETHING WENT HORRIBLY WRONG :/');
+  }
 }
 export function overMax(fieldValue, max) {
-  (fieldValue > max) ? this.state.overMaxErr : null;
-  console.log('overMax ran');
+  if ((fieldValue > max) === true) {
+    return true;
+  } else if ((fieldValue > max) === false) {
+    return false;
+  } else if ((fieldValue > max) === undefined) {
+    console.log('SOMETHING WENT HORRIBLY WRONG :/');
+  }
 }
 
 export function underMin(fieldValue, min) {
-  (fieldValue < min) ? this.state.overMinErr : null;
-  console.log('overMin ran');
+  if ((fieldValue < min) === true) {
+    return true;
+  } else if ((fieldValue < min) === false) {
+    return false;
+  } else if ((fieldValue < min) === undefined) {
+    console.log('SOMETHING WENT HORRIBLY WRONG :/');
+  }
 }
 
 export function isReqNum(fieldValue) {
-  fieldValue === 0 ? this.state.reqNumErr : null;
-  console.log('isReqNum ran');
+  if (fieldValue === 0) {
+    return true;
+  } else if (fieldValue === undefined) {
+    console.log('SOMETHING WENT HORRIBLY WRONG :/');
+  }
 }
 
 export function isReqStr(fieldValue) {
-  _.isEmpty(fieldValue) ? this.state.reqStrErr : null;
-  console.log('isReqStr ran');
+  if (_.isEmpty(fieldValue) === true){
+    return true;
+  } else if (_.isEmpty(fieldValue) === undefined) {
+    console.log('SOMETHING WENT HORRIBLY WRONG :/');
+  }
 }
-// this.setState({ errMessObj:
+// this.setState({
 //   notANumErr: `${field.field_label} must be a ${field.type}`,
 //   overMaxErr: `${field.field_label} can not be over ${max}`,
 //   overMinErr: `${field.field_label} can not be under ${min}`,
