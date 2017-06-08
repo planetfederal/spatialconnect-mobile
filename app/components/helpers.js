@@ -44,9 +44,3 @@ export function isReqStr(fieldValue) {
     console.log('SOMETHING WENT HORRIBLY WRONG :/');
   }
 }
-// this.setState({
-//   notANumErr: `${field.field_label} must be a ${field.type}`,
-//   overMaxErr: `${field.field_label} can not be over ${max}`,
-//   overMinErr: `${field.field_label} can not be under ${min}`,
-//   requiredErr: `${field.field_label} is required`,
-// });

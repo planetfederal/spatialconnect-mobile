@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Alert, InteractionManager, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, InteractionManager, ScrollView, StyleSheet, View, Text } from 'react-native';
 import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
@@ -15,6 +15,8 @@ transform.registerType('date', tcomb.Date);
 transform.registerType('time', tcomb.Date);
 
 const Form = tcomb.form.Form;
+let err_arr = [];
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -65,10 +67,12 @@ class SCForm extends Component {
       value: {},
       renderPlaceholderOnly: true,
       showErrors: false,
+      errMes: '',
     };
 
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
+    this.handleErr = this.handleErr.bind(this);
   }
 
   componentWillMount() {
@@ -92,14 +96,13 @@ class SCForm extends Component {
 
   onChange(value) {
     const formInfo = this.props.navigation.state.params.form;
-    let length = formInfo.fields.length;
-    let fieldKey;
+    const length = formInfo.fields.length;
     let max;
     let min;
     let field;
     let fieldValue;
-    // let constraints;
-    let err_arr = [];
+    const newState = {};
+
     for (let i = 0; i < length; i++) {
       field = formInfo.fields[i];
       fieldValue = value[formInfo.fields[i].field_key];
@@ -108,30 +111,34 @@ class SCForm extends Component {
 
       if (field.type === 'number' && fieldValue !== undefined) {
         fieldValue = _.toNumber(fieldValue);
-        // err_arr.push(isReqNum);
+
         if (isReqNum(fieldValue) === true) {
-          console.log(`${field.field_label} is required`);
+          newState.errMes = `${field.field_label} is required`;
         }
-        // err_arr.push(nanErr);
         if (nanErr(fieldValue) === true) {
-          console.log(`${field.field_label} must be a ${field.type}`);
+          newState.errMes = `${field.field_label} must be a ${field.type}`;
         }
-        // err_arr.push(overMax);
-          if(overMax(fieldValue, max) === true) {
-            console.log(`${field.field_label} must be under ${max}`);
-          }
-        // err_arr.push(underMin);
+        if (overMax(fieldValue, max) === true) {
+          newState.errMes = `${field.field_label} must be under ${max}`;
+        }
         if (underMin(fieldValue, min) === true) {
-          console.log(`${field.field_label} must be at least ${min}`);
+          newState.errMes = `${field.field_label} must be at least ${min}`;
         }
       } else if (field.type === 'string' && fieldValue !== undefined) {
+        // this is wrong. Fix.
         fieldValue = _.trim(fieldValue);
-        // err_arr.push(isReqStr);
+
         if (isReqStr(fieldValue) === true) {
-          console.log(`${field.field_label} is required`);
+          newState.errMes = `${field.field_label} is required`;
         }
       }
     }
+    return newState;
+  }
+
+  handleErr(newState) {
+    this.setState({ newState });
+    console.log(this.newState);
   }
 
   saveForm(formData) {
@@ -180,7 +187,7 @@ class SCForm extends Component {
               type={this.TcombType}
               options={this.options}
               onChange={this.onChange}
-              onBlur={this.handleBlur}
+              handleErr={this.handleErr}
             />
 
             <Button
