@@ -24,6 +24,7 @@
 		5403ECDC1CCED8EE00A56D23 /* all.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDA1CCED8EE00A56D23 /* all.geojson */; };
 		5403ECDD1CCED8EE00A56D23 /* tests.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDB1CCED8EE00A56D23 /* tests.scfg */; };
 		540F8B0F1E5233850082F908 /* libRNSpatialConnect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 540F8B0E1E52336C0082F908 /* libRNSpatialConnect.a */; };
+		5419B0781EE70AC900CAD6B2 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5440AD6B1ECE5D5D004BE469 /* libAirMaps.a */; };
 		543E8AEA1D2EDB4F009FE68F /* simple.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 543E8AE91D2EDB4F009FE68F /* simple.geojson */; };
 		547F13981CF780ED0028EFF1 /* remote.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 547F13971CF780ED0028EFF1 /* remote.scfg */; };
 		54AEC2EF1E3B9C9C00D469F1 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54AEC2DB1E3B9C6E00D469F1 /* libRCTAnimation.a */; };
@@ -299,6 +300,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5419B0781EE70AC900CAD6B2 /* libAirMaps.a in Frameworks */,
 				540F8B0F1E5233850082F908 /* libRNSpatialConnect.a in Frameworks */,
 				54AEC2EF1E3B9C9C00D469F1 /* libRCTAnimation.a in Frameworks */,
 				54B470BA1D4A6A030084C642 /* libRNImagePicker.a in Frameworks */,
@@ -1028,7 +1030,7 @@
 				CODE_SIGN_ENTITLEMENTS = SCMobile/EFC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 51;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 82EPDLMXNS;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
@@ -1079,7 +1081,7 @@
 				CODE_SIGN_ENTITLEMENTS = SCMobile/EFC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = 82EPDLMXNS;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_BITCODE = NO;
