@@ -55,6 +55,7 @@ export class LoginView extends Component {
   static navigationOptions = {
     headerTitle: 'Expedited Field Capability',
     headerStyle: routerStyles.navBar,
+    headerTitleStyle: { fontSize: 18, width: 250 },
     headerTintColor: 'white',
     headerLeft: null,
     gesturesEnabled: false,
