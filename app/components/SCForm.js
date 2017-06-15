@@ -68,10 +68,11 @@ class SCForm extends Component {
     this.state = {
       value: {},
       renderPlaceholderOnly: true,
+      submitting: false,
     };
 
     this.onChange = this.onChange.bind(this);
-    this.onPress = this.onPress.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentWillMount() {
@@ -86,9 +87,10 @@ class SCForm extends Component {
     });
   }
 
-  onPress() {
+  onSubmit() {
     const formData = this.form.getValue();
     if (formData) {
+      this.setState({ submitting: true });
       this.saveForm(formData);
     }
   }
@@ -115,12 +117,13 @@ class SCForm extends Component {
     }, () => {
       const f = sc.spatialFeature('FORM_STORE', formInfo.form_key, { properties: formData });
       sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
-    }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
+    }, { enableHighAccuracy: true, timeout: 5000, maximumAge: 1000 });
   }
 
   formSubmitted() {
+    this.setState({ submitting: false });
     Alert.alert('Form Submitted', '', [
-      { text: 'OK', onPress: () => this.props.navigation.goBack() },
+      { text: 'OK' },
       { text: 'New Submission', onPress: () => this.setState({ value: this.initialValues }) },
     ]);
   }
@@ -141,10 +144,13 @@ class SCForm extends Component {
               onChange={this.onChange}
             />
             <Button
-              style={buttonStyles.buttonText} containerStyle={buttonStyles.button}
-              onPress={this.onPress}
+              style={buttonStyles.buttonText}
+              containerStyle={buttonStyles.button}
+              styleDisabled={buttonStyles.disabled}
+              disabled={this.state.submitting}
+              onPress={this.onSubmit}
             >
-              Submit
+              {this.state.submitting ? 'Submitting' : 'Submit'}
             </Button>
           </View>
         </ScrollView>
