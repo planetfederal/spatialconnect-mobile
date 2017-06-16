@@ -6,9 +6,7 @@ import SCForm from '../SCForm';
 
 describe('<SCForm />', () => {
   it('renders correctly - Baseball Team', () => {
-    const tree = renderer.create(
-      <SCForm formInfo={forms[0]} />
-    ).toJSON();
+    const tree = renderer.create(<SCForm formInfo={forms[0]} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

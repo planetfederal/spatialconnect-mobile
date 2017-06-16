@@ -6,14 +6,16 @@ import FeatureData from '../FeatureData';
 
 describe('<FeatureData />', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(
-      <FeatureData
-        navigation={{
-          navigate: jest.fn(),
-          state: { params: { feature } },
-        }}
-      />
-    ).toJSON();
+    const tree = renderer
+      .create(
+        <FeatureData
+          navigation={{
+            navigate: jest.fn(),
+            state: { params: { feature } },
+          }}
+        />
+      )
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

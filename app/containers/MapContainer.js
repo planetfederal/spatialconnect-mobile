@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  View,
-  Platform,
-} from 'react-native';
+import { View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Drawer from 'react-native-drawer';
@@ -20,15 +17,14 @@ class MapContainer extends Component {
     headerLeft: <MenuButton navigation={navigation} />,
     headerRight: <LayersButton navigation={navigation} />,
     drawerLabel: 'Map',
-    drawerIcon: () => (
+    drawerIcon: () =>
       <Icon
         name={Platform.OS === 'ios' ? 'ios-map-outline' : 'md-map'}
         size={30}
         color="#fff"
         style={{ paddingRight: 10 }}
-      />
-    ),
-  })
+      />,
+  });
 
   render() {
     const params = this.props.navigation.state.params;
@@ -38,11 +34,13 @@ class MapContainer extends Component {
         open={open}
         side="right"
         type="displace"
-        content={<LayerList
-          stores={this.props.stores}
-          activeStores={this.props.activeStores}
-          actions={this.props.actions}
-        />}
+        content={
+          <LayerList
+            stores={this.props.stores}
+            activeStores={this.props.activeStores}
+            actions={this.props.actions}
+          />
+        }
         tapToClose
         openDrawerOffset={0.3}
         panCloseMask={0.3}

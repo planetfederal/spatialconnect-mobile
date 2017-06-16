@@ -1,10 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RNButton from 'react-native-button';
@@ -62,11 +57,15 @@ export class SignUpView extends Component {
     headerTitle: 'Sign Up',
     headerStyle: routerStyles.navBar,
     headerTintColor: 'white',
-    headerLeft: (<Button
-      color="white"
-      title="Cancel"
-      onPress={() => { navigation.goBack(); }}
-    />),
+    headerLeft: (
+      <Button
+        color="white"
+        title="Cancel"
+        onPress={() => {
+          navigation.goBack();
+        }}
+      />
+    ),
   });
 
   constructor(props) {
@@ -88,39 +87,53 @@ export class SignUpView extends Component {
   }
 
   renderErrorView() {
-    return <Text style={styles.errorMessage}>{ this.props.signUpError }</Text>;
+    return <Text style={styles.errorMessage}>{this.props.signUpError}</Text>;
   }
 
   renderSuccessView() {
     return (
-      <Text>Sign up successful.
+      <Text>
+        Sign up successful.
         <Text
           style={buttonStyles.link}
-          onPress={() => { this.props.navigation.navigate('login'); }}
-        > Sign in</Text> with your new account.
-      </Text>);
+          onPress={() => {
+            this.props.navigation.navigate('login');
+          }}
+        >
+          {' '}Sign in
+        </Text>{' '}
+        with your new account.
+      </Text>
+    );
   }
 
   render() {
     return (
       <View style={navStyles.container}>
         <View style={styles.form}>
-          {this.props.signUpError ? <View>{ this.renderErrorView() }</View> : null}
-          {this.props.signUpSuccess ? <View>{ this.renderSuccessView() }</View> :
-          <View>
-            <Form
-              ref={(ref) => { this.form = ref; }}
-              value={this.props.signUpFormValue}
-              type={SignUp}
-              options={options}
-              onChange={this.onChange}
-            />
-            <RNButton
-              disabled={this.props.isSigningUp} styleDisabled={buttonStyles.disabled}
-              style={buttonStyles.buttonText} containerStyle={buttonStyles.button}
-              onPress={this.onPress}
-            >Sign Up</RNButton>
-          </View> }
+          {this.props.signUpError ? <View>{this.renderErrorView()}</View> : null}
+          {this.props.signUpSuccess
+            ? <View>{this.renderSuccessView()}</View>
+            : <View>
+                <Form
+                  ref={ref => {
+                    this.form = ref;
+                  }}
+                  value={this.props.signUpFormValue}
+                  type={SignUp}
+                  options={options}
+                  onChange={this.onChange}
+                />
+                <RNButton
+                  disabled={this.props.isSigningUp}
+                  styleDisabled={buttonStyles.disabled}
+                  style={buttonStyles.buttonText}
+                  containerStyle={buttonStyles.button}
+                  onPress={this.onPress}
+                >
+                  Sign Up
+                </RNButton>
+              </View>}
         </View>
       </View>
     );

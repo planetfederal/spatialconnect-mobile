@@ -11,15 +11,14 @@ class StoreContainer extends Component {
     headerTitle: 'Stores',
     headerLeft: <MenuButton navigation={navigation} />,
     drawerLabel: 'Stores',
-    drawerIcon: () => (
+    drawerIcon: () =>
       <Icon
         name={Platform.OS === 'ios' ? 'ios-cube-outline' : 'md-cube'}
         size={30}
         color="#fff"
         style={{ paddingRight: 10 }}
-      />
-    ),
-  })
+      />,
+  });
 
   render() {
     return (

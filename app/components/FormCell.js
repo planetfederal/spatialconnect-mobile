@@ -1,15 +1,9 @@
 import React, { PropTypes } from 'react';
-import {
-  Platform,
-  Text,
-  TouchableHighlight,
-  TouchableNativeFeedback,
-  View,
-} from 'react-native';
+import { Platform, Text, TouchableHighlight, TouchableNativeFeedback, View } from 'react-native';
 
 import { cellStyles, listStyles } from '../style/style';
 
-const FormCell = (props) => {
+const FormCell = props => {
   let TouchableElement = TouchableHighlight;
   if (Platform.OS === 'android') {
     TouchableElement = TouchableNativeFeedback;
@@ -36,4 +30,3 @@ FormCell.propTypes = {
 };
 
 export default FormCell;
-

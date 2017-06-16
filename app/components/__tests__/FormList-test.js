@@ -6,9 +6,7 @@ import FormList from '../FormList';
 
 describe('<FormList />', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(
-      <FormList forms={forms} />
-    ).toJSON();
+    const tree = renderer.create(<FormList forms={forms} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

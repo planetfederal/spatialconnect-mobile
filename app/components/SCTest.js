@@ -1,9 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-} from 'react-native';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 import should from 'should';
 import * as sc from 'react-native-spatialconnect';
 
@@ -30,37 +26,29 @@ const styles = StyleSheet.create({
   },
 });
 
-const Passed = props => (
+const Passed = props =>
   <Text style={styles.testResult}>
     <Text style={styles.passed}>{'\u2713'}</Text><Text>{props.r.name}</Text>
-  </Text>
-);
+  </Text>;
 
 Passed.propTypes = {
   r: PropTypes.object.isRequired,
 };
 
-const Failed = props => (
+const Failed = props =>
   <Text style={styles.testResult}>
     <Text style={styles.failed}>{`x ${props.r.name}\n`}</Text>
-    {props.r.error ?
-      <Text style={styles.errorMessage}>{props.r.error.message}</Text> :
-      <Text />
-    }
-  </Text>
-);
+    {props.r.error ? <Text style={styles.errorMessage}>{props.r.error.message}</Text> : <Text />}
+  </Text>;
 
 Failed.propTypes = {
   r: PropTypes.object.isRequired,
 };
 
 class SCTest extends Component {
-
   componentWillMount() {
-    this.it('should get forms', (done) => {
-      sc.forms$()
-      .map(action => action.payload)
-      .subscribe((data) => {
+    this.it('should get forms', done => {
+      sc.forms$().map(action => action.payload).subscribe(data => {
         try {
           data.should.be.a.Object();
           data.forms.should.be.a.Array();
@@ -70,23 +58,19 @@ class SCTest extends Component {
         }
       });
     });
-    this.it('should get stores', (done) => {
-      sc.stores$()
-      .map(action => action.payload)
-      .subscribe((data) => {
+    this.it('should get stores', done => {
+      sc.stores$().map(action => action.payload).subscribe(data => {
         try {
-          (data).should.be.a.Object();
-          (data.stores).should.be.a.Array();
+          data.should.be.a.Object();
+          data.stores.should.be.a.Array();
           done(true);
         } catch (e) {
           done(false, e);
         }
       });
     });
-    this.it('should get a store', (done) => {
-      sc.store$('DEFAULT_STORE')
-      .map(action => action.payload)
-      .subscribe((data) => {
+    this.it('should get a store', done => {
+      sc.store$('DEFAULT_STORE').map(action => action.payload).subscribe(data => {
         try {
           data.should.be.a.Object();
           done(true);
@@ -95,15 +79,16 @@ class SCTest extends Component {
         }
       });
     });
-    this.it('should get lastKnownLocation', (done) => {
+    this.it('should get lastKnownLocation', done => {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        position => {
           position.should.be.a.Object();
           done(true);
-        }, (error) => {
-        done(false, error);
-      },
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+        },
+        error => {
+          done(false, error);
+        },
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
       );
     });
   }
@@ -122,14 +107,14 @@ class SCTest extends Component {
   }
 
   deleteTest(feature) {
-    this.it('should delete feature', (done) => {
+    this.it('should delete feature', done => {
       sc.deleteFeature(feature.id);
       done(true);
     });
   }
 
   updateTest(feature) {
-    this.it('should update feature', (done) => {
+    this.it('should update feature', done => {
       sc.updateFeature(feature);
       done(true);
     });

@@ -29,9 +29,9 @@ export default function reducer(state = initialState, action = {}) {
     case 'TOGGLE_STORE':
       return {
         ...state,
-        activeStores: action.payload.active ?
-          state.activeStores.concat(action.payload.storeId) :
-          state.activeStores.filter(sId => sId !== action.payload.storeId),
+        activeStores: action.payload.active
+          ? state.activeStores.concat(action.payload.storeId)
+          : state.activeStores.filter(sId => sId !== action.payload.storeId),
       };
     case 'CLEAR_FEATURES':
       return {
@@ -101,9 +101,7 @@ const makeOverlays = (overlays, features) => {
   let points = [];
   let polygons = [];
   let lines = [];
-  features
-  .filter(f => f.geometry)
-  .forEach((feature) => {
+  features.filter(f => f.geometry).forEach(feature => {
     switch (feature.geometry.type) {
       case 'Point':
       case 'MultiPoint': {
@@ -151,68 +149,68 @@ export const toggleStore = (storeId, active) => ({
   },
 });
 
-export const toggleAllStores = active =>
-  (dispatch, getState) => {
-    const state = getState();
-    const stores = state.sc.stores;
-    stores.forEach(store => dispatch(toggleStore(store.storeId, active)));
-  };
+export const toggleAllStores = active => (dispatch, getState) => {
+  const state = getState();
+  const stores = state.sc.stores;
+  stores.forEach(store => dispatch(toggleStore(store.storeId, active)));
+};
 
-export const queryStores = (bbox = [-180, -90, 180, 90], limit = 50) =>
-  (dispatch, getState) => {
-    const state = getState();
-    const filter = sc.filter().geoBBOXContains(bbox).limit(limit);
-    dispatch({
-      type: 'CLEAR_FEATURES',
-    });
-    sc.spatialQuery$(filter, state.map.activeStores)
-      .bufferWithTime(1000)
-      .take(5)
-      .map(actions => actions.map(a => a.payload))
-      .subscribe((featureChunk) => {
-        dispatch({
-          type: 'ADD_FEATURES',
-          payload: { featureChunk },
-        });
+export const queryStores = (bbox = [-180, -90, 180, 90], limit = 50) => (dispatch, getState) => {
+  const state = getState();
+  const filter = sc.filter().geoBBOXContains(bbox).limit(limit);
+  dispatch({
+    type: 'CLEAR_FEATURES',
+  });
+  sc
+    .spatialQuery$(filter, state.map.activeStores)
+    .bufferWithTime(1000)
+    .take(5)
+    .map(actions => actions.map(a => a.payload))
+    .subscribe(featureChunk => {
+      dispatch({
+        type: 'ADD_FEATURES',
+        payload: { featureChunk },
       });
-  };
+    });
+};
 
-export const upsertFeature = newFeature =>
-  (dispatch, getState) => {
-    sc.updateFeature$(newFeature);
-    const state = getState();
-    const fId = findIndex(state.map.features, f => (
+export const upsertFeature = newFeature => (dispatch, getState) => {
+  sc.updateFeature$(newFeature);
+  const state = getState();
+  const fId = findIndex(
+    state.map.features,
+    f =>
       f.id === newFeature.id &&
       f.metadata.storeId === newFeature.metadata.storeId &&
       f.metadata.layerId === newFeature.metadata.layerId
-    ));
-    if (fId >= 0) {
-      dispatch({
-        type: 'UPDATE_FEATURE',
-        payload: { newFeature, fId },
-      });
-    } else {
-      dispatch({
-        type: 'ADD_FEATURE',
-        payload: { newFeature },
-      });
-    }
-  };
-
-export const createFeature = (storeId, layerId, feature) =>
-  (dispatch) => {
-    const f = sc.geometry(storeId, layerId, feature);
-    sc.createFeature$(f).first().subscribe((action) => {
-      dispatch(action);
-      const newFeature = typeof action.payload === 'string' ?
-        JSON.parse(action.payload) : action.payload;
-      const navAction = NavigationActions.navigate({
-        routeName: 'editFeature',
-        params: { feature: newFeature },
-      });
-      dispatch(navAction);
+  );
+  if (fId >= 0) {
+    dispatch({
+      type: 'UPDATE_FEATURE',
+      payload: { newFeature, fId },
     });
-  };
+  } else {
+    dispatch({
+      type: 'ADD_FEATURE',
+      payload: { newFeature },
+    });
+  }
+};
+
+export const createFeature = (storeId, layerId, feature) => dispatch => {
+  const f = sc.geometry(storeId, layerId, feature);
+  sc.createFeature$(f).first().subscribe(action => {
+    dispatch(action);
+    const newFeature = typeof action.payload === 'string'
+      ? JSON.parse(action.payload)
+      : action.payload;
+    const navAction = NavigationActions.navigate({
+      routeName: 'editFeature',
+      params: { feature: newFeature },
+    });
+    dispatch(navAction);
+  });
+};
 
 export const addCreatingPoint = point => ({
   type: 'ADD_CREATING_POINT',

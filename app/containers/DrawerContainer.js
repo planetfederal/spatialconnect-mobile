@@ -10,9 +10,7 @@ class DrawerContainer extends Component {
   }
 }
 
-DrawerContainer.propTypes = {
-
-};
+DrawerContainer.propTypes = {};
 
 const mapStateToProps = state => ({
   auth: state.auth,

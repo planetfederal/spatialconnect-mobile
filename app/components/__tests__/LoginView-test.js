@@ -5,9 +5,7 @@ import { LoginView } from '../LoginView';
 
 describe('<LoginView />', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(
-      <LoginView />
-    ).toJSON();
+    const tree = renderer.create(<LoginView />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

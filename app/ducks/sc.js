@@ -9,8 +9,6 @@ const initialState = {
   connectionStatus: false,
 };
 
-console.log(sc);
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case sc.Commands.DATASERVICE_FORMLIST:
@@ -38,29 +36,27 @@ export default (state = initialState, action) => {
   }
 };
 
-export const connectSC = (store) => {
+export const connectSC = store => {
   sc.addConfigFilepath('remote.scfg');
   sc.startAllServices();
   sc.backendUri$().subscribe(store.dispatch);
-  sc.loginStatus$().subscribe((action) => {
+  sc.loginStatus$().subscribe(action => {
     store.dispatch(action);
     if (action.payload === sc.AuthStatus.SCAUTH_AUTHENTICATED) {
-      Rx.Observable.merge(
-        sc.forms$(),
-        sc.stores$(),
-        sc.mqttConnected$(),
-        sc.xAccessToken$(),
-      ).subscribe(store.dispatch);
+      Rx.Observable
+        .merge(sc.forms$(), sc.stores$(), sc.mqttConnected$(), sc.xAccessToken$())
+        .subscribe(store.dispatch);
     }
   });
 
   if (Platform.OS === 'android' && Platform.Version >= 23) {
     try {
       const granted = PermissionsAndroid.requestPermission(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, {
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
           title: 'GPS permission',
           message: 'EFC needs access to your GPS',
-        },
+        }
       );
       if (granted) {
         sc.enableGPS();
