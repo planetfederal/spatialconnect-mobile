@@ -5,10 +5,10 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
+    "precommit": "lint-staged",
     "format": "prettier --single-quote --trailing-comma es5 --print-width 100 --write \"{,!(node_modules|public|android|ios|tools)/**/}*.js\""
   },
   "lint-staged": {
-    "gitDir": "../",
     "*.js": [
       "./node_modules/.bin/prettier --single-quote --trailing-comma es5 --print-width 100 --write",
       "git add"
