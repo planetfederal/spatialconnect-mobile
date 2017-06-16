@@ -1,11 +1,5 @@
 import React, { PropTypes } from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Switch,
-  View,
-  Text,
-} from 'react-native';
+import { ScrollView, StyleSheet, Switch, View, Text } from 'react-native';
 import { StoreStatus } from 'react-native-spatialconnect';
 import palette from '../style/palette';
 
@@ -26,9 +20,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'white',
   },
-  navBtnWrap: {
-
-  },
+  navBtnWrap: {},
   layerItem: {
     padding: 10,
     backgroundColor: '#ffffff',
@@ -49,18 +41,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const LayerItem = ({ name, onValueChange, active }) => (
+const LayerItem = ({ name, onValueChange, active }) =>
   <View style={styles.layerItem}>
-    <Switch
-      style={styles.layerItemSwitch}
-      onValueChange={onValueChange}
-      value={active}
-    />
+    <Switch style={styles.layerItemSwitch} onValueChange={onValueChange} value={active} />
     <View style={styles.layerItemName}>
       <Text style={styles.layerItemText}>{name}</Text>
     </View>
-  </View>
-);
+  </View>;
 
 LayerItem.propTypes = {
   name: PropTypes.string.isRequired,
@@ -68,22 +55,21 @@ LayerItem.propTypes = {
   active: PropTypes.bool.isRequired,
 };
 
-const LayerList = ({ stores, activeStores, actions }) => (
+const LayerList = ({ stores, activeStores, actions }) =>
   <ScrollView style={styles.container}>
     <View style={styles.navBtnWrap}>
       {stores
         .filter(s => s.status === StoreStatus.SC_DATASTORE_RUNNING)
-        .map(store => (
+        .map(store =>
           <LayerItem
             key={store.storeId}
             name={store.name}
             onValueChange={value => actions.toggleStore(store.storeId, value)}
             active={activeStores.indexOf(store.storeId) >= 0}
           />
-      ))}
+        )}
     </View>
-  </ScrollView>
-);
+  </ScrollView>;
 
 LayerList.contextTypes = {
   drawer: React.PropTypes.object,

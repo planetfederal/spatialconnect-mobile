@@ -10,13 +10,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const PlaceHolder = () => (
+const PlaceHolder = () =>
   <View style={styles.container}>
-    <ActivityIndicator
-      animating
-      style={{ height: 80 }}
-    />
-  </View>
-);
+    <ActivityIndicator animating style={{ height: 80 }} />
+  </View>;
 
 export default PlaceHolder;

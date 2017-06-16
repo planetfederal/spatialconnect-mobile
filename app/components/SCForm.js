@@ -1,11 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  Alert,
-  InteractionManager,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Alert, InteractionManager, ScrollView, StyleSheet, View } from 'react-native';
 import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
@@ -57,7 +51,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
 class SCForm extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.state.params.form.form_label,
@@ -101,23 +94,24 @@ class SCForm extends Component {
 
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
-    navigator.geolocation.getCurrentPosition((position) => {
-      const gj = {
-        geometry: {
-          type: 'Point',
-          coordinates: [
-            position.coords.longitude,
-            position.coords.latitude,
-          ],
-        },
-        properties: formData,
-      };
-      const f = sc.geometry('FORM_STORE', formInfo.form_key, gj);
-      sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
-    }, () => {
-      const f = sc.spatialFeature('FORM_STORE', formInfo.form_key, { properties: formData });
-      sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
-    }, { enableHighAccuracy: true, timeout: 5000, maximumAge: 1000 });
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const gj = {
+          geometry: {
+            type: 'Point',
+            coordinates: [position.coords.longitude, position.coords.latitude],
+          },
+          properties: formData,
+        };
+        const f = sc.geometry('FORM_STORE', formInfo.form_key, gj);
+        sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
+      },
+      () => {
+        const f = sc.spatialFeature('FORM_STORE', formInfo.form_key, { properties: formData });
+        sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
+      },
+      { enableHighAccuracy: true, timeout: 5000, maximumAge: 1000 }
+    );
   }
 
   formSubmitted() {
@@ -137,7 +131,9 @@ class SCForm extends Component {
         <ScrollView style={styles.scrollView}>
           <View style={styles.form}>
             <Form
-              ref={(ref) => { this.form = ref; }}
+              ref={ref => {
+                this.form = ref;
+              }}
               value={this.state.value}
               type={this.TcombType}
               options={this.options}

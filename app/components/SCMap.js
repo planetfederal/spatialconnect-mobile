@@ -1,11 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  findNodeHandle,
-  Image,
-  InteractionManager,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { findNodeHandle, Image, InteractionManager, StyleSheet, View } from 'react-native';
 import MapView from 'react-native-maps';
 import * as sc from 'react-native-spatialconnect';
 import Rx from 'rx';
@@ -75,7 +69,6 @@ const styles = StyleSheet.create({
 });
 
 class SCMap extends Component {
-
   constructor(props) {
     super(props);
     this.center = {
@@ -105,20 +98,18 @@ class SCMap extends Component {
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({ renderPlaceholderOnly: false }, () => {
-        sc.bindMapView(findNodeHandle(this.scMap), (error) => {
+        sc.bindMapView(findNodeHandle(this.scMap), error => {
           if (!error) {
             sc.addRasterLayers(this.props.activeStores);
           }
         });
       });
       this.regionChangeComplete$ = new Rx.Subject();
-      this.regionChangeComplete$
-        .throttle(2000)
-        .subscribe(() => {
-          if (!this.state.creating) {
-            this.props.actions.queryStores(mapUtils.regionToBbox(this.region));
-          }
-        });
+      this.regionChangeComplete$.throttle(2000).subscribe(() => {
+        if (!this.state.creating) {
+          this.props.actions.queryStores(mapUtils.regionToBbox(this.region));
+        }
+      });
     });
   }
 
@@ -167,12 +158,11 @@ class SCMap extends Component {
       valid = this.props.creatingPoints.length >= 3;
       if (valid) {
         addedFeature = this.props.creatingPoints.concat(this.props.creatingPoints[0]);
-        const coords = addedFeature.map(c => ([c.longitude, c.latitude]));
+        const coords = addedFeature.map(c => [c.longitude, c.latitude]);
         geojson = turfPolygon([coords], {});
       }
     } else if (this.props.creatingType === 'pin') {
-      valid = typeof this.center.latitude === 'number' &&
-        typeof this.center.longitude === 'number';
+      valid = typeof this.center.latitude === 'number' && typeof this.center.longitude === 'number';
       if (valid) {
         addedFeature = {
           ...this.center,
@@ -183,7 +173,7 @@ class SCMap extends Component {
       valid = this.props.creatingPoints.length >= 2;
       if (valid) {
         addedFeature = this.props.creatingPoints.slice();
-        const coords = addedFeature.map(c => ([c.longitude, c.latitude]));
+        const coords = addedFeature.map(c => [c.longitude, c.latitude]);
         geojson = turfLinestring(coords, {});
       }
     }
@@ -222,37 +212,44 @@ class SCMap extends Component {
       <View style={styles.container}>
         <View style={styles.mapContainer}>
           <MapView.Animated
-            ref={(ref) => { this.scMap = ref; }}
+            ref={ref => {
+              this.scMap = ref;
+            }}
             style={styles.map}
             loadingEnabled
             initialRegion={this.state.region}
             onRegionChange={this.onRegionChange}
             onRegionChangeComplete={this.onRegionChangeComplete}
           >
-            {this.props.overlays.points.map((point) => {
+            {this.props.overlays.points.map(point => {
               const style = mapUtils.getStyle(this.props.stores, point.feature);
-              return (<MapView.Marker
-                coordinate={point.latlng}
-                title={point.title}
-                description={point.description}
-                key={`point.${point.feature.id}.${idx += 1}`}
-                pinColor={style.iconColor}
-                onPress={() => {
-                  this.props.navigation.navigate('viewFeature', {
-                    stores: this.props.stores,
-                    feature: point.feature,
-                  });
-                }}
-              />);
+              return (
+                <MapView.Marker
+                  coordinate={point.latlng}
+                  title={point.title}
+                  description={point.description}
+                  key={`point.${point.feature.id}.${(idx += 1)}`}
+                  pinColor={style.iconColor}
+                  onPress={() => {
+                    this.props.navigation.navigate('viewFeature', {
+                      stores: this.props.stores,
+                      feature: point.feature,
+                    });
+                  }}
+                />
+              );
             })}
-            {this.props.overlays.polygons.map((p) => {
+            {this.props.overlays.polygons.map(p => {
               const style = mapUtils.getStyle(this.props.stores, p.feature);
               return (
                 <MapView.Polygon
-                  key={`polygon.${p.feature.id}.${idx += 1}`}
+                  key={`polygon.${p.feature.id}.${(idx += 1)}`}
                   coordinates={p.coordinates}
                   fillColor={Color(style.fillColor).fade(1 - +style.fillOpacity).rgb().string()}
-                  strokeColor={Color(style.strokeColor).fade(1 - +style.strokeOpacity).rgb().string()}
+                  strokeColor={Color(style.strokeColor)
+                    .fade(1 - +style.strokeOpacity)
+                    .rgb()
+                    .string()}
                   strokeWidth={+style.strokeWidth}
                   onPress={() => {
                     this.props.navigation.navigate('viewFeature', {
@@ -263,13 +260,16 @@ class SCMap extends Component {
                 />
               );
             })}
-            {this.props.overlays.lines.map((l) => {
+            {this.props.overlays.lines.map(l => {
               const style = mapUtils.getStyle(this.props.stores, l.feature);
               return (
                 <MapView.Polyline
-                  key={`line.${l.feature.id}.${idx += 1}`}
+                  key={`line.${l.feature.id}.${(idx += 1)}`}
                   coordinates={l.coordinates}
-                  strokeColor={Color(style.strokeColor).fade(1 - +style.strokeOpacity).rgb().string()}
+                  strokeColor={Color(style.strokeColor)
+                    .fade(1 - +style.strokeOpacity)
+                    .rgb()
+                    .string()}
                   strokeWidth={+style.strokeWidth}
                   onPress={() => {
                     this.props.navigation.navigate('viewFeature', {
@@ -285,32 +285,31 @@ class SCMap extends Component {
                 coordinates={this.props.creatingPoints}
                 key={'creatingPoints'}
                 strokeColor={palette.orange}
-              />
-            }
-            {(this.props.creatingPoints.length > 0 && this.props.creatingType === 'polygon') &&
+              />}
+            {this.props.creatingPoints.length > 0 &&
+              this.props.creatingType === 'polygon' &&
               <MapView.Polygon
                 coordinates={this.props.creatingPoints}
                 key={'creatingPoly'}
                 strokeColor="rgba(255,0,0,0)"
                 fillColor={Color(palette.orange).fade(0.7).rgb().string()}
-              />
-            }
-            {this.props.creatingPoints.map(point => (
+              />}
+            {this.props.creatingPoints.map(point =>
               <MapView.Marker
                 coordinate={point}
                 pinColor={palette.orange}
-                key={`creatingPin.${idx += 1}`}
+                key={`creatingPin.${(idx += 1)}`}
               />
-            ))}
+            )}
           </MapView.Animated>
           {this.state.creating &&
             <View style={styles.center}>
               <Image
                 style={styles.crosshair}
-                source={crosshairIcon} resizeMode={Image.resizeMode.contain}
+                source={crosshairIcon}
+                resizeMode={Image.resizeMode.contain}
               />
-            </View>
-          }
+            </View>}
           <View style={styles.createMenu} pointerEvents="box-none">
             <CreateMenu
               addFeatureType={this.addFeatureType}

@@ -1,11 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  Platform,
-} from 'react-native';
+import { Image, StyleSheet, Text, View, Platform } from 'react-native';
 import Button from 'react-native-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import palette from '../style/palette';
@@ -100,7 +94,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SideMenuButton = ({ text, icon, onPress, active }) => (
+const SideMenuButton = ({ text, icon, onPress, active }) =>
   <Button
     style={styles.navBtn}
     containerStyle={[styles.navBtnContainer, active && styles.navBtnContainerActive]}
@@ -112,8 +106,7 @@ const SideMenuButton = ({ text, icon, onPress, active }) => (
         <Text style={styles.sideMenuText}>{text}</Text>
       </View>
     </View>
-  </Button>
-);
+  </Button>;
 
 SideMenuButton.propTypes = {
   text: PropTypes.string.isRequired,
@@ -122,7 +115,6 @@ SideMenuButton.propTypes = {
 };
 
 class SideMenu extends Component {
-
   renderRoutes() {
     const {
       navigation,
@@ -131,7 +123,8 @@ class SideMenu extends Component {
       inactiveTintColor,
       inactiveBackgroundColor,
       getLabel,
-      renderIcon } = this.props;
+      renderIcon,
+    } = this.props;
     return navigation.state.routes.map((route, index) => {
       const focused = navigation.state.index === index;
       const color = focused ? activeTintColor : inactiveTintColor;
@@ -154,10 +147,7 @@ class SideMenu extends Component {
   }
 
   render() {
-    const {
-      isConnected,
-      auth,
-      actions } = this.props;
+    const { isConnected, auth, actions } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.navBtnWrap}>
@@ -167,25 +157,27 @@ class SideMenu extends Component {
               <Text style={styles.title}>EFC</Text>
             </View>
           </View>
-          {auth.isAuthenticated ?
-            <View style={styles.navBtns}>
-              {this.renderRoutes()}
-              <SideMenuButton
-                active={false} text="Sign Out"
-                icon={<Icon
-                  name={Platform.OS === 'ios' ? 'ios-log-out' : 'md-log-out'}
-                  size={30}
-                  color="#fff"
-                  style={{ paddingRight: 10 }}
-                />}
-                onPress={() => {
-                  this.props.navigation.navigate('DrawerClose');
-                  actions.logout();
-                }}
-              />
-            </View> :
-            this.renderRoutes()
-          }
+          {auth.isAuthenticated
+            ? <View style={styles.navBtns}>
+                {this.renderRoutes()}
+                <SideMenuButton
+                  active={false}
+                  text="Sign Out"
+                  icon={
+                    <Icon
+                      name={Platform.OS === 'ios' ? 'ios-log-out' : 'md-log-out'}
+                      size={30}
+                      color="#fff"
+                      style={{ paddingRight: 10 }}
+                    />
+                  }
+                  onPress={() => {
+                    this.props.navigation.navigate('DrawerClose');
+                    actions.logout();
+                  }}
+                />
+              </View>
+            : this.renderRoutes()}
         </View>
         <View style={styles.footer}>
           <Text style={styles.footerText}> Connection</Text>

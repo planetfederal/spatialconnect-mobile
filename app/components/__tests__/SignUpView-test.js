@@ -5,16 +5,12 @@ import { SignUpView } from '../SignUpView';
 
 describe('<SignUpView />', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(
-      <SignUpView />
-    ).toJSON();
+    const tree = renderer.create(<SignUpView />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('shows sign up error', () => {
-    const tree = renderer.create(
-      <SignUpView signUpError={'Error'} />
-    ).toJSON();
+    const tree = renderer.create(<SignUpView signUpError={'Error'} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

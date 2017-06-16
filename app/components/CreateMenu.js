@@ -1,12 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  Animated,
-  Easing,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Animated, Easing, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Color from 'color';
 import palette from '../style/palette';
 
@@ -266,11 +259,11 @@ class CreateMenu extends Component {
     });
     const position2 = this.state.rightPosition.interpolate({
       inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + (BUTTON_PADDING * 2)],
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + BUTTON_PADDING * 2],
     });
     const position3 = this.state.rightPosition.interpolate({
       inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + (BUTTON_WIDTH * 2) + (BUTTON_PADDING * 3)],
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH * 2 + BUTTON_PADDING * 3],
     });
     const topPosition1 = this.state.topPosition.interpolate({
       inputRange: [0, 1],
@@ -278,7 +271,7 @@ class CreateMenu extends Component {
     });
     const topPositionAdd = this.state.topPositionAdd.interpolate({
       inputRange: [0, 1],
-      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + (BUTTON_PADDING * 2)],
+      outputRange: [5, MAIN_BUTTON_WIDTH + BUTTON_WIDTH + BUTTON_PADDING * 2],
     });
     const degreeRotation = this.state.rightPosition.interpolate({
       inputRange: [0, 1],
@@ -304,38 +297,33 @@ class CreateMenu extends Component {
       styles.addFeatureBtn,
       { right: this.state.errorPosition, bottom: topPosition1 },
     ];
-    const addStyle = [
-      styles.featureTypeBtn,
-      { right: 5, bottom: topPositionAdd },
-    ];
-    const toggleStyle = [
-      styles.createFeature,
-      this.state.open && styles.createFeatureClose,
-    ];
-    const toggleImgStyle = [
-      styles.createFeatureText,
-      { transform: [{ rotate: degreeRotation }] },
-    ];
+    const addStyle = [styles.featureTypeBtn, { right: 5, bottom: topPositionAdd }];
+    const toggleStyle = [styles.createFeature, this.state.open && styles.createFeatureClose];
+    const toggleImgStyle = [styles.createFeatureText, { transform: [{ rotate: degreeRotation }] }];
     return (
       <View style={styles.container} pointerEvents="box-none">
         <CreateMenuIcon
-          style={polyStyle} onPress={() => this.setActiveTool('polygon')} icon={polygonIcon}
+          style={polyStyle}
+          onPress={() => this.setActiveTool('polygon')}
+          icon={polygonIcon}
         />
         <CreateMenuIcon
-          style={lineStyle} onPress={() => this.setActiveTool('line')} icon={lineIcon}
+          style={lineStyle}
+          onPress={() => this.setActiveTool('line')}
+          icon={lineIcon}
         />
         <CreateMenuIcon
-          style={pointStyle} onPress={() => this.setActiveTool('pin')} icon={pointIcon}
+          style={pointStyle}
+          onPress={() => this.setActiveTool('pin')}
+          icon={pointIcon}
         />
-        <CreateMenuIcon
-          style={saveStyle} onPress={this.save} icon={checkIcon}
-        />
-        <CreateMenuIcon
-          style={addStyle} onPress={this.props.addNextPin} icon={plusIcon}
-        />
+        <CreateMenuIcon style={saveStyle} onPress={this.save} icon={checkIcon} />
+        <CreateMenuIcon style={addStyle} onPress={this.props.addNextPin} icon={plusIcon} />
         <TouchableOpacity style={toggleStyle} onPress={this.animateMenu}>
           <Animated.Image
-            source={plusIcon} resizeMode={Image.resizeMode.contain} style={toggleImgStyle}
+            source={plusIcon}
+            resizeMode={Image.resizeMode.contain}
+            style={toggleImgStyle}
           />
         </TouchableOpacity>
       </View>

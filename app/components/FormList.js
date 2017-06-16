@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  FlatList,
-  View,
-} from 'react-native';
+import { FlatList, View } from 'react-native';
 import * as sc from 'react-native-spatialconnect';
 import FormCell from './FormCell';
 import { listStyles } from '../style/style';
@@ -19,7 +16,7 @@ class FormList extends Component {
 
   onRefresh() {
     this.setState({ refreshing: true });
-    sc.forms$().take(1).subscribe((action) => {
+    sc.forms$().take(1).subscribe(action => {
       this.setState({ refreshing: false });
       this.props.dispatch(action);
     });
@@ -33,8 +30,10 @@ class FormList extends Component {
         <FlatList
           data={this.props.forms}
           renderItem={({ item }) =>
-            <FormCell form={item} onSelect={() => this.props.navigation.navigate('form', { form: item })} />
-          }
+            <FormCell
+              form={item}
+              onSelect={() => this.props.navigation.navigate('form', { form: item })}
+            />}
           keyExtractor={this.keyExtractor}
           onRefresh={this.onRefresh}
           refreshing={this.state.refreshing}

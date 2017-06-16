@@ -6,9 +6,7 @@ import FormCell from '../FormCell';
 
 describe('<FormCell />', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(
-      <FormCell form={forms[0]} />
-    ).toJSON();
+    const tree = renderer.create(<FormCell form={forms[0]} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

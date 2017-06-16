@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  View,
-  Platform,
-} from 'react-native';
+import { View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -16,15 +13,14 @@ class TestContainer extends Component {
     headerTitle: 'Tests',
     headerLeft: <MenuButton navigation={navigation} />,
     drawerLabel: 'Tests',
-    drawerIcon: () => (
-        <Icon
-          name={Platform.OS === 'ios' ? 'ios-build-outline' : 'md-build'}
-          size={30}
-          color="#fff"
-          style={{ paddingRight: 10 }}
-        />
-    ),
-  })
+    drawerIcon: () =>
+      <Icon
+        name={Platform.OS === 'ios' ? 'ios-build-outline' : 'md-build'}
+        size={30}
+        color="#fff"
+        style={{ paddingRight: 10 }}
+      />,
+  });
 
   render() {
     return (
@@ -34,7 +30,6 @@ class TestContainer extends Component {
     );
   }
 }
-
 
 const mapStateToProps = state => ({
   tests: state.tests,

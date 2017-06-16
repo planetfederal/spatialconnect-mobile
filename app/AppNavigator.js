@@ -1,10 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import {
-  DrawerNavigator,
-  StackNavigator,
-  addNavigationHelpers,
-} from 'react-navigation';
+import { DrawerNavigator, StackNavigator, addNavigationHelpers } from 'react-navigation';
 import t from 'tcomb-form-native';
 import FormContainer from './containers/FormContainer';
 import SCForm from './components/SCForm';
@@ -32,82 +28,102 @@ const navigationOptions = {
   headerTintColor: 'white',
 };
 
-const FormNav = StackNavigator({
-  formList: { screen: FormContainer },
-  form: { screen: SCForm },
-}, {
-  initialRouteName: 'formList',
-  headerMode: 'screen',
-  navigationOptions,
-});
+const FormNav = StackNavigator(
+  {
+    formList: { screen: FormContainer },
+    form: { screen: SCForm },
+  },
+  {
+    initialRouteName: 'formList',
+    headerMode: 'screen',
+    navigationOptions,
+  }
+);
 
-const StoreNav = StackNavigator({
-  storeList: { screen: StoreContainer },
-  store: { screen: SCStore },
-}, {
-  initialRouteName: 'storeList',
-  headerMode: 'screen',
-  navigationOptions,
-});
+const StoreNav = StackNavigator(
+  {
+    storeList: { screen: StoreContainer },
+    store: { screen: SCStore },
+  },
+  {
+    initialRouteName: 'storeList',
+    headerMode: 'screen',
+    navigationOptions,
+  }
+);
 
-const MapNav = StackNavigator({
-  map: { screen: MapContainer },
-  viewFeature: { screen: FeatureData },
-  editFeature: { screen: FeatureEdit },
-  createFeature: { screen: FeatureCreate },
-}, {
-  initialRouteName: 'map',
-  initialRouteParams: { open: false },
-  headerMode: 'screen',
-  navigationOptions,
-});
+const MapNav = StackNavigator(
+  {
+    map: { screen: MapContainer },
+    viewFeature: { screen: FeatureData },
+    editFeature: { screen: FeatureEdit },
+    createFeature: { screen: FeatureCreate },
+  },
+  {
+    initialRouteName: 'map',
+    initialRouteParams: { open: false },
+    headerMode: 'screen',
+    navigationOptions,
+  }
+);
 
-const TestNav = StackNavigator({
-  tests: { screen: TestContainer },
-}, {
-  initialRouteName: 'tests',
-  headerMode: 'screen',
-  navigationOptions,
-});
+const TestNav = StackNavigator(
+  {
+    tests: { screen: TestContainer },
+  },
+  {
+    initialRouteName: 'tests',
+    headerMode: 'screen',
+    navigationOptions,
+  }
+);
 
-const AuthedNavigator = DrawerNavigator({
-  formNav: { screen: FormNav },
-  storeNav: { screen: StoreNav },
-  mapNav: { screen: MapNav },
-  testNav: { screen: TestNav },
-}, {
-  initialRouteName: 'formNav',
-  contentComponent: DrawerContainer,
-});
+const AuthedNavigator = DrawerNavigator(
+  {
+    formNav: { screen: FormNav },
+    storeNav: { screen: StoreNav },
+    mapNav: { screen: MapNav },
+    testNav: { screen: TestNav },
+  },
+  {
+    initialRouteName: 'formNav',
+    contentComponent: DrawerContainer,
+  }
+);
 
-const UnAuthedNavigator = StackNavigator({
-  login: { screen: LoginView },
-  signUp: { screen: SignUpView },
-}, {
-  initialRouteName: 'login',
-  headerMode: 'screen',
-  navigationOptions,
-});
+const UnAuthedNavigator = StackNavigator(
+  {
+    login: { screen: LoginView },
+    signUp: { screen: SignUpView },
+  },
+  {
+    initialRouteName: 'login',
+    headerMode: 'screen',
+    navigationOptions,
+  }
+);
 
-export const AppNavigator = StackNavigator({
-  splash: { screen: SplashScreen },
-  AuthedNavigator: { screen: AuthedNavigator },
-  UnAuthedNavigator: { screen: UnAuthedNavigator },
-}, {
-  initialRouteName: 'splash',
-  headerMode: 'screen',
-  mode: 'modal',
-  navigationOptions: { header: null },
-});
+export const AppNavigator = StackNavigator(
+  {
+    splash: { screen: SplashScreen },
+    AuthedNavigator: { screen: AuthedNavigator },
+    UnAuthedNavigator: { screen: UnAuthedNavigator },
+  },
+  {
+    initialRouteName: 'splash',
+    headerMode: 'screen',
+    mode: 'modal',
+    navigationOptions: { header: null },
+  }
+);
 
-const AppWithNavigationState = props => (
+const AppWithNavigationState = props =>
   <AppNavigator
     navigation={addNavigationHelpers({
       dispatch: props.dispatch,
       state: props.nav,
     })}
-  />
-);
+  />;
 
 AppWithNavigationState.propTypes = {
   dispatch: PropTypes.func.isRequired,

@@ -1,4 +1,3 @@
-
 const test = (state, action) => {
   switch (action.type) {
     case 'ADD_TEST':
@@ -32,10 +31,7 @@ const test = (state, action) => {
 export default (state = [], action) => {
   switch (action.type) {
     case 'ADD_TEST':
-      return [
-        ...state,
-        test(undefined, action),
-      ];
+      return [...state, test(undefined, action)];
     case 'TEST_PASSED':
       return state.map(t => test(t, action));
     case 'TEST_FAILED':
