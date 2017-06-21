@@ -113,7 +113,6 @@ export class LoginView extends Component {
           >
             {this.props.isAuthenticating ? 'Signing In...' : 'Sign In'}
           </RNButton>
-          <Text onPress={this.onSignUpPress} style={buttonStyles.link}>Sign Up</Text>
         </View>
       </View>
     );
