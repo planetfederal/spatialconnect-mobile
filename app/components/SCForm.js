@@ -1,5 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import { Alert, InteractionManager, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  Alert,
+  Animated,
+  InteractionManager,
+  Keyboard,
+  findNodeHandle,
+  ScrollView,
+  StyleSheet,
+  View,
+  KeyboardAvoidingView,
+} from 'react-native';
 import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
 import tcomb from 'tcomb-form-native';
@@ -63,22 +73,57 @@ class SCForm extends Component {
       renderPlaceholderOnly: true,
       submitting: false,
     };
-
+    this.keyboardHeight = new Animated.Value(0);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.keyboardWillShow = this.keyboardWillShow.bind(this);
+    this.onFocus = this.onFocus.bind(this);
   }
 
   componentWillMount() {
     InteractionManager.runAfterInteractions(() => {
       const formInfo = this.props.navigation.state.params.form;
-      const { schema, options, initialValues } = scformschema.translate(formInfo);
+      const { schema, options, initialValues } = scformschema.translate({
+        scSchema: formInfo,
+        onFocus: this.onFocus,
+      });
       this.setState({ schema, options, value: initialValues });
       this.TcombType = transform(schema);
       this.initialValues = initialValues;
       this.options = options;
       this.setState({ renderPlaceholderOnly: false });
+      this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+      this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
     });
   }
+
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
+
+  onFocus(e) {
+    let scrollResponder = this.scrollView.getScrollResponder();
+    scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
+      findNodeHandle(e.target),
+      150,
+      true
+    );
+  }
+
+  keyboardWillShow = event => {
+    Animated.timing(this.keyboardHeight, {
+      duration: event.duration,
+      toValue: event.endCoordinates.height,
+    }).start();
+  };
+
+  keyboardWillHide = event => {
+    Animated.timing(this.keyboardHeight, {
+      duration: event.duration,
+      toValue: 0,
+    }).start();
+  };
 
   onSubmit() {
     const formData = this.form.getValue();
@@ -127,8 +172,15 @@ class SCForm extends Component {
       return <PlaceHolder />;
     }
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>
+      <Animated.View style={[styles.container, { paddingBottom: this.keyboardHeight }]}>
+        <ScrollView
+          style={styles.scrollView}
+          keyboardDismissMode="interactive"
+          showsVerticalScrollIndicator={true}
+          ref={ref => {
+            this.scrollView = ref;
+          }}
+        >
           <View style={styles.form}>
             <Form
               ref={ref => {
@@ -150,7 +202,7 @@ class SCForm extends Component {
             </Button>
           </View>
         </ScrollView>
-      </View>
+      </Animated.View>
     );
   }
 }
