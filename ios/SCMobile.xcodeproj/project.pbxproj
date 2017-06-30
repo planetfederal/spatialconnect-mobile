@@ -21,6 +21,15 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		4427BCC81F053FD8005E8A7A /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4427BCC71F053FD8005E8A7A /* FirebaseAnalytics.framework */; };
+		4427BCEC1F053FE2005E8A7A /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4427BCEB1F053FE2005E8A7A /* FirebaseCore.framework */; };
+		4427BCEE1F053FEA005E8A7A /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4427BCED1F053FEA005E8A7A /* FirebaseCoreDiagnostics.framework */; };
+		4427BCF01F053FF2005E8A7A /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4427BCEF1F053FF2005E8A7A /* FirebaseInstanceID.framework */; };
+		4427BCF21F053FFB005E8A7A /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4427BCF11F053FFB005E8A7A /* FirebaseNanoPB.framework */; };
+		4427BCF41F054002005E8A7A /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4427BCF31F054002005E8A7A /* GoogleToolboxForMac.framework */; };
+		4427BCF61F05400E005E8A7A /* FirebaseMessaging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4427BCF51F05400E005E8A7A /* FirebaseMessaging.framework */; };
+		4427BCF81F054016005E8A7A /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4427BCF71F054016005E8A7A /* Protobuf.framework */; };
+		44C798F01F05F9E500FB1F18 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44C798EF1F05F9E500FB1F18 /* GoogleService-Info.plist */; };
 		5403ECDC1CCED8EE00A56D23 /* all.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDA1CCED8EE00A56D23 /* all.geojson */; };
 		5403ECDD1CCED8EE00A56D23 /* tests.scfg in Resources */ = {isa = PBXBuildFile; fileRef = 5403ECDB1CCED8EE00A56D23 /* tests.scfg */; };
 		540F8B0F1E5233850082F908 /* libRNSpatialConnect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 540F8B0E1E52336C0082F908 /* libRNSpatialConnect.a */; };
@@ -97,6 +106,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		4427BCE51F053FD9005E8A7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 139D7ECE1E25DB7D00323FB7;
+			remoteInfo = "third-party";
+		};
+		4427BCE71F053FD9005E8A7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 139D7E881E25C6D100323FB7;
+			remoteInfo = "double-conversion";
 		};
 		540F8B0D1E52336C0082F908 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -273,6 +296,16 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SCMobile/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SCMobile/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		4427BCC71F053FD8005E8A7A /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		4427BCEB1F053FE2005E8A7A /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = "<group>"; };
+		4427BCED1F053FEA005E8A7A /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
+		4427BCEF1F053FF2005E8A7A /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		4427BCF11F053FFB005E8A7A /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseNanoPB.framework; sourceTree = "<group>"; };
+		4427BCF31F054002005E8A7A /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = "<group>"; };
+		4427BCF51F05400E005E8A7A /* FirebaseMessaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseMessaging.framework; sourceTree = "<group>"; };
+		4427BCF71F054016005E8A7A /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Protobuf.framework; sourceTree = "<group>"; };
+		44C798EF1F05F9E500FB1F18 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		44C798F31F06020800FB1F18 /* Firebase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
 		5403ECDA1CCED8EE00A56D23 /* all.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = all.geojson; path = SCMobile/all.geojson; sourceTree = "<group>"; };
 		5403ECDB1CCED8EE00A56D23 /* tests.scfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = tests.scfg; path = SCMobile/tests.scfg; sourceTree = "<group>"; };
 		540F8B091E52336C0082F908 /* RNSpatialConnect.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSpatialConnect.xcodeproj; path = "../node_modules/react-native-spatialconnect/ios/RNSpatialConnect.xcodeproj"; sourceTree = "<group>"; };
@@ -310,11 +343,19 @@
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
+				4427BCF41F054002005E8A7A /* GoogleToolboxForMac.framework in Frameworks */,
+				4427BCEE1F053FEA005E8A7A /* FirebaseCoreDiagnostics.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				4427BCF01F053FF2005E8A7A /* FirebaseInstanceID.framework in Frameworks */,
+				4427BCF81F054016005E8A7A /* Protobuf.framework in Frameworks */,
+				4427BCF61F05400E005E8A7A /* FirebaseMessaging.framework in Frameworks */,
+				4427BCF21F053FFB005E8A7A /* FirebaseNanoPB.framework in Frameworks */,
+				4427BCEC1F053FE2005E8A7A /* FirebaseCore.framework in Frameworks */,
 				56AA58061D3D65CD00670AB7 /* Crashlytics.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				4427BCC81F053FD8005E8A7A /* FirebaseAnalytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +442,7 @@
 		13B07FAE1A68108700A75B9A /* SCMobile */ = {
 			isa = PBXGroup;
 			children = (
+				44C798EF1F05F9E500FB1F18 /* GoogleService-Info.plist */,
 				5418A5EF1DA3EC2F00F6B7AD /* EFC.entitlements */,
 				543E8AE91D2EDB4F009FE68F /* simple.geojson */,
 				5403ECDA1CCED8EE00A56D23 /* all.geojson */,
@@ -414,6 +456,7 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				547F13971CF780ED0028EFF1 /* remote.scfg */,
 				54AEC3241E4A612800D469F1 /* Ionicons.ttf */,
+				44C798F31F06020800FB1F18 /* Firebase.h */,
 			);
 			name = SCMobile;
 			sourceTree = "<group>";
@@ -429,8 +472,26 @@
 				5440AD5F1ECE5D2B004BE469 /* libcxxreact.a */,
 				5440AD611ECE5D2B004BE469 /* libjschelpers.a */,
 				5440AD631ECE5D2B004BE469 /* libjschelpers.a */,
+				4427BCE61F053FD9005E8A7A /* libthird-party.a */,
+				4427BCE81F053FD9005E8A7A /* libdouble-conversion.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		44C798F41F06847A00FB1F18 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4427BCF71F054016005E8A7A /* Protobuf.framework */,
+				4427BCF51F05400E005E8A7A /* FirebaseMessaging.framework */,
+				4427BCF31F054002005E8A7A /* GoogleToolboxForMac.framework */,
+				4427BCF11F053FFB005E8A7A /* FirebaseNanoPB.framework */,
+				4427BCEF1F053FF2005E8A7A /* FirebaseInstanceID.framework */,
+				4427BCED1F053FEA005E8A7A /* FirebaseCoreDiagnostics.framework */,
+				4427BCEB1F053FE2005E8A7A /* FirebaseCore.framework */,
+				4427BCC71F053FD8005E8A7A /* FirebaseAnalytics.framework */,
+				56AA58051D3D65CD00670AB7 /* Crashlytics.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		540F8B0A1E52336C0082F908 /* Products */ = {
@@ -508,7 +569,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				56AA58051D3D65CD00670AB7 /* Crashlytics.framework */,
+				44C798F41F06847A00FB1F18 /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* SCMobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SCMobileTests */,
@@ -587,6 +648,9 @@
 						DevelopmentTeam = 82EPDLMXNS;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -725,6 +789,20 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4427BCE61F053FD9005E8A7A /* libthird-party.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libthird-party.a";
+			remoteRef = 4427BCE51F053FD9005E8A7A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4427BCE81F053FD9005E8A7A /* libdouble-conversion.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libdouble-conversion.a";
+			remoteRef = 4427BCE71F053FD9005E8A7A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		540F8B0E1E52336C0082F908 /* libRNSpatialConnect.a */ = {
@@ -882,6 +960,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5403ECDC1CCED8EE00A56D23 /* all.geojson in Resources */,
+				44C798F01F05F9E500FB1F18 /* GoogleService-Info.plist in Resources */,
 				543E8AEA1D2EDB4F009FE68F /* simple.geojson in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				54AEC3251E4A612800D469F1 /* Ionicons.ttf in Resources */,
@@ -1058,6 +1137,7 @@
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
+					"-lz",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.boundlessgeo.efc;
 				PRODUCT_NAME = EFC;
@@ -1108,6 +1188,7 @@
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
+					"-lz",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.boundlessgeo.efc;
 				PRODUCT_NAME = EFC;
