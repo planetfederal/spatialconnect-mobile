@@ -1,10 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  Picker,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Picker, StyleSheet, Text, View } from 'react-native';
 import { find } from 'lodash';
 import Button from 'react-native-button';
 import { propertyListStyles, buttonStyles } from '../style/style';
@@ -46,12 +41,15 @@ class FeatureCreate extends Component {
 
   componentWillMount() {
     const params = this.props.navigation.state.params;
-    const stores = params.stores.filter(s => (
-      s.vectorLayers && s.vectorLayers.length && s.type === 'gpkg' &&
-      s.storeId !== 'DEFAULT_STORE' &&
-      s.storeId !== 'FORM_STORE' &&
-      s.storeId !== 'LOCATION_STORE'
-    ));
+    const stores = params.stores.filter(
+      s =>
+        s.vectorLayers &&
+        s.vectorLayers.length &&
+        s.type === 'gpkg' &&
+        s.storeId !== 'DEFAULT_STORE' &&
+        s.storeId !== 'FORM_STORE' &&
+        s.storeId !== 'LOCATION_STORE'
+    );
     this.setState({
       stores,
       selectedStoreId: stores.length ? stores[0].storeId : false,
@@ -62,7 +60,9 @@ class FeatureCreate extends Component {
   onCreate() {
     const params = this.props.navigation.state.params;
     params.actions.createFeature(
-      this.state.selectedStoreId, this.state.selectedLayerId, params.feature,
+      this.state.selectedStoreId,
+      this.state.selectedLayerId,
+      params.feature
     );
   }
 
@@ -76,10 +76,12 @@ class FeatureCreate extends Component {
 
   render() {
     if (this.state.stores.length === 0) {
-      return (<View style={[propertyListStyles.container, styles.container]}>
-        <Text>No valid stores.</Text>
-        <Text>Add a Geopackage store to enable feature creation.</Text>
-      </View>);
+      return (
+        <View style={[propertyListStyles.container, styles.container]}>
+          <Text>No valid stores.</Text>
+          <Text>Add a Geopackage store to enable feature creation.</Text>
+        </View>
+      );
     }
     const store = find(this.state.stores, s => s.storeId === this.state.selectedStoreId);
     return (
@@ -92,9 +94,9 @@ class FeatureCreate extends Component {
             selectedValue={this.state.selectedStoreId}
             onValueChange={this.onChangeStore}
           >
-            {this.state.stores.map(s => (
+            {this.state.stores.map(s =>
               <Picker.Item key={s.storeId} label={s.name} value={s.storeId} />
-            ))}
+            )}
           </Picker>
         </View>
         <Text>Choose Layer</Text>
@@ -105,13 +107,14 @@ class FeatureCreate extends Component {
             selectedValue={this.state.selectedLayerId}
             onValueChange={layer => this.setState({ selectedLayerId: layer })}
           >
-            {store.vectorLayers.map(layer => (
+            {store.vectorLayers.map(layer =>
               <Picker.Item key={layer} label={layer} value={layer} />
-            ))}
+            )}
           </Picker>
         </View>
         <Button
-          style={buttonStyles.buttonText} containerStyle={buttonStyles.button}
+          style={buttonStyles.buttonText}
+          containerStyle={buttonStyles.button}
           onPress={this.onCreate}
         >
           Create

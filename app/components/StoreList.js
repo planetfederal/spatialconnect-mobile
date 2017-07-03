@@ -1,14 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  FlatList,
-  View,
-} from 'react-native';
+import { FlatList, View } from 'react-native';
 import * as sc from 'react-native-spatialconnect';
 import StoreCell from './StoreCell';
 import { listStyles } from '../style/style';
 
 class StoreList extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -20,13 +16,13 @@ class StoreList extends Component {
 
   onRefresh() {
     this.setState({ refreshing: true });
-    sc.stores$().take(1).subscribe((action) => {
+    sc.stores$().take(1).subscribe(action => {
       this.setState({ refreshing: false });
       this.props.dispatch(action);
     });
   }
 
-  keyExtractor = item => item.storeId
+  keyExtractor = item => item.storeId;
 
   render() {
     return (
@@ -34,8 +30,10 @@ class StoreList extends Component {
         <FlatList
           data={this.props.stores}
           renderItem={({ item }) =>
-            <StoreCell store={item} onSelect={() => this.props.navigation.navigate('store', { store: item })} />
-          }
+            <StoreCell
+              store={item}
+              onSelect={() => this.props.navigation.navigate('store', { store: item })}
+            />}
           keyExtractor={this.keyExtractor}
           onRefresh={this.onRefresh}
           refreshing={this.state.refreshing}

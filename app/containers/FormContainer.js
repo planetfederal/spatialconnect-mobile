@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  View,
-  Platform
-} from 'react-native';
+import { View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FormList from '../components/FormList';
@@ -14,15 +11,14 @@ class FormContainer extends Component {
     headerTitle: 'Forms',
     headerLeft: <MenuButton navigation={navigation} />,
     drawerLabel: 'Forms',
-    drawerIcon: () => (
+    drawerIcon: () =>
       <Icon
         name={Platform.OS === 'ios' ? 'ios-filing-outline' : 'md-filing'}
         size={35}
         color="#fff"
         style={{ paddingRight: 10 }}
-      />
-    ),
-  })
+      />,
+  });
 
   render() {
     return (

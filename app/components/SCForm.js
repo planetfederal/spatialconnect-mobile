@@ -1,10 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import {
   Alert,
+  Animated,
   InteractionManager,
+  Keyboard,
+  findNodeHandle,
   ScrollView,
   StyleSheet,
   View,
+  KeyboardAvoidingView,
 } from 'react-native';
 import Button from 'react-native-button';
 import transform from 'tcomb-json-schema';
@@ -57,7 +61,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
 class SCForm extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.state.params.form.form_label,
@@ -68,27 +71,64 @@ class SCForm extends Component {
     this.state = {
       value: {},
       renderPlaceholderOnly: true,
+      submitting: false,
     };
-
+    this.keyboardHeight = new Animated.Value(0);
     this.onChange = this.onChange.bind(this);
-    this.onPress = this.onPress.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.keyboardWillShow = this.keyboardWillShow.bind(this);
+    this.onFocus = this.onFocus.bind(this);
   }
 
   componentWillMount() {
     InteractionManager.runAfterInteractions(() => {
       const formInfo = this.props.navigation.state.params.form;
-      const { schema, options, initialValues } = scformschema.translate(formInfo);
+      const { schema, options, initialValues } = scformschema.translate({
+        scSchema: formInfo,
+        onFocus: this.onFocus,
+      });
       this.setState({ schema, options, value: initialValues });
       this.TcombType = transform(schema);
       this.initialValues = initialValues;
       this.options = options;
       this.setState({ renderPlaceholderOnly: false });
+      this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+      this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
     });
   }
 
-  onPress() {
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
+
+  onFocus(e) {
+    let scrollResponder = this.scrollView.getScrollResponder();
+    scrollResponder.scrollResponderScrollNativeHandleToKeyboard(
+      findNodeHandle(e.target),
+      150,
+      true
+    );
+  }
+
+  keyboardWillShow = event => {
+    Animated.timing(this.keyboardHeight, {
+      duration: event.duration,
+      toValue: event.endCoordinates.height,
+    }).start();
+  };
+
+  keyboardWillHide = event => {
+    Animated.timing(this.keyboardHeight, {
+      duration: event.duration,
+      toValue: 0,
+    }).start();
+  };
+
+  onSubmit() {
     const formData = this.form.getValue();
     if (formData) {
+      this.setState({ submitting: true });
       this.saveForm(formData);
     }
   }
@@ -99,28 +139,30 @@ class SCForm extends Component {
 
   saveForm(formData) {
     const formInfo = this.props.navigation.state.params.form;
-    navigator.geolocation.getCurrentPosition((position) => {
-      const gj = {
-        geometry: {
-          type: 'Point',
-          coordinates: [
-            position.coords.longitude,
-            position.coords.latitude,
-          ],
-        },
-        properties: formData,
-      };
-      const f = sc.geometry('FORM_STORE', formInfo.form_key, gj);
-      sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
-    }, () => {
-      const f = sc.spatialFeature('FORM_STORE', formInfo.form_key, { properties: formData });
-      sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
-    }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const gj = {
+          geometry: {
+            type: 'Point',
+            coordinates: [position.coords.longitude, position.coords.latitude],
+          },
+          properties: formData,
+        };
+        const f = sc.geometry('FORM_STORE', formInfo.form_key, gj);
+        sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
+      },
+      () => {
+        const f = sc.spatialFeature('FORM_STORE', formInfo.form_key, { properties: formData });
+        sc.createFeature$(f).first().subscribe(this.formSubmitted.bind(this));
+      },
+      { enableHighAccuracy: true, timeout: 5000, maximumAge: 1000 }
+    );
   }
 
   formSubmitted() {
+    this.setState({ submitting: false });
     Alert.alert('Form Submitted', '', [
-      { text: 'OK', onPress: () => this.props.navigation.goBack() },
+      { text: 'OK' },
       { text: 'New Submission', onPress: () => this.setState({ value: this.initialValues }) },
     ]);
   }
@@ -130,25 +172,37 @@ class SCForm extends Component {
       return <PlaceHolder />;
     }
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>
+      <Animated.View style={[styles.container, { paddingBottom: this.keyboardHeight }]}>
+        <ScrollView
+          style={styles.scrollView}
+          keyboardDismissMode="interactive"
+          showsVerticalScrollIndicator={true}
+          ref={ref => {
+            this.scrollView = ref;
+          }}
+        >
           <View style={styles.form}>
             <Form
-              ref={(ref) => { this.form = ref; }}
+              ref={ref => {
+                this.form = ref;
+              }}
               value={this.state.value}
               type={this.TcombType}
               options={this.options}
               onChange={this.onChange}
             />
             <Button
-              style={buttonStyles.buttonText} containerStyle={buttonStyles.button}
-              onPress={this.onPress}
+              style={buttonStyles.buttonText}
+              containerStyle={buttonStyles.button}
+              styleDisabled={buttonStyles.disabled}
+              disabled={this.state.submitting}
+              onPress={this.onSubmit}
             >
-              Submit
+              {this.state.submitting ? 'Submitting' : 'Submit'}
             </Button>
           </View>
         </ScrollView>
-      </View>
+      </Animated.View>
     );
   }
 }

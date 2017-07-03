@@ -148,9 +148,7 @@ export const routerStyles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-  leftButtonStyle: {
-
-  },
+  leftButtonStyle: {},
   buttonTextStyle: {
     color: 'white',
     fontWeight: 'bold',

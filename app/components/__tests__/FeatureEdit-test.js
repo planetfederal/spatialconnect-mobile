@@ -9,15 +9,17 @@ const mockStore = configureMockStore();
 
 describe('<FeatureEdit />', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(
-      <FeatureEdit
-        navigation={{
-          navigate: jest.fn(),
-          state: { params: { feature } },
-        }}
-        store={mockStore()}
-      />,
-    ).toJSON();
+    const tree = renderer
+      .create(
+        <FeatureEdit
+          navigation={{
+            navigate: jest.fn(),
+            state: { params: { feature } },
+          }}
+          store={mockStore()}
+        />
+      )
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

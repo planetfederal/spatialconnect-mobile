@@ -12,7 +12,7 @@ export const makeCoordinates = feature => {
   const makeLine = l => {
     return l.map(makePoint);
   };
-  const makeMKOverlay = (g) => {
+  const makeMKOverlay = g => {
     if (g.type === 'Point') {
       return [makePoint(g.coordinates)];
     } else if (g.type === 'MultiPoint') {
@@ -24,11 +24,13 @@ export const makeCoordinates = feature => {
     } else if (g.type === 'Polygon') {
       return g.coordinates.map(makeLine);
     } else if (g.type === 'MultiPolygon') {
-      return g.coordinates.map((p) => {
-        return p.map(makeLine);
-      }).reduce(function(prev, curr) {
-        return prev.concat(curr);
-      });
+      return g.coordinates
+        .map(p => {
+          return p.map(makeLine);
+        })
+        .reduce(function(prev, curr) {
+          return prev.concat(curr);
+        });
     } else {
       return [];
     }
@@ -38,21 +40,21 @@ export const makeCoordinates = feature => {
 
 export const findRegion = feature => {
   if (feature.geometry.type === 'Point') {
-    return  {
+    return {
       latitude: feature.geometry.coordinates[1],
       longitude: feature.geometry.coordinates[0],
       latitudeDelta: 1,
       longitudeDelta: 1,
     };
   }
-  const [ west, south, east, north ] = turfBbox(feature);
+  const [west, south, east, north] = turfBbox(feature);
   const region = {
-     //center of bbox
+    //center of bbox
     latitude: (south + north) / 2,
     longitude: (west + east) / 2,
     //delta of bbox plus 50 percent padding
-    latitudeDelta: Math.abs(south - north) + Math.abs(south - north)*.5,
-    longitudeDelta: Math.abs(west - east) + Math.abs(south - north)*.5,
+    latitudeDelta: Math.abs(south - north) + Math.abs(south - north) * 0.5,
+    longitudeDelta: Math.abs(west - east) + Math.abs(south - north) * 0.5,
   };
   return region;
 };
@@ -72,17 +74,17 @@ export const findPointIndexNearestCenter = (centerPoint, points) => {
 
 export const regionToBbox = region => {
   return [
-    region.longitude - region.longitudeDelta/2,
-    region.latitude - region.latitudeDelta/2,
-    region.longitude + region.longitudeDelta/2,
-    region.latitude + region.latitudeDelta/2,
+    region.longitude - region.longitudeDelta / 2,
+    region.latitude - region.latitudeDelta / 2,
+    region.longitude + region.longitudeDelta / 2,
+    region.latitude + region.latitudeDelta / 2,
   ];
 };
 
 //creates a geojson object from props and list of coordinates
 export const overlayToGeojson = (feature, newProps, newCoordinates) => {
-  const props = JSON.parse(JSON.stringify(newProps, (k, v) => v == null ? '' : v));
-  const coords = newCoordinates.map(c => ([c.longitude, c.latitude]));
+  const props = JSON.parse(JSON.stringify(newProps, (k, v) => (v == null ? '' : v)));
+  const coords = newCoordinates.map(c => [c.longitude, c.latitude]);
   let newFeature;
   if (feature.geometry && feature.geometry.type === 'Point') {
     newFeature = turfPoint(coords[0], props);

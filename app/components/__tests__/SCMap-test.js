@@ -5,14 +5,16 @@ import SCMap from '../SCMap';
 
 describe('<MapView />', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(
-      <SCMap
-        activeStores={[]}
-        actions={{}}
-        overlays={{ points: [], lines: [], polygons: [] }}
-        creatingPoints={[]}
-      />
-    ).toJSON();
+    const tree = renderer
+      .create(
+        <SCMap
+          activeStores={[]}
+          actions={{}}
+          overlays={{ points: [], lines: [], polygons: [] }}
+          creatingPoints={[]}
+        />
+      )
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

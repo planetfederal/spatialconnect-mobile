@@ -15,25 +15,23 @@ describe('auth actions', () => {
     const store = mockStore(state);
     const response = { result: { id: 1 }, error: null };
     fetch.mockResponseSuccess(response);
-    store.dispatch(actions.signUpUser({}))
-      .then(() => {
-        expect(store.getActions()).toEqual([
-          { type: 'SIGNUP_USER_REQUEST' },
-          { type: 'SIGNUP_USER_SUCCESS' },
-        ]);
-      });
+    store.dispatch(actions.signUpUser({})).then(() => {
+      expect(store.getActions()).toEqual([
+        { type: 'SIGNUP_USER_REQUEST' },
+        { type: 'SIGNUP_USER_SUCCESS' },
+      ]);
+    });
   });
 
   it('creates SIGNUP_USER_FAILURE when sign up form is invalid', () => {
     const store = mockStore(state);
     const response = { result: null, error: 'Failed to create new user' };
     fetch.mockResponseSuccess(response);
-    store.dispatch(actions.signUpUser({}))
-      .then(() => {
-        expect(store.getActions()).toEqual([
-          { type: 'SIGNUP_USER_REQUEST' },
-          { type: 'SIGNUP_USER_FAILURE', error: 'Failed to create new user' },
-        ]);
-      });
+    store.dispatch(actions.signUpUser({})).then(() => {
+      expect(store.getActions()).toEqual([
+        { type: 'SIGNUP_USER_REQUEST' },
+        { type: 'SIGNUP_USER_FAILURE', error: 'Failed to create new user' },
+      ]);
+    });
   });
 });

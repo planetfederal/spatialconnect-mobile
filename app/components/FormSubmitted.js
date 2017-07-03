@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import palette from '../style/palette';
 
 const styles = StyleSheet.create({
@@ -20,14 +16,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const FormSubmitted = () => (
+const FormSubmitted = () =>
   <View style={styles.container}>
     <Text style={styles.subheader}>Form submitted.</Text>
-  </View>
-);
+  </View>;
 
-FormSubmitted.propTypes = {
-
-};
+FormSubmitted.propTypes = {};
 
 export default FormSubmitted;

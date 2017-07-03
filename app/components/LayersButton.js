@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const LayersButton = props => (
+const LayersButton = props =>
   <Icon
     onPress={() => {
       const params = props.navigation.state.params;
@@ -12,8 +12,7 @@ const LayersButton = props => (
     size={30}
     color="#fff"
     style={{ paddingRight: 10 }}
-  />
-);
+  />;
 
 LayersButton.propTypes = {
   navigation: PropTypes.object.isRequired,

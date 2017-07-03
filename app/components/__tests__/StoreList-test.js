@@ -6,9 +6,7 @@ import StoreList from '../StoreList';
 
 describe('<StoreList />', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(
-      <StoreList stores={stores} />
-    ).toJSON();
+    const tree = renderer.create(<StoreList stores={stores} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

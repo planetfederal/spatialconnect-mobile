@@ -6,11 +6,13 @@ let api = {
     return fetch(API_URL + `forms/${form.id}/results`, {
       headers: { 'x-access-token': token },
     })
-      .then((response) => response.json())
-      .then(data => data.map(f => {
-        f.form = form;
-        return f;
-      }));
+      .then(response => response.json())
+      .then(data =>
+        data.map(f => {
+          f.form = form;
+          return f;
+        })
+      );
   },
   getAllFormData(token) {
     return this.getForms(token)
@@ -22,14 +24,12 @@ let api = {
       });
   },
   getFormById(id) {
-    return fetch(API_URL + `forms/${id}`)
-      .then((response) => response.json());
+    return fetch(API_URL + `forms/${id}`).then(response => response.json());
   },
   getForms(token) {
     return fetch(API_URL + 'forms', {
       headers: { 'x-access-token': token },
-    })
-    .then((response) => response.json());
+    }).then(response => response.json());
   },
   signUp(body) {
     if (!body) {
@@ -38,11 +38,11 @@ let api = {
     return fetch(API_URL + 'users', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    }).then((response) => response.json());
+    }).then(response => response.json());
   },
 };
 

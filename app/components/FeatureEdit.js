@@ -88,14 +88,17 @@ const styles = StyleSheet.create({
 
 class FeatureEdit extends Component {
   static navigationOptions = ({ navigation }) => {
-    return navigation.state.params.onRight ? {
-      headerTitle: 'Edit Feature',
-      headerRight: (<TouchableOpacity
-        onPress={navigation.state.params.onRight}>
-        <Text style={routerStyles.buttonTextStyle}>Save</Text>
-      </TouchableOpacity>),
-    } : {};
-  }
+    return navigation.state.params.onRight
+      ? {
+          headerTitle: 'Edit Feature',
+          headerRight: (
+            <TouchableOpacity onPress={navigation.state.params.onRight}>
+              <Text style={routerStyles.buttonTextStyle}>Save</Text>
+            </TouchableOpacity>
+          ),
+        }
+      : {};
+  };
 
   constructor(props) {
     super(props);
@@ -169,10 +172,13 @@ class FeatureEdit extends Component {
       const nearestCoord = this.state.coordinates[this.state.nearestCoordIndex];
       if (nearestCoord) {
         this.setState({ panning: true });
-        this.map.animateToCoordinate({
-          latitude: nearestCoord.latitude,
-          longitude: nearestCoord.longitude,
-        }, 200);
+        this.map.animateToCoordinate(
+          {
+            latitude: nearestCoord.latitude,
+            longitude: nearestCoord.longitude,
+          },
+          200
+        );
         setTimeout(() => {
           this.setState({
             editing: true,
@@ -197,7 +203,7 @@ class FeatureEdit extends Component {
 
   findPointIndexNearestCenter(region) {
     const center = turfPoint([region.longitude, region.latitude]);
-    const points = this.state.coordinates.map(c => ([c.longitude, c.latitude]));
+    const points = this.state.coordinates.map(c => [c.longitude, c.latitude]);
     return mapUtils.findPointIndexNearestCenter(center, points);
   }
 
@@ -222,17 +228,15 @@ class FeatureEdit extends Component {
   makePropertyForm() {
     const feature = this.props.navigation.state.params.feature;
     if (Object.keys(feature.properties).length) {
-      const form = { };
+      const form = {};
       const properties = omit(feature.properties, 'bbox');
-      form.fields = Object.keys(properties).map((key, idx) => (
-        {
-          id: idx,
-          type: properties[key] !== null ? typeof properties[key] : 'string',
-          field_key: key,
-          field_label: key,
-          position: idx,
-        }
-      ));
+      form.fields = Object.keys(properties).map((key, idx) => ({
+        id: idx,
+        type: properties[key] !== null ? typeof properties[key] : 'string',
+        field_key: key,
+        field_label: key,
+        position: idx,
+      }));
       const { schema, options } = scformschema.translate(form);
       return {
         schema,
@@ -244,13 +248,17 @@ class FeatureEdit extends Component {
   }
 
   renderForm() {
-    return (<Form
-      ref={(ref) => { this.form = ref; }}
-      value={this.state.value}
-      type={transform(this.state.schema)}
-      options={this.state.options}
-      onChange={this.onChange}
-    />);
+    return (
+      <Form
+        ref={ref => {
+          this.form = ref;
+        }}
+        value={this.state.value}
+        type={transform(this.state.schema)}
+        options={this.state.options}
+        onChange={this.onChange}
+      />
+    );
   }
 
   renderMap() {
@@ -281,7 +289,9 @@ class FeatureEdit extends Component {
         </View>
         <View style={styles.mapContainer}>
           <MapView
-            ref={(ref) => { this.map = ref; }}
+            ref={ref => {
+              this.map = ref;
+            }}
             style={styles.map}
             onRegionChange={this.onRegionChange}
             region={this.state.region}
@@ -293,27 +303,29 @@ class FeatureEdit extends Component {
               } else {
                 pinColor = palette.red;
               }
-              return (<MapView.Marker
-                pinColor={pinColor}
-                coordinate={c}
-                key={`point_${idx}`}
-              />);
+              return <MapView.Marker pinColor={pinColor} coordinate={c} key={`point_${idx}`} />;
             })}
-            {this.state.polygon ?
-              <MapView.Polygon
-                coordinates={this.state.polygon}
-                fillColor={Color(style.fillColor).fade(1 - +style.fillOpacity).rgb().string()}
-                strokeColor={Color(style.strokeColor).fade(1 - +style.strokeOpacity).rgb().string()}
-                strokeWidth={+style.strokeWidth}
-              /> : null
-            }
-            {this.state.polyline ?
-              <MapView.Polyline
-                coordinates={this.state.polyline}
-                strokeColor={Color(style.strokeColor).fade(1 - +style.strokeOpacity).rgb().string()}
-                strokeWidth={+style.strokeWidth}
-              /> : null
-            }
+            {this.state.polygon
+              ? <MapView.Polygon
+                  coordinates={this.state.polygon}
+                  fillColor={Color(style.fillColor).fade(1 - +style.fillOpacity).rgb().string()}
+                  strokeColor={Color(style.strokeColor)
+                    .fade(1 - +style.strokeOpacity)
+                    .rgb()
+                    .string()}
+                  strokeWidth={+style.strokeWidth}
+                />
+              : null}
+            {this.state.polyline
+              ? <MapView.Polyline
+                  coordinates={this.state.polyline}
+                  strokeColor={Color(style.strokeColor)
+                    .fade(1 - +style.strokeOpacity)
+                    .rgb()
+                    .string()}
+                  strokeWidth={+style.strokeWidth}
+                />
+              : null}
           </MapView>
         </View>
       </View>
@@ -327,8 +339,8 @@ class FeatureEdit extends Component {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.form}>
-          {this.state.value ? this.renderForm() : null }
-          {this.state.coordinates ? this.renderMap() : null }
+          {this.state.value ? this.renderForm() : null}
+          {this.state.coordinates ? this.renderMap() : null}
         </View>
       </ScrollView>
     );

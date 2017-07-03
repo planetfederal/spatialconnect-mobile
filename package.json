@@ -4,7 +4,15 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "precommit": "lint-staged",
+    "format": "prettier --single-quote --trailing-comma es5 --print-width 100 --write \"{,!(node_modules|public|android|ios|tools)/**/}*.js\""
+  },
+  "lint-staged": {
+    "*.js": [
+      "./node_modules/.bin/prettier --single-quote --trailing-comma es5 --print-width 100 --write",
+      "git add"
+    ]
   },
   "jest": {
     "preset": "react-native",
@@ -26,8 +34,11 @@
   },
   "dependencies": {
     "color": "1.0.3",
+    "husky": "0.13.4",
     "jwt-decode": "2.0.1",
+    "lint-staged": "3.6.1",
     "lodash": "4.17.2",
+    "prettier": "1.4.4",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
     "react-native-button": "1.7.1",
@@ -45,7 +56,7 @@
     "rx": "^4.1.0",
     "should": "9.0.2",
     "slash": "^1.0.0",
-    "spatialconnect-form-schema": "2.3.2",
+    "spatialconnect-form-schema": "2.3.4",
     "tcomb-form-native": "^0.5.1",
     "tcomb-json-schema": "^0.3.0",
     "turf-bbox": "3.0.12",

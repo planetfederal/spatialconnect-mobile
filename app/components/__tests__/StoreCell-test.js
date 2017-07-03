@@ -6,9 +6,7 @@ import StoreCell from '../StoreCell';
 
 describe('<StoreCell />', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(
-      <StoreCell store={stores[0]} />
-    ).toJSON();
+    const tree = renderer.create(<StoreCell store={stores[0]} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

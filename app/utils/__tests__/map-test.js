@@ -1,92 +1,62 @@
 import * as map from '../map';
 
 let pt = {
-  "type": "Feature",
-  "properties": {
-    "foo": "bar"
+  type: 'Feature',
+  properties: {
+    foo: 'bar',
   },
-  "geometry": {
-    "type": "Point",
-    "coordinates": [
-      -105.46875,
-      57.89149735271031
-    ]
-  }
+  geometry: {
+    type: 'Point',
+    coordinates: [-105.46875, 57.89149735271031],
+  },
 };
 
 let pts = {
-  "type": "FeatureCollection",
-  "features": [
+  type: 'FeatureCollection',
+  features: [
     {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -105.84228515625,
-          57.96733074626976
-        ]
-      }
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'Point',
+        coordinates: [-105.84228515625, 57.96733074626976],
+      },
     },
     {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -104.776611328125,
-          58.21702494960191
-        ]
-      }
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'Point',
+        coordinates: [-104.776611328125, 58.21702494960191],
+      },
     },
     {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -104.5458984375,
-          57.903174456371495
-        ]
-      }
-    }
-  ]
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'Point',
+        coordinates: [-104.5458984375, 57.903174456371495],
+      },
+    },
+  ],
 };
 
 let polygon = {
-  "type": "Feature",
-  "properties": {},
-  "geometry": {
-    "type": "Polygon",
-    "coordinates": [
+  type: 'Feature',
+  properties: {},
+  geometry: {
+    type: 'Polygon',
+    coordinates: [
       [
-        [
-          -102.74414062499999,
-          69.68761843185617
-        ],
-        [
-          -106.34765625,
-          68.52823492039876
-        ],
-        [
-          -102.3046875,
-          67.03316279015063
-        ],
-        [
-          -97.119140625,
-          67.90861918215302
-        ],
-        [
-          -98.173828125,
-          69.59589006237648
-        ],
-        [
-          -102.74414062499999,
-          69.68761843185617
-        ]
-      ]
-    ]
-  }
+        [-102.74414062499999, 69.68761843185617],
+        [-106.34765625, 68.52823492039876],
+        [-102.3046875, 67.03316279015063],
+        [-97.119140625, 67.90861918215302],
+        [-98.173828125, 69.59589006237648],
+        [-102.74414062499999, 69.68761843185617],
+      ],
+    ],
+  },
 };
 
 describe('map utils', () => {

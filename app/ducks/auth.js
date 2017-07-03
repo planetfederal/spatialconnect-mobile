@@ -81,7 +81,8 @@ export default function reducer(state = initialState, action = {}) {
         ...initialState,
         isAuthenticated: false,
       };
-    default: return state;
+    default:
+      return state;
   }
 }
 
@@ -138,33 +139,32 @@ export function signUpUser(form) {
         },
         body: JSON.stringify(form),
       })
-      .then(response => response.json())
-      .then((body) => {
-        if (body.result.errors) {
-          dispatch(signUpUserFailure(body.result.errors[0].message));
-        } else if (body.result.error) {
-          dispatch(signUpUserFailure(body.result.error));
-        } else if (body.error) {
-          dispatch(signUpUserFailure(body.error));
-        } else if (body.result && body.result.id) {
-          dispatch(signUpUserSuccess());
-        }
-      });
+        .then(response => response.json())
+        .then(body => {
+          if (body.result.errors) {
+            dispatch(signUpUserFailure(body.result.errors[0].message));
+          } else if (body.result.error) {
+            dispatch(signUpUserFailure(body.result.error));
+          } else if (body.error) {
+            dispatch(signUpUserFailure(body.error));
+          } else if (body.result && body.result.id) {
+            dispatch(signUpUserSuccess());
+          }
+        });
     }
     return dispatch(signUpUserFailure('Sign up unsuccessful.'));
   };
 }
 
-
 export function login(email, password) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(loginUserRequest());
     sc.authenticate(email, password);
   };
 }
 
 export function logout() {
-  return (dispatch) => {
+  return dispatch => {
     sc.logout();
     dispatch({ type: 'LOGOUT' });
   };

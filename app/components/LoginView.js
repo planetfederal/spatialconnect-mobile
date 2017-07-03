@@ -1,9 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RNButton from 'react-native-button';
@@ -55,6 +51,7 @@ export class LoginView extends Component {
   static navigationOptions = {
     headerTitle: 'Expedited Field Capability',
     headerStyle: routerStyles.navBar,
+    headerTitleStyle: { fontSize: 18, width: 250 },
     headerTintColor: 'white',
     headerLeft: null,
     gesturesEnabled: false,
@@ -95,25 +92,27 @@ export class LoginView extends Component {
     return (
       <View style={navStyles.container}>
         <View style={styles.form}>
-          {this.props.hasAuthError ?
-            <Text style={styles.errorMessage}>Login failed: Invalid credentials</Text> :
-            <Text />
-          }
+          {this.props.hasAuthError
+            ? <Text style={styles.errorMessage}>Login failed: Invalid credentials</Text>
+            : <Text />}
           <Form
-            ref={(ref) => { this.form = ref; }}
+            ref={ref => {
+              this.form = ref;
+            }}
             value={this.props.loginFormValue}
             type={Login}
             options={formOptions}
             onChange={this.onChange}
           />
           <RNButton
-            style={buttonStyles.buttonText} containerStyle={buttonStyles.button}
+            style={buttonStyles.buttonText}
+            containerStyle={buttonStyles.button}
             styleDisabled={buttonStyles.disabled}
-            onPress={this.onPress} disabled={this.props.isAuthenticating}
+            onPress={this.onPress}
+            disabled={this.props.isAuthenticating}
           >
             {this.props.isAuthenticating ? 'Signing In...' : 'Sign In'}
           </RNButton>
-          <Text onPress={this.onSignUpPress} style={buttonStyles.link}>Sign Up</Text>
         </View>
       </View>
     );

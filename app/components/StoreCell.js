@@ -1,15 +1,9 @@
 import React, { PropTypes } from 'react';
-import {
-  Platform,
-  Text,
-  TouchableHighlight,
-  TouchableNativeFeedback,
-  View,
-} from 'react-native';
+import { Platform, Text, TouchableHighlight, TouchableNativeFeedback, View } from 'react-native';
 import { StoreStatus } from 'react-native-spatialconnect';
 import { cellStyles, listStyles } from '../style/style';
 
-const statusText = (store) => {
+const statusText = store => {
   let text;
   switch (store.status) {
     case StoreStatus.SC_DATASTORE_STARTED:
@@ -25,19 +19,19 @@ const statusText = (store) => {
       text = <Text style={cellStyles.cellDetailsRed}>Stopped</Text>;
       break;
     case StoreStatus.SC_DATASTORE_DOWNLOADINGDATA:
-      text = (<Text style={cellStyles.cellDetailsOrange}>
-        {`Downloading ${Math.floor(store.downloadProgress * 100)}%`}
-      </Text>);
+      text = (
+        <Text style={cellStyles.cellDetailsOrange}>
+          {`Downloading ${Math.floor(store.downloadProgress * 100)}%`}
+        </Text>
+      );
       break;
     default:
       return false;
   }
-  return text ?
-    <Text style={cellStyles.cellDetails} numberOfLines={1}>{text}</Text>
-    : null;
+  return text ? <Text style={cellStyles.cellDetails} numberOfLines={1}>{text}</Text> : null;
 };
 
-const StoreCell = (props) => {
+const StoreCell = props => {
   let TouchableElement = TouchableHighlight;
   if (Platform.OS === 'android') {
     TouchableElement = TouchableNativeFeedback;
