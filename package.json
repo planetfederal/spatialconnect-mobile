@@ -56,7 +56,7 @@
     "rx": "^4.1.0",
     "should": "9.0.2",
     "slash": "^1.0.0",
-    "spatialconnect-form-schema": "3.0.0-beta.3",
+    "spatialconnect-form-schema": "3.0.0",
     "tcomb-form-native": "0.6.9",
     "tcomb-json-schema": "^0.3.0",
     "turf-bbox": "3.0.12",
