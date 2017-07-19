@@ -1,5 +1,6 @@
 {
 "remote": {
+"auth": "server",
 "http_protocol": "http",
 "http_host": "efc-dev.boundlessgeo.com",
 "http_port": 8085,
