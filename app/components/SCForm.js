@@ -54,12 +54,20 @@ class SCForm extends Component {
     );
   }
   createFeature(f) {
-    sc.createFeature$(f).first().subscribe(newFeature => {
-      setTimeout(() => {
-        this.scform.formSubmitted();
-        this.setState({ submitting: false });
-      }, 500);
-    });
+    sc.createFeature$(f).first().subscribe(
+      newFeature => {
+        setTimeout(() => {
+          this.scform.formSubmitted();
+          this.setState({ submitting: false });
+        }, 500);
+      },
+      error => {
+        setTimeout(() => {
+          this.scform.formSubmittedError();
+          this.setState({ submitting: false });
+        }, 500);
+      }
+    );
   }
 
   render() {
