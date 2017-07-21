@@ -49,22 +49,4 @@ public class MainActivity extends ReactActivity {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
     }
-
-    private void showNotification(SCNotification notification) {
-        try {
-            android.support.v4.app.NotificationCompat.Builder mBuilder =
-                    new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.drawable.trigger_icon)
-                            .setColor(0x008000) //green RGB
-                            .setContentTitle(notification.toJson().get("title").toString())
-                            .setContentText(notification.toJson().get("body").toString());
-
-            int mNotificationId = 001;
-            NotificationManager mNotifyMgr =
-                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            mNotifyMgr.notify(mNotificationId, mBuilder.build());
-        } catch (JSONException je) {
-            Log.e("MainActivity", "something went wrong parsing notification json");
-        }
-    }
 }
