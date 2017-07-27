@@ -11,6 +11,7 @@
 #import <React/RCTRootView.h>
 #import <React/RCTBundleURLProvider.h>
 #import <Crashlytics/Crashlytics.h>
+#import <SpatialConnect/SpatialConnect.h>
 #import "Firebase.h"
 
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
@@ -67,8 +68,7 @@
   // time. So if you need to retrieve the token as soon as it is available this is where that
   // should be done.
   NSLog(@"FCM registration token: %@", fcmToken);
-  
-  // TODO: send to SDK.
+  [[SpatialConnect sharedInstance] updateDeviceToken:fcmToken];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -77,9 +77,14 @@
 
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-  // If you are receiving a notification message while your app is in the background,
-  // this callback will not be fired till the user taps on the notification launching the application.
   NSLog(@"Got remote notification %@", userInfo);
+  if (application.applicationState == UIApplicationStateActive) {
+    NSDictionary *alert = [(NSDictionary *)[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+    NSString *title = [alert objectForKey:@"title"];
+    NSString *body = [alert objectForKey:@"body"];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:body delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertView show];
+  }
 }
 
 
