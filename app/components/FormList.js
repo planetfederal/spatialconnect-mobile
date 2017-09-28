@@ -16,13 +16,13 @@ class FormList extends Component {
 
   onRefresh() {
     this.setState({ refreshing: true });
-    sc.forms$().take(1).subscribe(action => {
+    sc.forms$().subscribe(action => {
       this.setState({ refreshing: false });
       this.props.dispatch(action);
     });
   }
 
-  keyExtractor = item => item.id;
+  keyExtractor = item => item.layer_key;
 
   render() {
     return (

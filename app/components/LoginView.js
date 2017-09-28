@@ -58,6 +58,7 @@ export class LoginView extends Component {
   };
 
   constructor(props) {
+    console.log('creating login view');
     super(props);
 
     this.onPress = this.onPress.bind(this);

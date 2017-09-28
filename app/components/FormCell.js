@@ -14,7 +14,7 @@ const FormCell = props => {
         <View style={cellStyles.cellRow}>
           <View style={cellStyles.textContainer}>
             <Text style={cellStyles.cellName} numberOfLines={2}>
-              {props.form.form_label}
+              {props.form.layer_label}
             </Text>
           </View>
         </View>

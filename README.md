@@ -37,3 +37,8 @@ If you want to install this signed apk to your local device to test, run
 ```
 ./gradlew installRelease
 ```
+
+
+Copy files from sync for firebase messaging:
+cp ~/Sync/firebase-messaging/GoogleService-Info.plist ios/SCMobile/
+cp ~/Sync/firebase-messaging/google-services.json android/app/

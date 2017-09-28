@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 let self;
 class SCForm extends Component {
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: navigation.state.params.form.form_label,
+    headerTitle: navigation.state.params.form.layer_label,
     headerRight: (
       <TouchableOpacity onPress={() => self.scform.onSubmit()}>
         <Text style={styles.submitBtnStyle}>Submit</Text>
@@ -43,11 +43,11 @@ class SCForm extends Component {
           },
           properties: formData,
         };
-        const f = sc.geometry('FORM_STORE', formInfo.form_key, gj);
+        const f = sc.geometry('FORM_STORE', formInfo.layer_key, gj);
         this.createFeature(f);
       },
       () => {
-        const f = sc.spatialFeature('FORM_STORE', formInfo.form_key, { properties: formData });
+        const f = sc.spatialFeature('FORM_STORE', formInfo.layer_key, { properties: formData });
         this.createFeature(f);
       },
       { enableHighAccuracy: true, timeout: 3000, maximumAge: 1000 }

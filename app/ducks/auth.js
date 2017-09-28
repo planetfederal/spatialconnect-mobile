@@ -22,6 +22,8 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action = {}) {
+  console.log('auth state is ', state);
+  console.log('action is ', action);
   switch (action.type) {
     case sc.Commands.AUTHSERVICE_LOGIN_STATUS:
       return {

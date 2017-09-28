@@ -5,11 +5,13 @@ import { Platform, PermissionsAndroid } from 'react-native';
 const initialState = {
   forms: [],
   stores: [],
-  backendUri: null,
+  backendUri: 'none',
   connectionStatus: false,
 };
 
 export default (state = initialState, action) => {
+  console.log('sc state is ', state);
+  console.log('action is', action);
   switch (action.type) {
     case sc.Commands.DATASERVICE_FORMLIST:
       return {
@@ -39,7 +41,11 @@ export default (state = initialState, action) => {
 export const connectSC = store => {
   sc.addConfigFilepath('remote.scfg');
   sc.startAllServices();
-  sc.backendUri$().subscribe(store.dispatch);
+  // sc.backendUri$().subscribe(store.dispatch);
+  sc.forms$().subscribe(forms => {
+    console.log('here are the forms', forms);
+    store.dispatch(forms);
+  });
   sc.loginStatus$().subscribe(action => {
     store.dispatch(action);
     if (action.payload === sc.AuthStatus.SCAUTH_AUTHENTICATED) {
