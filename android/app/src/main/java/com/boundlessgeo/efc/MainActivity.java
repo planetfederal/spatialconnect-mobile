@@ -14,24 +14,12 @@
  */
 package com.boundlessgeo.efc;
 
-import android.app.NotificationManager;
-import android.support.v7.app.NotificationCompat;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.boundlessgeo.spatialconnect.SpatialConnect;
-import com.boundlessgeo.spatialconnect.mqtt.SCNotification;
-import com.boundlessgeo.spatialconnect.services.SCBackendService;
-import com.boundlessgeo.spatialconnect.services.SCServiceStatus;
-import com.boundlessgeo.spatialconnect.services.SCServiceStatusEvent;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.react.ReactActivity;
 
 import io.fabric.sdk.android.Fabric;
-import org.json.JSONException;
-import rx.functions.Action1;
-import rx.functions.Func1;
 
 public class MainActivity extends ReactActivity {
 
