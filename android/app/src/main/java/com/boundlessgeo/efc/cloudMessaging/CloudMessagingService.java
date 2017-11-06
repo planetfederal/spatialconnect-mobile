@@ -27,6 +27,8 @@ import com.boundlessgeo.efc.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.UUID;
+
 import rx.Observable;
 import rx.subjects.PublishSubject;
 
@@ -36,7 +38,7 @@ public class CloudMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d(LOG_TAG,"onMessageReceived got notofication: ");
+        Log.d(LOG_TAG, "onMessageReceived got notification: ");
         showNotification(remoteMessage);
     }
 
@@ -49,13 +51,14 @@ public class CloudMessagingService extends FirebaseMessagingService {
               PendingIntent.FLAG_ONE_SHOT);
 
       Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-      NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-              .setSmallIcon(R.drawable.trigger_icon)
-              .setContentTitle(notification.getTitle())
-              .setContentText(notification.getBody())
-              .setAutoCancel(true)
-              .setSound(defaultSoundUri)
-              .setContentIntent(pendingIntent);
+      NotificationCompat.Builder notificationBuilder =
+              new NotificationCompat.Builder(this, UUID.randomUUID().toString())
+                      .setSmallIcon(R.drawable.trigger_icon)
+                      .setContentTitle(notification.getTitle())
+                      .setContentText(notification.getBody())
+                      .setAutoCancel(true)
+                      .setSound(defaultSoundUri)
+                      .setContentIntent(pendingIntent);
 
       NotificationManager notificationManager =
               (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

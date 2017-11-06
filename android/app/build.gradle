@@ -3,9 +3,7 @@ apply plugin: 'io.fabric'
 
 repositories {
   maven { url 'https://maven.fabric.io/public' }
-  maven {
-        url "https://repo.eclipse.org/content/repositories/paho-releases/"
-    }
+  maven { url "https://repo.eclipse.org/content/repositories/paho-releases/" }
 }
 import com.android.build.OutputFile
 
@@ -91,8 +89,8 @@ def enableProguardInReleaseBuilds = false
 def generatedVersionCode = 4
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     //method used to increment version code on assembleRelease
     ext.incrementVersionCode = {
@@ -112,8 +110,8 @@ android {
 
     defaultConfig {
         applicationId "com.boundlessgeo.efc"
-        minSdkVersion 16
-        targetSdkVersion 22
+        minSdkVersion 19
+        targetSdkVersion 26
         versionCode generatedVersionCode
         versionName "1.8.0"
         ndk {
@@ -158,10 +156,11 @@ android {
         }
     }
 
-    // check if the assembleRelease task is among the tasks to be executed
-    gradle.taskGraph.whenReady {taskGraph ->
-    if (taskGraph.hasTask(assembleRelease)) { /* when run release task */
-        incrementVersionCode()
+    gradle.taskGraph.whenReady { taskGraph ->
+    if (taskGraph.hasTask(assembleDebug)) {
+      // do nothing
+    } else if (taskGraph.hasTask(assembleRelease)) {
+      incrementVersionCode()
     }
 }
     packagingOptions {
@@ -186,19 +185,20 @@ android {
 
 dependencies {
     compile project(':react-native-image-picker')
-    compile(project(':react-native-maps')){
+    compile(project(':react-native-maps')) {
         exclude group: 'com.google.android.gms', module: 'play-services-base'
         exclude group: 'com.google.android.gms', module: 'play-services-maps'
     }
     compile 'com.google.android.gms:play-services-base:11.0.2'
     compile 'com.google.android.gms:play-services-maps:11.0.2'
     compile project(':react-native-spatialconnect')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:appcompat-v7:23.0.1"
-    compile "com.facebook.react:react-native:+"  // From node_modules
-    compile "com.android.support:multidex:1.0.0"
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.facebook.react:react-native:+'
+    // From node_modules
+    compile 'com.android.support:multidex:1.0.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.1@aar') {
-      transitive = true;
+        transitive = true;
     }
     compile 'com.google.firebase:firebase-messaging:11.0.2'
 }

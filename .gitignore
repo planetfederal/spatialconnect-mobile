@@ -55,6 +55,7 @@ android/app/spatialconnect-release.keystore
 *.mobileprovision
 com_crashlytics_export_strings.xml
 android/app/fabric.properties
+android/app/src/main/assets/crashlytics-build.properties
 
 # React Native
 ios/main.jsbundle
